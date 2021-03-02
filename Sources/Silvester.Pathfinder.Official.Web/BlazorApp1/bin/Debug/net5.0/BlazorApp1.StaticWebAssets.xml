@@ -1,4 +1,0 @@
-﻿<StaticWebAssets Version="1.0">
-  <ContentRoot BasePath="/" Path="C:\Personal\Workspaces\github\silvester-io-pathfinder\pathfinder-official-web\Sources\Silvester.Pathfinder.Official.Web\BlazorApp1\bin\Debug\net5.0\wwwroot\" />
-  <ContentRoot BasePath="/" Path="C:\Personal\Workspaces\github\silvester-io-pathfinder\pathfinder-official-web\Sources\Silvester.Pathfinder.Official.Web\BlazorApp1\obj\Debug\net5.0\scopedcss\bundle\" />
-</StaticWebAssets>
