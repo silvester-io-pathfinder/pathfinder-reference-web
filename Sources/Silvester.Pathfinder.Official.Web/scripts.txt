@@ -1,0 +1,1 @@
+dotnet graphql init https://pf2e.io/api/graphql -n PathfinderOfficial -p ./PathfinderOfficial

@@ -1,0 +1,20 @@
+﻿@inherits LayoutComponentBase
+
+
+<MudLayout>
+    <MudAppBar Elevation="1">
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@ToggleDrawer" />
+        <MudText Typo="Typo.h6">@string.Join(" - ", AppBarState!.Value.TitleComponents)</MudText>
+        <MudAppBarSpacer />
+    </MudAppBar>
+    <MudDrawer @bind-Open="@DrawerOpen" Elevation="1">
+        <MudNavMenu>
+            <MudNavLink Href="feats" Match="NavLinkMatch.Prefix">Feats</MudNavLink>
+            <MudNavLink Href="spells" Match="NavLinkMatch.Prefix">Spells</MudNavLink>
+            <MudNavLink Href="races" Match="NavLinkMatch.Prefix">Races</MudNavLink>
+        </MudNavMenu>
+    </MudDrawer>
+    <MudMainContent>
+        @Body
+    </MudMainContent>
+</MudLayout>

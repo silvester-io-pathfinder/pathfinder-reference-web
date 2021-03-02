@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30717.126
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Silvester.Pathfinder.Official.Web", "Silvester.Pathfinder.Official.Web\Silvester.Pathfinder.Official.Web.csproj", "{9FC14CD7-935B-4B44-BAE6-2E52F74F6E99}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".config", ".config", "{B935BD9F-27B6-497A-8784-243EE1233DEF}"
+	ProjectSection(SolutionItems) = preProject
+		.config\dotnet-tools.json = .config\dotnet-tools.json
+		.config\scripts.txt = .config\scripts.txt
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorApp1", "BlazorApp1\BlazorApp1.csproj", "{E27AA0D8-30E1-4165-89B9-4F83A31CBDA2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9FC14CD7-935B-4B44-BAE6-2E52F74F6E99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FC14CD7-935B-4B44-BAE6-2E52F74F6E99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FC14CD7-935B-4B44-BAE6-2E52F74F6E99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FC14CD7-935B-4B44-BAE6-2E52F74F6E99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E27AA0D8-30E1-4165-89B9-4F83A31CBDA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E27AA0D8-30E1-4165-89B9-4F83A31CBDA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E27AA0D8-30E1-4165-89B9-4F83A31CBDA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E27AA0D8-30E1-4165-89B9-4F83A31CBDA2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B44BEF4C-5A14-49D2-91A9-7F68D4854294}
+	EndGlobalSection
+EndGlobal
