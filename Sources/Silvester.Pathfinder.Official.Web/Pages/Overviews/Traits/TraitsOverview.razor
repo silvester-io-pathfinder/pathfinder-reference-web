@@ -1,0 +1,26 @@
+﻿@using Silvester.Pathfinder.Official.Web.Pages.Overviews
+@using Silvester.Pathfinder.Official.Web.Shared.Tables
+@using Silvester.Pathfinder.Official.Web.Mocked
+@using Silvester.Pathfinder.Official.Web.Graphql
+
+@page "/traits"
+@inherits BaseOverviewPage
+
+<div>
+    <GraphqlTable Title="Traits" RowsPerPage="25" GetPage="@GetPage">
+        <Columns>
+            <MudTh><MudTableSortLabel SortLabel="@nameof(ITraitsPage.Name)" T="ITraitsPage">Name</MudTableSortLabel></MudTh>
+            <MudTh>Description</MudTh>
+            <MudTh></MudTh>
+        </Columns>
+        <Rows>
+            <MudTd DataLabel="@nameof(ITraitsPage.Name)" Style="font-weight: 500;">@context.Name</MudTd>
+            <MudTdEllipsized DataLabel="@nameof(ITraitsPage.Description)" Text="@(context.Description)" />
+            <MudTh>
+                <MudTooltip Text="Inspect">
+                    <MudIconButton Size="Size.Small" OnClick="@(() => OnInspectClicked(context))" Icon="@Icons.Material.Outlined.ArrowForward"></MudIconButton>
+                </MudTooltip>
+            </MudTh>
+        </Rows>
+    </GraphqlTable>
+</div>

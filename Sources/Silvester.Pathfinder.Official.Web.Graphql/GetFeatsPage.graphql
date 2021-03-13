@@ -1,0 +1,29 @@
+﻿query GetFeatsPage($skip: Int!, $take: Int!, $searchTerm: String! = "", $order: [FeatSortInput!] = [{name: ASC}]) {
+	feats(
+		skip: $skip, 
+		take: $take, 
+		order: $order,
+		where: {
+			or: [
+				{name: {contains: $searchTerm}}, 
+				{traits: {some: {name: {contains: $searchTerm}}}}
+			]
+		}) 
+	{
+		totalCount,
+		items {
+			... FeatsPage	
+		}
+	}
+}
+
+
+fragment FeatsPage on Feat {
+	id,
+	name,
+	level,
+	canBeLearnedMoreThanOnce,
+	details {
+		text
+	}
+}

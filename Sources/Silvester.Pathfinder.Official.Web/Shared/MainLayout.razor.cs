@@ -14,10 +14,6 @@ namespace Silvester.Pathfinder.Official.Web.Shared
         
         private bool DrawerOpen { get; set; }
 
-        [Inject]
-        private NavigationManager NavigationManager { get; set; }
-
-
         public MainLayout()
         {
             DrawerOpen = true;

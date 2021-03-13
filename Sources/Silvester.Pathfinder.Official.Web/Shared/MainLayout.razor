@@ -2,16 +2,17 @@
 
 
 <MudLayout>
-    <MudAppBar Elevation="1">
+    <MudAppBar Elevation="4">
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@ToggleDrawer" />
-        <MudText Typo="Typo.h6">@string.Join(" - ", AppBarState!.Value.TitleComponents)</MudText>
+        <MudText Typo="Typo.h6">@string.Join("  -  ", AppBarState!.Value.TitleComponents)</MudText>
         <MudAppBarSpacer />
     </MudAppBar>
-    <MudDrawer @bind-Open="@DrawerOpen" Elevation="1">
+    <MudDrawer @bind-Open="@DrawerOpen" Elevation="4">
         <MudNavMenu>
-            <MudNavLink Href="feats" Match="NavLinkMatch.Prefix">Feats</MudNavLink>
-            <MudNavLink Href="spells" Match="NavLinkMatch.Prefix">Spells</MudNavLink>
-            <MudNavLink Href="races" Match="NavLinkMatch.Prefix">Races</MudNavLink>
+            <MudNavLink Icon="@Generated.Feat" Href="feats" Match="NavLinkMatch.Prefix">Feats</MudNavLink>
+            <MudNavLink Icon="@Generated.Fire" Href="spells" Match="NavLinkMatch.Prefix">Spells</MudNavLink>
+            <MudNavLink Icon="@Generated.Race" Href="races" Match="NavLinkMatch.Prefix">Races</MudNavLink>
+            <MudNavLink Icon="@Generated.Trait" Href="traits" Match="NavLinkMatch.Prefix">Traits</MudNavLink>
         </MudNavMenu>
     </MudDrawer>
     <MudMainContent>

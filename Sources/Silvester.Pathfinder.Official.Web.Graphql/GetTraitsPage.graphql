@@ -1,0 +1,24 @@
+﻿query GetTraitsPage($skip: Int!, $take: Int!, $searchTerm: String! = "", $order: [TraitSortInput!] = [{name: ASC}]) {
+	traits(
+		skip: $skip, 
+		take: $take, 
+		order: $order,
+		where: {
+			or: [
+				{name: {contains: $searchTerm}}, 
+				{description: {contains: $searchTerm}}
+			]
+		}) 
+	{
+		totalCount,
+		items {
+			... TraitsPage	
+		}
+	}
+}
+
+fragment TraitsPage on Trait {
+	id,
+	name,
+	description
+}

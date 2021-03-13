@@ -1,0 +1,27 @@
+﻿::deep .mud-table-head {
+}
+
+::deep .mud-table-toolbar {
+    color: white;
+    padding: 0px;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    background-color: #495165;
+    height: auto;
+}
+
+::deep .mud-input-text {
+    margin-top: 0px !important;
+}
+
+::deep .mud-table-container {
+    position: relative;
+}
+
+::deep .mud-table-head tr th span {
+    padding-top: 2px;
+}
+
+::deep .mud-table-head tr th span svg {
+    margin-top: -2px;
+}

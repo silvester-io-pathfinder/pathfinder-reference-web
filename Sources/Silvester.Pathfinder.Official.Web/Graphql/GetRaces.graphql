@@ -1,6 +1,0 @@
-﻿query GetRaces {
-	races (order: {name: ASC}) {
-		id,
-		name
-	}
-}

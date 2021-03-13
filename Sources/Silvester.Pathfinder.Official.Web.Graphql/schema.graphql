@@ -1,0 +1,2584 @@
+﻿schema {
+  query: Query
+}
+
+scalar Uuid
+
+input BaseEntitySortInput {
+  id: SortEnumType
+}
+
+input BaseEntityFilterInput {
+  and: [BaseEntityFilterInput!]
+  or: [BaseEntityFilterInput!]
+  id: ComparableGuidOperationFilterInput
+}
+
+input ActionTypeSortInput {
+  name: SortEnumType
+  id: SortEnumType
+}
+
+input ActionTypeFilterInput {
+  and: [ActionTypeFilterInput!]
+  or: [ActionTypeFilterInput!]
+  name: StringOperationFilterInput
+  spells: ListFilterInputTypeOfSpellFilterInput
+  feats: ListFilterInputTypeOfFeatFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input SpellSortInput {
+  name: SortEnumType
+  description: SortEnumType
+  range: SortEnumType
+  castTime: SortEnumType
+  level: SortEnumType
+  targets: SortEnumType
+  isDismissable: SortEnumType
+  area: SortEnumType
+  duration: SortEnumType
+  actionTypeId: SortEnumType
+  actionType: ActionTypeSortInput
+  spellTypeId: SortEnumType
+  spellType: SpellTypeSortInput
+  savingThrowStatId: SortEnumType
+  savingThrowStat: SavingThrowStatSortInput
+  rollableEffect: RollableEffectSortInput
+  rollableEffectId: SortEnumType
+  magicSchool: MagicSchoolSortInput
+  magicSchoolId: SortEnumType
+  id: SortEnumType
+}
+
+input SpellFilterInput {
+  and: [SpellFilterInput!]
+  or: [SpellFilterInput!]
+  name: StringOperationFilterInput
+  description: StringOperationFilterInput
+  range: ComparableNullableOfInt32OperationFilterInput
+  castTime: ComparableNullableOfTimeSpanOperationFilterInput
+  level: ComparableInt32OperationFilterInput
+  targets: StringOperationFilterInput
+  isDismissable: BooleanOperationFilterInput
+  area: StringOperationFilterInput
+  duration: StringOperationFilterInput
+  actionTypeId: ComparableNullableOfGuidOperationFilterInput
+  actionType: ActionTypeFilterInput
+  spellTypeId: ComparableGuidOperationFilterInput
+  spellType: SpellTypeFilterInput
+  savingThrowStatId: ComparableNullableOfGuidOperationFilterInput
+  savingThrowStat: SavingThrowStatFilterInput
+  rollableEffect: RollableEffectFilterInput
+  rollableEffectId: ComparableNullableOfGuidOperationFilterInput
+  magicSchool: MagicSchoolFilterInput
+  magicSchoolId: ComparableGuidOperationFilterInput
+  additionalDetails: ListFilterInputTypeOfSpellDetailBlockFilterInput
+  traditions: ListFilterInputTypeOfMagicTraditionFilterInput
+  components: ListFilterInputTypeOfSpellComponentFilterInput
+  traits: ListFilterInputTypeOfTraitFilterInput
+  heightenings: ListFilterInputTypeOfSpellHeighteningFilterInput
+  triggers: ListFilterInputTypeOfSpellTriggerFilterInput
+  requirements: ListFilterInputTypeOfSpellRequirementFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input SpellTypeSortInput {
+  name: SortEnumType
+  description: SortEnumType
+  id: SortEnumType
+}
+
+input SpellTypeFilterInput {
+  and: [SpellTypeFilterInput!]
+  or: [SpellTypeFilterInput!]
+  name: StringOperationFilterInput
+  description: StringOperationFilterInput
+  spells: ListFilterInputTypeOfSpellFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input SavingThrowStatSortInput {
+  name: SortEnumType
+  id: SortEnumType
+}
+
+input SavingThrowStatFilterInput {
+  and: [SavingThrowStatFilterInput!]
+  or: [SavingThrowStatFilterInput!]
+  name: StringOperationFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input RollableEffectSortInput {
+  criticalSuccess: SortEnumType
+  success: SortEnumType
+  failure: SortEnumType
+  criticalFailure: SortEnumType
+  id: SortEnumType
+}
+
+input RollableEffectFilterInput {
+  and: [RollableEffectFilterInput!]
+  or: [RollableEffectFilterInput!]
+  criticalSuccess: StringOperationFilterInput
+  success: StringOperationFilterInput
+  failure: StringOperationFilterInput
+  criticalFailure: StringOperationFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input MagicSchoolSortInput {
+  name: SortEnumType
+  abbreviation: SortEnumType
+  description: SortEnumType
+  id: SortEnumType
+}
+
+input MagicSchoolFilterInput {
+  and: [MagicSchoolFilterInput!]
+  or: [MagicSchoolFilterInput!]
+  name: StringOperationFilterInput
+  abbreviation: StringOperationFilterInput
+  description: StringOperationFilterInput
+  spells: ListFilterInputTypeOfSpellFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input SpellDetailBlockSortInput {
+  text: SortEnumType
+  spell: SpellSortInput
+  spellId: SortEnumType
+  id: SortEnumType
+}
+
+input SpellDetailBlockFilterInput {
+  and: [SpellDetailBlockFilterInput!]
+  or: [SpellDetailBlockFilterInput!]
+  text: StringOperationFilterInput
+  spell: SpellFilterInput
+  spellId: ComparableGuidOperationFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input MagicTraditionSortInput {
+  name: SortEnumType
+  description: SortEnumType
+  id: SortEnumType
+}
+
+input MagicTraditionFilterInput {
+  and: [MagicTraditionFilterInput!]
+  or: [MagicTraditionFilterInput!]
+  name: StringOperationFilterInput
+  description: StringOperationFilterInput
+  spells: ListFilterInputTypeOfSpellFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input SpellComponentSortInput {
+  name: SortEnumType
+  description: SortEnumType
+  id: SortEnumType
+}
+
+input SpellComponentFilterInput {
+  and: [SpellComponentFilterInput!]
+  or: [SpellComponentFilterInput!]
+  name: StringOperationFilterInput
+  description: StringOperationFilterInput
+  spells: ListFilterInputTypeOfSpellFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input TraitSortInput {
+  name: SortEnumType
+  description: SortEnumType
+  id: SortEnumType
+}
+
+input TraitFilterInput {
+  and: [TraitFilterInput!]
+  or: [TraitFilterInput!]
+  name: StringOperationFilterInput
+  description: StringOperationFilterInput
+  spells: ListFilterInputTypeOfSpellFilterInput
+  feats: ListFilterInputTypeOfFeatFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input FeatSortInput {
+  name: SortEnumType
+  canBeLearnedMoreThanOnce: SortEnumType
+  special: SortEnumType
+  trigger: SortEnumType
+  level: SortEnumType
+  actionTypeId: SortEnumType
+  actionType: ActionTypeSortInput
+  featTypeId: SortEnumType
+  featType: FeatTypeSortInput
+  frequencyId: SortEnumType
+  frequency: FrequencySortInput
+  rollableEffect: RollableEffectSortInput
+  rollableEffectId: SortEnumType
+  id: SortEnumType
+}
+
+input FeatFilterInput {
+  and: [FeatFilterInput!]
+  or: [FeatFilterInput!]
+  name: StringOperationFilterInput
+  canBeLearnedMoreThanOnce: BooleanOperationFilterInput
+  special: StringOperationFilterInput
+  trigger: StringOperationFilterInput
+  level: ComparableInt32OperationFilterInput
+  actionTypeId: ComparableGuidOperationFilterInput
+  actionType: ActionTypeFilterInput
+  featTypeId: ComparableGuidOperationFilterInput
+  featType: FeatTypeFilterInput
+  frequencyId: ComparableNullableOfGuidOperationFilterInput
+  frequency: FrequencyFilterInput
+  rollableEffect: RollableEffectFilterInput
+  rollableEffectId: ComparableNullableOfGuidOperationFilterInput
+  details: ListFilterInputTypeOfFeatDetailsBlockFilterInput
+  prerequisites: ListFilterInputTypeOfFeatPrerequisiteBindingFilterInput
+  requirements: ListFilterInputTypeOfFeatRequirementFilterInput
+  traits: ListFilterInputTypeOfTraitFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input FeatTypeSortInput {
+  name: SortEnumType
+  id: SortEnumType
+}
+
+input FeatTypeFilterInput {
+  and: [FeatTypeFilterInput!]
+  or: [FeatTypeFilterInput!]
+  name: StringOperationFilterInput
+  feats: ListFilterInputTypeOfFeatFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input FrequencySortInput {
+  name: SortEnumType
+  amount: SortEnumType
+  timeSpan: SortEnumType
+  id: SortEnumType
+}
+
+input FrequencyFilterInput {
+  and: [FrequencyFilterInput!]
+  or: [FrequencyFilterInput!]
+  name: StringOperationFilterInput
+  amount: ComparableInt32OperationFilterInput
+  timeSpan: ComparableTimeSpanOperationFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input FeatDetailsBlockSortInput {
+  text: SortEnumType
+  feat: FeatSortInput
+  featId: SortEnumType
+  id: SortEnumType
+}
+
+input FeatDetailsBlockFilterInput {
+  and: [FeatDetailsBlockFilterInput!]
+  or: [FeatDetailsBlockFilterInput!]
+  text: StringOperationFilterInput
+  feat: FeatFilterInput
+  featId: ComparableGuidOperationFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input FeatPrerequisiteBindingSortInput {
+  featId: SortEnumType
+  feat: FeatSortInput
+  id: SortEnumType
+}
+
+input FeatPrerequisiteBindingFilterInput {
+  and: [FeatPrerequisiteBindingFilterInput!]
+  or: [FeatPrerequisiteBindingFilterInput!]
+  featId: ComparableGuidOperationFilterInput
+  feat: FeatFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input FeatRequirementSortInput {
+  text: SortEnumType
+  feat: FeatSortInput
+  featId: SortEnumType
+  id: SortEnumType
+}
+
+input FeatRequirementFilterInput {
+  and: [FeatRequirementFilterInput!]
+  or: [FeatRequirementFilterInput!]
+  text: StringOperationFilterInput
+  feat: FeatFilterInput
+  featId: ComparableGuidOperationFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input SpellHeighteningSortInput {
+  level: SortEnumType
+  description: SortEnumType
+  spellId: SortEnumType
+  spell: SpellSortInput
+  id: SortEnumType
+}
+
+input SpellHeighteningFilterInput {
+  and: [SpellHeighteningFilterInput!]
+  or: [SpellHeighteningFilterInput!]
+  level: ComparableInt32OperationFilterInput
+  description: StringOperationFilterInput
+  details: ListFilterInputTypeOfSpellHeighteningDetailBlockFilterInput
+  spellId: ComparableGuidOperationFilterInput
+  spell: SpellFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input SpellHeighteningDetailBlockSortInput {
+  text: SortEnumType
+  spellHeighteningId: SortEnumType
+  spellHeightening: SpellHeighteningSortInput
+  id: SortEnumType
+}
+
+input SpellHeighteningDetailBlockFilterInput {
+  and: [SpellHeighteningDetailBlockFilterInput!]
+  or: [SpellHeighteningDetailBlockFilterInput!]
+  text: StringOperationFilterInput
+  spellHeighteningId: ComparableGuidOperationFilterInput
+  spellHeightening: SpellHeighteningFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input SpellTriggerSortInput {
+  text: SortEnumType
+  spellId: SortEnumType
+  spell: SpellSortInput
+  id: SortEnumType
+}
+
+input SpellTriggerFilterInput {
+  and: [SpellTriggerFilterInput!]
+  or: [SpellTriggerFilterInput!]
+  text: StringOperationFilterInput
+  spellId: ComparableGuidOperationFilterInput
+  spell: SpellFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input SpellRequirementSortInput {
+  text: SortEnumType
+  spell: SpellSortInput
+  spellId: SortEnumType
+  id: SortEnumType
+}
+
+input SpellRequirementFilterInput {
+  and: [SpellRequirementFilterInput!]
+  or: [SpellRequirementFilterInput!]
+  text: StringOperationFilterInput
+  spell: SpellFilterInput
+  spellId: ComparableGuidOperationFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input AlignmentSortInput {
+  name: SortEnumType
+  id: SortEnumType
+}
+
+input AlignmentFilterInput {
+  and: [AlignmentFilterInput!]
+  or: [AlignmentFilterInput!]
+  name: StringOperationFilterInput
+  deities: ListFilterInputTypeOfDeityFilterInput
+  planes: ListFilterInputTypeOfPlaneFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input DeitySortInput {
+  name: SortEnumType
+  categoryId: SortEnumType
+  category: DeityCategorySortInput
+  alignmentId: SortEnumType
+  alignment: AlignmentSortInput
+  id: SortEnumType
+}
+
+input DeityFilterInput {
+  and: [DeityFilterInput!]
+  or: [DeityFilterInput!]
+  name: StringOperationFilterInput
+  categoryId: ComparableGuidOperationFilterInput
+  category: DeityCategoryFilterInput
+  alignmentId: ComparableGuidOperationFilterInput
+  alignment: AlignmentFilterInput
+  followerAlignments: ListFilterInputTypeOfDeityFollowerAlignmentFilterInput
+  divineFonts: ListFilterInputTypeOfDivineFontFilterInput
+  domains: ListFilterInputTypeOfDomainFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input DeityCategorySortInput {
+  name: SortEnumType
+  id: SortEnumType
+}
+
+input DeityCategoryFilterInput {
+  and: [DeityCategoryFilterInput!]
+  or: [DeityCategoryFilterInput!]
+  name: StringOperationFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input DeityFollowerAlignmentSortInput {
+  deityId: SortEnumType
+  deity: DeitySortInput
+  alignmentId: SortEnumType
+  alignment: AlignmentSortInput
+  id: SortEnumType
+}
+
+input DeityFollowerAlignmentFilterInput {
+  and: [DeityFollowerAlignmentFilterInput!]
+  or: [DeityFollowerAlignmentFilterInput!]
+  deityId: ComparableGuidOperationFilterInput
+  deity: DeityFilterInput
+  alignmentId: ComparableGuidOperationFilterInput
+  alignment: AlignmentFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input DivineFontSortInput {
+  name: SortEnumType
+  id: SortEnumType
+}
+
+input DivineFontFilterInput {
+  and: [DivineFontFilterInput!]
+  or: [DivineFontFilterInput!]
+  name: StringOperationFilterInput
+  deities: ListFilterInputTypeOfDeityFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input DomainSortInput {
+  name: SortEnumType
+  description: SortEnumType
+  id: SortEnumType
+}
+
+input DomainFilterInput {
+  and: [DomainFilterInput!]
+  or: [DomainFilterInput!]
+  name: StringOperationFilterInput
+  description: StringOperationFilterInput
+  deities: ListFilterInputTypeOfDeityFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input PlaneSortInput {
+  name: SortEnumType
+  description: SortEnumType
+  categoryId: SortEnumType
+  category: PlaneCategorySortInput
+  alignmentId: SortEnumType
+  alignment: AlignmentSortInput
+  id: SortEnumType
+}
+
+input PlaneFilterInput {
+  and: [PlaneFilterInput!]
+  or: [PlaneFilterInput!]
+  name: StringOperationFilterInput
+  description: StringOperationFilterInput
+  categoryId: ComparableGuidOperationFilterInput
+  category: PlaneCategoryFilterInput
+  alignmentId: ComparableGuidOperationFilterInput
+  alignment: AlignmentFilterInput
+  traits: ListFilterInputTypeOfPlaneTraitFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input PlaneCategorySortInput {
+  name: SortEnumType
+  description: SortEnumType
+  id: SortEnumType
+}
+
+input PlaneCategoryFilterInput {
+  and: [PlaneCategoryFilterInput!]
+  or: [PlaneCategoryFilterInput!]
+  name: StringOperationFilterInput
+  description: StringOperationFilterInput
+  planes: ListFilterInputTypeOfPlaneFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input PlaneTraitSortInput {
+  name: SortEnumType
+  description: SortEnumType
+  id: SortEnumType
+}
+
+input PlaneTraitFilterInput {
+  and: [PlaneTraitFilterInput!]
+  or: [PlaneTraitFilterInput!]
+  name: StringOperationFilterInput
+  description: StringOperationFilterInput
+  planes: ListFilterInputTypeOfPlaneFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input ArmorGroupSortInput {
+  name: SortEnumType
+  id: SortEnumType
+}
+
+input ArmorGroupFilterInput {
+  and: [ArmorGroupFilterInput!]
+  or: [ArmorGroupFilterInput!]
+  name: StringOperationFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input BackgroundSortInput {
+  name: SortEnumType
+  description: SortEnumType
+  sourceId: SortEnumType
+  source: SourceSortInput
+  id: SortEnumType
+}
+
+input BackgroundFilterInput {
+  and: [BackgroundFilterInput!]
+  or: [BackgroundFilterInput!]
+  name: StringOperationFilterInput
+  description: StringOperationFilterInput
+  sourceId: ComparableGuidOperationFilterInput
+  source: SourceFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input SourceSortInput {
+  name: SortEnumType
+  id: SortEnumType
+}
+
+input SourceFilterInput {
+  and: [SourceFilterInput!]
+  or: [SourceFilterInput!]
+  name: StringOperationFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input BackgroundAbilityBoostSortInput {
+  name: SortEnumType
+  id: SortEnumType
+}
+
+input BackgroundAbilityBoostFilterInput {
+  and: [BackgroundAbilityBoostFilterInput!]
+  or: [BackgroundAbilityBoostFilterInput!]
+  name: StringOperationFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input BenefitTypeSortInput {
+  name: SortEnumType
+  id: SortEnumType
+}
+
+input BenefitTypeFilterInput {
+  and: [BenefitTypeFilterInput!]
+  or: [BenefitTypeFilterInput!]
+  name: StringOperationFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input BulkSortInput {
+  name: SortEnumType
+  lightWeight: SortEnumType
+  bulkWeight: SortEnumType
+  id: SortEnumType
+}
+
+input BulkFilterInput {
+  and: [BulkFilterInput!]
+  or: [BulkFilterInput!]
+  name: StringOperationFilterInput
+  lightWeight: ComparableInt32OperationFilterInput
+  bulkWeight: ComparableInt32OperationFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input ClassSortInput {
+  name: SortEnumType
+  baseHealth: SortEnumType
+  id: SortEnumType
+}
+
+input ClassFilterInput {
+  and: [ClassFilterInput!]
+  or: [ClassFilterInput!]
+  name: StringOperationFilterInput
+  baseHealth: ComparableInt32OperationFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input FeatEffectSortInput {
+  bindingId: SortEnumType
+  binding: BaseFeatEffectBindingSortInput
+  triggeredAtLevel: SortEnumType
+  id: SortEnumType
+}
+
+input FeatEffectFilterInput {
+  and: [FeatEffectFilterInput!]
+  or: [FeatEffectFilterInput!]
+  bindingId: ComparableGuidOperationFilterInput
+  binding: BaseFeatEffectBindingFilterInput
+  triggeredAtLevel: ComparableNullableOfInt32OperationFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input BaseFeatEffectBindingSortInput {
+  id: SortEnumType
+}
+
+input BaseFeatEffectBindingFilterInput {
+  and: [BaseFeatEffectBindingFilterInput!]
+  or: [BaseFeatEffectBindingFilterInput!]
+  id: ComparableGuidOperationFilterInput
+}
+
+input OrFeatEffectSortInput {
+  bindingId: SortEnumType
+  binding: BaseFeatEffectBindingSortInput
+  triggeredAtLevel: SortEnumType
+  id: SortEnumType
+}
+
+input OrFeatEffectFilterInput {
+  and: [OrFeatEffectFilterInput!]
+  or: [OrFeatEffectFilterInput!]
+  choices: ListFilterInputTypeOfFeatEffectFilterInput
+  bindingId: ComparableGuidOperationFilterInput
+  binding: BaseFeatEffectBindingFilterInput
+  triggeredAtLevel: ComparableNullableOfInt32OperationFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input GainHeritageEffectSortInput {
+  heritageRarityId: SortEnumType
+  heritageRarity: HeritageRaritySortInput
+  bindingId: SortEnumType
+  binding: BaseFeatEffectBindingSortInput
+  triggeredAtLevel: SortEnumType
+  id: SortEnumType
+}
+
+input GainHeritageEffectFilterInput {
+  and: [GainHeritageEffectFilterInput!]
+  or: [GainHeritageEffectFilterInput!]
+  heritageRarityId: ComparableGuidOperationFilterInput
+  heritageRarity: HeritageRarityFilterInput
+  bindingId: ComparableGuidOperationFilterInput
+  binding: BaseFeatEffectBindingFilterInput
+  triggeredAtLevel: ComparableNullableOfInt32OperationFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input HeritageRaritySortInput {
+  name: SortEnumType
+  id: SortEnumType
+}
+
+input HeritageRarityFilterInput {
+  and: [HeritageRarityFilterInput!]
+  or: [HeritageRarityFilterInput!]
+  name: StringOperationFilterInput
+  heritages: ListFilterInputTypeOfHeritageFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input HeritageSortInput {
+  name: SortEnumType
+  description: SortEnumType
+  rarityId: SortEnumType
+  rarity: HeritageRaritySortInput
+  id: SortEnumType
+}
+
+input HeritageFilterInput {
+  and: [HeritageFilterInput!]
+  or: [HeritageFilterInput!]
+  name: StringOperationFilterInput
+  description: StringOperationFilterInput
+  rarityId: ComparableGuidOperationFilterInput
+  rarity: HeritageRarityFilterInput
+  races: ListFilterInputTypeOfRaceFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input RaceSortInput {
+  name: SortEnumType
+  baseSpeed: SortEnumType
+  baseHealth: SortEnumType
+  sizeId: SortEnumType
+  size: RaceSizeSortInput
+  rarityId: SortEnumType
+  rarity: RaceRaritySortInput
+  id: SortEnumType
+}
+
+input RaceFilterInput {
+  and: [RaceFilterInput!]
+  or: [RaceFilterInput!]
+  name: StringOperationFilterInput
+  baseSpeed: ComparableInt32OperationFilterInput
+  baseHealth: ComparableInt32OperationFilterInput
+  sizeId: ComparableGuidOperationFilterInput
+  size: RaceSizeFilterInput
+  rarityId: ComparableGuidOperationFilterInput
+  rarity: RaceRarityFilterInput
+  languages: ListFilterInputTypeOfLanguageFilterInput
+  raceTraits: ListFilterInputTypeOfRaceTraitFilterInput
+  heritages: ListFilterInputTypeOfHeritageFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input RaceSizeSortInput {
+  name: SortEnumType
+  space: SortEnumType
+  heightReach: SortEnumType
+  breadthReach: SortEnumType
+  id: SortEnumType
+}
+
+input RaceSizeFilterInput {
+  and: [RaceSizeFilterInput!]
+  or: [RaceSizeFilterInput!]
+  name: StringOperationFilterInput
+  space: ComparableInt32OperationFilterInput
+  heightReach: ComparableInt32OperationFilterInput
+  breadthReach: ComparableInt32OperationFilterInput
+  races: ListFilterInputTypeOfRaceFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input RaceRaritySortInput {
+  name: SortEnumType
+  id: SortEnumType
+}
+
+input RaceRarityFilterInput {
+  and: [RaceRarityFilterInput!]
+  or: [RaceRarityFilterInput!]
+  name: StringOperationFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input LanguageSortInput {
+  name: SortEnumType
+  typeId: SortEnumType
+  type: LanguageTypeSortInput
+  id: SortEnumType
+}
+
+input LanguageFilterInput {
+  and: [LanguageFilterInput!]
+  or: [LanguageFilterInput!]
+  name: StringOperationFilterInput
+  typeId: ComparableGuidOperationFilterInput
+  type: LanguageTypeFilterInput
+  races: ListFilterInputTypeOfRaceFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input LanguageTypeSortInput {
+  name: SortEnumType
+  id: SortEnumType
+}
+
+input LanguageTypeFilterInput {
+  and: [LanguageTypeFilterInput!]
+  or: [LanguageTypeFilterInput!]
+  name: StringOperationFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input RaceTraitSortInput {
+  name: SortEnumType
+  id: SortEnumType
+}
+
+input RaceTraitFilterInput {
+  and: [RaceTraitFilterInput!]
+  or: [RaceTraitFilterInput!]
+  name: StringOperationFilterInput
+  races: ListFilterInputTypeOfRaceFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input GainLoreEffectSortInput {
+  proficiencyId: SortEnumType
+  proficiency: ProficiencySortInput
+  bindingId: SortEnumType
+  binding: BaseFeatEffectBindingSortInput
+  triggeredAtLevel: SortEnumType
+  id: SortEnumType
+}
+
+input GainLoreEffectFilterInput {
+  and: [GainLoreEffectFilterInput!]
+  or: [GainLoreEffectFilterInput!]
+  proficiencyId: ComparableGuidOperationFilterInput
+  proficiency: ProficiencyFilterInput
+  bindingId: ComparableGuidOperationFilterInput
+  binding: BaseFeatEffectBindingFilterInput
+  triggeredAtLevel: ComparableNullableOfInt32OperationFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input ProficiencySortInput {
+  name: SortEnumType
+  id: SortEnumType
+}
+
+input ProficiencyFilterInput {
+  and: [ProficiencyFilterInput!]
+  or: [ProficiencyFilterInput!]
+  name: StringOperationFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input GainHeritageFeatEffectSortInput {
+  level: SortEnumType
+  bindingId: SortEnumType
+  binding: BaseFeatEffectBindingSortInput
+  triggeredAtLevel: SortEnumType
+  id: SortEnumType
+}
+
+input GainHeritageFeatEffectFilterInput {
+  and: [GainHeritageFeatEffectFilterInput!]
+  or: [GainHeritageFeatEffectFilterInput!]
+  level: ComparableInt32OperationFilterInput
+  bindingId: ComparableGuidOperationFilterInput
+  binding: BaseFeatEffectBindingFilterInput
+  triggeredAtLevel: ComparableNullableOfInt32OperationFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input FeatRaritySortInput {
+  name: SortEnumType
+  id: SortEnumType
+}
+
+input FeatRarityFilterInput {
+  and: [FeatRarityFilterInput!]
+  or: [FeatRarityFilterInput!]
+  name: StringOperationFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input ItemSortInput {
+  name: SortEnumType
+  description: SortEnumType
+  level: SortEnumType
+  id: SortEnumType
+}
+
+input ItemFilterInput {
+  and: [ItemFilterInput!]
+  or: [ItemFilterInput!]
+  name: StringOperationFilterInput
+  description: StringOperationFilterInput
+  level: ComparableInt32OperationFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input ItemCategorySortInput {
+  name: SortEnumType
+  description: SortEnumType
+  pageNumber: SortEnumType
+  id: SortEnumType
+}
+
+input ItemCategoryFilterInput {
+  and: [ItemCategoryFilterInput!]
+  or: [ItemCategoryFilterInput!]
+  name: StringOperationFilterInput
+  description: StringOperationFilterInput
+  pageNumber: ComparableInt32OperationFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input LoreSortInput {
+  name: SortEnumType
+  statModifierId: SortEnumType
+  statModifier: StatSortInput
+  id: SortEnumType
+}
+
+input LoreFilterInput {
+  and: [LoreFilterInput!]
+  or: [LoreFilterInput!]
+  name: StringOperationFilterInput
+  statModifierId: ComparableGuidOperationFilterInput
+  statModifier: StatFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input StatSortInput {
+  name: SortEnumType
+  abbreviation: SortEnumType
+  id: SortEnumType
+}
+
+input StatFilterInput {
+  and: [StatFilterInput!]
+  or: [StatFilterInput!]
+  name: StringOperationFilterInput
+  abbreviation: StringOperationFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input DeityLoreSortInput {
+  deityId: SortEnumType
+  deity: DeitySortInput
+  name: SortEnumType
+  statModifierId: SortEnumType
+  statModifier: StatSortInput
+  id: SortEnumType
+}
+
+input DeityLoreFilterInput {
+  and: [DeityLoreFilterInput!]
+  or: [DeityLoreFilterInput!]
+  deityId: ComparableGuidOperationFilterInput
+  deity: DeityFilterInput
+  name: StringOperationFilterInput
+  statModifierId: ComparableGuidOperationFilterInput
+  statModifier: StatFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input CreatureLoreSortInput {
+  creature: SortEnumType
+  name: SortEnumType
+  statModifierId: SortEnumType
+  statModifier: StatSortInput
+  id: SortEnumType
+}
+
+input CreatureLoreFilterInput {
+  and: [CreatureLoreFilterInput!]
+  or: [CreatureLoreFilterInput!]
+  creature: StringOperationFilterInput
+  name: StringOperationFilterInput
+  statModifierId: ComparableGuidOperationFilterInput
+  statModifier: StatFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input TerrainLoreSortInput {
+  terrain: SortEnumType
+  name: SortEnumType
+  statModifierId: SortEnumType
+  statModifier: StatSortInput
+  id: SortEnumType
+}
+
+input TerrainLoreFilterInput {
+  and: [TerrainLoreFilterInput!]
+  or: [TerrainLoreFilterInput!]
+  terrain: StringOperationFilterInput
+  name: StringOperationFilterInput
+  statModifierId: ComparableGuidOperationFilterInput
+  statModifier: StatFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input SettlementLoreSortInput {
+  settlement: SortEnumType
+  name: SortEnumType
+  statModifierId: SortEnumType
+  statModifier: StatSortInput
+  id: SortEnumType
+}
+
+input SettlementLoreFilterInput {
+  and: [SettlementLoreFilterInput!]
+  or: [SettlementLoreFilterInput!]
+  settlement: StringOperationFilterInput
+  name: StringOperationFilterInput
+  statModifierId: ComparableGuidOperationFilterInput
+  statModifier: StatFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input ConsumableLoreSortInput {
+  consumable: SortEnumType
+  name: SortEnumType
+  statModifierId: SortEnumType
+  statModifier: StatSortInput
+  id: SortEnumType
+}
+
+input ConsumableLoreFilterInput {
+  and: [ConsumableLoreFilterInput!]
+  or: [ConsumableLoreFilterInput!]
+  consumable: StringOperationFilterInput
+  name: StringOperationFilterInput
+  statModifierId: ComparableGuidOperationFilterInput
+  statModifier: StatFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input PlaneLoreSortInput {
+  planeId: SortEnumType
+  plane: PlaneSortInput
+  name: SortEnumType
+  statModifierId: SortEnumType
+  statModifier: StatSortInput
+  id: SortEnumType
+}
+
+input PlaneLoreFilterInput {
+  and: [PlaneLoreFilterInput!]
+  or: [PlaneLoreFilterInput!]
+  planeId: ComparableGuidOperationFilterInput
+  plane: PlaneFilterInput
+  name: StringOperationFilterInput
+  statModifierId: ComparableGuidOperationFilterInput
+  statModifier: StatFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input MagicEssenceSortInput {
+  name: SortEnumType
+  description: SortEnumType
+  id: SortEnumType
+}
+
+input MagicEssenceFilterInput {
+  and: [MagicEssenceFilterInput!]
+  or: [MagicEssenceFilterInput!]
+  name: StringOperationFilterInput
+  description: StringOperationFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input PrerequisiteSortInput {
+  bindingId: SortEnumType
+  binding: BasePrerequisiteBindingSortInput
+  id: SortEnumType
+}
+
+input PrerequisiteFilterInput {
+  and: [PrerequisiteFilterInput!]
+  or: [PrerequisiteFilterInput!]
+  bindingId: ComparableGuidOperationFilterInput
+  binding: BasePrerequisiteBindingFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input BasePrerequisiteBindingSortInput {
+  id: SortEnumType
+}
+
+input BasePrerequisiteBindingFilterInput {
+  and: [BasePrerequisiteBindingFilterInput!]
+  or: [BasePrerequisiteBindingFilterInput!]
+  id: ComparableGuidOperationFilterInput
+}
+
+input SkillPrerequisiteSortInput {
+  requiredSkillId: SortEnumType
+  requiredSkill: SkillSortInput
+  requiredProficiencyId: SortEnumType
+  requiredProficiency: ProficiencySortInput
+  bindingId: SortEnumType
+  binding: BasePrerequisiteBindingSortInput
+  id: SortEnumType
+}
+
+input SkillPrerequisiteFilterInput {
+  and: [SkillPrerequisiteFilterInput!]
+  or: [SkillPrerequisiteFilterInput!]
+  requiredSkillId: ComparableNullableOfGuidOperationFilterInput
+  requiredSkill: SkillFilterInput
+  requiredProficiencyId: ComparableGuidOperationFilterInput
+  requiredProficiency: ProficiencyFilterInput
+  bindingId: ComparableGuidOperationFilterInput
+  binding: BasePrerequisiteBindingFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input SkillSortInput {
+  name: SortEnumType
+  hasArmorCheckPenalty: SortEnumType
+  hasRecallKnowledgeAction: SortEnumType
+  statModifierId: SortEnumType
+  statModifier: StatSortInput
+  id: SortEnumType
+}
+
+input SkillFilterInput {
+  and: [SkillFilterInput!]
+  or: [SkillFilterInput!]
+  name: StringOperationFilterInput
+  hasArmorCheckPenalty: BooleanOperationFilterInput
+  hasRecallKnowledgeAction: BooleanOperationFilterInput
+  statModifierId: ComparableGuidOperationFilterInput
+  statModifier: StatFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input RecallKnowledgePrerequisiteSortInput {
+  requiredProficiencyId: SortEnumType
+  requiredProficiency: ProficiencySortInput
+  requiresAssurance: SortEnumType
+  bindingId: SortEnumType
+  binding: BasePrerequisiteBindingSortInput
+  id: SortEnumType
+}
+
+input RecallKnowledgePrerequisiteFilterInput {
+  and: [RecallKnowledgePrerequisiteFilterInput!]
+  or: [RecallKnowledgePrerequisiteFilterInput!]
+  requiredProficiencyId: ComparableGuidOperationFilterInput
+  requiredProficiency: ProficiencyFilterInput
+  requiresAssurance: BooleanOperationFilterInput
+  bindingId: ComparableGuidOperationFilterInput
+  binding: BasePrerequisiteBindingFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input FeatPrerequisiteSortInput {
+  requiredFeatId: SortEnumType
+  requiredFeat: FeatSortInput
+  bindingId: SortEnumType
+  binding: BasePrerequisiteBindingSortInput
+  id: SortEnumType
+}
+
+input FeatPrerequisiteFilterInput {
+  and: [FeatPrerequisiteFilterInput!]
+  or: [FeatPrerequisiteFilterInput!]
+  requiredFeatId: ComparableGuidOperationFilterInput
+  requiredFeat: FeatFilterInput
+  bindingId: ComparableGuidOperationFilterInput
+  binding: BasePrerequisiteBindingFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input LevelPrerequisiteSortInput {
+  requiredLevel: SortEnumType
+  bindingId: SortEnumType
+  binding: BasePrerequisiteBindingSortInput
+  id: SortEnumType
+}
+
+input LevelPrerequisiteFilterInput {
+  and: [LevelPrerequisiteFilterInput!]
+  or: [LevelPrerequisiteFilterInput!]
+  requiredLevel: ComparableInt32OperationFilterInput
+  bindingId: ComparableGuidOperationFilterInput
+  binding: BasePrerequisiteBindingFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input StatPrerequisiteSortInput {
+  requiredStatValue: SortEnumType
+  requiredStatId: SortEnumType
+  requiredStat: StatSortInput
+  bindingId: SortEnumType
+  binding: BasePrerequisiteBindingSortInput
+  id: SortEnumType
+}
+
+input StatPrerequisiteFilterInput {
+  and: [StatPrerequisiteFilterInput!]
+  or: [StatPrerequisiteFilterInput!]
+  requiredStatValue: ComparableInt32OperationFilterInput
+  requiredStatId: ComparableGuidOperationFilterInput
+  requiredStat: StatFilterInput
+  bindingId: ComparableGuidOperationFilterInput
+  binding: BasePrerequisiteBindingFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input DeityPrerequisiteSortInput {
+  requiredDeityId: SortEnumType
+  requiredDeity: DeitySortInput
+  bindingId: SortEnumType
+  binding: BasePrerequisiteBindingSortInput
+  id: SortEnumType
+}
+
+input DeityPrerequisiteFilterInput {
+  and: [DeityPrerequisiteFilterInput!]
+  or: [DeityPrerequisiteFilterInput!]
+  requiredDeityId: ComparableGuidOperationFilterInput
+  requiredDeity: DeityFilterInput
+  bindingId: ComparableGuidOperationFilterInput
+  binding: BasePrerequisiteBindingFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input LorePrerequisiteSortInput {
+  requiredProficiencyId: SortEnumType
+  requiredProficiency: ProficiencySortInput
+  bindingId: SortEnumType
+  binding: BasePrerequisiteBindingSortInput
+  id: SortEnumType
+}
+
+input LorePrerequisiteFilterInput {
+  and: [LorePrerequisiteFilterInput!]
+  or: [LorePrerequisiteFilterInput!]
+  requiredProficiencyId: ComparableGuidOperationFilterInput
+  requiredProficiency: ProficiencyFilterInput
+  bindingId: ComparableGuidOperationFilterInput
+  binding: BasePrerequisiteBindingFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input RacePrerequisiteSortInput {
+  requiredRaceId: SortEnumType
+  requiredRace: RaceSortInput
+  bindingId: SortEnumType
+  binding: BasePrerequisiteBindingSortInput
+  id: SortEnumType
+}
+
+input RacePrerequisiteFilterInput {
+  and: [RacePrerequisiteFilterInput!]
+  or: [RacePrerequisiteFilterInput!]
+  requiredRaceId: ComparableGuidOperationFilterInput
+  requiredRace: RaceFilterInput
+  bindingId: ComparableGuidOperationFilterInput
+  binding: BasePrerequisiteBindingFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input OrPrerequisiteSortInput {
+  bindingId: SortEnumType
+  binding: BasePrerequisiteBindingSortInput
+  id: SortEnumType
+}
+
+input OrPrerequisiteFilterInput {
+  and: [OrPrerequisiteFilterInput!]
+  or: [OrPrerequisiteFilterInput!]
+  choices: ListFilterInputTypeOfPrerequisiteFilterInput
+  bindingId: ComparableGuidOperationFilterInput
+  binding: BasePrerequisiteBindingFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input SkillBenefitSortInput {
+  skillId: SortEnumType
+  skill: SkillSortInput
+  benefitTypeId: SortEnumType
+  benefitType: BenefitTypeSortInput
+  id: SortEnumType
+}
+
+input SkillBenefitFilterInput {
+  and: [SkillBenefitFilterInput!]
+  or: [SkillBenefitFilterInput!]
+  skillId: ComparableGuidOperationFilterInput
+  skill: SkillFilterInput
+  benefitTypeId: ComparableGuidOperationFilterInput
+  benefitType: BenefitTypeFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input FeatEffectBindingSortInput {
+  featId: SortEnumType
+  feat: FeatSortInput
+  id: SortEnumType
+}
+
+input FeatEffectBindingFilterInput {
+  and: [FeatEffectBindingFilterInput!]
+  or: [FeatEffectBindingFilterInput!]
+  featId: ComparableGuidOperationFilterInput
+  feat: FeatFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input OrEffectBindingSortInput {
+  orFeatEffectId: SortEnumType
+  orFeatEffect: OrFeatEffectSortInput
+  id: SortEnumType
+}
+
+input OrEffectBindingFilterInput {
+  and: [OrEffectBindingFilterInput!]
+  or: [OrEffectBindingFilterInput!]
+  orFeatEffectId: ComparableGuidOperationFilterInput
+  orFeatEffect: OrFeatEffectFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input OrBindingSortInput {
+  prerequisiteId: SortEnumType
+  prerequisite: OrPrerequisiteSortInput
+  id: SortEnumType
+}
+
+input OrBindingFilterInput {
+  and: [OrBindingFilterInput!]
+  or: [OrBindingFilterInput!]
+  prerequisiteId: ComparableGuidOperationFilterInput
+  prerequisite: OrPrerequisiteFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+type Query {
+  alignments(skip: Int take: Int where: AlignmentFilterInput order: [AlignmentSortInput!]): AlignmentCollectionSegment
+  armorGroups(skip: Int take: Int where: ArmorGroupFilterInput order: [ArmorGroupSortInput!]): ArmorGroupCollectionSegment
+  classes(skip: Int take: Int where: ClassFilterInput order: [ClassSortInput!]): ClassCollectionSegment
+  bulks(skip: Int take: Int where: BulkFilterInput order: [BulkSortInput!]): BulkCollectionSegment
+  stats(skip: Int take: Int where: StatFilterInput order: [StatSortInput!]): StatCollectionSegment
+  raceRarities(skip: Int take: Int where: RaceRarityFilterInput order: [RaceRaritySortInput!]): RaceRarityCollectionSegment
+  raceTraits(skip: Int take: Int where: RaceTraitFilterInput order: [RaceTraitSortInput!]): RaceTraitCollectionSegment
+  raceSizes(skip: Int take: Int where: RaceSizeFilterInput order: [RaceSizeSortInput!]): RaceSizeCollectionSegment
+  languageTypes(skip: Int take: Int where: LanguageTypeFilterInput order: [LanguageTypeSortInput!]): LanguageTypeCollectionSegment
+  languages(skip: Int take: Int where: LanguageFilterInput order: [LanguageSortInput!]): LanguageCollectionSegment
+  sources(skip: Int take: Int where: SourceFilterInput order: [SourceSortInput!]): SourceCollectionSegment
+  races(skip: Int take: Int where: RaceFilterInput order: [RaceSortInput!]): RaceCollectionSegment
+  skills(skip: Int take: Int where: SkillFilterInput order: [SkillSortInput!]): SkillCollectionSegment
+  feats(skip: Int take: Int where: FeatFilterInput order: [FeatSortInput!]): FeatCollectionSegment
+  spells(skip: Int take: Int where: SpellFilterInput order: [SpellSortInput!]): SpellCollectionSegment
+  actionTypes(skip: Int take: Int where: ActionTypeFilterInput order: [ActionTypeSortInput!]): ActionTypeCollectionSegment
+  deities(skip: Int take: Int where: DeityFilterInput order: [DeitySortInput!]): DeityCollectionSegment
+  deityCategories(skip: Int take: Int where: DeityCategoryFilterInput order: [DeityCategorySortInput!]): DeityCategoryCollectionSegment
+  divineFonts(skip: Int take: Int where: DivineFontFilterInput order: [DivineFontSortInput!]): DivineFontCollectionSegment
+  deityFollowerAlignments(skip: Int take: Int where: DeityFollowerAlignmentFilterInput order: [DeityFollowerAlignmentSortInput!]): DeityFollowerAlignmentCollectionSegment
+  domains(skip: Int take: Int where: DomainFilterInput order: [DomainSortInput!]): DomainCollectionSegment
+  frequencies(skip: Int take: Int where: FrequencyFilterInput order: [FrequencySortInput!]): FrequencyCollectionSegment
+  proficiencies(skip: Int take: Int where: ProficiencyFilterInput order: [ProficiencySortInput!]): ProficiencyCollectionSegment
+  prerequisites(skip: Int take: Int where: PrerequisiteFilterInput order: [PrerequisiteSortInput!]): PrerequisiteCollectionSegment
+  planes(skip: Int take: Int where: PlaneFilterInput order: [PlaneSortInput!]): PlaneCollectionSegment
+  planeCategories(skip: Int take: Int where: PlaneCategoryFilterInput order: [PlaneCategorySortInput!]): PlaneCategoryCollectionSegment
+  planeTraits(skip: Int take: Int where: PlaneTraitFilterInput order: [PlaneTraitSortInput!]): PlaneTraitCollectionSegment
+  lores(skip: Int take: Int where: LoreFilterInput order: [LoreSortInput!]): LoreCollectionSegment
+  heritageRarities(skip: Int take: Int where: HeritageRarityFilterInput order: [HeritageRaritySortInput!]): HeritageRarityCollectionSegment
+  heritages(skip: Int take: Int where: HeritageFilterInput order: [HeritageSortInput!]): HeritageCollectionSegment
+  featTypes(skip: Int take: Int where: FeatTypeFilterInput order: [FeatTypeSortInput!]): FeatTypeCollectionSegment
+  benefitTypes(skip: Int take: Int where: BenefitTypeFilterInput order: [BenefitTypeSortInput!]): BenefitTypeCollectionSegment
+  magicSchools(skip: Int take: Int where: MagicSchoolFilterInput order: [MagicSchoolSortInput!]): MagicSchoolCollectionSegment
+  magicTraditions(skip: Int take: Int where: MagicTraditionFilterInput order: [MagicTraditionSortInput!]): MagicTraditionCollectionSegment
+  magicEssences(skip: Int take: Int where: MagicEssenceFilterInput order: [MagicEssenceSortInput!]): MagicEssenceCollectionSegment
+  spellComponents(skip: Int take: Int where: SpellComponentFilterInput order: [SpellComponentSortInput!]): SpellComponentCollectionSegment
+  savingThrowStats(skip: Int take: Int where: SavingThrowStatFilterInput order: [SavingThrowStatSortInput!]): SavingThrowStatCollectionSegment
+  traits(skip: Int take: Int where: TraitFilterInput order: [TraitSortInput!]): TraitCollectionSegment
+  spellTypes(skip: Int take: Int where: SpellTypeFilterInput order: [SpellTypeSortInput!]): SpellTypeCollectionSegment
+  itemCategories(skip: Int take: Int where: ItemCategoryFilterInput order: [ItemCategorySortInput!]): ItemCategoryCollectionSegment
+}
+
+enum SortEnumType {
+  ASC
+  DESC
+}
+
+input ComparableGuidOperationFilterInput {
+  eq: Uuid
+  neq: Uuid
+  in: [Uuid!]
+  nin: [Uuid!]
+  gt: Uuid
+  ngt: Uuid
+  gte: Uuid
+  ngte: Uuid
+  lt: Uuid
+  nlt: Uuid
+  lte: Uuid
+  nlte: Uuid
+}
+
+input StringOperationFilterInput {
+  and: [StringOperationFilterInput!]
+  or: [StringOperationFilterInput!]
+  eq: String
+  neq: String
+  contains: String
+  ncontains: String
+  in: [String]
+  nin: [String]
+  startsWith: String
+  nstartsWith: String
+  endsWith: String
+  nendsWith: String
+}
+
+input ListFilterInputTypeOfSpellFilterInput {
+  all: SpellFilterInput
+  none: SpellFilterInput
+  some: SpellFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfFeatFilterInput {
+  all: FeatFilterInput
+  none: FeatFilterInput
+  some: FeatFilterInput
+  any: Boolean
+}
+
+input ComparableNullableOfInt32OperationFilterInput {
+  eq: Int
+  neq: Int
+  in: [Int]
+  nin: [Int]
+  gt: Int
+  ngt: Int
+  gte: Int
+  ngte: Int
+  lt: Int
+  nlt: Int
+  lte: Int
+  nlte: Int
+}
+
+input ComparableNullableOfTimeSpanOperationFilterInput {
+  eq: TimeSpan
+  neq: TimeSpan
+  in: [TimeSpan]
+  nin: [TimeSpan]
+  gt: TimeSpan
+  ngt: TimeSpan
+  gte: TimeSpan
+  ngte: TimeSpan
+  lt: TimeSpan
+  nlt: TimeSpan
+  lte: TimeSpan
+  nlte: TimeSpan
+}
+
+input ComparableInt32OperationFilterInput {
+  eq: Int
+  neq: Int
+  in: [Int!]
+  nin: [Int!]
+  gt: Int
+  ngt: Int
+  gte: Int
+  ngte: Int
+  lt: Int
+  nlt: Int
+  lte: Int
+  nlte: Int
+}
+
+input BooleanOperationFilterInput {
+  eq: Boolean
+  neq: Boolean
+}
+
+input ComparableNullableOfGuidOperationFilterInput {
+  eq: Uuid
+  neq: Uuid
+  in: [Uuid]
+  nin: [Uuid]
+  gt: Uuid
+  ngt: Uuid
+  gte: Uuid
+  ngte: Uuid
+  lt: Uuid
+  nlt: Uuid
+  lte: Uuid
+  nlte: Uuid
+}
+
+input ListFilterInputTypeOfSpellDetailBlockFilterInput {
+  all: SpellDetailBlockFilterInput
+  none: SpellDetailBlockFilterInput
+  some: SpellDetailBlockFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfMagicTraditionFilterInput {
+  all: MagicTraditionFilterInput
+  none: MagicTraditionFilterInput
+  some: MagicTraditionFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfSpellComponentFilterInput {
+  all: SpellComponentFilterInput
+  none: SpellComponentFilterInput
+  some: SpellComponentFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfTraitFilterInput {
+  all: TraitFilterInput
+  none: TraitFilterInput
+  some: TraitFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfSpellHeighteningFilterInput {
+  all: SpellHeighteningFilterInput
+  none: SpellHeighteningFilterInput
+  some: SpellHeighteningFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfSpellTriggerFilterInput {
+  all: SpellTriggerFilterInput
+  none: SpellTriggerFilterInput
+  some: SpellTriggerFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfSpellRequirementFilterInput {
+  all: SpellRequirementFilterInput
+  none: SpellRequirementFilterInput
+  some: SpellRequirementFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfFeatDetailsBlockFilterInput {
+  all: FeatDetailsBlockFilterInput
+  none: FeatDetailsBlockFilterInput
+  some: FeatDetailsBlockFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfFeatPrerequisiteBindingFilterInput {
+  all: FeatPrerequisiteBindingFilterInput
+  none: FeatPrerequisiteBindingFilterInput
+  some: FeatPrerequisiteBindingFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfFeatRequirementFilterInput {
+  all: FeatRequirementFilterInput
+  none: FeatRequirementFilterInput
+  some: FeatRequirementFilterInput
+  any: Boolean
+}
+
+input ComparableTimeSpanOperationFilterInput {
+  eq: TimeSpan
+  neq: TimeSpan
+  in: [TimeSpan!]
+  nin: [TimeSpan!]
+  gt: TimeSpan
+  ngt: TimeSpan
+  gte: TimeSpan
+  ngte: TimeSpan
+  lt: TimeSpan
+  nlt: TimeSpan
+  lte: TimeSpan
+  nlte: TimeSpan
+}
+
+input ListFilterInputTypeOfSpellHeighteningDetailBlockFilterInput {
+  all: SpellHeighteningDetailBlockFilterInput
+  none: SpellHeighteningDetailBlockFilterInput
+  some: SpellHeighteningDetailBlockFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfDeityFilterInput {
+  all: DeityFilterInput
+  none: DeityFilterInput
+  some: DeityFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfPlaneFilterInput {
+  all: PlaneFilterInput
+  none: PlaneFilterInput
+  some: PlaneFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfDeityFollowerAlignmentFilterInput {
+  all: DeityFollowerAlignmentFilterInput
+  none: DeityFollowerAlignmentFilterInput
+  some: DeityFollowerAlignmentFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfDivineFontFilterInput {
+  all: DivineFontFilterInput
+  none: DivineFontFilterInput
+  some: DivineFontFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfDomainFilterInput {
+  all: DomainFilterInput
+  none: DomainFilterInput
+  some: DomainFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfPlaneTraitFilterInput {
+  all: PlaneTraitFilterInput
+  none: PlaneTraitFilterInput
+  some: PlaneTraitFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfFeatEffectFilterInput {
+  all: FeatEffectFilterInput
+  none: FeatEffectFilterInput
+  some: FeatEffectFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfHeritageFilterInput {
+  all: HeritageFilterInput
+  none: HeritageFilterInput
+  some: HeritageFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfRaceFilterInput {
+  all: RaceFilterInput
+  none: RaceFilterInput
+  some: RaceFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfLanguageFilterInput {
+  all: LanguageFilterInput
+  none: LanguageFilterInput
+  some: LanguageFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfRaceTraitFilterInput {
+  all: RaceTraitFilterInput
+  none: RaceTraitFilterInput
+  some: RaceTraitFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfPrerequisiteFilterInput {
+  all: PrerequisiteFilterInput
+  none: PrerequisiteFilterInput
+  some: PrerequisiteFilterInput
+  any: Boolean
+}
+
+type Alignment {
+  name: String!
+  deities(order: [DeitySortInput!] where: DeityFilterInput): [Deity!]!
+  planes(order: [PlaneSortInput!] where: PlaneFilterInput): [Plane!]!
+  id: Uuid!
+}
+
+type ArmorGroup {
+  name: String!
+  id: Uuid!
+}
+
+type Class {
+  name: String!
+  baseHealth: Int!
+  id: Uuid!
+}
+
+type Bulk {
+  name: String!
+  lightWeight: Int!
+  bulkWeight: Int!
+  id: Uuid!
+}
+
+type Stat {
+  name: String!
+  abbreviation: String!
+  id: Uuid!
+}
+
+type RaceRarity {
+  name: String!
+  id: Uuid!
+}
+
+type RaceTrait {
+  name: String!
+  races(order: [RaceSortInput!] where: RaceFilterInput): [Race!]!
+  id: Uuid!
+}
+
+type RaceSize {
+  name: String!
+  space: Int!
+  heightReach: Int!
+  breadthReach: Int!
+  races(order: [RaceSortInput!] where: RaceFilterInput): [Race!]!
+  id: Uuid!
+}
+
+type LanguageType {
+  name: String!
+  id: Uuid!
+}
+
+type Language {
+  name: String!
+  typeId: Uuid!
+  type: LanguageType!
+  races(order: [RaceSortInput!] where: RaceFilterInput): [Race!]!
+  id: Uuid!
+}
+
+type Source {
+  name: String!
+  id: Uuid!
+}
+
+type Race {
+  name: String!
+  baseSpeed: Int!
+  baseHealth: Int!
+  sizeId: Uuid!
+  size: RaceSize!
+  rarityId: Uuid!
+  rarity: RaceRarity!
+  languages(order: [LanguageSortInput!] where: LanguageFilterInput): [Language!]!
+  raceTraits(order: [RaceTraitSortInput!] where: RaceTraitFilterInput): [RaceTrait!]!
+  heritages(order: [HeritageSortInput!] where: HeritageFilterInput): [Heritage!]!
+  id: Uuid!
+}
+
+type Skill {
+  name: String!
+  hasArmorCheckPenalty: Boolean!
+  hasRecallKnowledgeAction: Boolean!
+  statModifierId: Uuid!
+  statModifier: Stat!
+  id: Uuid!
+}
+
+type Feat {
+  name: String!
+  canBeLearnedMoreThanOnce: Boolean!
+  special: String
+  trigger: String
+  level: Int!
+  actionTypeId: Uuid!
+  actionType: ActionType!
+  featTypeId: Uuid!
+  featType: FeatType!
+  frequencyId: Uuid
+  frequency: Frequency
+  rollableEffect: RollableEffect
+  rollableEffectId: Uuid
+  details(order: [FeatDetailsBlockSortInput!] where: FeatDetailsBlockFilterInput): [FeatDetailsBlock!]!
+  prerequisites(order: [FeatPrerequisiteBindingSortInput!] where: FeatPrerequisiteBindingFilterInput): [FeatPrerequisiteBinding!]!
+  requirements(order: [FeatRequirementSortInput!] where: FeatRequirementFilterInput): [FeatRequirement!]!
+  traits(order: [TraitSortInput!] where: TraitFilterInput): [Trait!]!
+  id: Uuid!
+}
+
+type Spell {
+  name: String!
+  description: String!
+  range: Int
+  castTime: TimeSpan
+  level: Int!
+  targets: String
+  isDismissable: Boolean!
+  area: String
+  duration: String
+  actionTypeId: Uuid
+  actionType: ActionType
+  spellTypeId: Uuid!
+  spellType: SpellType!
+  savingThrowStatId: Uuid
+  savingThrowStat: SavingThrowStat
+  rollableEffect: RollableEffect
+  rollableEffectId: Uuid
+  magicSchool: MagicSchool!
+  magicSchoolId: Uuid!
+  additionalDetails(order: [SpellDetailBlockSortInput!] where: SpellDetailBlockFilterInput): [SpellDetailBlock!]!
+  traditions(order: [MagicTraditionSortInput!] where: MagicTraditionFilterInput): [MagicTradition!]!
+  components(order: [SpellComponentSortInput!] where: SpellComponentFilterInput): [SpellComponent!]!
+  traits(order: [TraitSortInput!] where: TraitFilterInput): [Trait!]!
+  heightenings(order: [SpellHeighteningSortInput!] where: SpellHeighteningFilterInput): [SpellHeightening!]!
+  triggers(order: [SpellTriggerSortInput!] where: SpellTriggerFilterInput): [SpellTrigger!]!
+  requirements(order: [SpellRequirementSortInput!] where: SpellRequirementFilterInput): [SpellRequirement!]!
+  id: Uuid!
+}
+
+type ActionType {
+  name: String!
+  spells(order: [SpellSortInput!] where: SpellFilterInput): [Spell!]!
+  feats(order: [FeatSortInput!] where: FeatFilterInput): [Feat!]!
+  id: Uuid!
+}
+
+type Deity {
+  name: String!
+  categoryId: Uuid!
+  category: DeityCategory!
+  alignmentId: Uuid!
+  alignment: Alignment!
+  followerAlignments(order: [DeityFollowerAlignmentSortInput!] where: DeityFollowerAlignmentFilterInput): [DeityFollowerAlignment!]!
+  divineFonts(order: [DivineFontSortInput!] where: DivineFontFilterInput): [DivineFont!]!
+  domains(order: [DomainSortInput!] where: DomainFilterInput): [Domain!]!
+  id: Uuid!
+}
+
+type DeityCategory {
+  name: String!
+  id: Uuid!
+}
+
+type DivineFont {
+  name: String!
+  deities(order: [DeitySortInput!] where: DeityFilterInput): [Deity!]!
+  id: Uuid!
+}
+
+type DeityFollowerAlignment {
+  deityId: Uuid!
+  deity: Deity!
+  alignmentId: Uuid!
+  alignment: Alignment!
+  id: Uuid!
+}
+
+type Domain {
+  name: String!
+  description: String!
+  deities(order: [DeitySortInput!] where: DeityFilterInput): [Deity!]!
+  id: Uuid!
+}
+
+type Frequency {
+  name: String!
+  amount: Int!
+  timeSpan: TimeSpan!
+  id: Uuid!
+}
+
+type Proficiency {
+  name: String!
+  id: Uuid!
+}
+
+type Prerequisite {
+  bindingId: Uuid!
+  binding: BasePrerequisiteBinding!
+  id: Uuid!
+}
+
+type Plane {
+  name: String!
+  description: String!
+  categoryId: Uuid!
+  category: PlaneCategory!
+  alignmentId: Uuid!
+  alignment: Alignment!
+  traits(order: [PlaneTraitSortInput!] where: PlaneTraitFilterInput): [PlaneTrait!]!
+  id: Uuid!
+}
+
+type PlaneCategory {
+  name: String!
+  description: String!
+  planes(order: [PlaneSortInput!] where: PlaneFilterInput): [Plane!]!
+  id: Uuid!
+}
+
+type PlaneTrait {
+  name: String!
+  description: String!
+  planes(order: [PlaneSortInput!] where: PlaneFilterInput): [Plane!]!
+  id: Uuid!
+}
+
+type Lore {
+  name: String!
+  statModifierId: Uuid!
+  statModifier: Stat!
+  id: Uuid!
+}
+
+type HeritageRarity {
+  name: String!
+  heritages(order: [HeritageSortInput!] where: HeritageFilterInput): [Heritage!]!
+  id: Uuid!
+}
+
+type Heritage {
+  name: String!
+  description: String!
+  rarityId: Uuid!
+  rarity: HeritageRarity!
+  races(order: [RaceSortInput!] where: RaceFilterInput): [Race!]!
+  id: Uuid!
+}
+
+type FeatType {
+  name: String!
+  feats(order: [FeatSortInput!] where: FeatFilterInput): [Feat!]!
+  id: Uuid!
+}
+
+type BenefitType {
+  name: String!
+  id: Uuid!
+}
+
+type MagicSchool {
+  name: String!
+  abbreviation: String!
+  description: String!
+  spells(order: [SpellSortInput!] where: SpellFilterInput): [Spell!]!
+  id: Uuid!
+}
+
+type MagicTradition {
+  name: String!
+  description: String!
+  spells(order: [SpellSortInput!] where: SpellFilterInput): [Spell!]!
+  id: Uuid!
+}
+
+type MagicEssence {
+  name: String!
+  description: String!
+  id: Uuid!
+}
+
+type SpellComponent {
+  name: String!
+  description: String!
+  spells(order: [SpellSortInput!] where: SpellFilterInput): [Spell!]!
+  id: Uuid!
+}
+
+type SavingThrowStat {
+  name: String!
+  id: Uuid!
+}
+
+type Trait {
+  name: String!
+  description: String!
+  spells(order: [SpellSortInput!] where: SpellFilterInput): [Spell!]!
+  feats(order: [FeatSortInput!] where: FeatFilterInput): [Feat!]!
+  id: Uuid!
+}
+
+type SpellType {
+  name: String!
+  description: String!
+  spells(order: [SpellSortInput!] where: SpellFilterInput): [Spell!]!
+  id: Uuid!
+}
+
+type ItemCategory {
+  name: String!
+  description: String!
+  pageNumber: Int!
+  id: Uuid!
+}
+
+type AlignmentCollectionSegment {
+  items: [Alignment]
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  totalCount: Int!
+}
+
+type ArmorGroupCollectionSegment {
+  items: [ArmorGroup]
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  totalCount: Int!
+}
+
+type ClassCollectionSegment {
+  items: [Class]
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  totalCount: Int!
+}
+
+type BulkCollectionSegment {
+  items: [Bulk]
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  totalCount: Int!
+}
+
+type StatCollectionSegment {
+  items: [Stat]
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  totalCount: Int!
+}
+
+type RaceRarityCollectionSegment {
+  items: [RaceRarity]
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  totalCount: Int!
+}
+
+type RaceTraitCollectionSegment {
+  items: [RaceTrait]
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  totalCount: Int!
+}
+
+type RaceSizeCollectionSegment {
+  items: [RaceSize]
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  totalCount: Int!
+}
+
+type LanguageTypeCollectionSegment {
+  items: [LanguageType]
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  totalCount: Int!
+}
+
+type LanguageCollectionSegment {
+  items: [Language]
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  totalCount: Int!
+}
+
+type SourceCollectionSegment {
+  items: [Source]
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  totalCount: Int!
+}
+
+type RaceCollectionSegment {
+  items: [Race]
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  totalCount: Int!
+}
+
+type SkillCollectionSegment {
+  items: [Skill]
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  totalCount: Int!
+}
+
+type FeatCollectionSegment {
+  items: [Feat]
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  totalCount: Int!
+}
+
+type SpellCollectionSegment {
+  items: [Spell]
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  totalCount: Int!
+}
+
+type ActionTypeCollectionSegment {
+  items: [ActionType]
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  totalCount: Int!
+}
+
+type DeityCollectionSegment {
+  items: [Deity]
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  totalCount: Int!
+}
+
+type DeityCategoryCollectionSegment {
+  items: [DeityCategory]
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  totalCount: Int!
+}
+
+type DivineFontCollectionSegment {
+  items: [DivineFont]
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  totalCount: Int!
+}
+
+type DeityFollowerAlignmentCollectionSegment {
+  items: [DeityFollowerAlignment]
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  totalCount: Int!
+}
+
+type DomainCollectionSegment {
+  items: [Domain]
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  totalCount: Int!
+}
+
+type FrequencyCollectionSegment {
+  items: [Frequency]
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  totalCount: Int!
+}
+
+type ProficiencyCollectionSegment {
+  items: [Proficiency]
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  totalCount: Int!
+}
+
+type PrerequisiteCollectionSegment {
+  items: [Prerequisite]
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  totalCount: Int!
+}
+
+type PlaneCollectionSegment {
+  items: [Plane]
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  totalCount: Int!
+}
+
+type PlaneCategoryCollectionSegment {
+  items: [PlaneCategory]
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  totalCount: Int!
+}
+
+type PlaneTraitCollectionSegment {
+  items: [PlaneTrait]
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  totalCount: Int!
+}
+
+type LoreCollectionSegment {
+  items: [Lore]
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  totalCount: Int!
+}
+
+type HeritageRarityCollectionSegment {
+  items: [HeritageRarity]
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  totalCount: Int!
+}
+
+type HeritageCollectionSegment {
+  items: [Heritage]
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  totalCount: Int!
+}
+
+type FeatTypeCollectionSegment {
+  items: [FeatType]
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  totalCount: Int!
+}
+
+type BenefitTypeCollectionSegment {
+  items: [BenefitType]
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  totalCount: Int!
+}
+
+type MagicSchoolCollectionSegment {
+  items: [MagicSchool]
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  totalCount: Int!
+}
+
+type MagicTraditionCollectionSegment {
+  items: [MagicTradition]
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  totalCount: Int!
+}
+
+type MagicEssenceCollectionSegment {
+  items: [MagicEssence]
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  totalCount: Int!
+}
+
+type SpellComponentCollectionSegment {
+  items: [SpellComponent]
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  totalCount: Int!
+}
+
+type SavingThrowStatCollectionSegment {
+  items: [SavingThrowStat]
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  totalCount: Int!
+}
+
+type TraitCollectionSegment {
+  items: [Trait]
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  totalCount: Int!
+}
+
+type SpellTypeCollectionSegment {
+  items: [SpellType]
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  totalCount: Int!
+}
+
+type ItemCategoryCollectionSegment {
+  items: [ItemCategory]
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  totalCount: Int!
+}
+
+"Information about the offset pagination."
+type CollectionSegmentInfo {
+  "Indicates whether more items exist following the set defined by the clients arguments."
+  hasNextPage: Boolean!
+  "Indicates whether more items exist prior the set defined by the clients arguments."
+  hasPreviousPage: Boolean!
+}
+
+type BaseEntity {
+  id: Uuid!
+}
+
+"The `TimeSpan` scalar represents an ISO-8601 compliant duration type."
+scalar TimeSpan
+
+type RollableEffect {
+  criticalSuccess: String
+  success: String
+  failure: String
+  criticalFailure: String
+  id: Uuid!
+}
+
+type SpellDetailBlock {
+  text: String!
+  spell: Spell!
+  spellId: Uuid!
+  id: Uuid!
+}
+
+type FeatDetailsBlock {
+  text: String!
+  feat: Feat!
+  featId: Uuid!
+  id: Uuid!
+}
+
+type FeatPrerequisiteBinding {
+  featId: Uuid!
+  feat: Feat!
+  id: Uuid!
+}
+
+type FeatRequirement {
+  text: String!
+  feat: Feat!
+  featId: Uuid!
+  id: Uuid!
+}
+
+type SpellHeightening {
+  level: Int!
+  description: String!
+  details(order: [SpellHeighteningDetailBlockSortInput!] where: SpellHeighteningDetailBlockFilterInput): [SpellHeighteningDetailBlock!]!
+  spellId: Uuid!
+  spell: Spell!
+  id: Uuid!
+}
+
+type SpellHeighteningDetailBlock {
+  text: String!
+  spellHeighteningId: Uuid!
+  spellHeightening: SpellHeightening!
+  id: Uuid!
+}
+
+type SpellTrigger {
+  text: String!
+  spellId: Uuid!
+  spell: Spell!
+  id: Uuid!
+}
+
+type SpellRequirement {
+  text: String!
+  spell: Spell!
+  spellId: Uuid!
+  id: Uuid!
+}
+
+type Background {
+  name: String!
+  description: String!
+  sourceId: Uuid!
+  source: Source!
+  id: Uuid!
+}
+
+type BackgroundAbilityBoost {
+  name: String!
+  id: Uuid!
+}
+
+type FeatEffect {
+  bindingId: Uuid!
+  binding: BaseFeatEffectBinding!
+  triggeredAtLevel: Int
+  id: Uuid!
+}
+
+type BaseFeatEffectBinding {
+  id: Uuid!
+}
+
+type OrFeatEffect {
+  choices(order: [FeatEffectSortInput!] where: FeatEffectFilterInput): [FeatEffect!]!
+  bindingId: Uuid!
+  binding: BaseFeatEffectBinding!
+  triggeredAtLevel: Int
+  id: Uuid!
+}
+
+type GainHeritageEffect {
+  heritageRarityId: Uuid!
+  heritageRarity: HeritageRarity!
+  bindingId: Uuid!
+  binding: BaseFeatEffectBinding!
+  triggeredAtLevel: Int
+  id: Uuid!
+}
+
+type GainLoreEffect {
+  proficiencyId: Uuid!
+  proficiency: Proficiency!
+  bindingId: Uuid!
+  binding: BaseFeatEffectBinding!
+  triggeredAtLevel: Int
+  id: Uuid!
+}
+
+type GainHeritageFeatEffect {
+  level: Int!
+  bindingId: Uuid!
+  binding: BaseFeatEffectBinding!
+  triggeredAtLevel: Int
+  id: Uuid!
+}
+
+type FeatRarity {
+  name: String!
+  id: Uuid!
+}
+
+type Item {
+  name: String!
+  description: String!
+  level: Int!
+  id: Uuid!
+}
+
+type DeityLore {
+  deityId: Uuid!
+  deity: Deity!
+  name: String!
+  statModifierId: Uuid!
+  statModifier: Stat!
+  id: Uuid!
+}
+
+type CreatureLore {
+  creature: String!
+  name: String!
+  statModifierId: Uuid!
+  statModifier: Stat!
+  id: Uuid!
+}
+
+type TerrainLore {
+  terrain: String!
+  name: String!
+  statModifierId: Uuid!
+  statModifier: Stat!
+  id: Uuid!
+}
+
+type SettlementLore {
+  settlement: String!
+  name: String!
+  statModifierId: Uuid!
+  statModifier: Stat!
+  id: Uuid!
+}
+
+type ConsumableLore {
+  consumable: String!
+  name: String!
+  statModifierId: Uuid!
+  statModifier: Stat!
+  id: Uuid!
+}
+
+type PlaneLore {
+  planeId: Uuid!
+  plane: Plane!
+  name: String!
+  statModifierId: Uuid!
+  statModifier: Stat!
+  id: Uuid!
+}
+
+type BasePrerequisiteBinding {
+  id: Uuid!
+}
+
+type SkillPrerequisite {
+  requiredSkillId: Uuid
+  requiredSkill: Skill
+  requiredProficiencyId: Uuid!
+  requiredProficiency: Proficiency!
+  bindingId: Uuid!
+  binding: BasePrerequisiteBinding!
+  id: Uuid!
+}
+
+type RecallKnowledgePrerequisite {
+  requiredProficiencyId: Uuid!
+  requiredProficiency: Proficiency!
+  requiresAssurance: Boolean!
+  bindingId: Uuid!
+  binding: BasePrerequisiteBinding!
+  id: Uuid!
+}
+
+type FeatPrerequisite {
+  requiredFeatId: Uuid!
+  requiredFeat: Feat!
+  bindingId: Uuid!
+  binding: BasePrerequisiteBinding!
+  id: Uuid!
+}
+
+type LevelPrerequisite {
+  requiredLevel: Int!
+  bindingId: Uuid!
+  binding: BasePrerequisiteBinding!
+  id: Uuid!
+}
+
+type StatPrerequisite {
+  requiredStatValue: Int!
+  requiredStatId: Uuid!
+  requiredStat: Stat!
+  bindingId: Uuid!
+  binding: BasePrerequisiteBinding!
+  id: Uuid!
+}
+
+type DeityPrerequisite {
+  requiredDeityId: Uuid!
+  requiredDeity: Deity!
+  bindingId: Uuid!
+  binding: BasePrerequisiteBinding!
+  id: Uuid!
+}
+
+type LorePrerequisite {
+  requiredProficiencyId: Uuid!
+  requiredProficiency: Proficiency!
+  bindingId: Uuid!
+  binding: BasePrerequisiteBinding!
+  id: Uuid!
+}
+
+type RacePrerequisite {
+  requiredRaceId: Uuid!
+  requiredRace: Race!
+  bindingId: Uuid!
+  binding: BasePrerequisiteBinding!
+  id: Uuid!
+}
+
+type OrPrerequisite {
+  choices(order: [PrerequisiteSortInput!] where: PrerequisiteFilterInput): [Prerequisite!]!
+  bindingId: Uuid!
+  binding: BasePrerequisiteBinding!
+  id: Uuid!
+}
+
+type SkillBenefit {
+  skillId: Uuid!
+  skill: Skill!
+  benefitTypeId: Uuid!
+  benefitType: BenefitType!
+  id: Uuid!
+}
+
+type FeatEffectBinding {
+  featId: Uuid!
+  feat: Feat!
+  id: Uuid!
+}
+
+type OrEffectBinding {
+  orFeatEffectId: Uuid!
+  orFeatEffect: OrFeatEffect!
+  id: Uuid!
+}
+
+type OrBinding {
+  prerequisiteId: Uuid!
+  prerequisite: OrPrerequisite!
+  id: Uuid!
+}

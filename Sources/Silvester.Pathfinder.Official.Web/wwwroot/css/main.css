@@ -1,0 +1,12 @@
+﻿body {
+    background-color: #f1f1f1;
+    overflow-x: hidden;
+}
+
+.mud-input-adornment svg {
+    margin-right: 8px 
+}
+
+.mud-table-cell {
+    white-space: nowrap
+}

@@ -1,0 +1,11 @@
+﻿<div class="preference-item preference-item-chips" style="margin-right: 20px;">
+    @{
+        if (string.IsNullOrWhiteSpace(Title) == false)
+        {
+            <p class="preference-item-title">@Title</p>
+        }
+    }
+    <div style="display: flex; flex-direction: row;">
+        @Chips
+    </div>
+</div>

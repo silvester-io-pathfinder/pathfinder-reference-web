@@ -1,0 +1,12 @@
+﻿::deep .category-title {
+    color: var(--mud-palette-secondary);
+    font-weight: bold;
+    padding-left: 20px;
+    padding-top: 8px;
+}
+
+::deep .preference-item {
+    padding-left: 20px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}

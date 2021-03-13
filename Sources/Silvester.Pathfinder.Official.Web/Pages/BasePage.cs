@@ -11,7 +11,10 @@ namespace Silvester.Pathfinder.Official.Web.Pages
     public class BasePage : ComponentBase
     {
         [Inject]
-        protected IDispatcher? Dispatcher { get; set; }
+        protected IDispatcher Dispatcher { get; set; } = default!;
+
+        [Inject]
+        protected NavigationManager NavigationManager { get; set; } = default!;
 
         protected virtual IReadOnlyList<string> GetTitleComponents()
         {
@@ -22,10 +25,15 @@ namespace Silvester.Pathfinder.Official.Web.Pages
         {
             await base.OnInitializedAsync();
 
+            OnTitleChanged();
+        }
+
+        protected virtual void OnTitleChanged()
+        {
             List<string> components = new List<string>() { "Silvester Pathfinder" };
             components.AddRange(GetTitleComponents());
 
-            Dispatcher!.Dispatch(new SetPageTitleAction(components));
+            Dispatcher.Dispatch(new SetPageTitleAction(components.Where(e => e != null).ToList()));
         }
     }
 }

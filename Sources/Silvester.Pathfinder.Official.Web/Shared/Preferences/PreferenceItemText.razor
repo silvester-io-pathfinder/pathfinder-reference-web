@@ -1,0 +1,10 @@
+﻿
+<div class="preference-item preference-item-text" style="margin-right: 20px;">
+    @{
+        if (string.IsNullOrWhiteSpace(Title) == false)
+        {
+            <p class="preference-item-title">@Title</p>
+        } 
+    }
+    <p class="preference-item-text">@Text</p>
+</div>

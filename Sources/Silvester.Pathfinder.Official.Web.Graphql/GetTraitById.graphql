@@ -1,0 +1,21 @@
+﻿query GetTraitById($id: Uuid!) {
+	traits(where: {id: {eq: $id}}) {
+		items {
+			... TraitById
+		}
+	}
+}
+
+fragment TraitById on Trait {
+	id,
+	name,
+	description,
+	feats {
+		... TraitById_Feat
+	}
+}
+
+fragment TraitById_Feat on Feat {
+	id,
+	name
+}

@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <GraphQL Remove="GetTraitById.graphql" />
+    <GraphQL Remove="GetTraitsPage.graphql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Watch Remove="GetTraitById.graphql" />
+    <Watch Remove="GetTraitsPage.graphql" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="StrawberryShake.CodeGeneration.CSharp.Analyzers" Version="11.1.0-preview.80" />
+    <PackageReference Include="StrawberryShake.Transport.Http" Version="11.1.0-preview.80" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0" />
+  </ItemGroup>
+  
+</Project>

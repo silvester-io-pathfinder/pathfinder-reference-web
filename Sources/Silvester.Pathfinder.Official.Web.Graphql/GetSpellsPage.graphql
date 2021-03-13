@@ -1,0 +1,22 @@
+﻿query GetSpellsPage($skip: Int!, $take: Int!, $searchTerm: String! = "", $order: [SpellSortInput!] = [{name: ASC}]) {
+	spells(
+		skip: $skip, 
+		take: $take, 
+		order: $order,
+		where: {
+			or: [
+				{name: {contains: $searchTerm}}, 
+				{actionType: {name: {contains: $searchTerm}}},
+				{featType: {name: {contains: $searchTerm}}},
+				{frequency: {name: {contains: $searchTerm}}}
+			]
+		}) 
+	{
+		totalCount,
+		items {
+			id,
+			name,
+			level
+		}
+	}
+}

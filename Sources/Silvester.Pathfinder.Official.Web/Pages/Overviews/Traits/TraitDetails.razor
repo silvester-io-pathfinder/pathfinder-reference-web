@@ -1,0 +1,68 @@
+﻿@inherits BaseDetailPage
+
+@page "/traits/{traitId:guid}"
+
+@using Silvester.Pathfinder.Official.Web.Shared.Preferences;
+@using Silvester.Pathfinder.Official.Web.Shared.Cards;
+@using Silvester.Pathfinder.Official.Web.Mocked;
+@using Silvester.Pathfinder.Official.Web.Shared.Tables;
+
+<div>
+    <ComponentDetailsCard TEntity="ITraitById" Entity="@Trait">
+        <Title>
+            <MudText Typo="Typo.h6">@context.Name</MudText>
+        </Title>
+        <Actions>
+            <MudTooltip Text="Share">
+                <MudIconButton Size="Size.Medium" OnClick="@(async () => await OnShareClickAsync())" Icon="@Icons.Material.Filled.Share"></MudIconButton>
+            </MudTooltip>
+        </Actions>
+        <LeftContent>
+            <PreferenceCategory Title="Feat Details">
+                <PreferenceItemText Title="Id" Text="@context.Id.ToString()" />
+            </PreferenceCategory>
+        </LeftContent>
+        <RightContent>
+            <PreferenceCategory Title="Description">
+                <PreferenceItemText Text="@context.Description" />
+            </PreferenceCategory>
+        </RightContent>
+    </ComponentDetailsCard>
+
+    @if (Trait != null)
+    {
+        <MudGrid Class="justify-center">
+            <MudItem xs="12" xl="9">
+                <MudPaper Style="margin: 20px">
+                    <MudTable Items="@Trait.Feats" Dense="true" Hover="true" Filter="@((e) => FeatsFilter(e))">
+                        <ToolBarContent>
+                            <div style="display:flex; flex-direction: column; width: 100%;">
+                                <div style="display:flex; flex-direction: row; padding-left: 16px; padding-right: 16px; padding-top:10px; padding-bottom:10px">
+                                    <MudText Typo="Typo.h6">Feats</MudText>
+                                    <MudToolBarSpacer />
+                                </div>
+                                <div>
+                                    <MudTextField T="string" Style="background-color: white; padding: 8px;" ValueChanged="@(text => OnFeatSearch(text))" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0" />
+                                </div>
+                            </div>
+                        </ToolBarContent>
+                        <HeaderContent>
+                            <MudTh><MudTableSortLabel SortLabel="@nameof(ITraitById_Feat.Name)" T="ITraitById_Feat">Name</MudTableSortLabel></MudTh>
+                            <MudTh><MudTableSortLabel SortLabel="@nameof(ITraitById_Feat.Id)" T="ITraitById_Feat">Id</MudTableSortLabel></MudTh>
+                            <MudTh></MudTh>
+                        </HeaderContent>
+                        <RowTemplate>
+                            <MudTd DataLabel="@nameof(ITraitById_Feat.Name)">@context.Name</MudTd>
+                            <MudTdEllipsized DataLabel="@nameof(ITraitById_Feat.Id)" Text="@context.Id.ToString()" />
+                            <MudTh>
+                                <MudTooltip Text="Inspect">
+                                    <MudIconButton Size="Size.Small" OnClick="@(() => OnInspectFeatClicked(context))" Icon="@Icons.Material.Outlined.ArrowForward"></MudIconButton>
+                                </MudTooltip>
+                            </MudTh>
+                        </RowTemplate>
+                    </MudTable>
+                </MudPaper>
+            </MudItem>
+        </MudGrid>
+    }
+</div>
