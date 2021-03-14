@@ -1,10 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-    <Nullable>enable</Nullable>
+    <Description>Pathfinder Official - Web - Graphql</Description>
   </PropertyGroup>
 
+  <Import Project="../Properties.proj" />
+  
   <ItemGroup>
     <PackageReference Include="StrawberryShake.CodeGeneration.CSharp.Analyzers" Version="11.1.0-preview.80" />
     <PackageReference Include="StrawberryShake.Transport.Http" Version="11.1.0-preview.80" />
