@@ -8,39 +8,39 @@ jobs:
   main:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out the repo
+      - name: Checkout
         uses: actions/checkout@v2
         
-      - name: Read properties.proj
+      - name: SETUP - Semantic Version
         id: read-properties
         uses: juliangruber/read-file-action@v1
         with:
           path: ./Sources/Properties.proj
         
-      - name: Determine semantic version from properties.
+      - name: SETUP - Semantic Version
         id: get-semantic-version
         uses: actions-ecosystem/action-regex-match@v2
         with:
           text: ${{ steps.read-properties.outputs.content }}
           regex: '<Version>(.*?)</Version>'  
         
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
-        
-      - name: NUGET - Source
+      - name: NUGET - Login
         run: nuget sources Add -Name Artifactory -Source https://silvester.jfrog.io/artifactory/api/nuget/silvester-nuget -username ${{ secrets.ARTIFACTORY_USERNAME }} -password ${{ secrets.ARTIFACTORY_PASSWORD }}
               
-      - name: Login to GitHub Packages Docker Registry
+      - name: SETUP - QEMU
+        uses: docker/setup-qemu-action@v1
+        
+      - name: DOCKER - Login
         uses: docker/login-action@v1
         with:
           username: ${{ secrets.ARTIFACTORY_USERNAME }}
           password: ${{ secrets.ARTIFACTORY_PASSWORD }}
           registry: silvester.jfrog.io
         
-      - name: Set up Docker Buildx
+      - name: SETUP - Docker
         uses: docker/setup-buildx-action@v1
         
-      - name: Build and push
+      - name: DOCKER - Build & Push
         uses: docker/build-push-action@v2
         with:
           context: .

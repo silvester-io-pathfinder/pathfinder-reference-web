@@ -1,7 +1,11 @@
 FROM mcr.microsoft.com/dotnet/sdk:5.0-focal AS build
 
+ARG artifactoryUsername
+ARG artifactoryPassword
+
 WORKDIR /build
 COPY Sources Sources/
+COPY ~/.config/NuGet/NuGet.Config ./Sources
 
 RUN dotnet restore ./Sources/Silvester.Pathfinder.Official.Web.sln 
 RUN dotnet test ./Sources/Silvester.Pathfinder.Official.Web.sln 
