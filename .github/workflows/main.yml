@@ -23,10 +23,7 @@ jobs:
         with:
           text: ${{ steps.read-properties.outputs.content }}
           regex: '<Version>(.*?)</Version>'  
-        
-      - name: NUGET - Login
-        run: nuget sources Add -Name Artifactory -Source https://silvester.jfrog.io/artifactory/api/nuget/silvester-nuget -username ${{ secrets.ARTIFACTORY_USERNAME }} -password ${{ secrets.ARTIFACTORY_PASSWORD }}
-              
+                      
       - name: SETUP - QEMU
         uses: docker/setup-qemu-action@v1
         
@@ -46,6 +43,9 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
+          build-args:
+          - artifactoryUsername=${{ secrets.ARTIFACTORY_USERNAME }}
+          - artifactoryPassword=${{ secrets.ARTIFACTORY_PASSWORD }}
           tags: |
             silvester.jfrog.io/silvester-docker/pathfinder-official-web:${{ steps.get-semantic-version.outputs.group1 }}
             silvester.jfrog.io/silvester-docker/pathfinder-official-web:latest
