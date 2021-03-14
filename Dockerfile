@@ -6,7 +6,7 @@ ARG artifactoryPassword
 WORKDIR /build
 COPY Sources Sources/
 
-RUN nuget sources Add -Name Artifactory -Source https://silvester.jfrog.io/artifactory/api/nuget/silvester-nuget -username $artifactoryUsername -password $artifactoryPassword
+RUN dotnet nuget add source https://silvester.jfrog.io/artifactory/api/nuget/silvester-nuget  -n Artifactory --username $artifactoryUsername --password $artifactoryPassword
 
 RUN dotnet restore ./Sources/Silvester.Pathfinder.Official.Web.sln 
 RUN dotnet test ./Sources/Silvester.Pathfinder.Official.Web.sln 
