@@ -1,14 +1,12 @@
 FROM mcr.microsoft.com/dotnet/sdk:5.0-focal AS build
 
-USER root
-
 ARG artifactoryUsername
 ARG artifactoryPassword
 
 WORKDIR /build
 COPY Sources Sources/
 
-RUN dotnet nuget add source https://silvester.jfrog.io/artifactory/api/nuget/silvester-nuget  -n Artifactory --username $artifactoryUsername --password $artifactoryPassword
+RUN dotnet nuget add source https://silvester.jfrog.io/artifactory/api/nuget/silvester-nuget  -n Artifactory --username $artifactoryUsername --password $artifactoryPassword --store-password-in-clear-text 
 
 RUN dotnet restore ./Sources/Silvester.Pathfinder.Official.Web.sln 
 RUN dotnet test ./Sources/Silvester.Pathfinder.Official.Web.sln 
