@@ -12,10 +12,37 @@ fragment TraitById on Trait {
 	description,
 	feats {
 		... TraitById_Feat
+	},
+	spells {
+		... TraitById_Spell
 	}
 }
 
 fragment TraitById_Feat on Feat {
 	id,
+	name,
+	level,
+	canBeLearnedMoreThanOnce
+}
+
+fragment TraitById_Spell on Spell {
+	id,
+	name,
+	level,
+	magicSchool {
+		... TraitById_Spell_MagicSchool
+	},
+	spellType {
+		... TraitById_Spell_Type
+	}
+}
+
+fragment TraitById_Spell_MagicSchool on MagicSchool {
+	id, 
+	name
+}
+
+fragment TraitById_Spell_Type on SpellType {
+	id, 
 	name
 }

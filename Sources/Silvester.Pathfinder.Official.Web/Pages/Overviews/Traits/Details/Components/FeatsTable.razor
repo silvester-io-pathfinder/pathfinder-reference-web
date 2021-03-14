@@ -1,0 +1,39 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Preferences;
+@using Silvester.Pathfinder.Official.Web.Shared.Cards;
+@using Silvester.Pathfinder.Official.Web.Shared.Tables;
+@using Silvester.Pathfinder.Official.Web.Pages.Overviews.Traits.Details.Components;
+@using Silvester.Pathfinder.Official.Web.Shared.Fields;
+@using System.Reflection;
+
+<div>
+    @if (Trait == null)
+    {
+
+    }
+    else
+    {
+        <RelationshipTable TEntity="ITraitById_Feat" DefaultSortLabel="@nameof(ITraitById_Feat.Name)" Filter="@FeatsFilter" InspectionUrl="@((e) => $"/feats/{e.Id}")" Items="@(() => Trait.Feats)" >
+            <Columns>
+                <MudTh><MudTableSortLabel SortLabel="@nameof(ITraitById_Feat.Name)" T="ITraitById_Feat" InitialDirection="SortDirection.Ascending">Name</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortLabel="@nameof(ITraitById_Feat.Level)" T="ITraitById_Feat">Level</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortLabel="@nameof(ITraitById_Feat.CanBeLearnedMoreThanOnce)" T="ITraitById_Feat">Relearnable</MudTableSortLabel></MudTh>
+            </Columns>
+            <Rows>
+                <MudTd DataLabel="@nameof(ITraitById_Feat.Name)">@context.Name</MudTd>
+                <MudTd DataLabel="@nameof(ITraitById_Feat.Level)">@context.Level</MudTd>
+                <MudTdEllipsized DataLabel="@nameof(ITraitById_Feat.CanBeLearnedMoreThanOnce)" Text="@context.CanBeLearnedMoreThanOnce.ToString()" />
+            </Rows>
+        </RelationshipTable>
+    }
+</div>
+
+@code
+{
+    [Parameter]
+    public ITraitById? Trait { get; set; }
+
+    public bool FeatsFilter(ITraitById_Feat feat, string searchString)
+    {
+        return feat.Name.ToLower().Contains(searchString);
+    }
+}

@@ -1,30 +1,62 @@
 ﻿@using Silvester.Pathfinder.Official.Web.Pages.Overviews
 @using Silvester.Pathfinder.Official.Web.Shared.Tables
-@using Silvester.Pathfinder.Official.Web.Mocked
-@using Silvester.Pathfinder.Official.Web.Graphql 
+@using Silvester.Pathfinder.Official.Web.Graphql
+@using Silvester.Pathfinder.Official.Web.Shared.Pages;
 
 @page "/feats"
 @inherits BaseOverviewPage
 
 <div>
-    <GraphqlTable Title="Feats" RowsPerPage="25" GetPage="@GetPage">
-        <Columns>
-            <MudTh><MudTableSortLabel SortLabel="@nameof(IFeatsPage.Name)" T="IFeatsPage">Name</MudTableSortLabel></MudTh>
-            <MudTh><MudTableSortLabel SortLabel="@nameof(IFeatsPage.Level)" T="IFeatsPage">Level</MudTableSortLabel></MudTh>
-            <MudTh><MudTableSortLabel SortLabel="@nameof(IFeatsPage.CanBeLearnedMoreThanOnce)" T="IFeatsPage">Relearnable</MudTableSortLabel></MudTh>
-            <MudTh>Description</MudTh>
-            <MudTh></MudTh>
-        </Columns>
-        <Rows>
-            <MudTd DataLabel="@nameof(IFeatsPage.Name)" Style="font-weight: 500;">@context.Name</MudTd>
-            <MudTd DataLabel="@nameof(IFeatsPage.Level)">@context.Level</MudTd>
-            <MudTd DataLabel="@nameof(IFeatsPage.CanBeLearnedMoreThanOnce)">@context.CanBeLearnedMoreThanOnce</MudTd>
-            <MudTdEllipsized DataLabel="@nameof(IFeatsPage.Details)" Text="@(string.Join(Environment.NewLine, context.Details.Select(e => e.Text)))"/>
-            <MudTh>
-                <MudTooltip Text="Inspect">
-                    <MudIconButton Size="Size.Small" OnClick="@(() => OnInspectClicked(context))" Icon="@Icons.Material.Outlined.ArrowForward"></MudIconButton>
-                </MudTooltip>
-            </MudTh>
-        </Rows>
-    </GraphqlTable>
+    <PageContent>
+        <MudPaper Style="margin: 20px;">
+            <GraphqlTable Title="Feats" RowsPerPage="25" GetPage="@GetPage" TSortInput="FeatSortInput" TEntity="IFeatsPage">
+                <Columns>
+                    <MudTh><MudTableSortLabel SortLabel="@nameof(IFeatsPage.Name)" T="IFeatsPage">Name</MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortLabel="@nameof(IFeatsPage.Level)" T="IFeatsPage">Level</MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortLabel="@nameof(IFeatsPage.CanBeLearnedMoreThanOnce)" T="IFeatsPage">Relearnable</MudTableSortLabel></MudTh>
+                    <MudTh>Description</MudTh>
+                    <MudTh></MudTh>
+                </Columns>
+                <Rows>
+                    <MudTd DataLabel="@nameof(IFeatsPage.Name)" Style="font-weight: 500;">@context.Name</MudTd>
+                    <MudTd DataLabel="@nameof(IFeatsPage.Level)">@context.Level</MudTd>
+                    <MudTd DataLabel="@nameof(IFeatsPage.CanBeLearnedMoreThanOnce)">@context.CanBeLearnedMoreThanOnce</MudTd>
+                    <MudTdEllipsized DataLabel="@nameof(IFeatsPage.Details)" Text="@(string.Join(Environment.NewLine, context.Details.Select(e => e.Text)))" />
+                    <MudTh>
+                        <MudTooltip Text="Inspect">
+                            <MudIconButton Size="Size.Small" OnClick="@(() => OnInspectClicked(context))" Icon="@Icons.Material.Outlined.ArrowForward"></MudIconButton>
+                        </MudTooltip>
+                    </MudTh>
+                </Rows>
+            </GraphqlTable>
+        </MudPaper>
+    </PageContent>
+
 </div>
+
+@code
+{
+    [Inject]
+    public PathfinderOfficialApi PathfinderOfficialApi { get; set; } = default!;
+
+    protected override string Title => "Feats";
+
+    public void OnInspectClicked(IFeatsPage feat)
+    {
+        NavigationManager.NavigateTo($"/feats/{feat.Id}");
+    }
+
+    public async Task<TableData<IFeatsPage>> GetPage(FeatSortInput[] sortInputs, TableState state, string? searchTerm)
+    {
+        IOperationResult<IGetFeatsPageResult> result = await PathfinderOfficialApi.GetFeatsPage
+            .ExecuteAsync(state.Page * state.PageSize, state.PageSize, searchTerm ?? "", sortInputs);
+
+        TableData<IFeatsPage> page = new TableData<IFeatsPage>()
+        {
+            TotalItems = result.Data!.Feats!.TotalCount,
+            Items = result.Data!.Feats!.Items!
+        };
+
+        return page;
+    }
+}

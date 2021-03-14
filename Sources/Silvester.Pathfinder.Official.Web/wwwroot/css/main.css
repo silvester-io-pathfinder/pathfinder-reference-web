@@ -10,3 +10,11 @@
 .mud-table-cell {
     white-space: nowrap
 }
+
+.mud-table-head tr th span {
+    padding-top: 2px;
+}
+
+.mud-table-head tr th span svg {
+    margin-top: -2px;
+}

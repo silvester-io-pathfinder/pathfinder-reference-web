@@ -13,13 +13,13 @@ namespace Silvester.Pathfinder.Official.Web.Themes
             Palette = new Palette
             {
                 Primary = Colors.Red.Default,
-                Secondary = Colors.Orange.Accent4,
+                Secondary = "#495165",
                 AppbarBackground = Colors.Red.Default
             };
 
             LayoutProperties = new LayoutProperties
             {
-                DrawerWidth = "260px"
+                DrawerWidthLeft = "260px"
             };
         }
     }

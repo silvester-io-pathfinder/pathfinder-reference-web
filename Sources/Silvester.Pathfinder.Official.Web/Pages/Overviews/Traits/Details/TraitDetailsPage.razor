@@ -1,0 +1,65 @@
+﻿@inherits BaseDetailPage
+@implements IDisposable
+
+@page "/traits/{traitId:guid}"
+
+@using System.Linq;
+@using Silvester.Pathfinder.Official.Web.Shared.Pages;
+@using System.Reactive.Linq;
+@using Silvester.Pathfinder.Official.Web.Shared.Preferences;
+@using Silvester.Pathfinder.Official.Web.Shared.Cards;
+@using Silvester.Pathfinder.Official.Web.Shared.Tables;
+@using Silvester.Pathfinder.Official.Web.Pages.Overviews.Traits.Details.Components;
+<div>
+    <PageContent>
+        @if (Trait != null)
+        {
+            <MudPaper Style="margin: 20px">
+                <DetailsCard Trait="@Trait" />
+            </MudPaper>
+
+            <MudPaper Style="margin: 20px; margin-top:40px;">
+                <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
+                    <MudTabPanel Text="Feats">
+                        <FeatsTable Trait="@Trait" />
+                    </MudTabPanel>
+                    <MudTabPanel Text="Spells">
+                        <SpellsTable Trait="@Trait" />
+                    </MudTabPanel>
+                </MudTabs>
+            </MudPaper>
+        }
+    </PageContent>
+</div>
+
+@code {
+    protected override string Title => "Traits";
+    protected override string? Subtitle => Trait?.Name;
+
+    [Parameter]
+    public Guid TraitId { get; set; }
+
+    [Inject]
+    public PathfinderOfficialApi PathfinderOfficialApi { get; set; } = default!;
+
+    public ITraitById? Trait { get; set; }
+
+    private IDisposable? StoreSession { get; set; }
+
+    protected override void OnInitialized()
+    {
+        StoreSession = PathfinderOfficialApi.GetTraitById
+            .Watch(TraitId, StrawberryShake.ExecutionStrategy.CacheFirst)
+            .Select(e => e.Data?.Traits?.Items?.FirstOrDefault())
+            .Subscribe(trait =>
+            {
+                Trait = trait;
+                StateHasChanged();
+            });
+    }
+
+    public void Dispose()
+    {
+        StoreSession?.Dispose();
+    }
+}

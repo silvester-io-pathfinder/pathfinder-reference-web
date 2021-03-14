@@ -1,22 +1,10 @@
 ﻿@using Silvester.Pathfinder.Official.Web.Pages.Overviews
 @using Silvester.Pathfinder.Official.Web.Pages.Overviews.Spells
-@using Silvester.Pathfinder.Official.Web.Mocked
 @using Silvester.Pathfinder.Official.Web.Shared.Tables
 
 @page "/spells"
 @inherits BaseOverviewPage
 
 <div>
-    <GraphqlTable TEntity="IGetSpellsPage_Spells_Items" Title="Spells" RowsPerPage="25" GetPage="@GetPage">
-        <Columns>
-            <MudTh><MudTableSortLabel SortLabel="@nameof(Spell.Name)" T="Spell">Name</MudTableSortLabel></MudTh>
-            <MudTh><MudTableSortLabel SortLabel="@nameof(Spell.Level)" T="Spell">Level</MudTableSortLabel></MudTh>
-            <!--<MudTh><MudTableSortLabel SortLabel="nameof(Spell.Description)" T="Spell">Description</MudTableSortLabel></MudTh>-->
-        </Columns>
-        <Rows>
-            <MudTd DataLabel="@nameof(Spell.Name)">@context.Name</MudTd>
-            <MudTd DataLabel="@nameof(Spell.Level)">@context.Level</MudTd>
-            <!--<MudTdEllipsized DataLabel="nameof(Spell.Description)">context.Description</MudTdEllipsized>-->
-        </Rows>
-    </GraphqlTable>
+    
 </div>

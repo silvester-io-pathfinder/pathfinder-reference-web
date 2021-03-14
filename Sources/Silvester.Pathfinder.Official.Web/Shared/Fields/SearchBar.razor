@@ -1,0 +1,12 @@
+﻿<div style="display:flex; flex-direction: column; width: 100%;">
+    <MudTextField T="string" Style="background-color: white; padding: 8px;" ValueChanged="@(text => OnSearch?.Invoke(text))" Placeholder="@Placeholder" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0" />
+</div>
+
+@code {
+    [Parameter]
+    public Action<string?> OnSearch { get; set; }
+
+    [Parameter]
+    public string Placeholder { get; set; } = "Search";
+}
+    

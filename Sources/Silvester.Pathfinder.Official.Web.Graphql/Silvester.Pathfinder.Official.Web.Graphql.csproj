@@ -6,11 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <GraphQL Remove="GetRacesPage.graphql" />
     <GraphQL Remove="GetTraitById.graphql" />
     <GraphQL Remove="GetTraitsPage.graphql" />
   </ItemGroup>
 
   <ItemGroup>
+    <Watch Remove="GetRacesPage.graphql" />
     <Watch Remove="GetTraitById.graphql" />
     <Watch Remove="GetTraitsPage.graphql" />
   </ItemGroup>

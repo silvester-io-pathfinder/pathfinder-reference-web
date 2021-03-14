@@ -1,0 +1,86 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Preferences;
+@using Silvester.Pathfinder.Official.Web.Shared.Cards;
+@using Silvester.Pathfinder.Official.Web.Services;
+
+<div>
+    <ComponentDetailsCard TEntity="IFeatById" Entity="@Feat">
+        <Title>
+            <MudText Typo="Typo.h6">@context.Name</MudText>
+        </Title>
+        <Actions>
+            <MudTooltip Text="Share">
+                <MudIconButton Size="Size.Medium" OnClick="@(async () => await OnShareClickAsync())" Icon="@Icons.Material.Filled.Share"></MudIconButton>
+            </MudTooltip>
+        </Actions>
+        <LeftContent>
+            <PreferenceCategory Title="Traits">
+                <PreferenceItemChips>
+                    <Chips>
+                        @foreach (IFeatById_Trait trait in @context.Traits)
+                        {
+                            <MudChip Size="Size.Small" Color="Color.Primary" Style="margin: 0px; margin-right: 8px;" OnClick="@(() => OnTraitClick(trait))">@trait.Name</MudChip>
+                        }
+                    </Chips>
+                </PreferenceItemChips>
+            </PreferenceCategory>
+            <PreferenceCategory Title="Feat Details">
+                <PreferenceItemText Title="Id" Text="@context.Id.ToString()" />
+                <MudDivider />
+                <PreferenceItemText Title="Level" Text="@context.Level.ToString()" />
+            </PreferenceCategory>
+        </LeftContent>
+        <RightContent>
+            <PreferenceCategory Title="Description">
+                <!--<PreferenceItemText Text="(string.Join(Environment.NewLine, context.Details.Select(e => e.Text)))" />-->
+                <PreferenceItemText Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi cursus, dui a feugiat eleifend, mauris libero elementum justo, eu varius enim nunc id neque. Mauris fringilla urna non nulla laoreet, vitae pellentesque odio mollis. Aenean sed bibendum elit. Aenean in odio lorem. Sed consequat, tellus ac sodales semper, lorem sem congue neque, sit amet porttitor velit magna ultrices nunc. Integer vulputate massa pretium facilisis feugiat. Quisque faucibus diam efficitur auctor tristique. Vivamus sed pulvinar sapien. Vivamus libero orci, tincidunt id lacinia at, elementum vel tortor. Praesent aliquet rhoncus ipsum, eu tristique est. Ut sit amet velit diam. Sed sed ullamcorper dolor, ut gravida mauris." />
+            </PreferenceCategory>
+            @if (context.RollableEffect != null)
+            {
+                <PreferenceCategory Title="Rollable Effect">
+                    @if (context.RollableEffect.CriticalSuccess != null)
+                    {
+                        <PreferenceItemText Title="Critical Success" Text="@context.RollableEffect.CriticalSuccess" />
+                    }
+                    @if (context.RollableEffect.Success != null)
+                    {
+                        <PreferenceItemText Title="Success" Text="@context.RollableEffect.Success" />
+                    }
+                    @if (context.RollableEffect.Failure != null)
+                    {
+                        <PreferenceItemText Title="Failure" Text="@context.RollableEffect.Failure" />
+                    }
+                    @if (context.RollableEffect.CriticalFailure != null)
+                    {
+                        <PreferenceItemText Title="Critical Failure" Text="@context.RollableEffect.CriticalFailure" />
+                    }
+                </PreferenceCategory>
+            }
+
+        </RightContent>
+    </ComponentDetailsCard>
+</div>
+
+@code {
+    [Parameter]
+    public IFeatById? Feat { get; set; } = default!;
+
+    [Inject]
+    public IClipboardService ClipboardService { get; set; } = default!;
+
+    [Inject]
+    public ISnackbar Snackbar { get; set; } = default!;
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; } = default!;
+
+    public async Task OnShareClickAsync()
+    {
+        await ClipboardService.WriteTextAsync(NavigationManager.Uri);
+        Snackbar.Add(@"Copied URL to clipboard!", Severity.Success);
+    }
+
+    public void OnTraitClick(IFeatById_Trait trait)
+    {
+        NavigationManager.NavigateTo($"/traits/{trait.Id}");
+    }
+}

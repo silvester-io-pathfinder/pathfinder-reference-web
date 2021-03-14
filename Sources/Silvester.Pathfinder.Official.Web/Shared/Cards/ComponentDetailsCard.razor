@@ -8,26 +8,20 @@
     @{
         if (Entity != null)
         {
-            <MudGrid Class="justify-center">
-                <MudItem xs="12" xl="9">
-                    <MudPaper Style="margin: 20px">
-                        <div style="display:flex; flex-direction: row;padding-left:20px; padding-right: 20px; padding-top:8px; padding-bottom:8px; align-items: center; ">
-                            @Title(Entity)
-                            <MudToolBarSpacer />
-                            @Actions(Entity)
-                        </div>
+            <div style="display:flex; flex-direction: row;padding-left:20px; padding-right: 20px; padding-top:8px; padding-bottom:8px; align-items: center; ">
+                @Title(Entity)
+                <MudToolBarSpacer />
+                @Actions(Entity)
+            </div>
 
-                        <MudDivider />
+            <MudDivider />
 
-                        <MudGrid xs="12" Style="margin: 0px;">
-                            <MudItem xs="12" md="6" lg="4" Style="padding: 0px">
-                                @LeftContent(Entity)
-                            </MudItem>
-                            <MudItem xs="12" md="6" lg="8" Style="border-left: 1px solid var(--mud-palette-divider); padding: 0px 12px 0px 0px; ">
-                                @RightContent(Entity)
-                            </MudItem>
-                        </MudGrid>
-                    </MudPaper>
+            <MudGrid xs="12" Style="margin: 0px;">
+                <MudItem xs="12" md="6" lg="4" Style="padding: 0px">
+                    @LeftContent(Entity)
+                </MudItem>
+                <MudItem xs="12" md="6" lg="8" Style="border-left: 1px solid var(--mud-palette-divider); padding: 0px 12px 0px 0px; ">
+                    @RightContent(Entity)
                 </MudItem>
             </MudGrid>
         }

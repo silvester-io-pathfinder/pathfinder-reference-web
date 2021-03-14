@@ -5,7 +5,6 @@ using Microsoft.Extensions.DependencyInjection;
 using MudBlazor.Services;
 using Silvester.Pathfinder.Official.Web.Graphql;
 using Silvester.Pathfinder.Official.Web.Graphql.Generated;
-using Silvester.Pathfinder.Official.Web.Mocked;
 using Silvester.Pathfinder.Official.Web.Pages.Overviews;
 using Silvester.Pathfinder.Official.Web.Pages.Overviews.Feats;
 using Silvester.Pathfinder.Official.Web.Pages.Overviews.Spells;
@@ -30,8 +29,6 @@ namespace Silvester.Pathfinder.Official.Web
             builder.Services.AddFluxor(options => options.ScanAssemblies(typeof(Program).Assembly));
 
             builder.Services.AddScoped<IClipboardService, ClipboardService>();
-            builder.Services.AddScoped<IEntityService<Feat>, FeatService>();
-            builder.Services.AddScoped<IEntityService<Spell>, SpellService>();
             builder.Services.AddScoped(sp => new HttpClient
             {
                 BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)

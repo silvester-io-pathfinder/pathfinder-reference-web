@@ -1,0 +1,12 @@
+﻿<MudGrid Class="justify-center">
+    <MudItem xs="12" xl="9">
+
+        @ChildContent
+
+    </MudItem>
+</MudGrid>
+
+@code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+}

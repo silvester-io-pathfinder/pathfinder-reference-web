@@ -1,0 +1,40 @@
+﻿query GetRacesPage($skip: Int!, $take: Int!, $searchTerm: String! = "", $order: [RaceSortInput!] = [{name: ASC}]) {
+	races(
+		skip: $skip, 
+		take: $take, 
+		order: $order,
+		where: {
+			or: [
+				{name: {contains: $searchTerm}},
+				{rarity: {name: {contains: $searchTerm}}},
+				{language: {some: {name: {contains: $searchTerm}}}},
+			]
+		}) 
+	{
+		totalCount,
+		items {
+			... RacesPage	
+		}
+	}
+}
+
+fragment RacesPage on Race {
+	id,
+	name,
+	baseSpeed,
+	baseHealth,
+	size {
+		... RacesPage_Size
+	},
+	rarity {
+		... RacesPage_Rarity
+	}
+}
+
+fragment RacesPage_Size on RaceSize {
+	name
+}
+
+fragment RacesPage_Rarity on RaceRarity {
+	name
+}
