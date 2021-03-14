@@ -1,4 +1,5 @@
 ﻿@using Silvester.Pathfinder.Official.Web.Shared.Preferences;
+@using Silvester.Pathfinder.Official.Web.Services;
 
 @typeparam TEntity
 
@@ -6,11 +7,20 @@
     @{
         if (Entity != null)
         {
-            <div style="display:flex; flex-direction: row;padding-left:20px; padding-right: 20px; padding-top:8px; padding-bottom:8px; align-items: center; ">
+            <CardToolbar>
                 @Title(Entity)
                 <MudToolBarSpacer />
-                @Actions(Entity)
-            </div>
+                @if(Actions != null)
+                {
+                    @Actions(Entity)
+                }
+                @if (Shareable)
+                {
+                    <MudTooltip Text="Share">
+                        <MudIconButton Size="Size.Medium" OnClick="@(async () => await OnShareClickAsync())" Icon="@Icons.Material.Filled.Share"></MudIconButton>
+                    </MudTooltip>
+                }
+            </CardToolbar>
 
             <MudDivider />
 
@@ -25,3 +35,39 @@
         }
     }
 </div>
+
+@code
+{
+    [Parameter]
+    public bool Shareable { get; set; } = true;
+
+    [Inject]
+    public IClipboardService ClipboardService { get; set; } = default!;
+
+    [Inject]
+    public ISnackbar Snackbar { get; set; } = default!;
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; } = default!;
+
+    [Parameter]
+    public TEntity? Entity { get; set; }
+
+    [Parameter]
+    public RenderFragment<TEntity>? Actions { get; set; } = default!;
+
+    [Parameter]
+    public RenderFragment<TEntity> LeftContent { get; set; } = default!;
+
+    [Parameter]
+    public RenderFragment<TEntity> RightContent { get; set; } = default!;
+
+    [Parameter]
+    public RenderFragment<TEntity> Title { get; set; } = default!;
+
+    public async Task OnShareClickAsync()
+    {
+        await ClipboardService.WriteTextAsync(NavigationManager.Uri);
+        Snackbar.Add(@"Copied URL to clipboard!", Severity.Success);
+    }
+}

@@ -7,28 +7,30 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
     public partial class FeatEntity
     {
         public FeatEntity(
+            global::StrawberryShake.EntityId? rollableEffect,
             global::System.Guid id,
             global::System.String name,
             global::System.Int32 level,
             global::System.String? special,
             global::System.String? trigger,
             global::StrawberryShake.EntityId? frequency,
-            global::StrawberryShake.EntityId? rollableEffect,
             global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId> traits,
             global::System.Boolean canBeLearnedMoreThanOnce,
             global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId> details)
         {
+            RollableEffect = rollableEffect;
             Id = id;
             Name = name;
             Level = level;
             Special = special;
             Trigger = trigger;
             Frequency = frequency;
-            RollableEffect = rollableEffect;
             Traits = traits;
             CanBeLearnedMoreThanOnce = canBeLearnedMoreThanOnce;
             Details = details;
         }
+
+        public global::StrawberryShake.EntityId? RollableEffect { get; }
 
         public global::System.Guid Id { get; }
 
@@ -42,31 +44,11 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
 
         public global::StrawberryShake.EntityId? Frequency { get; }
 
-        public global::StrawberryShake.EntityId? RollableEffect { get; }
-
         public global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId> Traits { get; }
 
         public global::System.Boolean CanBeLearnedMoreThanOnce { get; }
 
         public global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId> Details { get; }
-    }
-}
-
-
-// FrequencyEntity.StrawberryShake.cs
-#nullable enable
-
-namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
-{
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public partial class FrequencyEntity
-    {
-        public FrequencyEntity(global::System.String name)
-        {
-            Name = name;
-        }
-
-        public global::System.String Name { get; }
     }
 }
 
@@ -98,6 +80,24 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
         public global::System.String? Failure { get; }
 
         public global::System.String? CriticalFailure { get; }
+    }
+}
+
+
+// FrequencyEntity.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public partial class FrequencyEntity
+    {
+        public FrequencyEntity(global::System.String name)
+        {
+            Name = name;
+        }
+
+        public global::System.String Name { get; }
     }
 }
 
@@ -164,20 +164,34 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
     public partial class RaceEntity
     {
         public RaceEntity(
+            global::StrawberryShake.EntityId raceSize,
+            global::StrawberryShake.EntityId raceRarity,
             global::System.Guid id,
             global::System.String name,
             global::System.Int32 baseSpeed,
             global::System.Int32 baseHealth,
+            global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId> languages,
+            global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId> raceTraits,
+            global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId> heritages,
             global::StrawberryShake.EntityId size,
             global::StrawberryShake.EntityId rarity)
         {
+            RaceSize = raceSize;
+            RaceRarity = raceRarity;
             Id = id;
             Name = name;
             BaseSpeed = baseSpeed;
             BaseHealth = baseHealth;
+            Languages = languages;
+            RaceTraits = raceTraits;
+            Heritages = heritages;
             Size = size;
             Rarity = rarity;
         }
+
+        public global::StrawberryShake.EntityId RaceSize { get; }
+
+        public global::StrawberryShake.EntityId RaceRarity { get; }
 
         public global::System.Guid Id { get; }
 
@@ -186,6 +200,12 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
         public global::System.Int32 BaseSpeed { get; }
 
         public global::System.Int32 BaseHealth { get; }
+
+        public global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId> Languages { get; }
+
+        public global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId> RaceTraits { get; }
+
+        public global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId> Heritages { get; }
 
         public global::StrawberryShake.EntityId Size { get; }
 
@@ -202,10 +222,15 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
     public partial class RaceSizeEntity
     {
-        public RaceSizeEntity(global::System.String name)
+        public RaceSizeEntity(
+            global::System.Guid id,
+            global::System.String name)
         {
+            Id = id;
             Name = name;
         }
+
+        public global::System.Guid Id { get; }
 
         public global::System.String Name { get; }
     }
@@ -220,10 +245,142 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
     public partial class RaceRarityEntity
     {
-        public RaceRarityEntity(global::System.String name)
+        public RaceRarityEntity(
+            global::System.Guid id,
+            global::System.String name)
         {
+            Id = id;
             Name = name;
         }
+
+        public global::System.Guid Id { get; }
+
+        public global::System.String Name { get; }
+    }
+}
+
+
+// LanguageEntity.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public partial class LanguageEntity
+    {
+        public LanguageEntity(
+            global::System.Guid id,
+            global::System.String name,
+            global::StrawberryShake.EntityId type)
+        {
+            Id = id;
+            Name = name;
+            Type = type;
+        }
+
+        public global::System.Guid Id { get; }
+
+        public global::System.String Name { get; }
+
+        public global::StrawberryShake.EntityId Type { get; }
+    }
+}
+
+
+// RaceTraitEntity.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public partial class RaceTraitEntity
+    {
+        public RaceTraitEntity(
+            global::System.Guid id,
+            global::System.String name)
+        {
+            Id = id;
+            Name = name;
+        }
+
+        public global::System.Guid Id { get; }
+
+        public global::System.String Name { get; }
+    }
+}
+
+
+// HeritageEntity.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public partial class HeritageEntity
+    {
+        public HeritageEntity(
+            global::System.Guid id,
+            global::System.String name,
+            global::System.String description,
+            global::StrawberryShake.EntityId rarity)
+        {
+            Id = id;
+            Name = name;
+            Description = description;
+            Rarity = rarity;
+        }
+
+        public global::System.Guid Id { get; }
+
+        public global::System.String Name { get; }
+
+        public global::System.String Description { get; }
+
+        public global::StrawberryShake.EntityId Rarity { get; }
+    }
+}
+
+
+// LanguageTypeEntity.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public partial class LanguageTypeEntity
+    {
+        public LanguageTypeEntity(
+            global::System.Guid id,
+            global::System.String name)
+        {
+            Id = id;
+            Name = name;
+        }
+
+        public global::System.Guid Id { get; }
+
+        public global::System.String Name { get; }
+    }
+}
+
+
+// HeritageRarityEntity.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public partial class HeritageRarityEntity
+    {
+        public HeritageRarityEntity(
+            global::System.Guid id,
+            global::System.String name)
+        {
+            Id = id;
+            Name = name;
+        }
+
+        public global::System.Guid Id { get; }
 
         public global::System.String Name { get; }
     }
@@ -322,25 +479,25 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
     {
         private readonly global::StrawberryShake.IEntityStore _entityStore;
         private readonly global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.FeatEntity, GetFeatById_Feats_Items_Feat> _getFeatById_Feats_Items_FeatFromFeatEntityMapper;
-        private readonly global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.FrequencyEntity, GetFeatById_Feats_Items_Frequency_Frequency> _getFeatById_Feats_Items_Frequency_FrequencyFromFrequencyEntityMapper;
         private readonly global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RollableEffectEntity, GetFeatById_Feats_Items_RollableEffect_RollableEffect> _getFeatById_Feats_Items_RollableEffect_RollableEffectFromRollableEffectEntityMapper;
+        private readonly global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.FrequencyEntity, GetFeatById_Feats_Items_Frequency_Frequency> _getFeatById_Feats_Items_Frequency_FrequencyFromFrequencyEntityMapper;
         private readonly global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.TraitEntity, GetFeatById_Feats_Items_Traits_Trait> _getFeatById_Feats_Items_Traits_TraitFromTraitEntityMapper;
 
         public GetFeatByIdResultFactory(
             global::StrawberryShake.IEntityStore entityStore,
             global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.FeatEntity, GetFeatById_Feats_Items_Feat> getFeatById_Feats_Items_FeatFromFeatEntityMapper,
-            global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.FrequencyEntity, GetFeatById_Feats_Items_Frequency_Frequency> getFeatById_Feats_Items_Frequency_FrequencyFromFrequencyEntityMapper,
             global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RollableEffectEntity, GetFeatById_Feats_Items_RollableEffect_RollableEffect> getFeatById_Feats_Items_RollableEffect_RollableEffectFromRollableEffectEntityMapper,
+            global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.FrequencyEntity, GetFeatById_Feats_Items_Frequency_Frequency> getFeatById_Feats_Items_Frequency_FrequencyFromFrequencyEntityMapper,
             global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.TraitEntity, GetFeatById_Feats_Items_Traits_Trait> getFeatById_Feats_Items_Traits_TraitFromTraitEntityMapper)
         {
             _entityStore = entityStore
                  ?? throw new global::System.ArgumentNullException(nameof(entityStore));
             _getFeatById_Feats_Items_FeatFromFeatEntityMapper = getFeatById_Feats_Items_FeatFromFeatEntityMapper
                  ?? throw new global::System.ArgumentNullException(nameof(getFeatById_Feats_Items_FeatFromFeatEntityMapper));
-            _getFeatById_Feats_Items_Frequency_FrequencyFromFrequencyEntityMapper = getFeatById_Feats_Items_Frequency_FrequencyFromFrequencyEntityMapper
-                 ?? throw new global::System.ArgumentNullException(nameof(getFeatById_Feats_Items_Frequency_FrequencyFromFrequencyEntityMapper));
             _getFeatById_Feats_Items_RollableEffect_RollableEffectFromRollableEffectEntityMapper = getFeatById_Feats_Items_RollableEffect_RollableEffectFromRollableEffectEntityMapper
                  ?? throw new global::System.ArgumentNullException(nameof(getFeatById_Feats_Items_RollableEffect_RollableEffectFromRollableEffectEntityMapper));
+            _getFeatById_Feats_Items_Frequency_FrequencyFromFrequencyEntityMapper = getFeatById_Feats_Items_Frequency_FrequencyFromFrequencyEntityMapper
+                 ?? throw new global::System.ArgumentNullException(nameof(getFeatById_Feats_Items_Frequency_FrequencyFromFrequencyEntityMapper));
             _getFeatById_Feats_Items_Traits_TraitFromTraitEntityMapper = getFeatById_Feats_Items_Traits_TraitFromTraitEntityMapper
                  ?? throw new global::System.ArgumentNullException(nameof(getFeatById_Feats_Items_Traits_TraitFromTraitEntityMapper));
         }
@@ -434,27 +591,6 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
             throw new global::System.NotSupportedException();
         }
 
-        private global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetFeatById_Feats_Items_Frequency? MapIGetFeatById_Feats_Items_Frequency(
-            global::StrawberryShake.EntityId? entityId,
-            global::StrawberryShake.IEntityStoreSnapshot snapshot)
-        {
-            if (entityId is null)
-            {
-                return null;
-            }
-
-
-            if (entityId.Value.Name.Equals(
-                    "Frequency",
-                    global::System.StringComparison.Ordinal))
-            {
-                return _getFeatById_Feats_Items_Frequency_FrequencyFromFrequencyEntityMapper.Map(
-                    snapshot.GetEntity<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.FrequencyEntity>(entityId.Value)
-                        ?? throw new global::StrawberryShake.GraphQLClientException());
-            }
-            throw new global::System.NotSupportedException();
-        }
-
         private global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetFeatById_Feats_Items_RollableEffect? MapIGetFeatById_Feats_Items_RollableEffect(
             global::StrawberryShake.EntityId? entityId,
             global::StrawberryShake.IEntityStoreSnapshot snapshot)
@@ -471,6 +607,27 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
             {
                 return _getFeatById_Feats_Items_RollableEffect_RollableEffectFromRollableEffectEntityMapper.Map(
                     snapshot.GetEntity<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RollableEffectEntity>(entityId.Value)
+                        ?? throw new global::StrawberryShake.GraphQLClientException());
+            }
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetFeatById_Feats_Items_Frequency? MapIGetFeatById_Feats_Items_Frequency(
+            global::StrawberryShake.EntityId? entityId,
+            global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+            if (entityId is null)
+            {
+                return null;
+            }
+
+
+            if (entityId.Value.Name.Equals(
+                    "Frequency",
+                    global::System.StringComparison.Ordinal))
+            {
+                return _getFeatById_Feats_Items_Frequency_FrequencyFromFrequencyEntityMapper.Map(
+                    snapshot.GetEntity<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.FrequencyEntity>(entityId.Value)
                         ?? throw new global::StrawberryShake.GraphQLClientException());
             }
             throw new global::System.NotSupportedException();
@@ -744,22 +901,22 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
         : global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.FeatEntity, GetFeatById_Feats_Items_Feat>
     {
         private readonly global::StrawberryShake.IEntityStore _entityStore;
-        private readonly global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.FrequencyEntity, GetFeatById_Feats_Items_Frequency_Frequency> _getFeatById_Feats_Items_Frequency_FrequencyFromFrequencyEntityMapper;
         private readonly global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RollableEffectEntity, GetFeatById_Feats_Items_RollableEffect_RollableEffect> _getFeatById_Feats_Items_RollableEffect_RollableEffectFromRollableEffectEntityMapper;
+        private readonly global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.FrequencyEntity, GetFeatById_Feats_Items_Frequency_Frequency> _getFeatById_Feats_Items_Frequency_FrequencyFromFrequencyEntityMapper;
         private readonly global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.TraitEntity, GetFeatById_Feats_Items_Traits_Trait> _getFeatById_Feats_Items_Traits_TraitFromTraitEntityMapper;
 
         public GetFeatById_Feats_Items_FeatFromFeatEntityMapper(
             global::StrawberryShake.IEntityStore entityStore,
-            global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.FrequencyEntity, GetFeatById_Feats_Items_Frequency_Frequency> getFeatById_Feats_Items_Frequency_FrequencyFromFrequencyEntityMapper,
             global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RollableEffectEntity, GetFeatById_Feats_Items_RollableEffect_RollableEffect> getFeatById_Feats_Items_RollableEffect_RollableEffectFromRollableEffectEntityMapper,
+            global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.FrequencyEntity, GetFeatById_Feats_Items_Frequency_Frequency> getFeatById_Feats_Items_Frequency_FrequencyFromFrequencyEntityMapper,
             global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.TraitEntity, GetFeatById_Feats_Items_Traits_Trait> getFeatById_Feats_Items_Traits_TraitFromTraitEntityMapper)
         {
             _entityStore = entityStore
                  ?? throw new global::System.ArgumentNullException(nameof(entityStore));
-            _getFeatById_Feats_Items_Frequency_FrequencyFromFrequencyEntityMapper = getFeatById_Feats_Items_Frequency_FrequencyFromFrequencyEntityMapper
-                 ?? throw new global::System.ArgumentNullException(nameof(getFeatById_Feats_Items_Frequency_FrequencyFromFrequencyEntityMapper));
             _getFeatById_Feats_Items_RollableEffect_RollableEffectFromRollableEffectEntityMapper = getFeatById_Feats_Items_RollableEffect_RollableEffectFromRollableEffectEntityMapper
                  ?? throw new global::System.ArgumentNullException(nameof(getFeatById_Feats_Items_RollableEffect_RollableEffectFromRollableEffectEntityMapper));
+            _getFeatById_Feats_Items_Frequency_FrequencyFromFrequencyEntityMapper = getFeatById_Feats_Items_Frequency_FrequencyFromFrequencyEntityMapper
+                 ?? throw new global::System.ArgumentNullException(nameof(getFeatById_Feats_Items_Frequency_FrequencyFromFrequencyEntityMapper));
             _getFeatById_Feats_Items_Traits_TraitFromTraitEntityMapper = getFeatById_Feats_Items_Traits_TraitFromTraitEntityMapper
                  ?? throw new global::System.ArgumentNullException(nameof(getFeatById_Feats_Items_Traits_TraitFromTraitEntityMapper));
         }
@@ -774,6 +931,9 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
             }
 
             return new GetFeatById_Feats_Items_Feat(
+                MapIGetFeatById_Feats_Items_RollableEffect(
+                    entity.RollableEffect,
+                    snapshot),
                 entity.Id,
                 entity.Name,
                 entity.Level,
@@ -782,33 +942,9 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
                 MapIGetFeatById_Feats_Items_Frequency(
                     entity.Frequency,
                     snapshot),
-                MapIGetFeatById_Feats_Items_RollableEffect(
-                    entity.RollableEffect,
-                    snapshot),
                 MapNonNullableIGetFeatById_Feats_Items_TraitsNonNullableArray(
                     entity.Traits,
                     snapshot));
-        }
-
-        private global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetFeatById_Feats_Items_Frequency? MapIGetFeatById_Feats_Items_Frequency(
-            global::StrawberryShake.EntityId? entityId,
-            global::StrawberryShake.IEntityStoreSnapshot snapshot)
-        {
-            if (entityId is null)
-            {
-                return null;
-            }
-
-
-            if (entityId.Value.Name.Equals(
-                    "Frequency",
-                    global::System.StringComparison.Ordinal))
-            {
-                return _getFeatById_Feats_Items_Frequency_FrequencyFromFrequencyEntityMapper.Map(
-                    snapshot.GetEntity<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.FrequencyEntity>(entityId.Value)
-                        ?? throw new global::StrawberryShake.GraphQLClientException());
-            }
-            throw new global::System.NotSupportedException();
         }
 
         private global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetFeatById_Feats_Items_RollableEffect? MapIGetFeatById_Feats_Items_RollableEffect(
@@ -827,6 +963,27 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
             {
                 return _getFeatById_Feats_Items_RollableEffect_RollableEffectFromRollableEffectEntityMapper.Map(
                     snapshot.GetEntity<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RollableEffectEntity>(entityId.Value)
+                        ?? throw new global::StrawberryShake.GraphQLClientException());
+            }
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetFeatById_Feats_Items_Frequency? MapIGetFeatById_Feats_Items_Frequency(
+            global::StrawberryShake.EntityId? entityId,
+            global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+            if (entityId is null)
+            {
+                return null;
+            }
+
+
+            if (entityId.Value.Name.Equals(
+                    "Frequency",
+                    global::System.StringComparison.Ordinal))
+            {
+                return _getFeatById_Feats_Items_Frequency_FrequencyFromFrequencyEntityMapper.Map(
+                    snapshot.GetEntity<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.FrequencyEntity>(entityId.Value)
                         ?? throw new global::StrawberryShake.GraphQLClientException());
             }
             throw new global::System.NotSupportedException();
@@ -878,24 +1035,26 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
         , IGetFeatById_Feats_Items_Feat
     {
         public GetFeatById_Feats_Items_Feat(
+            global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetFeatById_Feats_Items_RollableEffect? rollableEffect,
             global::System.Guid id,
             global::System.String name,
             global::System.Int32 level,
             global::System.String? special,
             global::System.String? trigger,
             global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetFeatById_Feats_Items_Frequency? frequency,
-            global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetFeatById_Feats_Items_RollableEffect? rollableEffect,
             global::System.Collections.Generic.IReadOnlyList<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetFeatById_Feats_Items_Traits> traits)
         {
+            RollableEffect = rollableEffect;
             Id = id;
             Name = name;
             Level = level;
             Special = special;
             Trigger = trigger;
             Frequency = frequency;
-            RollableEffect = rollableEffect;
             Traits = traits;
         }
+
+        public global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetFeatById_Feats_Items_RollableEffect? RollableEffect { get; }
 
         public global::System.Guid Id { get; }
 
@@ -908,8 +1067,6 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
         public global::System.String? Trigger { get; }
 
         public global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetFeatById_Feats_Items_Frequency? Frequency { get; }
-
-        public global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetFeatById_Feats_Items_RollableEffect? RollableEffect { get; }
 
         public global::System.Collections.Generic.IReadOnlyList<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetFeatById_Feats_Items_Traits> Traits { get; }
 
@@ -958,13 +1115,13 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
                 return false;
             }
 
-            return (Id == other.Id)
+            return (((RollableEffect is null && other.RollableEffect is null) ||RollableEffect != null && RollableEffect.Equals(other.RollableEffect)))
+                && Id == other.Id
                 && Name.Equals(other.Name)
                 && Level == other.Level
                 && ((Special is null && other.Special is null) ||Special != null && Special.Equals(other.Special))
                 && ((Trigger is null && other.Trigger is null) ||Trigger != null && Trigger.Equals(other.Trigger))
                 && ((Frequency is null && other.Frequency is null) ||Frequency != null && Frequency.Equals(other.Frequency))
-                && ((RollableEffect is null && other.RollableEffect is null) ||RollableEffect != null && RollableEffect.Equals(other.RollableEffect))
                 && global::StrawberryShake.Helper.ComparisonHelper.SequenceEqual(
                         Traits,
                         other.Traits);
@@ -975,6 +1132,11 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
             unchecked
             {
                 int hash = 5;
+
+                if (!(RollableEffect is null))
+                {
+                    hash ^= 397 * RollableEffect.GetHashCode();
+                }
 
                 hash ^= 397 * Id.GetHashCode();
 
@@ -997,114 +1159,10 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
                     hash ^= 397 * Frequency.GetHashCode();
                 }
 
-                if (!(RollableEffect is null))
-                {
-                    hash ^= 397 * RollableEffect.GetHashCode();
-                }
-
                 foreach (var Traits_elm in Traits)
                 {
                     hash ^= 397 * Traits_elm.GetHashCode();
                 }
-
-                return hash;
-            }
-        }
-    }
-}
-
-
-// GetFeatById_Feats_Items_Frequency_FrequencyFromFrequencyEntityMapper.StrawberryShake.cs
-#nullable enable
-
-namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
-{
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public partial class GetFeatById_Feats_Items_Frequency_FrequencyFromFrequencyEntityMapper
-        : global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.FrequencyEntity, GetFeatById_Feats_Items_Frequency_Frequency>
-    {
-        public GetFeatById_Feats_Items_Frequency_Frequency Map(
-            global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.FrequencyEntity entity,
-            global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
-        {
-            return new GetFeatById_Feats_Items_Frequency_Frequency(entity.Name);
-        }
-    }
-}
-
-
-// GetFeatById_Feats_Items_Frequency_Frequency.StrawberryShake.cs
-#nullable enable
-
-namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
-{
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public partial class GetFeatById_Feats_Items_Frequency_Frequency
-        : global::System.IEquatable<GetFeatById_Feats_Items_Frequency_Frequency>
-        , IGetFeatById_Feats_Items_Frequency_Frequency
-    {
-        public GetFeatById_Feats_Items_Frequency_Frequency(global::System.String name)
-        {
-            Name = name;
-        }
-
-        public global::System.String Name { get; }
-
-        public override global::System.Boolean Equals(global::System.Object? obj)
-        {
-            if (ReferenceEquals(
-                    null,
-                    obj))
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(
-                    this,
-                    obj))
-            {
-                return true;
-            }
-
-            if (obj.GetType() != GetType())
-            {
-                return false;
-            }
-
-            return Equals((GetFeatById_Feats_Items_Frequency_Frequency)obj);
-        }
-
-        public global::System.Boolean Equals(GetFeatById_Feats_Items_Frequency_Frequency? other)
-        {
-            if (ReferenceEquals(
-                    null,
-                    other))
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(
-                    this,
-                    other))
-            {
-                return true;
-            }
-
-            if (other.GetType() != GetType())
-            {
-                return false;
-            }
-
-            return (Name.Equals(other.Name));
-        }
-
-        public override global::System.Int32 GetHashCode()
-        {
-            unchecked
-            {
-                int hash = 5;
-
-                hash ^= 397 * Name.GetHashCode();
 
                 return hash;
             }
@@ -1242,6 +1300,105 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
                 {
                     hash ^= 397 * CriticalFailure.GetHashCode();
                 }
+
+                return hash;
+            }
+        }
+    }
+}
+
+
+// GetFeatById_Feats_Items_Frequency_FrequencyFromFrequencyEntityMapper.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public partial class GetFeatById_Feats_Items_Frequency_FrequencyFromFrequencyEntityMapper
+        : global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.FrequencyEntity, GetFeatById_Feats_Items_Frequency_Frequency>
+    {
+        public GetFeatById_Feats_Items_Frequency_Frequency Map(
+            global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.FrequencyEntity entity,
+            global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
+        {
+            return new GetFeatById_Feats_Items_Frequency_Frequency(entity.Name);
+        }
+    }
+}
+
+
+// GetFeatById_Feats_Items_Frequency_Frequency.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public partial class GetFeatById_Feats_Items_Frequency_Frequency
+        : global::System.IEquatable<GetFeatById_Feats_Items_Frequency_Frequency>
+        , IGetFeatById_Feats_Items_Frequency_Frequency
+    {
+        public GetFeatById_Feats_Items_Frequency_Frequency(global::System.String name)
+        {
+            Name = name;
+        }
+
+        public global::System.String Name { get; }
+
+        public override global::System.Boolean Equals(global::System.Object? obj)
+        {
+            if (ReferenceEquals(
+                    null,
+                    obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(
+                    this,
+                    obj))
+            {
+                return true;
+            }
+
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return Equals((GetFeatById_Feats_Items_Frequency_Frequency)obj);
+        }
+
+        public global::System.Boolean Equals(GetFeatById_Feats_Items_Frequency_Frequency? other)
+        {
+            if (ReferenceEquals(
+                    null,
+                    other))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(
+                    this,
+                    other))
+            {
+                return true;
+            }
+
+            if (other.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return (Name.Equals(other.Name));
+        }
+
+        public override global::System.Int32 GetHashCode()
+        {
+            unchecked
+            {
+                int hash = 5;
+
+                hash ^= 397 * Name.GetHashCode();
 
                 return hash;
             }
@@ -1426,8 +1583,6 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
 
         public global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetFeatById_Feats_Items_Frequency? Frequency { get; }
 
-        public global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetFeatById_Feats_Items_RollableEffect? RollableEffect { get; }
-
         public global::System.Collections.Generic.IReadOnlyList<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetFeatById_Feats_Items_Traits> Traits { get; }
     }
 }
@@ -1442,6 +1597,7 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
     public interface IGetFeatById_Feats_Items
         : IFeatById
     {
+        public global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetFeatById_Feats_Items_RollableEffect? RollableEffect { get; }
     }
 }
 
@@ -1454,32 +1610,6 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
     public interface IGetFeatById_Feats_Items_Feat
         : IGetFeatById_Feats_Items
-    {
-    }
-}
-
-
-// IGetFeatById_Feats_Items_Frequency.StrawberryShake.cs
-#nullable enable
-
-namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
-{
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public interface IGetFeatById_Feats_Items_Frequency
-    {
-        public global::System.String Name { get; }
-    }
-}
-
-
-// IGetFeatById_Feats_Items_Frequency_Frequency.StrawberryShake.cs
-#nullable enable
-
-namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
-{
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public interface IGetFeatById_Feats_Items_Frequency_Frequency
-        : IGetFeatById_Feats_Items_Frequency
     {
     }
 }
@@ -1512,6 +1642,32 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
     public interface IGetFeatById_Feats_Items_RollableEffect_RollableEffect
         : IGetFeatById_Feats_Items_RollableEffect
+    {
+    }
+}
+
+
+// IGetFeatById_Feats_Items_Frequency.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public interface IGetFeatById_Feats_Items_Frequency
+    {
+        public global::System.String Name { get; }
+    }
+}
+
+
+// IGetFeatById_Feats_Items_Frequency_Frequency.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public interface IGetFeatById_Feats_Items_Frequency_Frequency
+        : IGetFeatById_Feats_Items_Frequency
     {
     }
 }
@@ -2341,6 +2497,2142 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
     public interface IGetFeatsPage_Feats_Items_Details_FeatDetailsBlock
         : IGetFeatsPage_Feats_Items_Details
+    {
+    }
+}
+
+
+// GetRaceByIdResultFactory.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public partial class GetRaceByIdResultFactory
+        : global::StrawberryShake.IOperationResultDataFactory<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.GetRaceByIdResult>
+    {
+        private readonly global::StrawberryShake.IEntityStore _entityStore;
+        private readonly global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceEntity, GetRaceById_Races_Items_Race> _getRaceById_Races_Items_RaceFromRaceEntityMapper;
+        private readonly global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceSizeEntity, GetRaceById_Races_Items_RaceSize_RaceSize> _getRaceById_Races_Items_RaceSize_RaceSizeFromRaceSizeEntityMapper;
+        private readonly global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceRarityEntity, GetRaceById_Races_Items_RaceRarity_RaceRarity> _getRaceById_Races_Items_RaceRarity_RaceRarityFromRaceRarityEntityMapper;
+        private readonly global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.LanguageEntity, GetRaceById_Races_Items_Languages_Language> _getRaceById_Races_Items_Languages_LanguageFromLanguageEntityMapper;
+        private readonly global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.LanguageTypeEntity, GetRaceById_Races_Items_Languages_Type_LanguageType> _getRaceById_Races_Items_Languages_Type_LanguageTypeFromLanguageTypeEntityMapper;
+        private readonly global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceTraitEntity, GetRaceById_Races_Items_RaceTraits_RaceTrait> _getRaceById_Races_Items_RaceTraits_RaceTraitFromRaceTraitEntityMapper;
+        private readonly global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.HeritageEntity, GetRaceById_Races_Items_Heritages_Heritage> _getRaceById_Races_Items_Heritages_HeritageFromHeritageEntityMapper;
+        private readonly global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.HeritageRarityEntity, GetRaceById_Races_Items_Heritages_Rarity_HeritageRarity> _getRaceById_Races_Items_Heritages_Rarity_HeritageRarityFromHeritageRarityEntityMapper;
+
+        public GetRaceByIdResultFactory(
+            global::StrawberryShake.IEntityStore entityStore,
+            global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceEntity, GetRaceById_Races_Items_Race> getRaceById_Races_Items_RaceFromRaceEntityMapper,
+            global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceSizeEntity, GetRaceById_Races_Items_RaceSize_RaceSize> getRaceById_Races_Items_RaceSize_RaceSizeFromRaceSizeEntityMapper,
+            global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceRarityEntity, GetRaceById_Races_Items_RaceRarity_RaceRarity> getRaceById_Races_Items_RaceRarity_RaceRarityFromRaceRarityEntityMapper,
+            global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.LanguageEntity, GetRaceById_Races_Items_Languages_Language> getRaceById_Races_Items_Languages_LanguageFromLanguageEntityMapper,
+            global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.LanguageTypeEntity, GetRaceById_Races_Items_Languages_Type_LanguageType> getRaceById_Races_Items_Languages_Type_LanguageTypeFromLanguageTypeEntityMapper,
+            global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceTraitEntity, GetRaceById_Races_Items_RaceTraits_RaceTrait> getRaceById_Races_Items_RaceTraits_RaceTraitFromRaceTraitEntityMapper,
+            global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.HeritageEntity, GetRaceById_Races_Items_Heritages_Heritage> getRaceById_Races_Items_Heritages_HeritageFromHeritageEntityMapper,
+            global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.HeritageRarityEntity, GetRaceById_Races_Items_Heritages_Rarity_HeritageRarity> getRaceById_Races_Items_Heritages_Rarity_HeritageRarityFromHeritageRarityEntityMapper)
+        {
+            _entityStore = entityStore
+                 ?? throw new global::System.ArgumentNullException(nameof(entityStore));
+            _getRaceById_Races_Items_RaceFromRaceEntityMapper = getRaceById_Races_Items_RaceFromRaceEntityMapper
+                 ?? throw new global::System.ArgumentNullException(nameof(getRaceById_Races_Items_RaceFromRaceEntityMapper));
+            _getRaceById_Races_Items_RaceSize_RaceSizeFromRaceSizeEntityMapper = getRaceById_Races_Items_RaceSize_RaceSizeFromRaceSizeEntityMapper
+                 ?? throw new global::System.ArgumentNullException(nameof(getRaceById_Races_Items_RaceSize_RaceSizeFromRaceSizeEntityMapper));
+            _getRaceById_Races_Items_RaceRarity_RaceRarityFromRaceRarityEntityMapper = getRaceById_Races_Items_RaceRarity_RaceRarityFromRaceRarityEntityMapper
+                 ?? throw new global::System.ArgumentNullException(nameof(getRaceById_Races_Items_RaceRarity_RaceRarityFromRaceRarityEntityMapper));
+            _getRaceById_Races_Items_Languages_LanguageFromLanguageEntityMapper = getRaceById_Races_Items_Languages_LanguageFromLanguageEntityMapper
+                 ?? throw new global::System.ArgumentNullException(nameof(getRaceById_Races_Items_Languages_LanguageFromLanguageEntityMapper));
+            _getRaceById_Races_Items_Languages_Type_LanguageTypeFromLanguageTypeEntityMapper = getRaceById_Races_Items_Languages_Type_LanguageTypeFromLanguageTypeEntityMapper
+                 ?? throw new global::System.ArgumentNullException(nameof(getRaceById_Races_Items_Languages_Type_LanguageTypeFromLanguageTypeEntityMapper));
+            _getRaceById_Races_Items_RaceTraits_RaceTraitFromRaceTraitEntityMapper = getRaceById_Races_Items_RaceTraits_RaceTraitFromRaceTraitEntityMapper
+                 ?? throw new global::System.ArgumentNullException(nameof(getRaceById_Races_Items_RaceTraits_RaceTraitFromRaceTraitEntityMapper));
+            _getRaceById_Races_Items_Heritages_HeritageFromHeritageEntityMapper = getRaceById_Races_Items_Heritages_HeritageFromHeritageEntityMapper
+                 ?? throw new global::System.ArgumentNullException(nameof(getRaceById_Races_Items_Heritages_HeritageFromHeritageEntityMapper));
+            _getRaceById_Races_Items_Heritages_Rarity_HeritageRarityFromHeritageRarityEntityMapper = getRaceById_Races_Items_Heritages_Rarity_HeritageRarityFromHeritageRarityEntityMapper
+                 ?? throw new global::System.ArgumentNullException(nameof(getRaceById_Races_Items_Heritages_Rarity_HeritageRarityFromHeritageRarityEntityMapper));
+        }
+
+        global::System.Type global::StrawberryShake.IOperationResultDataFactory.ResultType => typeof(global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceByIdResult);
+
+        public GetRaceByIdResult Create(
+            global::StrawberryShake.IOperationResultDataInfo dataInfo,
+            global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
+        {
+            if (snapshot is null)
+            {
+                snapshot = _entityStore.CurrentSnapshot;
+            }
+
+            if (dataInfo is GetRaceByIdResultInfo info)
+            {
+                return new GetRaceByIdResult(MapIGetRaceById_Races(
+                    info.Races,
+                    snapshot));
+            }
+
+            throw new global::System.ArgumentException("GetRaceByIdResultInfo expected.");
+        }
+
+        private global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races? MapIGetRaceById_Races(
+            global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceCollectionSegmentData? data,
+            global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+            if (data is null)
+            {
+                return null;
+            }
+
+            IGetRaceById_Races returnValue = default!;
+
+            if (data?.__typename.Equals(
+                    "RaceCollectionSegment",
+                    global::System.StringComparison.Ordinal) ?? false)
+            {
+                returnValue = new GetRaceById_Races_RaceCollectionSegment(MapIGetRaceById_Races_ItemsArray(
+                    data.Items,
+                    snapshot));
+            }
+            else
+            {
+                throw new global::System.NotSupportedException();
+            }
+            return returnValue;
+        }
+
+        private global::System.Collections.Generic.IReadOnlyList<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items?>? MapIGetRaceById_Races_ItemsArray(
+            global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId?>? list,
+            global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+            if (list is null)
+            {
+                return null;
+            }
+
+            var races = new global::System.Collections.Generic.List<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items?>();
+
+            foreach (global::StrawberryShake.EntityId? child in list)
+            {
+                races.Add(MapIGetRaceById_Races_Items(
+                    child,
+                    snapshot));
+            }
+
+            return races;
+        }
+
+        private global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items? MapIGetRaceById_Races_Items(
+            global::StrawberryShake.EntityId? entityId,
+            global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+            if (entityId is null)
+            {
+                return null;
+            }
+
+
+            if (entityId.Value.Name.Equals(
+                    "Race",
+                    global::System.StringComparison.Ordinal))
+            {
+                return _getRaceById_Races_Items_RaceFromRaceEntityMapper.Map(
+                    snapshot.GetEntity<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceEntity>(entityId.Value)
+                        ?? throw new global::StrawberryShake.GraphQLClientException());
+            }
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items_RaceSize MapNonNullableIGetRaceById_Races_Items_RaceSize(
+            global::StrawberryShake.EntityId entityId,
+            global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+
+            if (entityId.Name.Equals(
+                    "RaceSize",
+                    global::System.StringComparison.Ordinal))
+            {
+                return _getRaceById_Races_Items_RaceSize_RaceSizeFromRaceSizeEntityMapper.Map(
+                    snapshot.GetEntity<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceSizeEntity>(entityId)
+                        ?? throw new global::StrawberryShake.GraphQLClientException());
+            }
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items_RaceRarity MapNonNullableIGetRaceById_Races_Items_RaceRarity(
+            global::StrawberryShake.EntityId entityId,
+            global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+
+            if (entityId.Name.Equals(
+                    "RaceRarity",
+                    global::System.StringComparison.Ordinal))
+            {
+                return _getRaceById_Races_Items_RaceRarity_RaceRarityFromRaceRarityEntityMapper.Map(
+                    snapshot.GetEntity<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceRarityEntity>(entityId)
+                        ?? throw new global::StrawberryShake.GraphQLClientException());
+            }
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::System.Collections.Generic.IReadOnlyList<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items_Languages> MapNonNullableIGetRaceById_Races_Items_LanguagesNonNullableArray(
+            global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId>? list,
+            global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+            var languages = new global::System.Collections.Generic.List<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items_Languages>();
+
+            foreach (global::StrawberryShake.EntityId child in list)
+            {
+                languages.Add(MapNonNullableIGetRaceById_Races_Items_Languages(
+                    child,
+                    snapshot));
+            }
+
+            return languages;
+        }
+
+        private global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items_Languages MapNonNullableIGetRaceById_Races_Items_Languages(
+            global::StrawberryShake.EntityId entityId,
+            global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+
+            if (entityId.Name.Equals(
+                    "Language",
+                    global::System.StringComparison.Ordinal))
+            {
+                return _getRaceById_Races_Items_Languages_LanguageFromLanguageEntityMapper.Map(
+                    snapshot.GetEntity<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.LanguageEntity>(entityId)
+                        ?? throw new global::StrawberryShake.GraphQLClientException());
+            }
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items_Languages_Type MapNonNullableIGetRaceById_Races_Items_Languages_Type(
+            global::StrawberryShake.EntityId entityId,
+            global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+
+            if (entityId.Name.Equals(
+                    "LanguageType",
+                    global::System.StringComparison.Ordinal))
+            {
+                return _getRaceById_Races_Items_Languages_Type_LanguageTypeFromLanguageTypeEntityMapper.Map(
+                    snapshot.GetEntity<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.LanguageTypeEntity>(entityId)
+                        ?? throw new global::StrawberryShake.GraphQLClientException());
+            }
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::System.Collections.Generic.IReadOnlyList<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items_RaceTraits> MapNonNullableIGetRaceById_Races_Items_RaceTraitsNonNullableArray(
+            global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId>? list,
+            global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+            var raceTraits = new global::System.Collections.Generic.List<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items_RaceTraits>();
+
+            foreach (global::StrawberryShake.EntityId child in list)
+            {
+                raceTraits.Add(MapNonNullableIGetRaceById_Races_Items_RaceTraits(
+                    child,
+                    snapshot));
+            }
+
+            return raceTraits;
+        }
+
+        private global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items_RaceTraits MapNonNullableIGetRaceById_Races_Items_RaceTraits(
+            global::StrawberryShake.EntityId entityId,
+            global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+
+            if (entityId.Name.Equals(
+                    "RaceTrait",
+                    global::System.StringComparison.Ordinal))
+            {
+                return _getRaceById_Races_Items_RaceTraits_RaceTraitFromRaceTraitEntityMapper.Map(
+                    snapshot.GetEntity<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceTraitEntity>(entityId)
+                        ?? throw new global::StrawberryShake.GraphQLClientException());
+            }
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::System.Collections.Generic.IReadOnlyList<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items_Heritages> MapNonNullableIGetRaceById_Races_Items_HeritagesNonNullableArray(
+            global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId>? list,
+            global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+            var heritages = new global::System.Collections.Generic.List<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items_Heritages>();
+
+            foreach (global::StrawberryShake.EntityId child in list)
+            {
+                heritages.Add(MapNonNullableIGetRaceById_Races_Items_Heritages(
+                    child,
+                    snapshot));
+            }
+
+            return heritages;
+        }
+
+        private global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items_Heritages MapNonNullableIGetRaceById_Races_Items_Heritages(
+            global::StrawberryShake.EntityId entityId,
+            global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+
+            if (entityId.Name.Equals(
+                    "Heritage",
+                    global::System.StringComparison.Ordinal))
+            {
+                return _getRaceById_Races_Items_Heritages_HeritageFromHeritageEntityMapper.Map(
+                    snapshot.GetEntity<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.HeritageEntity>(entityId)
+                        ?? throw new global::StrawberryShake.GraphQLClientException());
+            }
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items_Heritages_Rarity MapNonNullableIGetRaceById_Races_Items_Heritages_Rarity(
+            global::StrawberryShake.EntityId entityId,
+            global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+
+            if (entityId.Name.Equals(
+                    "HeritageRarity",
+                    global::System.StringComparison.Ordinal))
+            {
+                return _getRaceById_Races_Items_Heritages_Rarity_HeritageRarityFromHeritageRarityEntityMapper.Map(
+                    snapshot.GetEntity<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.HeritageRarityEntity>(entityId)
+                        ?? throw new global::StrawberryShake.GraphQLClientException());
+            }
+            throw new global::System.NotSupportedException();
+        }
+
+        global::System.Object global::StrawberryShake.IOperationResultDataFactory.Create(
+            global::StrawberryShake.IOperationResultDataInfo dataInfo,
+            global::StrawberryShake.IEntityStoreSnapshot? snapshot)
+        {
+            return Create(
+                dataInfo,
+                snapshot);
+        }
+    }
+}
+
+
+// GetRaceByIdResultInfo.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public partial class GetRaceByIdResultInfo
+        : global::StrawberryShake.IOperationResultDataInfo
+    {
+        private readonly global::System.Collections.Generic.IReadOnlyCollection<global::StrawberryShake.EntityId> _entityIds;
+        private readonly global::System.UInt64 _version;
+
+        public GetRaceByIdResultInfo(
+            global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceCollectionSegmentData? races,
+            global::System.Collections.Generic.IReadOnlyCollection<global::StrawberryShake.EntityId> entityIds,
+            global::System.UInt64 version)
+        {
+            Races = races;
+            _entityIds = entityIds
+                 ?? throw new global::System.ArgumentNullException(nameof(entityIds));
+            _version = version;
+        }
+
+        public global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceCollectionSegmentData? Races { get; }
+
+        public global::System.Collections.Generic.IReadOnlyCollection<global::StrawberryShake.EntityId> EntityIds => _entityIds;
+
+        public global::System.UInt64 Version => _version;
+
+        public global::StrawberryShake.IOperationResultDataInfo WithVersion(global::System.UInt64 version)
+        {
+            return new GetRaceByIdResultInfo(
+                Races,
+                _entityIds,
+                version);
+        }
+    }
+}
+
+
+// GetRaceByIdResult.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public partial class GetRaceByIdResult
+        : global::System.IEquatable<GetRaceByIdResult>
+        , IGetRaceByIdResult
+    {
+        public GetRaceByIdResult(global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races? races)
+        {
+            Races = races;
+        }
+
+        public global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races? Races { get; }
+
+        public override global::System.Boolean Equals(global::System.Object? obj)
+        {
+            if (ReferenceEquals(
+                    null,
+                    obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(
+                    this,
+                    obj))
+            {
+                return true;
+            }
+
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return Equals((GetRaceByIdResult)obj);
+        }
+
+        public global::System.Boolean Equals(GetRaceByIdResult? other)
+        {
+            if (ReferenceEquals(
+                    null,
+                    other))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(
+                    this,
+                    other))
+            {
+                return true;
+            }
+
+            if (other.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return (((Races is null && other.Races is null) ||Races != null && Races.Equals(other.Races)));
+        }
+
+        public override global::System.Int32 GetHashCode()
+        {
+            unchecked
+            {
+                int hash = 5;
+
+                if (!(Races is null))
+                {
+                    hash ^= 397 * Races.GetHashCode();
+                }
+
+                return hash;
+            }
+        }
+    }
+}
+
+
+// GetRaceById_Races_RaceCollectionSegment.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public partial class GetRaceById_Races_RaceCollectionSegment
+        : global::System.IEquatable<GetRaceById_Races_RaceCollectionSegment>
+        , IGetRaceById_Races_RaceCollectionSegment
+    {
+        public GetRaceById_Races_RaceCollectionSegment(global::System.Collections.Generic.IReadOnlyList<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items?>? items)
+        {
+            Items = items;
+        }
+
+        public global::System.Collections.Generic.IReadOnlyList<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items?>? Items { get; }
+
+        public override global::System.Boolean Equals(global::System.Object? obj)
+        {
+            if (ReferenceEquals(
+                    null,
+                    obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(
+                    this,
+                    obj))
+            {
+                return true;
+            }
+
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return Equals((GetRaceById_Races_RaceCollectionSegment)obj);
+        }
+
+        public global::System.Boolean Equals(GetRaceById_Races_RaceCollectionSegment? other)
+        {
+            if (ReferenceEquals(
+                    null,
+                    other))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(
+                    this,
+                    other))
+            {
+                return true;
+            }
+
+            if (other.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return (global::StrawberryShake.Helper.ComparisonHelper.SequenceEqual(
+                        Items,
+                        other.Items));
+        }
+
+        public override global::System.Int32 GetHashCode()
+        {
+            unchecked
+            {
+                int hash = 5;
+
+                if (!(Items is null))
+                {
+                    foreach (var Items_elm in Items)
+                    {
+                        if (!(Items_elm is null))
+                        {
+                            hash ^= 397 * Items_elm.GetHashCode();
+                        }
+                    }
+                }
+
+                return hash;
+            }
+        }
+    }
+}
+
+
+// GetRaceById_Races_Items_RaceFromRaceEntityMapper.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public partial class GetRaceById_Races_Items_RaceFromRaceEntityMapper
+        : global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceEntity, GetRaceById_Races_Items_Race>
+    {
+        private readonly global::StrawberryShake.IEntityStore _entityStore;
+        private readonly global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceSizeEntity, GetRaceById_Races_Items_RaceSize_RaceSize> _getRaceById_Races_Items_RaceSize_RaceSizeFromRaceSizeEntityMapper;
+        private readonly global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceRarityEntity, GetRaceById_Races_Items_RaceRarity_RaceRarity> _getRaceById_Races_Items_RaceRarity_RaceRarityFromRaceRarityEntityMapper;
+        private readonly global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.LanguageEntity, GetRaceById_Races_Items_Languages_Language> _getRaceById_Races_Items_Languages_LanguageFromLanguageEntityMapper;
+        private readonly global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.LanguageTypeEntity, GetRaceById_Races_Items_Languages_Type_LanguageType> _getRaceById_Races_Items_Languages_Type_LanguageTypeFromLanguageTypeEntityMapper;
+        private readonly global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceTraitEntity, GetRaceById_Races_Items_RaceTraits_RaceTrait> _getRaceById_Races_Items_RaceTraits_RaceTraitFromRaceTraitEntityMapper;
+        private readonly global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.HeritageEntity, GetRaceById_Races_Items_Heritages_Heritage> _getRaceById_Races_Items_Heritages_HeritageFromHeritageEntityMapper;
+        private readonly global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.HeritageRarityEntity, GetRaceById_Races_Items_Heritages_Rarity_HeritageRarity> _getRaceById_Races_Items_Heritages_Rarity_HeritageRarityFromHeritageRarityEntityMapper;
+
+        public GetRaceById_Races_Items_RaceFromRaceEntityMapper(
+            global::StrawberryShake.IEntityStore entityStore,
+            global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceSizeEntity, GetRaceById_Races_Items_RaceSize_RaceSize> getRaceById_Races_Items_RaceSize_RaceSizeFromRaceSizeEntityMapper,
+            global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceRarityEntity, GetRaceById_Races_Items_RaceRarity_RaceRarity> getRaceById_Races_Items_RaceRarity_RaceRarityFromRaceRarityEntityMapper,
+            global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.LanguageEntity, GetRaceById_Races_Items_Languages_Language> getRaceById_Races_Items_Languages_LanguageFromLanguageEntityMapper,
+            global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.LanguageTypeEntity, GetRaceById_Races_Items_Languages_Type_LanguageType> getRaceById_Races_Items_Languages_Type_LanguageTypeFromLanguageTypeEntityMapper,
+            global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceTraitEntity, GetRaceById_Races_Items_RaceTraits_RaceTrait> getRaceById_Races_Items_RaceTraits_RaceTraitFromRaceTraitEntityMapper,
+            global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.HeritageEntity, GetRaceById_Races_Items_Heritages_Heritage> getRaceById_Races_Items_Heritages_HeritageFromHeritageEntityMapper,
+            global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.HeritageRarityEntity, GetRaceById_Races_Items_Heritages_Rarity_HeritageRarity> getRaceById_Races_Items_Heritages_Rarity_HeritageRarityFromHeritageRarityEntityMapper)
+        {
+            _entityStore = entityStore
+                 ?? throw new global::System.ArgumentNullException(nameof(entityStore));
+            _getRaceById_Races_Items_RaceSize_RaceSizeFromRaceSizeEntityMapper = getRaceById_Races_Items_RaceSize_RaceSizeFromRaceSizeEntityMapper
+                 ?? throw new global::System.ArgumentNullException(nameof(getRaceById_Races_Items_RaceSize_RaceSizeFromRaceSizeEntityMapper));
+            _getRaceById_Races_Items_RaceRarity_RaceRarityFromRaceRarityEntityMapper = getRaceById_Races_Items_RaceRarity_RaceRarityFromRaceRarityEntityMapper
+                 ?? throw new global::System.ArgumentNullException(nameof(getRaceById_Races_Items_RaceRarity_RaceRarityFromRaceRarityEntityMapper));
+            _getRaceById_Races_Items_Languages_LanguageFromLanguageEntityMapper = getRaceById_Races_Items_Languages_LanguageFromLanguageEntityMapper
+                 ?? throw new global::System.ArgumentNullException(nameof(getRaceById_Races_Items_Languages_LanguageFromLanguageEntityMapper));
+            _getRaceById_Races_Items_Languages_Type_LanguageTypeFromLanguageTypeEntityMapper = getRaceById_Races_Items_Languages_Type_LanguageTypeFromLanguageTypeEntityMapper
+                 ?? throw new global::System.ArgumentNullException(nameof(getRaceById_Races_Items_Languages_Type_LanguageTypeFromLanguageTypeEntityMapper));
+            _getRaceById_Races_Items_RaceTraits_RaceTraitFromRaceTraitEntityMapper = getRaceById_Races_Items_RaceTraits_RaceTraitFromRaceTraitEntityMapper
+                 ?? throw new global::System.ArgumentNullException(nameof(getRaceById_Races_Items_RaceTraits_RaceTraitFromRaceTraitEntityMapper));
+            _getRaceById_Races_Items_Heritages_HeritageFromHeritageEntityMapper = getRaceById_Races_Items_Heritages_HeritageFromHeritageEntityMapper
+                 ?? throw new global::System.ArgumentNullException(nameof(getRaceById_Races_Items_Heritages_HeritageFromHeritageEntityMapper));
+            _getRaceById_Races_Items_Heritages_Rarity_HeritageRarityFromHeritageRarityEntityMapper = getRaceById_Races_Items_Heritages_Rarity_HeritageRarityFromHeritageRarityEntityMapper
+                 ?? throw new global::System.ArgumentNullException(nameof(getRaceById_Races_Items_Heritages_Rarity_HeritageRarityFromHeritageRarityEntityMapper));
+        }
+
+        public GetRaceById_Races_Items_Race Map(
+            global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceEntity entity,
+            global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
+        {
+            if (snapshot is null)
+            {
+                snapshot = _entityStore.CurrentSnapshot;
+            }
+
+            return new GetRaceById_Races_Items_Race(
+                MapNonNullableIGetRaceById_Races_Items_RaceSize(
+                    entity.RaceSize,
+                    snapshot),
+                MapNonNullableIGetRaceById_Races_Items_RaceRarity(
+                    entity.RaceRarity,
+                    snapshot),
+                entity.Id,
+                entity.Name,
+                entity.BaseSpeed,
+                entity.BaseHealth,
+                MapNonNullableIGetRaceById_Races_Items_LanguagesNonNullableArray(
+                    entity.Languages,
+                    snapshot),
+                MapNonNullableIGetRaceById_Races_Items_RaceTraitsNonNullableArray(
+                    entity.RaceTraits,
+                    snapshot),
+                MapNonNullableIGetRaceById_Races_Items_HeritagesNonNullableArray(
+                    entity.Heritages,
+                    snapshot));
+        }
+
+        private global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items_RaceSize MapNonNullableIGetRaceById_Races_Items_RaceSize(
+            global::StrawberryShake.EntityId entityId,
+            global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+
+            if (entityId.Name.Equals(
+                    "RaceSize",
+                    global::System.StringComparison.Ordinal))
+            {
+                return _getRaceById_Races_Items_RaceSize_RaceSizeFromRaceSizeEntityMapper.Map(
+                    snapshot.GetEntity<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceSizeEntity>(entityId)
+                        ?? throw new global::StrawberryShake.GraphQLClientException());
+            }
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items_RaceRarity MapNonNullableIGetRaceById_Races_Items_RaceRarity(
+            global::StrawberryShake.EntityId entityId,
+            global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+
+            if (entityId.Name.Equals(
+                    "RaceRarity",
+                    global::System.StringComparison.Ordinal))
+            {
+                return _getRaceById_Races_Items_RaceRarity_RaceRarityFromRaceRarityEntityMapper.Map(
+                    snapshot.GetEntity<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceRarityEntity>(entityId)
+                        ?? throw new global::StrawberryShake.GraphQLClientException());
+            }
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::System.Collections.Generic.IReadOnlyList<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items_Languages> MapNonNullableIGetRaceById_Races_Items_LanguagesNonNullableArray(
+            global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId>? list,
+            global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+            var languages = new global::System.Collections.Generic.List<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items_Languages>();
+
+            foreach (global::StrawberryShake.EntityId child in list)
+            {
+                languages.Add(MapNonNullableIGetRaceById_Races_Items_Languages(
+                    child,
+                    snapshot));
+            }
+
+            return languages;
+        }
+
+        private global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items_Languages MapNonNullableIGetRaceById_Races_Items_Languages(
+            global::StrawberryShake.EntityId entityId,
+            global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+
+            if (entityId.Name.Equals(
+                    "Language",
+                    global::System.StringComparison.Ordinal))
+            {
+                return _getRaceById_Races_Items_Languages_LanguageFromLanguageEntityMapper.Map(
+                    snapshot.GetEntity<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.LanguageEntity>(entityId)
+                        ?? throw new global::StrawberryShake.GraphQLClientException());
+            }
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items_Languages_Type MapNonNullableIGetRaceById_Races_Items_Languages_Type(
+            global::StrawberryShake.EntityId entityId,
+            global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+
+            if (entityId.Name.Equals(
+                    "LanguageType",
+                    global::System.StringComparison.Ordinal))
+            {
+                return _getRaceById_Races_Items_Languages_Type_LanguageTypeFromLanguageTypeEntityMapper.Map(
+                    snapshot.GetEntity<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.LanguageTypeEntity>(entityId)
+                        ?? throw new global::StrawberryShake.GraphQLClientException());
+            }
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::System.Collections.Generic.IReadOnlyList<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items_RaceTraits> MapNonNullableIGetRaceById_Races_Items_RaceTraitsNonNullableArray(
+            global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId>? list,
+            global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+            var raceTraits = new global::System.Collections.Generic.List<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items_RaceTraits>();
+
+            foreach (global::StrawberryShake.EntityId child in list)
+            {
+                raceTraits.Add(MapNonNullableIGetRaceById_Races_Items_RaceTraits(
+                    child,
+                    snapshot));
+            }
+
+            return raceTraits;
+        }
+
+        private global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items_RaceTraits MapNonNullableIGetRaceById_Races_Items_RaceTraits(
+            global::StrawberryShake.EntityId entityId,
+            global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+
+            if (entityId.Name.Equals(
+                    "RaceTrait",
+                    global::System.StringComparison.Ordinal))
+            {
+                return _getRaceById_Races_Items_RaceTraits_RaceTraitFromRaceTraitEntityMapper.Map(
+                    snapshot.GetEntity<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceTraitEntity>(entityId)
+                        ?? throw new global::StrawberryShake.GraphQLClientException());
+            }
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::System.Collections.Generic.IReadOnlyList<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items_Heritages> MapNonNullableIGetRaceById_Races_Items_HeritagesNonNullableArray(
+            global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId>? list,
+            global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+            var heritages = new global::System.Collections.Generic.List<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items_Heritages>();
+
+            foreach (global::StrawberryShake.EntityId child in list)
+            {
+                heritages.Add(MapNonNullableIGetRaceById_Races_Items_Heritages(
+                    child,
+                    snapshot));
+            }
+
+            return heritages;
+        }
+
+        private global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items_Heritages MapNonNullableIGetRaceById_Races_Items_Heritages(
+            global::StrawberryShake.EntityId entityId,
+            global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+
+            if (entityId.Name.Equals(
+                    "Heritage",
+                    global::System.StringComparison.Ordinal))
+            {
+                return _getRaceById_Races_Items_Heritages_HeritageFromHeritageEntityMapper.Map(
+                    snapshot.GetEntity<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.HeritageEntity>(entityId)
+                        ?? throw new global::StrawberryShake.GraphQLClientException());
+            }
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items_Heritages_Rarity MapNonNullableIGetRaceById_Races_Items_Heritages_Rarity(
+            global::StrawberryShake.EntityId entityId,
+            global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+
+            if (entityId.Name.Equals(
+                    "HeritageRarity",
+                    global::System.StringComparison.Ordinal))
+            {
+                return _getRaceById_Races_Items_Heritages_Rarity_HeritageRarityFromHeritageRarityEntityMapper.Map(
+                    snapshot.GetEntity<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.HeritageRarityEntity>(entityId)
+                        ?? throw new global::StrawberryShake.GraphQLClientException());
+            }
+            throw new global::System.NotSupportedException();
+        }
+    }
+}
+
+
+// GetRaceById_Races_Items_Race.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public partial class GetRaceById_Races_Items_Race
+        : global::System.IEquatable<GetRaceById_Races_Items_Race>
+        , IGetRaceById_Races_Items_Race
+    {
+        public GetRaceById_Races_Items_Race(
+            global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items_RaceSize raceSize,
+            global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items_RaceRarity raceRarity,
+            global::System.Guid id,
+            global::System.String name,
+            global::System.Int32 baseSpeed,
+            global::System.Int32 baseHealth,
+            global::System.Collections.Generic.IReadOnlyList<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items_Languages> languages,
+            global::System.Collections.Generic.IReadOnlyList<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items_RaceTraits> raceTraits,
+            global::System.Collections.Generic.IReadOnlyList<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items_Heritages> heritages)
+        {
+            RaceSize = raceSize;
+            RaceRarity = raceRarity;
+            Id = id;
+            Name = name;
+            BaseSpeed = baseSpeed;
+            BaseHealth = baseHealth;
+            Languages = languages;
+            RaceTraits = raceTraits;
+            Heritages = heritages;
+        }
+
+        public global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items_RaceSize RaceSize { get; }
+
+        public global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items_RaceRarity RaceRarity { get; }
+
+        public global::System.Guid Id { get; }
+
+        public global::System.String Name { get; }
+
+        public global::System.Int32 BaseSpeed { get; }
+
+        public global::System.Int32 BaseHealth { get; }
+
+        public global::System.Collections.Generic.IReadOnlyList<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items_Languages> Languages { get; }
+
+        public global::System.Collections.Generic.IReadOnlyList<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items_RaceTraits> RaceTraits { get; }
+
+        public global::System.Collections.Generic.IReadOnlyList<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items_Heritages> Heritages { get; }
+
+        public override global::System.Boolean Equals(global::System.Object? obj)
+        {
+            if (ReferenceEquals(
+                    null,
+                    obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(
+                    this,
+                    obj))
+            {
+                return true;
+            }
+
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return Equals((GetRaceById_Races_Items_Race)obj);
+        }
+
+        public global::System.Boolean Equals(GetRaceById_Races_Items_Race? other)
+        {
+            if (ReferenceEquals(
+                    null,
+                    other))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(
+                    this,
+                    other))
+            {
+                return true;
+            }
+
+            if (other.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return (RaceSize.Equals(other.RaceSize))
+                && RaceRarity.Equals(other.RaceRarity)
+                && Id == other.Id
+                && Name.Equals(other.Name)
+                && BaseSpeed == other.BaseSpeed
+                && BaseHealth == other.BaseHealth
+                && global::StrawberryShake.Helper.ComparisonHelper.SequenceEqual(
+                        Languages,
+                        other.Languages)
+                && global::StrawberryShake.Helper.ComparisonHelper.SequenceEqual(
+                        RaceTraits,
+                        other.RaceTraits)
+                && global::StrawberryShake.Helper.ComparisonHelper.SequenceEqual(
+                        Heritages,
+                        other.Heritages);
+        }
+
+        public override global::System.Int32 GetHashCode()
+        {
+            unchecked
+            {
+                int hash = 5;
+
+                hash ^= 397 * RaceSize.GetHashCode();
+
+                hash ^= 397 * RaceRarity.GetHashCode();
+
+                hash ^= 397 * Id.GetHashCode();
+
+                hash ^= 397 * Name.GetHashCode();
+
+                hash ^= 397 * BaseSpeed.GetHashCode();
+
+                hash ^= 397 * BaseHealth.GetHashCode();
+
+                foreach (var Languages_elm in Languages)
+                {
+                    hash ^= 397 * Languages_elm.GetHashCode();
+                }
+
+                foreach (var RaceTraits_elm in RaceTraits)
+                {
+                    hash ^= 397 * RaceTraits_elm.GetHashCode();
+                }
+
+                foreach (var Heritages_elm in Heritages)
+                {
+                    hash ^= 397 * Heritages_elm.GetHashCode();
+                }
+
+                return hash;
+            }
+        }
+    }
+}
+
+
+// GetRaceById_Races_Items_RaceSize_RaceSizeFromRaceSizeEntityMapper.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public partial class GetRaceById_Races_Items_RaceSize_RaceSizeFromRaceSizeEntityMapper
+        : global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceSizeEntity, GetRaceById_Races_Items_RaceSize_RaceSize>
+    {
+        public GetRaceById_Races_Items_RaceSize_RaceSize Map(
+            global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceSizeEntity entity,
+            global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
+        {
+            return new GetRaceById_Races_Items_RaceSize_RaceSize(
+                entity.Id,
+                entity.Name);
+        }
+    }
+}
+
+
+// GetRaceById_Races_Items_RaceSize_RaceSize.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public partial class GetRaceById_Races_Items_RaceSize_RaceSize
+        : global::System.IEquatable<GetRaceById_Races_Items_RaceSize_RaceSize>
+        , IGetRaceById_Races_Items_RaceSize_RaceSize
+    {
+        public GetRaceById_Races_Items_RaceSize_RaceSize(
+            global::System.Guid id,
+            global::System.String name)
+        {
+            Id = id;
+            Name = name;
+        }
+
+        public global::System.Guid Id { get; }
+
+        public global::System.String Name { get; }
+
+        public override global::System.Boolean Equals(global::System.Object? obj)
+        {
+            if (ReferenceEquals(
+                    null,
+                    obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(
+                    this,
+                    obj))
+            {
+                return true;
+            }
+
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return Equals((GetRaceById_Races_Items_RaceSize_RaceSize)obj);
+        }
+
+        public global::System.Boolean Equals(GetRaceById_Races_Items_RaceSize_RaceSize? other)
+        {
+            if (ReferenceEquals(
+                    null,
+                    other))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(
+                    this,
+                    other))
+            {
+                return true;
+            }
+
+            if (other.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return (Id == other.Id)
+                && Name.Equals(other.Name);
+        }
+
+        public override global::System.Int32 GetHashCode()
+        {
+            unchecked
+            {
+                int hash = 5;
+
+                hash ^= 397 * Id.GetHashCode();
+
+                hash ^= 397 * Name.GetHashCode();
+
+                return hash;
+            }
+        }
+    }
+}
+
+
+// GetRaceById_Races_Items_RaceRarity_RaceRarityFromRaceRarityEntityMapper.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public partial class GetRaceById_Races_Items_RaceRarity_RaceRarityFromRaceRarityEntityMapper
+        : global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceRarityEntity, GetRaceById_Races_Items_RaceRarity_RaceRarity>
+    {
+        public GetRaceById_Races_Items_RaceRarity_RaceRarity Map(
+            global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceRarityEntity entity,
+            global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
+        {
+            return new GetRaceById_Races_Items_RaceRarity_RaceRarity(
+                entity.Id,
+                entity.Name);
+        }
+    }
+}
+
+
+// GetRaceById_Races_Items_RaceRarity_RaceRarity.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public partial class GetRaceById_Races_Items_RaceRarity_RaceRarity
+        : global::System.IEquatable<GetRaceById_Races_Items_RaceRarity_RaceRarity>
+        , IGetRaceById_Races_Items_RaceRarity_RaceRarity
+    {
+        public GetRaceById_Races_Items_RaceRarity_RaceRarity(
+            global::System.Guid id,
+            global::System.String name)
+        {
+            Id = id;
+            Name = name;
+        }
+
+        public global::System.Guid Id { get; }
+
+        public global::System.String Name { get; }
+
+        public override global::System.Boolean Equals(global::System.Object? obj)
+        {
+            if (ReferenceEquals(
+                    null,
+                    obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(
+                    this,
+                    obj))
+            {
+                return true;
+            }
+
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return Equals((GetRaceById_Races_Items_RaceRarity_RaceRarity)obj);
+        }
+
+        public global::System.Boolean Equals(GetRaceById_Races_Items_RaceRarity_RaceRarity? other)
+        {
+            if (ReferenceEquals(
+                    null,
+                    other))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(
+                    this,
+                    other))
+            {
+                return true;
+            }
+
+            if (other.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return (Id == other.Id)
+                && Name.Equals(other.Name);
+        }
+
+        public override global::System.Int32 GetHashCode()
+        {
+            unchecked
+            {
+                int hash = 5;
+
+                hash ^= 397 * Id.GetHashCode();
+
+                hash ^= 397 * Name.GetHashCode();
+
+                return hash;
+            }
+        }
+    }
+}
+
+
+// GetRaceById_Races_Items_Languages_LanguageFromLanguageEntityMapper.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public partial class GetRaceById_Races_Items_Languages_LanguageFromLanguageEntityMapper
+        : global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.LanguageEntity, GetRaceById_Races_Items_Languages_Language>
+    {
+        private readonly global::StrawberryShake.IEntityStore _entityStore;
+        private readonly global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.LanguageTypeEntity, GetRaceById_Races_Items_Languages_Type_LanguageType> _getRaceById_Races_Items_Languages_Type_LanguageTypeFromLanguageTypeEntityMapper;
+
+        public GetRaceById_Races_Items_Languages_LanguageFromLanguageEntityMapper(
+            global::StrawberryShake.IEntityStore entityStore,
+            global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.LanguageTypeEntity, GetRaceById_Races_Items_Languages_Type_LanguageType> getRaceById_Races_Items_Languages_Type_LanguageTypeFromLanguageTypeEntityMapper)
+        {
+            _entityStore = entityStore
+                 ?? throw new global::System.ArgumentNullException(nameof(entityStore));
+            _getRaceById_Races_Items_Languages_Type_LanguageTypeFromLanguageTypeEntityMapper = getRaceById_Races_Items_Languages_Type_LanguageTypeFromLanguageTypeEntityMapper
+                 ?? throw new global::System.ArgumentNullException(nameof(getRaceById_Races_Items_Languages_Type_LanguageTypeFromLanguageTypeEntityMapper));
+        }
+
+        public GetRaceById_Races_Items_Languages_Language Map(
+            global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.LanguageEntity entity,
+            global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
+        {
+            if (snapshot is null)
+            {
+                snapshot = _entityStore.CurrentSnapshot;
+            }
+
+            return new GetRaceById_Races_Items_Languages_Language(
+                entity.Id,
+                entity.Name,
+                MapNonNullableIGetRaceById_Races_Items_Languages_Type(
+                    entity.Type,
+                    snapshot));
+        }
+
+        private global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items_Languages_Type MapNonNullableIGetRaceById_Races_Items_Languages_Type(
+            global::StrawberryShake.EntityId entityId,
+            global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+
+            if (entityId.Name.Equals(
+                    "LanguageType",
+                    global::System.StringComparison.Ordinal))
+            {
+                return _getRaceById_Races_Items_Languages_Type_LanguageTypeFromLanguageTypeEntityMapper.Map(
+                    snapshot.GetEntity<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.LanguageTypeEntity>(entityId)
+                        ?? throw new global::StrawberryShake.GraphQLClientException());
+            }
+            throw new global::System.NotSupportedException();
+        }
+    }
+}
+
+
+// GetRaceById_Races_Items_Languages_Language.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public partial class GetRaceById_Races_Items_Languages_Language
+        : global::System.IEquatable<GetRaceById_Races_Items_Languages_Language>
+        , IGetRaceById_Races_Items_Languages_Language
+    {
+        public GetRaceById_Races_Items_Languages_Language(
+            global::System.Guid id,
+            global::System.String name,
+            global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items_Languages_Type type)
+        {
+            Id = id;
+            Name = name;
+            Type = type;
+        }
+
+        public global::System.Guid Id { get; }
+
+        public global::System.String Name { get; }
+
+        public global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items_Languages_Type Type { get; }
+
+        public override global::System.Boolean Equals(global::System.Object? obj)
+        {
+            if (ReferenceEquals(
+                    null,
+                    obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(
+                    this,
+                    obj))
+            {
+                return true;
+            }
+
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return Equals((GetRaceById_Races_Items_Languages_Language)obj);
+        }
+
+        public global::System.Boolean Equals(GetRaceById_Races_Items_Languages_Language? other)
+        {
+            if (ReferenceEquals(
+                    null,
+                    other))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(
+                    this,
+                    other))
+            {
+                return true;
+            }
+
+            if (other.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return (Id == other.Id)
+                && Name.Equals(other.Name)
+                && Type.Equals(other.Type);
+        }
+
+        public override global::System.Int32 GetHashCode()
+        {
+            unchecked
+            {
+                int hash = 5;
+
+                hash ^= 397 * Id.GetHashCode();
+
+                hash ^= 397 * Name.GetHashCode();
+
+                hash ^= 397 * Type.GetHashCode();
+
+                return hash;
+            }
+        }
+    }
+}
+
+
+// GetRaceById_Races_Items_RaceTraits_RaceTraitFromRaceTraitEntityMapper.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public partial class GetRaceById_Races_Items_RaceTraits_RaceTraitFromRaceTraitEntityMapper
+        : global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceTraitEntity, GetRaceById_Races_Items_RaceTraits_RaceTrait>
+    {
+        public GetRaceById_Races_Items_RaceTraits_RaceTrait Map(
+            global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceTraitEntity entity,
+            global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
+        {
+            return new GetRaceById_Races_Items_RaceTraits_RaceTrait(
+                entity.Id,
+                entity.Name);
+        }
+    }
+}
+
+
+// GetRaceById_Races_Items_RaceTraits_RaceTrait.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public partial class GetRaceById_Races_Items_RaceTraits_RaceTrait
+        : global::System.IEquatable<GetRaceById_Races_Items_RaceTraits_RaceTrait>
+        , IGetRaceById_Races_Items_RaceTraits_RaceTrait
+    {
+        public GetRaceById_Races_Items_RaceTraits_RaceTrait(
+            global::System.Guid id,
+            global::System.String name)
+        {
+            Id = id;
+            Name = name;
+        }
+
+        public global::System.Guid Id { get; }
+
+        public global::System.String Name { get; }
+
+        public override global::System.Boolean Equals(global::System.Object? obj)
+        {
+            if (ReferenceEquals(
+                    null,
+                    obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(
+                    this,
+                    obj))
+            {
+                return true;
+            }
+
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return Equals((GetRaceById_Races_Items_RaceTraits_RaceTrait)obj);
+        }
+
+        public global::System.Boolean Equals(GetRaceById_Races_Items_RaceTraits_RaceTrait? other)
+        {
+            if (ReferenceEquals(
+                    null,
+                    other))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(
+                    this,
+                    other))
+            {
+                return true;
+            }
+
+            if (other.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return (Id == other.Id)
+                && Name.Equals(other.Name);
+        }
+
+        public override global::System.Int32 GetHashCode()
+        {
+            unchecked
+            {
+                int hash = 5;
+
+                hash ^= 397 * Id.GetHashCode();
+
+                hash ^= 397 * Name.GetHashCode();
+
+                return hash;
+            }
+        }
+    }
+}
+
+
+// GetRaceById_Races_Items_Heritages_HeritageFromHeritageEntityMapper.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public partial class GetRaceById_Races_Items_Heritages_HeritageFromHeritageEntityMapper
+        : global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.HeritageEntity, GetRaceById_Races_Items_Heritages_Heritage>
+    {
+        private readonly global::StrawberryShake.IEntityStore _entityStore;
+        private readonly global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.HeritageRarityEntity, GetRaceById_Races_Items_Heritages_Rarity_HeritageRarity> _getRaceById_Races_Items_Heritages_Rarity_HeritageRarityFromHeritageRarityEntityMapper;
+
+        public GetRaceById_Races_Items_Heritages_HeritageFromHeritageEntityMapper(
+            global::StrawberryShake.IEntityStore entityStore,
+            global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.HeritageRarityEntity, GetRaceById_Races_Items_Heritages_Rarity_HeritageRarity> getRaceById_Races_Items_Heritages_Rarity_HeritageRarityFromHeritageRarityEntityMapper)
+        {
+            _entityStore = entityStore
+                 ?? throw new global::System.ArgumentNullException(nameof(entityStore));
+            _getRaceById_Races_Items_Heritages_Rarity_HeritageRarityFromHeritageRarityEntityMapper = getRaceById_Races_Items_Heritages_Rarity_HeritageRarityFromHeritageRarityEntityMapper
+                 ?? throw new global::System.ArgumentNullException(nameof(getRaceById_Races_Items_Heritages_Rarity_HeritageRarityFromHeritageRarityEntityMapper));
+        }
+
+        public GetRaceById_Races_Items_Heritages_Heritage Map(
+            global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.HeritageEntity entity,
+            global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
+        {
+            if (snapshot is null)
+            {
+                snapshot = _entityStore.CurrentSnapshot;
+            }
+
+            return new GetRaceById_Races_Items_Heritages_Heritage(
+                entity.Id,
+                entity.Name,
+                entity.Description,
+                MapNonNullableIGetRaceById_Races_Items_Heritages_Rarity(
+                    entity.Rarity,
+                    snapshot));
+        }
+
+        private global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items_Heritages_Rarity MapNonNullableIGetRaceById_Races_Items_Heritages_Rarity(
+            global::StrawberryShake.EntityId entityId,
+            global::StrawberryShake.IEntityStoreSnapshot snapshot)
+        {
+
+            if (entityId.Name.Equals(
+                    "HeritageRarity",
+                    global::System.StringComparison.Ordinal))
+            {
+                return _getRaceById_Races_Items_Heritages_Rarity_HeritageRarityFromHeritageRarityEntityMapper.Map(
+                    snapshot.GetEntity<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.HeritageRarityEntity>(entityId)
+                        ?? throw new global::StrawberryShake.GraphQLClientException());
+            }
+            throw new global::System.NotSupportedException();
+        }
+    }
+}
+
+
+// GetRaceById_Races_Items_Heritages_Heritage.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public partial class GetRaceById_Races_Items_Heritages_Heritage
+        : global::System.IEquatable<GetRaceById_Races_Items_Heritages_Heritage>
+        , IGetRaceById_Races_Items_Heritages_Heritage
+    {
+        public GetRaceById_Races_Items_Heritages_Heritage(
+            global::System.Guid id,
+            global::System.String name,
+            global::System.String description,
+            global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items_Heritages_Rarity rarity)
+        {
+            Id = id;
+            Name = name;
+            Description = description;
+            Rarity = rarity;
+        }
+
+        public global::System.Guid Id { get; }
+
+        public global::System.String Name { get; }
+
+        public global::System.String Description { get; }
+
+        public global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items_Heritages_Rarity Rarity { get; }
+
+        public override global::System.Boolean Equals(global::System.Object? obj)
+        {
+            if (ReferenceEquals(
+                    null,
+                    obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(
+                    this,
+                    obj))
+            {
+                return true;
+            }
+
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return Equals((GetRaceById_Races_Items_Heritages_Heritage)obj);
+        }
+
+        public global::System.Boolean Equals(GetRaceById_Races_Items_Heritages_Heritage? other)
+        {
+            if (ReferenceEquals(
+                    null,
+                    other))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(
+                    this,
+                    other))
+            {
+                return true;
+            }
+
+            if (other.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return (Id == other.Id)
+                && Name.Equals(other.Name)
+                && Description.Equals(other.Description)
+                && Rarity.Equals(other.Rarity);
+        }
+
+        public override global::System.Int32 GetHashCode()
+        {
+            unchecked
+            {
+                int hash = 5;
+
+                hash ^= 397 * Id.GetHashCode();
+
+                hash ^= 397 * Name.GetHashCode();
+
+                hash ^= 397 * Description.GetHashCode();
+
+                hash ^= 397 * Rarity.GetHashCode();
+
+                return hash;
+            }
+        }
+    }
+}
+
+
+// GetRaceById_Races_Items_Languages_Type_LanguageTypeFromLanguageTypeEntityMapper.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public partial class GetRaceById_Races_Items_Languages_Type_LanguageTypeFromLanguageTypeEntityMapper
+        : global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.LanguageTypeEntity, GetRaceById_Races_Items_Languages_Type_LanguageType>
+    {
+        public GetRaceById_Races_Items_Languages_Type_LanguageType Map(
+            global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.LanguageTypeEntity entity,
+            global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
+        {
+            return new GetRaceById_Races_Items_Languages_Type_LanguageType(
+                entity.Id,
+                entity.Name);
+        }
+    }
+}
+
+
+// GetRaceById_Races_Items_Languages_Type_LanguageType.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public partial class GetRaceById_Races_Items_Languages_Type_LanguageType
+        : global::System.IEquatable<GetRaceById_Races_Items_Languages_Type_LanguageType>
+        , IGetRaceById_Races_Items_Languages_Type_LanguageType
+    {
+        public GetRaceById_Races_Items_Languages_Type_LanguageType(
+            global::System.Guid id,
+            global::System.String name)
+        {
+            Id = id;
+            Name = name;
+        }
+
+        public global::System.Guid Id { get; }
+
+        public global::System.String Name { get; }
+
+        public override global::System.Boolean Equals(global::System.Object? obj)
+        {
+            if (ReferenceEquals(
+                    null,
+                    obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(
+                    this,
+                    obj))
+            {
+                return true;
+            }
+
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return Equals((GetRaceById_Races_Items_Languages_Type_LanguageType)obj);
+        }
+
+        public global::System.Boolean Equals(GetRaceById_Races_Items_Languages_Type_LanguageType? other)
+        {
+            if (ReferenceEquals(
+                    null,
+                    other))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(
+                    this,
+                    other))
+            {
+                return true;
+            }
+
+            if (other.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return (Id == other.Id)
+                && Name.Equals(other.Name);
+        }
+
+        public override global::System.Int32 GetHashCode()
+        {
+            unchecked
+            {
+                int hash = 5;
+
+                hash ^= 397 * Id.GetHashCode();
+
+                hash ^= 397 * Name.GetHashCode();
+
+                return hash;
+            }
+        }
+    }
+}
+
+
+// GetRaceById_Races_Items_Heritages_Rarity_HeritageRarityFromHeritageRarityEntityMapper.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public partial class GetRaceById_Races_Items_Heritages_Rarity_HeritageRarityFromHeritageRarityEntityMapper
+        : global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.HeritageRarityEntity, GetRaceById_Races_Items_Heritages_Rarity_HeritageRarity>
+    {
+        public GetRaceById_Races_Items_Heritages_Rarity_HeritageRarity Map(
+            global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.HeritageRarityEntity entity,
+            global::StrawberryShake.IEntityStoreSnapshot? snapshot = null)
+        {
+            return new GetRaceById_Races_Items_Heritages_Rarity_HeritageRarity(
+                entity.Id,
+                entity.Name);
+        }
+    }
+}
+
+
+// GetRaceById_Races_Items_Heritages_Rarity_HeritageRarity.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public partial class GetRaceById_Races_Items_Heritages_Rarity_HeritageRarity
+        : global::System.IEquatable<GetRaceById_Races_Items_Heritages_Rarity_HeritageRarity>
+        , IGetRaceById_Races_Items_Heritages_Rarity_HeritageRarity
+    {
+        public GetRaceById_Races_Items_Heritages_Rarity_HeritageRarity(
+            global::System.Guid id,
+            global::System.String name)
+        {
+            Id = id;
+            Name = name;
+        }
+
+        public global::System.Guid Id { get; }
+
+        public global::System.String Name { get; }
+
+        public override global::System.Boolean Equals(global::System.Object? obj)
+        {
+            if (ReferenceEquals(
+                    null,
+                    obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(
+                    this,
+                    obj))
+            {
+                return true;
+            }
+
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return Equals((GetRaceById_Races_Items_Heritages_Rarity_HeritageRarity)obj);
+        }
+
+        public global::System.Boolean Equals(GetRaceById_Races_Items_Heritages_Rarity_HeritageRarity? other)
+        {
+            if (ReferenceEquals(
+                    null,
+                    other))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(
+                    this,
+                    other))
+            {
+                return true;
+            }
+
+            if (other.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return (Id == other.Id)
+                && Name.Equals(other.Name);
+        }
+
+        public override global::System.Int32 GetHashCode()
+        {
+            unchecked
+            {
+                int hash = 5;
+
+                hash ^= 397 * Id.GetHashCode();
+
+                hash ^= 397 * Name.GetHashCode();
+
+                return hash;
+            }
+        }
+    }
+}
+
+
+// IGetRaceByIdResult.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public interface IGetRaceByIdResult
+    {
+        public global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races? Races { get; }
+    }
+}
+
+
+// IGetRaceById_Races.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public interface IGetRaceById_Races
+    {
+        public global::System.Collections.Generic.IReadOnlyList<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items?>? Items { get; }
+    }
+}
+
+
+// IGetRaceById_Races_RaceCollectionSegment.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public interface IGetRaceById_Races_RaceCollectionSegment
+        : IGetRaceById_Races
+    {
+    }
+}
+
+
+// IRaceById.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public interface IRaceById
+    {
+        public global::System.Guid Id { get; }
+
+        public global::System.String Name { get; }
+
+        public global::System.Int32 BaseSpeed { get; }
+
+        public global::System.Int32 BaseHealth { get; }
+
+        public global::System.Collections.Generic.IReadOnlyList<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items_Languages> Languages { get; }
+
+        public global::System.Collections.Generic.IReadOnlyList<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items_RaceTraits> RaceTraits { get; }
+
+        public global::System.Collections.Generic.IReadOnlyList<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items_Heritages> Heritages { get; }
+    }
+}
+
+
+// IGetRaceById_Races_Items.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public interface IGetRaceById_Races_Items
+        : IRaceById
+    {
+        public global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items_RaceSize RaceSize { get; }
+
+        public global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items_RaceRarity RaceRarity { get; }
+    }
+}
+
+
+// IGetRaceById_Races_Items_Race.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public interface IGetRaceById_Races_Items_Race
+        : IGetRaceById_Races_Items
+    {
+    }
+}
+
+
+// IGetRaceById_Races_Items_RaceSize.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public interface IGetRaceById_Races_Items_RaceSize
+    {
+        public global::System.Guid Id { get; }
+
+        public global::System.String Name { get; }
+    }
+}
+
+
+// IGetRaceById_Races_Items_RaceSize_RaceSize.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public interface IGetRaceById_Races_Items_RaceSize_RaceSize
+        : IGetRaceById_Races_Items_RaceSize
+    {
+    }
+}
+
+
+// IGetRaceById_Races_Items_RaceRarity.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public interface IGetRaceById_Races_Items_RaceRarity
+    {
+        public global::System.Guid Id { get; }
+
+        public global::System.String Name { get; }
+    }
+}
+
+
+// IGetRaceById_Races_Items_RaceRarity_RaceRarity.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public interface IGetRaceById_Races_Items_RaceRarity_RaceRarity
+        : IGetRaceById_Races_Items_RaceRarity
+    {
+    }
+}
+
+
+// IRaceById_Language.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public interface IRaceById_Language
+    {
+        public global::System.Guid Id { get; }
+
+        public global::System.String Name { get; }
+
+        public global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items_Languages_Type Type { get; }
+    }
+}
+
+
+// IGetRaceById_Races_Items_Languages.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public interface IGetRaceById_Races_Items_Languages
+        : IRaceById_Language
+    {
+    }
+}
+
+
+// IGetRaceById_Races_Items_Languages_Language.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public interface IGetRaceById_Races_Items_Languages_Language
+        : IGetRaceById_Races_Items_Languages
+    {
+    }
+}
+
+
+// IRaceById_RaceTrait.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public interface IRaceById_RaceTrait
+    {
+        public global::System.Guid Id { get; }
+
+        public global::System.String Name { get; }
+    }
+}
+
+
+// IGetRaceById_Races_Items_RaceTraits.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public interface IGetRaceById_Races_Items_RaceTraits
+        : IRaceById_RaceTrait
+    {
+    }
+}
+
+
+// IGetRaceById_Races_Items_RaceTraits_RaceTrait.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public interface IGetRaceById_Races_Items_RaceTraits_RaceTrait
+        : IGetRaceById_Races_Items_RaceTraits
+    {
+    }
+}
+
+
+// IRaceById_Heritage.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public interface IRaceById_Heritage
+    {
+        public global::System.Guid Id { get; }
+
+        public global::System.String Name { get; }
+
+        public global::System.String Description { get; }
+
+        public global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceById_Races_Items_Heritages_Rarity Rarity { get; }
+    }
+}
+
+
+// IGetRaceById_Races_Items_Heritages.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public interface IGetRaceById_Races_Items_Heritages
+        : IRaceById_Heritage
+    {
+    }
+}
+
+
+// IGetRaceById_Races_Items_Heritages_Heritage.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public interface IGetRaceById_Races_Items_Heritages_Heritage
+        : IGetRaceById_Races_Items_Heritages
+    {
+    }
+}
+
+
+// IRaceById_Language_Type.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public interface IRaceById_Language_Type
+    {
+        public global::System.Guid Id { get; }
+
+        public global::System.String Name { get; }
+    }
+}
+
+
+// IGetRaceById_Races_Items_Languages_Type.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public interface IGetRaceById_Races_Items_Languages_Type
+        : IRaceById_Language_Type
+    {
+    }
+}
+
+
+// IGetRaceById_Races_Items_Languages_Type_LanguageType.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public interface IGetRaceById_Races_Items_Languages_Type_LanguageType
+        : IGetRaceById_Races_Items_Languages_Type
+    {
+    }
+}
+
+
+// IRaceById_Heritage_Rarity.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public interface IRaceById_Heritage_Rarity
+    {
+        public global::System.Guid Id { get; }
+
+        public global::System.String Name { get; }
+    }
+}
+
+
+// IGetRaceById_Races_Items_Heritages_Rarity.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public interface IGetRaceById_Races_Items_Heritages_Rarity
+        : IRaceById_Heritage_Rarity
+    {
+    }
+}
+
+
+// IGetRaceById_Races_Items_Heritages_Rarity_HeritageRarity.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public interface IGetRaceById_Races_Items_Heritages_Rarity_HeritageRarity
+        : IGetRaceById_Races_Items_Heritages_Rarity
     {
     }
 }
@@ -3186,10 +5478,6 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
         public global::System.Int32 BaseSpeed { get; }
 
         public global::System.Int32 BaseHealth { get; }
-
-        public global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRacesPage_Races_Items_Size Size { get; }
-
-        public global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRacesPage_Races_Items_Rarity Rarity { get; }
     }
 }
 
@@ -3203,6 +5491,9 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
     public interface IGetRacesPage_Races_Items
         : IRacesPage
     {
+        public global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRacesPage_Races_Items_Size Size { get; }
+
+        public global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRacesPage_Races_Items_Rarity Rarity { get; }
     }
 }
 
@@ -3220,19 +5511,6 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
 }
 
 
-// IRacesPage_Size.StrawberryShake.cs
-#nullable enable
-
-namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
-{
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public interface IRacesPage_Size
-    {
-        public global::System.String Name { get; }
-    }
-}
-
-
 // IGetRacesPage_Races_Items_Size.StrawberryShake.cs
 #nullable enable
 
@@ -3240,8 +5518,8 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
 {
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
     public interface IGetRacesPage_Races_Items_Size
-        : IRacesPage_Size
     {
+        public global::System.String Name { get; }
     }
 }
 
@@ -3259,19 +5537,6 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
 }
 
 
-// IRacesPage_Rarity.StrawberryShake.cs
-#nullable enable
-
-namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
-{
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
-    public interface IRacesPage_Rarity
-    {
-        public global::System.String Name { get; }
-    }
-}
-
-
 // IGetRacesPage_Races_Items_Rarity.StrawberryShake.cs
 #nullable enable
 
@@ -3279,8 +5544,8 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
 {
     [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
     public interface IGetRacesPage_Races_Items_Rarity
-        : IRacesPage_Rarity
     {
+        public global::System.String Name { get; }
     }
 }
 
@@ -7345,6 +9610,16 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
     ///     __typename
     ///     items {
     ///       __typename
+    ///       rollableEffect {
+    ///         __typename
+    ///         criticalSuccess
+    ///         success
+    ///         failure
+    ///         criticalFailure
+    ///         ... on RollableEffect {
+    ///           id
+    ///         }
+    ///       }
     ///       ... FeatById
     ///       ... on Feat {
     ///         id
@@ -7363,16 +9638,6 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
     ///     __typename
     ///     name
     ///     ... on Frequency {
-    ///       id
-    ///     }
-    ///   }
-    ///   rollableEffect {
-    ///     __typename
-    ///     criticalSuccess
-    ///     success
-    ///     failure
-    ///     criticalFailure
-    ///     ... on RollableEffect {
     ///       id
     ///     }
     ///   }
@@ -7404,9 +9669,9 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
 
         public global::StrawberryShake.OperationKind Kind => global::StrawberryShake.OperationKind.Query;
 
-        public global::System.ReadOnlySpan<global::System.Byte> Body => new global::System.Byte[]{ 0x71, 0x75, 0x65, 0x72, 0x79, 0x20, 0x47, 0x65, 0x74, 0x46, 0x65, 0x61, 0x74, 0x42, 0x79, 0x49, 0x64, 0x28, 0x24, 0x69, 0x64, 0x3a, 0x20, 0x55, 0x75, 0x69, 0x64, 0x21, 0x29, 0x20, 0x7b, 0x20, 0x66, 0x65, 0x61, 0x74, 0x73, 0x28, 0x77, 0x68, 0x65, 0x72, 0x65, 0x3a, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x3a, 0x20, 0x7b, 0x20, 0x65, 0x71, 0x3a, 0x20, 0x24, 0x69, 0x64, 0x20, 0x7d, 0x20, 0x7d, 0x29, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x69, 0x74, 0x65, 0x6d, 0x73, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x46, 0x65, 0x61, 0x74, 0x42, 0x79, 0x49, 0x64, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x6f, 0x6e, 0x20, 0x46, 0x65, 0x61, 0x74, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x66, 0x72, 0x61, 0x67, 0x6d, 0x65, 0x6e, 0x74, 0x20, 0x46, 0x65, 0x61, 0x74, 0x42, 0x79, 0x49, 0x64, 0x20, 0x6f, 0x6e, 0x20, 0x46, 0x65, 0x61, 0x74, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x6c, 0x65, 0x76, 0x65, 0x6c, 0x20, 0x73, 0x70, 0x65, 0x63, 0x69, 0x61, 0x6c, 0x20, 0x74, 0x72, 0x69, 0x67, 0x67, 0x65, 0x72, 0x20, 0x66, 0x72, 0x65, 0x71, 0x75, 0x65, 0x6e, 0x63, 0x79, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x6f, 0x6e, 0x20, 0x46, 0x72, 0x65, 0x71, 0x75, 0x65, 0x6e, 0x63, 0x79, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x72, 0x6f, 0x6c, 0x6c, 0x61, 0x62, 0x6c, 0x65, 0x45, 0x66, 0x66, 0x65, 0x63, 0x74, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x63, 0x72, 0x69, 0x74, 0x69, 0x63, 0x61, 0x6c, 0x53, 0x75, 0x63, 0x63, 0x65, 0x73, 0x73, 0x20, 0x73, 0x75, 0x63, 0x63, 0x65, 0x73, 0x73, 0x20, 0x66, 0x61, 0x69, 0x6c, 0x75, 0x72, 0x65, 0x20, 0x63, 0x72, 0x69, 0x74, 0x69, 0x63, 0x61, 0x6c, 0x46, 0x61, 0x69, 0x6c, 0x75, 0x72, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x6f, 0x6e, 0x20, 0x52, 0x6f, 0x6c, 0x6c, 0x61, 0x62, 0x6c, 0x65, 0x45, 0x66, 0x66, 0x65, 0x63, 0x74, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x74, 0x72, 0x61, 0x69, 0x74, 0x73, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x46, 0x65, 0x61, 0x74, 0x42, 0x79, 0x49, 0x64, 0x5f, 0x54, 0x72, 0x61, 0x69, 0x74, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x6f, 0x6e, 0x20, 0x54, 0x72, 0x61, 0x69, 0x74, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x66, 0x72, 0x61, 0x67, 0x6d, 0x65, 0x6e, 0x74, 0x20, 0x46, 0x65, 0x61, 0x74, 0x42, 0x79, 0x49, 0x64, 0x5f, 0x54, 0x72, 0x61, 0x69, 0x74, 0x20, 0x6f, 0x6e, 0x20, 0x54, 0x72, 0x61, 0x69, 0x74, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x20, 0x7d };
+        public global::System.ReadOnlySpan<global::System.Byte> Body => new global::System.Byte[]{ 0x71, 0x75, 0x65, 0x72, 0x79, 0x20, 0x47, 0x65, 0x74, 0x46, 0x65, 0x61, 0x74, 0x42, 0x79, 0x49, 0x64, 0x28, 0x24, 0x69, 0x64, 0x3a, 0x20, 0x55, 0x75, 0x69, 0x64, 0x21, 0x29, 0x20, 0x7b, 0x20, 0x66, 0x65, 0x61, 0x74, 0x73, 0x28, 0x77, 0x68, 0x65, 0x72, 0x65, 0x3a, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x3a, 0x20, 0x7b, 0x20, 0x65, 0x71, 0x3a, 0x20, 0x24, 0x69, 0x64, 0x20, 0x7d, 0x20, 0x7d, 0x29, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x69, 0x74, 0x65, 0x6d, 0x73, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x72, 0x6f, 0x6c, 0x6c, 0x61, 0x62, 0x6c, 0x65, 0x45, 0x66, 0x66, 0x65, 0x63, 0x74, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x63, 0x72, 0x69, 0x74, 0x69, 0x63, 0x61, 0x6c, 0x53, 0x75, 0x63, 0x63, 0x65, 0x73, 0x73, 0x20, 0x73, 0x75, 0x63, 0x63, 0x65, 0x73, 0x73, 0x20, 0x66, 0x61, 0x69, 0x6c, 0x75, 0x72, 0x65, 0x20, 0x63, 0x72, 0x69, 0x74, 0x69, 0x63, 0x61, 0x6c, 0x46, 0x61, 0x69, 0x6c, 0x75, 0x72, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x6f, 0x6e, 0x20, 0x52, 0x6f, 0x6c, 0x6c, 0x61, 0x62, 0x6c, 0x65, 0x45, 0x66, 0x66, 0x65, 0x63, 0x74, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x46, 0x65, 0x61, 0x74, 0x42, 0x79, 0x49, 0x64, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x6f, 0x6e, 0x20, 0x46, 0x65, 0x61, 0x74, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x66, 0x72, 0x61, 0x67, 0x6d, 0x65, 0x6e, 0x74, 0x20, 0x46, 0x65, 0x61, 0x74, 0x42, 0x79, 0x49, 0x64, 0x20, 0x6f, 0x6e, 0x20, 0x46, 0x65, 0x61, 0x74, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x6c, 0x65, 0x76, 0x65, 0x6c, 0x20, 0x73, 0x70, 0x65, 0x63, 0x69, 0x61, 0x6c, 0x20, 0x74, 0x72, 0x69, 0x67, 0x67, 0x65, 0x72, 0x20, 0x66, 0x72, 0x65, 0x71, 0x75, 0x65, 0x6e, 0x63, 0x79, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x6f, 0x6e, 0x20, 0x46, 0x72, 0x65, 0x71, 0x75, 0x65, 0x6e, 0x63, 0x79, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x74, 0x72, 0x61, 0x69, 0x74, 0x73, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x46, 0x65, 0x61, 0x74, 0x42, 0x79, 0x49, 0x64, 0x5f, 0x54, 0x72, 0x61, 0x69, 0x74, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x6f, 0x6e, 0x20, 0x54, 0x72, 0x61, 0x69, 0x74, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x66, 0x72, 0x61, 0x67, 0x6d, 0x65, 0x6e, 0x74, 0x20, 0x46, 0x65, 0x61, 0x74, 0x42, 0x79, 0x49, 0x64, 0x5f, 0x54, 0x72, 0x61, 0x69, 0x74, 0x20, 0x6f, 0x6e, 0x20, 0x54, 0x72, 0x61, 0x69, 0x74, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x20, 0x7d };
 
-        public global::StrawberryShake.DocumentHash Hash { get; } = new global::StrawberryShake.DocumentHash("sha1Hash", "7a3455507a5f37559b3a48b37ee6c44fe6969695");
+        public global::StrawberryShake.DocumentHash Hash { get; } = new global::StrawberryShake.DocumentHash("sha1Hash", "ec1338290830fa6dce328b0867b3821d0626130e");
 
         public override global::System.String ToString()
         {
@@ -7433,6 +9698,16 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
     ///     __typename
     ///     items {
     ///       __typename
+    ///       rollableEffect {
+    ///         __typename
+    ///         criticalSuccess
+    ///         success
+    ///         failure
+    ///         criticalFailure
+    ///         ... on RollableEffect {
+    ///           id
+    ///         }
+    ///       }
     ///       ... FeatById
     ///       ... on Feat {
     ///         id
@@ -7451,16 +9726,6 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
     ///     __typename
     ///     name
     ///     ... on Frequency {
-    ///       id
-    ///     }
-    ///   }
-    ///   rollableEffect {
-    ///     __typename
-    ///     criticalSuccess
-    ///     success
-    ///     failure
-    ///     criticalFailure
-    ///     ... on RollableEffect {
     ///       id
     ///     }
     ///   }
@@ -7796,6 +10061,322 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
 }
 
 
+// GetRaceByIdQueryDocument.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
+{
+    /// <summary>
+    /// Represents the operation service of the GetRaceById GraphQL operation
+    /// <code>
+    /// query GetRaceById($id: Uuid!) {
+    ///   races(where: { id: { eq: $id } }) {
+    ///     __typename
+    ///     items {
+    ///       __typename
+    ///       raceSize: size {
+    ///         __typename
+    ///         id
+    ///         name
+    ///         ... on RaceSize {
+    ///           id
+    ///         }
+    ///       }
+    ///       raceRarity: rarity {
+    ///         __typename
+    ///         id
+    ///         name
+    ///         ... on RaceRarity {
+    ///           id
+    ///         }
+    ///       }
+    ///       ... RaceById
+    ///       ... on Race {
+    ///         id
+    ///       }
+    ///     }
+    ///   }
+    /// }
+    /// 
+    /// fragment RaceById on Race {
+    ///   id
+    ///   name
+    ///   baseSpeed
+    ///   baseHealth
+    ///   languages {
+    ///     __typename
+    ///     ... RaceById_Language
+    ///     ... on Language {
+    ///       id
+    ///     }
+    ///   }
+    ///   raceTraits {
+    ///     __typename
+    ///     ... RaceById_RaceTrait
+    ///     ... on RaceTrait {
+    ///       id
+    ///     }
+    ///   }
+    ///   heritages {
+    ///     __typename
+    ///     ... RaceById_Heritage
+    ///     ... on Heritage {
+    ///       id
+    ///     }
+    ///   }
+    /// }
+    /// 
+    /// fragment RaceById_Language on Language {
+    ///   id
+    ///   name
+    ///   type {
+    ///     __typename
+    ///     ... RaceById_Language_Type
+    ///     ... on LanguageType {
+    ///       id
+    ///     }
+    ///   }
+    /// }
+    /// 
+    /// fragment RaceById_Language_Type on LanguageType {
+    ///   id
+    ///   name
+    /// }
+    /// 
+    /// fragment RaceById_RaceTrait on RaceTrait {
+    ///   id
+    ///   name
+    /// }
+    /// 
+    /// fragment RaceById_Heritage on Heritage {
+    ///   id
+    ///   name
+    ///   description
+    ///   rarity {
+    ///     __typename
+    ///     ... RaceById_Heritage_Rarity
+    ///     ... on HeritageRarity {
+    ///       id
+    ///     }
+    ///   }
+    /// }
+    /// 
+    /// fragment RaceById_Heritage_Rarity on HeritageRarity {
+    ///   id
+    ///   name
+    /// }
+    /// </code>
+    /// </summary>
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public partial class GetRaceByIdQueryDocument
+        : global::StrawberryShake.IDocument
+    {
+        private GetRaceByIdQueryDocument()
+        {
+        }
+
+        public static GetRaceByIdQueryDocument Instance { get; } = new GetRaceByIdQueryDocument();
+
+        public global::StrawberryShake.OperationKind Kind => global::StrawberryShake.OperationKind.Query;
+
+        public global::System.ReadOnlySpan<global::System.Byte> Body => new global::System.Byte[]{ 0x71, 0x75, 0x65, 0x72, 0x79, 0x20, 0x47, 0x65, 0x74, 0x52, 0x61, 0x63, 0x65, 0x42, 0x79, 0x49, 0x64, 0x28, 0x24, 0x69, 0x64, 0x3a, 0x20, 0x55, 0x75, 0x69, 0x64, 0x21, 0x29, 0x20, 0x7b, 0x20, 0x72, 0x61, 0x63, 0x65, 0x73, 0x28, 0x77, 0x68, 0x65, 0x72, 0x65, 0x3a, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x3a, 0x20, 0x7b, 0x20, 0x65, 0x71, 0x3a, 0x20, 0x24, 0x69, 0x64, 0x20, 0x7d, 0x20, 0x7d, 0x29, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x69, 0x74, 0x65, 0x6d, 0x73, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x72, 0x61, 0x63, 0x65, 0x53, 0x69, 0x7a, 0x65, 0x3a, 0x20, 0x73, 0x69, 0x7a, 0x65, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x69, 0x64, 0x20, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x6f, 0x6e, 0x20, 0x52, 0x61, 0x63, 0x65, 0x53, 0x69, 0x7a, 0x65, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x72, 0x61, 0x63, 0x65, 0x52, 0x61, 0x72, 0x69, 0x74, 0x79, 0x3a, 0x20, 0x72, 0x61, 0x72, 0x69, 0x74, 0x79, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x69, 0x64, 0x20, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x6f, 0x6e, 0x20, 0x52, 0x61, 0x63, 0x65, 0x52, 0x61, 0x72, 0x69, 0x74, 0x79, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x52, 0x61, 0x63, 0x65, 0x42, 0x79, 0x49, 0x64, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x6f, 0x6e, 0x20, 0x52, 0x61, 0x63, 0x65, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x66, 0x72, 0x61, 0x67, 0x6d, 0x65, 0x6e, 0x74, 0x20, 0x52, 0x61, 0x63, 0x65, 0x42, 0x79, 0x49, 0x64, 0x20, 0x6f, 0x6e, 0x20, 0x52, 0x61, 0x63, 0x65, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x62, 0x61, 0x73, 0x65, 0x53, 0x70, 0x65, 0x65, 0x64, 0x20, 0x62, 0x61, 0x73, 0x65, 0x48, 0x65, 0x61, 0x6c, 0x74, 0x68, 0x20, 0x6c, 0x61, 0x6e, 0x67, 0x75, 0x61, 0x67, 0x65, 0x73, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x52, 0x61, 0x63, 0x65, 0x42, 0x79, 0x49, 0x64, 0x5f, 0x4c, 0x61, 0x6e, 0x67, 0x75, 0x61, 0x67, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x6f, 0x6e, 0x20, 0x4c, 0x61, 0x6e, 0x67, 0x75, 0x61, 0x67, 0x65, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x72, 0x61, 0x63, 0x65, 0x54, 0x72, 0x61, 0x69, 0x74, 0x73, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x52, 0x61, 0x63, 0x65, 0x42, 0x79, 0x49, 0x64, 0x5f, 0x52, 0x61, 0x63, 0x65, 0x54, 0x72, 0x61, 0x69, 0x74, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x6f, 0x6e, 0x20, 0x52, 0x61, 0x63, 0x65, 0x54, 0x72, 0x61, 0x69, 0x74, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x68, 0x65, 0x72, 0x69, 0x74, 0x61, 0x67, 0x65, 0x73, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x52, 0x61, 0x63, 0x65, 0x42, 0x79, 0x49, 0x64, 0x5f, 0x48, 0x65, 0x72, 0x69, 0x74, 0x61, 0x67, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x6f, 0x6e, 0x20, 0x48, 0x65, 0x72, 0x69, 0x74, 0x61, 0x67, 0x65, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x66, 0x72, 0x61, 0x67, 0x6d, 0x65, 0x6e, 0x74, 0x20, 0x52, 0x61, 0x63, 0x65, 0x42, 0x79, 0x49, 0x64, 0x5f, 0x4c, 0x61, 0x6e, 0x67, 0x75, 0x61, 0x67, 0x65, 0x20, 0x6f, 0x6e, 0x20, 0x4c, 0x61, 0x6e, 0x67, 0x75, 0x61, 0x67, 0x65, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x74, 0x79, 0x70, 0x65, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x52, 0x61, 0x63, 0x65, 0x42, 0x79, 0x49, 0x64, 0x5f, 0x4c, 0x61, 0x6e, 0x67, 0x75, 0x61, 0x67, 0x65, 0x5f, 0x54, 0x79, 0x70, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x6f, 0x6e, 0x20, 0x4c, 0x61, 0x6e, 0x67, 0x75, 0x61, 0x67, 0x65, 0x54, 0x79, 0x70, 0x65, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x66, 0x72, 0x61, 0x67, 0x6d, 0x65, 0x6e, 0x74, 0x20, 0x52, 0x61, 0x63, 0x65, 0x42, 0x79, 0x49, 0x64, 0x5f, 0x4c, 0x61, 0x6e, 0x67, 0x75, 0x61, 0x67, 0x65, 0x5f, 0x54, 0x79, 0x70, 0x65, 0x20, 0x6f, 0x6e, 0x20, 0x4c, 0x61, 0x6e, 0x67, 0x75, 0x61, 0x67, 0x65, 0x54, 0x79, 0x70, 0x65, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x7d, 0x20, 0x66, 0x72, 0x61, 0x67, 0x6d, 0x65, 0x6e, 0x74, 0x20, 0x52, 0x61, 0x63, 0x65, 0x42, 0x79, 0x49, 0x64, 0x5f, 0x52, 0x61, 0x63, 0x65, 0x54, 0x72, 0x61, 0x69, 0x74, 0x20, 0x6f, 0x6e, 0x20, 0x52, 0x61, 0x63, 0x65, 0x54, 0x72, 0x61, 0x69, 0x74, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x7d, 0x20, 0x66, 0x72, 0x61, 0x67, 0x6d, 0x65, 0x6e, 0x74, 0x20, 0x52, 0x61, 0x63, 0x65, 0x42, 0x79, 0x49, 0x64, 0x5f, 0x48, 0x65, 0x72, 0x69, 0x74, 0x61, 0x67, 0x65, 0x20, 0x6f, 0x6e, 0x20, 0x48, 0x65, 0x72, 0x69, 0x74, 0x61, 0x67, 0x65, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x20, 0x72, 0x61, 0x72, 0x69, 0x74, 0x79, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x52, 0x61, 0x63, 0x65, 0x42, 0x79, 0x49, 0x64, 0x5f, 0x48, 0x65, 0x72, 0x69, 0x74, 0x61, 0x67, 0x65, 0x5f, 0x52, 0x61, 0x72, 0x69, 0x74, 0x79, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x6f, 0x6e, 0x20, 0x48, 0x65, 0x72, 0x69, 0x74, 0x61, 0x67, 0x65, 0x52, 0x61, 0x72, 0x69, 0x74, 0x79, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x66, 0x72, 0x61, 0x67, 0x6d, 0x65, 0x6e, 0x74, 0x20, 0x52, 0x61, 0x63, 0x65, 0x42, 0x79, 0x49, 0x64, 0x5f, 0x48, 0x65, 0x72, 0x69, 0x74, 0x61, 0x67, 0x65, 0x5f, 0x52, 0x61, 0x72, 0x69, 0x74, 0x79, 0x20, 0x6f, 0x6e, 0x20, 0x48, 0x65, 0x72, 0x69, 0x74, 0x61, 0x67, 0x65, 0x52, 0x61, 0x72, 0x69, 0x74, 0x79, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x7d };
+
+        public global::StrawberryShake.DocumentHash Hash { get; } = new global::StrawberryShake.DocumentHash("sha1Hash", "5d7a59839e4c41ed2154fd391b59540adbd7713f");
+
+        public override global::System.String ToString()
+        {
+            #if NETSTANDARD2_0
+            return global::System.Text.Encoding.UTF8.GetString(Body.ToArray());
+            #else
+            return global::System.Text.Encoding.UTF8.GetString(Body);
+            #endif
+        }
+    }
+}
+
+
+// GetRaceByIdQuery.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
+{
+    /// <summary>
+    /// Represents the operation service of the GetRaceById GraphQL operation
+    /// <code>
+    /// query GetRaceById($id: Uuid!) {
+    ///   races(where: { id: { eq: $id } }) {
+    ///     __typename
+    ///     items {
+    ///       __typename
+    ///       raceSize: size {
+    ///         __typename
+    ///         id
+    ///         name
+    ///         ... on RaceSize {
+    ///           id
+    ///         }
+    ///       }
+    ///       raceRarity: rarity {
+    ///         __typename
+    ///         id
+    ///         name
+    ///         ... on RaceRarity {
+    ///           id
+    ///         }
+    ///       }
+    ///       ... RaceById
+    ///       ... on Race {
+    ///         id
+    ///       }
+    ///     }
+    ///   }
+    /// }
+    /// 
+    /// fragment RaceById on Race {
+    ///   id
+    ///   name
+    ///   baseSpeed
+    ///   baseHealth
+    ///   languages {
+    ///     __typename
+    ///     ... RaceById_Language
+    ///     ... on Language {
+    ///       id
+    ///     }
+    ///   }
+    ///   raceTraits {
+    ///     __typename
+    ///     ... RaceById_RaceTrait
+    ///     ... on RaceTrait {
+    ///       id
+    ///     }
+    ///   }
+    ///   heritages {
+    ///     __typename
+    ///     ... RaceById_Heritage
+    ///     ... on Heritage {
+    ///       id
+    ///     }
+    ///   }
+    /// }
+    /// 
+    /// fragment RaceById_Language on Language {
+    ///   id
+    ///   name
+    ///   type {
+    ///     __typename
+    ///     ... RaceById_Language_Type
+    ///     ... on LanguageType {
+    ///       id
+    ///     }
+    ///   }
+    /// }
+    /// 
+    /// fragment RaceById_Language_Type on LanguageType {
+    ///   id
+    ///   name
+    /// }
+    /// 
+    /// fragment RaceById_RaceTrait on RaceTrait {
+    ///   id
+    ///   name
+    /// }
+    /// 
+    /// fragment RaceById_Heritage on Heritage {
+    ///   id
+    ///   name
+    ///   description
+    ///   rarity {
+    ///     __typename
+    ///     ... RaceById_Heritage_Rarity
+    ///     ... on HeritageRarity {
+    ///       id
+    ///     }
+    ///   }
+    /// }
+    /// 
+    /// fragment RaceById_Heritage_Rarity on HeritageRarity {
+    ///   id
+    ///   name
+    /// }
+    /// </code>
+    /// </summary>
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public partial class GetRaceByIdQuery
+        : global::StrawberryShake.IOperationRequestFactory
+    {
+        private readonly global::StrawberryShake.IOperationExecutor<IGetRaceByIdResult> _operationExecutor;
+        private readonly global::StrawberryShake.Serialization.IInputValueFormatter _uuidFormatter;
+
+        public GetRaceByIdQuery(
+            global::StrawberryShake.IOperationExecutor<IGetRaceByIdResult> operationExecutor,
+            global::StrawberryShake.Serialization.ISerializerResolver serializerResolver)
+        {
+            _operationExecutor = operationExecutor
+                 ?? throw new global::System.ArgumentNullException(nameof(operationExecutor));
+            _uuidFormatter = serializerResolver.GetInputValueFormatter("Uuid");
+        }
+
+        global::System.Type global::StrawberryShake.IOperationRequestFactory.ResultType => typeof(IGetRaceByIdResult);
+
+        public async global::System.Threading.Tasks.Task<global::StrawberryShake.IOperationResult<IGetRaceByIdResult>> ExecuteAsync(
+            global::System.Guid id,
+            global::System.Threading.CancellationToken cancellationToken = default)
+        {
+            var request = CreateRequest(id);
+
+            return await _operationExecutor
+                .ExecuteAsync(
+                    request,
+                    cancellationToken)
+                .ConfigureAwait(false);
+        }
+
+        public global::System.IObservable<global::StrawberryShake.IOperationResult<IGetRaceByIdResult>> Watch(
+            global::System.Guid id,
+            global::StrawberryShake.ExecutionStrategy? strategy = null)
+        {
+            var request = CreateRequest(id);
+            return _operationExecutor.Watch(
+                request,
+                strategy);
+        }
+
+        private global::StrawberryShake.OperationRequest CreateRequest(global::System.Guid id)
+        {
+            var variables = new global::System.Collections.Generic.Dictionary<global::System.String, global::System.Object?>();
+
+            variables.Add(
+                "id",
+                FormatId(id));
+
+            return CreateRequest(variables);
+        }
+
+        private global::StrawberryShake.OperationRequest CreateRequest(global::System.Collections.Generic.IReadOnlyDictionary<global::System.String, global::System.Object?>? variables)
+        {
+
+            return new global::StrawberryShake.OperationRequest(
+                id: GetRaceByIdQueryDocument.Instance.Hash.Value,
+                name: "GetRaceById",
+                document: GetRaceByIdQueryDocument.Instance,
+                strategy: global::StrawberryShake.RequestStrategy.Default,
+                variables:variables);
+        }
+
+        private global::System.Object? FormatId(global::System.Guid value)
+        {
+            return _uuidFormatter.Format(value);
+        }
+
+        global::StrawberryShake.OperationRequest global::StrawberryShake.IOperationRequestFactory.Create(global::System.Collections.Generic.IReadOnlyDictionary<global::System.String, global::System.Object?>? variables)
+        {
+            return CreateRequest(variables!);
+        }
+    }
+}
+
+
 // GetRacesPageQueryDocument.StrawberryShake.cs
 #nullable enable
 
@@ -7805,12 +10386,26 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
     /// Represents the operation service of the GetRacesPage GraphQL operation
     /// <code>
     /// query GetRacesPage($skip: Int!, $take: Int!, $searchTerm: String! = "", $order: [RaceSortInput!] = [ { name: ASC } ]) {
-    ///   races(skip: $skip, take: $take, order: $order, where: { or: [ { name: { contains: $searchTerm } }, { rarity: { name: { contains: $searchTerm } } }, { language: { some: { name: { contains: $searchTerm } } } } ] }) {
+    ///   races(skip: $skip, take: $take, order: $order, where: { or: [ { name: { contains: $searchTerm } }, { rarity: { name: { contains: $searchTerm } } }, { languages: { some: { name: { contains: $searchTerm } } } } ] }) {
     ///     __typename
     ///     totalCount
     ///     items {
     ///       __typename
     ///       ... RacesPage
+    ///       size {
+    ///         __typename
+    ///         name
+    ///         ... on RaceSize {
+    ///           id
+    ///         }
+    ///       }
+    ///       rarity {
+    ///         __typename
+    ///         name
+    ///         ... on RaceRarity {
+    ///           id
+    ///         }
+    ///       }
     ///       ... on Race {
     ///         id
     ///       }
@@ -7823,28 +10418,6 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
     ///   name
     ///   baseSpeed
     ///   baseHealth
-    ///   size {
-    ///     __typename
-    ///     ... RacesPage_Size
-    ///     ... on RaceSize {
-    ///       id
-    ///     }
-    ///   }
-    ///   rarity {
-    ///     __typename
-    ///     ... RacesPage_Rarity
-    ///     ... on RaceRarity {
-    ///       id
-    ///     }
-    ///   }
-    /// }
-    /// 
-    /// fragment RacesPage_Size on RaceSize {
-    ///   name
-    /// }
-    /// 
-    /// fragment RacesPage_Rarity on RaceRarity {
-    ///   name
     /// }
     /// </code>
     /// </summary>
@@ -7860,9 +10433,9 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
 
         public global::StrawberryShake.OperationKind Kind => global::StrawberryShake.OperationKind.Query;
 
-        public global::System.ReadOnlySpan<global::System.Byte> Body => new global::System.Byte[]{ 0x71, 0x75, 0x65, 0x72, 0x79, 0x20, 0x47, 0x65, 0x74, 0x52, 0x61, 0x63, 0x65, 0x73, 0x50, 0x61, 0x67, 0x65, 0x28, 0x24, 0x73, 0x6b, 0x69, 0x70, 0x3a, 0x20, 0x49, 0x6e, 0x74, 0x21, 0x2c, 0x20, 0x24, 0x74, 0x61, 0x6b, 0x65, 0x3a, 0x20, 0x49, 0x6e, 0x74, 0x21, 0x2c, 0x20, 0x24, 0x73, 0x65, 0x61, 0x72, 0x63, 0x68, 0x54, 0x65, 0x72, 0x6d, 0x3a, 0x20, 0x53, 0x74, 0x72, 0x69, 0x6e, 0x67, 0x21, 0x20, 0x3d, 0x20, 0x22, 0x22, 0x2c, 0x20, 0x24, 0x6f, 0x72, 0x64, 0x65, 0x72, 0x3a, 0x20, 0x5b, 0x52, 0x61, 0x63, 0x65, 0x53, 0x6f, 0x72, 0x74, 0x49, 0x6e, 0x70, 0x75, 0x74, 0x21, 0x5d, 0x20, 0x3d, 0x20, 0x5b, 0x20, 0x7b, 0x20, 0x6e, 0x61, 0x6d, 0x65, 0x3a, 0x20, 0x41, 0x53, 0x43, 0x20, 0x7d, 0x20, 0x5d, 0x29, 0x20, 0x7b, 0x20, 0x72, 0x61, 0x63, 0x65, 0x73, 0x28, 0x73, 0x6b, 0x69, 0x70, 0x3a, 0x20, 0x24, 0x73, 0x6b, 0x69, 0x70, 0x2c, 0x20, 0x74, 0x61, 0x6b, 0x65, 0x3a, 0x20, 0x24, 0x74, 0x61, 0x6b, 0x65, 0x2c, 0x20, 0x6f, 0x72, 0x64, 0x65, 0x72, 0x3a, 0x20, 0x24, 0x6f, 0x72, 0x64, 0x65, 0x72, 0x2c, 0x20, 0x77, 0x68, 0x65, 0x72, 0x65, 0x3a, 0x20, 0x7b, 0x20, 0x6f, 0x72, 0x3a, 0x20, 0x5b, 0x20, 0x7b, 0x20, 0x6e, 0x61, 0x6d, 0x65, 0x3a, 0x20, 0x7b, 0x20, 0x63, 0x6f, 0x6e, 0x74, 0x61, 0x69, 0x6e, 0x73, 0x3a, 0x20, 0x24, 0x73, 0x65, 0x61, 0x72, 0x63, 0x68, 0x54, 0x65, 0x72, 0x6d, 0x20, 0x7d, 0x20, 0x7d, 0x2c, 0x20, 0x7b, 0x20, 0x72, 0x61, 0x72, 0x69, 0x74, 0x79, 0x3a, 0x20, 0x7b, 0x20, 0x6e, 0x61, 0x6d, 0x65, 0x3a, 0x20, 0x7b, 0x20, 0x63, 0x6f, 0x6e, 0x74, 0x61, 0x69, 0x6e, 0x73, 0x3a, 0x20, 0x24, 0x73, 0x65, 0x61, 0x72, 0x63, 0x68, 0x54, 0x65, 0x72, 0x6d, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x7d, 0x2c, 0x20, 0x7b, 0x20, 0x6c, 0x61, 0x6e, 0x67, 0x75, 0x61, 0x67, 0x65, 0x3a, 0x20, 0x7b, 0x20, 0x73, 0x6f, 0x6d, 0x65, 0x3a, 0x20, 0x7b, 0x20, 0x6e, 0x61, 0x6d, 0x65, 0x3a, 0x20, 0x7b, 0x20, 0x63, 0x6f, 0x6e, 0x74, 0x61, 0x69, 0x6e, 0x73, 0x3a, 0x20, 0x24, 0x73, 0x65, 0x61, 0x72, 0x63, 0x68, 0x54, 0x65, 0x72, 0x6d, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x5d, 0x20, 0x7d, 0x29, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x20, 0x69, 0x74, 0x65, 0x6d, 0x73, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x52, 0x61, 0x63, 0x65, 0x73, 0x50, 0x61, 0x67, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x6f, 0x6e, 0x20, 0x52, 0x61, 0x63, 0x65, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x66, 0x72, 0x61, 0x67, 0x6d, 0x65, 0x6e, 0x74, 0x20, 0x52, 0x61, 0x63, 0x65, 0x73, 0x50, 0x61, 0x67, 0x65, 0x20, 0x6f, 0x6e, 0x20, 0x52, 0x61, 0x63, 0x65, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x62, 0x61, 0x73, 0x65, 0x53, 0x70, 0x65, 0x65, 0x64, 0x20, 0x62, 0x61, 0x73, 0x65, 0x48, 0x65, 0x61, 0x6c, 0x74, 0x68, 0x20, 0x73, 0x69, 0x7a, 0x65, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x52, 0x61, 0x63, 0x65, 0x73, 0x50, 0x61, 0x67, 0x65, 0x5f, 0x53, 0x69, 0x7a, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x6f, 0x6e, 0x20, 0x52, 0x61, 0x63, 0x65, 0x53, 0x69, 0x7a, 0x65, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x72, 0x61, 0x72, 0x69, 0x74, 0x79, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x52, 0x61, 0x63, 0x65, 0x73, 0x50, 0x61, 0x67, 0x65, 0x5f, 0x52, 0x61, 0x72, 0x69, 0x74, 0x79, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x6f, 0x6e, 0x20, 0x52, 0x61, 0x63, 0x65, 0x52, 0x61, 0x72, 0x69, 0x74, 0x79, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x66, 0x72, 0x61, 0x67, 0x6d, 0x65, 0x6e, 0x74, 0x20, 0x52, 0x61, 0x63, 0x65, 0x73, 0x50, 0x61, 0x67, 0x65, 0x5f, 0x53, 0x69, 0x7a, 0x65, 0x20, 0x6f, 0x6e, 0x20, 0x52, 0x61, 0x63, 0x65, 0x53, 0x69, 0x7a, 0x65, 0x20, 0x7b, 0x20, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x7d, 0x20, 0x66, 0x72, 0x61, 0x67, 0x6d, 0x65, 0x6e, 0x74, 0x20, 0x52, 0x61, 0x63, 0x65, 0x73, 0x50, 0x61, 0x67, 0x65, 0x5f, 0x52, 0x61, 0x72, 0x69, 0x74, 0x79, 0x20, 0x6f, 0x6e, 0x20, 0x52, 0x61, 0x63, 0x65, 0x52, 0x61, 0x72, 0x69, 0x74, 0x79, 0x20, 0x7b, 0x20, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x7d };
+        public global::System.ReadOnlySpan<global::System.Byte> Body => new global::System.Byte[]{ 0x71, 0x75, 0x65, 0x72, 0x79, 0x20, 0x47, 0x65, 0x74, 0x52, 0x61, 0x63, 0x65, 0x73, 0x50, 0x61, 0x67, 0x65, 0x28, 0x24, 0x73, 0x6b, 0x69, 0x70, 0x3a, 0x20, 0x49, 0x6e, 0x74, 0x21, 0x2c, 0x20, 0x24, 0x74, 0x61, 0x6b, 0x65, 0x3a, 0x20, 0x49, 0x6e, 0x74, 0x21, 0x2c, 0x20, 0x24, 0x73, 0x65, 0x61, 0x72, 0x63, 0x68, 0x54, 0x65, 0x72, 0x6d, 0x3a, 0x20, 0x53, 0x74, 0x72, 0x69, 0x6e, 0x67, 0x21, 0x20, 0x3d, 0x20, 0x22, 0x22, 0x2c, 0x20, 0x24, 0x6f, 0x72, 0x64, 0x65, 0x72, 0x3a, 0x20, 0x5b, 0x52, 0x61, 0x63, 0x65, 0x53, 0x6f, 0x72, 0x74, 0x49, 0x6e, 0x70, 0x75, 0x74, 0x21, 0x5d, 0x20, 0x3d, 0x20, 0x5b, 0x20, 0x7b, 0x20, 0x6e, 0x61, 0x6d, 0x65, 0x3a, 0x20, 0x41, 0x53, 0x43, 0x20, 0x7d, 0x20, 0x5d, 0x29, 0x20, 0x7b, 0x20, 0x72, 0x61, 0x63, 0x65, 0x73, 0x28, 0x73, 0x6b, 0x69, 0x70, 0x3a, 0x20, 0x24, 0x73, 0x6b, 0x69, 0x70, 0x2c, 0x20, 0x74, 0x61, 0x6b, 0x65, 0x3a, 0x20, 0x24, 0x74, 0x61, 0x6b, 0x65, 0x2c, 0x20, 0x6f, 0x72, 0x64, 0x65, 0x72, 0x3a, 0x20, 0x24, 0x6f, 0x72, 0x64, 0x65, 0x72, 0x2c, 0x20, 0x77, 0x68, 0x65, 0x72, 0x65, 0x3a, 0x20, 0x7b, 0x20, 0x6f, 0x72, 0x3a, 0x20, 0x5b, 0x20, 0x7b, 0x20, 0x6e, 0x61, 0x6d, 0x65, 0x3a, 0x20, 0x7b, 0x20, 0x63, 0x6f, 0x6e, 0x74, 0x61, 0x69, 0x6e, 0x73, 0x3a, 0x20, 0x24, 0x73, 0x65, 0x61, 0x72, 0x63, 0x68, 0x54, 0x65, 0x72, 0x6d, 0x20, 0x7d, 0x20, 0x7d, 0x2c, 0x20, 0x7b, 0x20, 0x72, 0x61, 0x72, 0x69, 0x74, 0x79, 0x3a, 0x20, 0x7b, 0x20, 0x6e, 0x61, 0x6d, 0x65, 0x3a, 0x20, 0x7b, 0x20, 0x63, 0x6f, 0x6e, 0x74, 0x61, 0x69, 0x6e, 0x73, 0x3a, 0x20, 0x24, 0x73, 0x65, 0x61, 0x72, 0x63, 0x68, 0x54, 0x65, 0x72, 0x6d, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x7d, 0x2c, 0x20, 0x7b, 0x20, 0x6c, 0x61, 0x6e, 0x67, 0x75, 0x61, 0x67, 0x65, 0x73, 0x3a, 0x20, 0x7b, 0x20, 0x73, 0x6f, 0x6d, 0x65, 0x3a, 0x20, 0x7b, 0x20, 0x6e, 0x61, 0x6d, 0x65, 0x3a, 0x20, 0x7b, 0x20, 0x63, 0x6f, 0x6e, 0x74, 0x61, 0x69, 0x6e, 0x73, 0x3a, 0x20, 0x24, 0x73, 0x65, 0x61, 0x72, 0x63, 0x68, 0x54, 0x65, 0x72, 0x6d, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x5d, 0x20, 0x7d, 0x29, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x20, 0x69, 0x74, 0x65, 0x6d, 0x73, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x52, 0x61, 0x63, 0x65, 0x73, 0x50, 0x61, 0x67, 0x65, 0x20, 0x73, 0x69, 0x7a, 0x65, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x6f, 0x6e, 0x20, 0x52, 0x61, 0x63, 0x65, 0x53, 0x69, 0x7a, 0x65, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x72, 0x61, 0x72, 0x69, 0x74, 0x79, 0x20, 0x7b, 0x20, 0x5f, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x6f, 0x6e, 0x20, 0x52, 0x61, 0x63, 0x65, 0x52, 0x61, 0x72, 0x69, 0x74, 0x79, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x2e, 0x2e, 0x2e, 0x20, 0x6f, 0x6e, 0x20, 0x52, 0x61, 0x63, 0x65, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x7d, 0x20, 0x66, 0x72, 0x61, 0x67, 0x6d, 0x65, 0x6e, 0x74, 0x20, 0x52, 0x61, 0x63, 0x65, 0x73, 0x50, 0x61, 0x67, 0x65, 0x20, 0x6f, 0x6e, 0x20, 0x52, 0x61, 0x63, 0x65, 0x20, 0x7b, 0x20, 0x69, 0x64, 0x20, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x62, 0x61, 0x73, 0x65, 0x53, 0x70, 0x65, 0x65, 0x64, 0x20, 0x62, 0x61, 0x73, 0x65, 0x48, 0x65, 0x61, 0x6c, 0x74, 0x68, 0x20, 0x7d };
 
-        public global::StrawberryShake.DocumentHash Hash { get; } = new global::StrawberryShake.DocumentHash("sha1Hash", "48318411cffb58dd38222678ced51412cc5e937e");
+        public global::StrawberryShake.DocumentHash Hash { get; } = new global::StrawberryShake.DocumentHash("sha1Hash", "a646b9bd8871e38e526887db45a5f9c9069fe24b");
 
         public override global::System.String ToString()
         {
@@ -7885,12 +10458,26 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
     /// Represents the operation service of the GetRacesPage GraphQL operation
     /// <code>
     /// query GetRacesPage($skip: Int!, $take: Int!, $searchTerm: String! = "", $order: [RaceSortInput!] = [ { name: ASC } ]) {
-    ///   races(skip: $skip, take: $take, order: $order, where: { or: [ { name: { contains: $searchTerm } }, { rarity: { name: { contains: $searchTerm } } }, { language: { some: { name: { contains: $searchTerm } } } } ] }) {
+    ///   races(skip: $skip, take: $take, order: $order, where: { or: [ { name: { contains: $searchTerm } }, { rarity: { name: { contains: $searchTerm } } }, { languages: { some: { name: { contains: $searchTerm } } } } ] }) {
     ///     __typename
     ///     totalCount
     ///     items {
     ///       __typename
     ///       ... RacesPage
+    ///       size {
+    ///         __typename
+    ///         name
+    ///         ... on RaceSize {
+    ///           id
+    ///         }
+    ///       }
+    ///       rarity {
+    ///         __typename
+    ///         name
+    ///         ... on RaceRarity {
+    ///           id
+    ///         }
+    ///       }
     ///       ... on Race {
     ///         id
     ///       }
@@ -7903,28 +10490,6 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
     ///   name
     ///   baseSpeed
     ///   baseHealth
-    ///   size {
-    ///     __typename
-    ///     ... RacesPage_Size
-    ///     ... on RaceSize {
-    ///       id
-    ///     }
-    ///   }
-    ///   rarity {
-    ///     __typename
-    ///     ... RacesPage_Rarity
-    ///     ... on RaceRarity {
-    ///       id
-    ///     }
-    ///   }
-    /// }
-    /// 
-    /// fragment RacesPage_Size on RaceSize {
-    ///   name
-    /// }
-    /// 
-    /// fragment RacesPage_Rarity on RaceRarity {
-    ///   name
     /// }
     /// </code>
     /// </summary>
@@ -8934,6 +11499,12 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
                     session.SetEntity(
                         entityId,
                         new global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.FeatEntity(
+                            UpdateIGetFeatById_Feats_Items_RollableEffectEntity(
+                                session,
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "rollableEffect"),
+                                entityIds),
                             DeserializeNonNullableGuid(
                                 global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
                                     obj,
@@ -8959,12 +11530,6 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
                                 global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
                                     obj,
                                     "frequency"),
-                                entityIds),
-                            UpdateIGetFeatById_Feats_Items_RollableEffectEntity(
-                                session,
-                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
-                                    obj,
-                                    "rollableEffect"),
                                 entityIds),
                             UpdateNonNullableIGetFeatById_Feats_Items_TraitsEntityNonNullableArray(
                                 session,
@@ -8980,6 +11545,12 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
                     session.SetEntity(
                         entityId,
                         new global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.FeatEntity(
+                            UpdateIGetFeatById_Feats_Items_RollableEffectEntity(
+                                session,
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "rollableEffect"),
+                                entityIds),
                             DeserializeNonNullableGuid(
                                 global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
                                     obj,
@@ -9006,12 +11577,6 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
                                     obj,
                                     "frequency"),
                                 entityIds),
-                            UpdateIGetFeatById_Feats_Items_RollableEffectEntity(
-                                session,
-                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
-                                    obj,
-                                    "rollableEffect"),
-                                entityIds),
                             UpdateNonNullableIGetFeatById_Feats_Items_TraitsEntityNonNullableArray(
                                 session,
                                 global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
@@ -9020,91 +11585,6 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
                                 entityIds),
                             default!,
                             default!));
-                }
-
-                return entityId;
-            }
-
-            throw new global::System.NotSupportedException();
-        }
-
-        private global::System.Guid DeserializeNonNullableGuid(global::System.Text.Json.JsonElement? obj)
-        {
-            if (!obj.HasValue)
-            {
-                throw new global::System.ArgumentNullException();
-            }
-
-            return _uuidParser.Parse(obj.Value.GetGuid()!);
-        }
-
-        private global::System.String DeserializeNonNullableString(global::System.Text.Json.JsonElement? obj)
-        {
-            if (!obj.HasValue)
-            {
-                throw new global::System.ArgumentNullException();
-            }
-
-            return _stringParser.Parse(obj.Value.GetString()!);
-        }
-
-        private global::System.Int32 DeserializeNonNullableInt32(global::System.Text.Json.JsonElement? obj)
-        {
-            if (!obj.HasValue)
-            {
-                throw new global::System.ArgumentNullException();
-            }
-
-            return _intParser.Parse(obj.Value.GetInt32()!);
-        }
-
-        private global::System.String? DeserializeString(global::System.Text.Json.JsonElement? obj)
-        {
-            if (!obj.HasValue)
-            {
-                return null;
-            }
-
-            return _stringParser.Parse(obj.Value.GetString()!);
-        }
-
-        private global::StrawberryShake.EntityId? UpdateIGetFeatById_Feats_Items_FrequencyEntity(
-            global::StrawberryShake.IEntityStoreUpdateSession session,
-            global::System.Text.Json.JsonElement? obj,
-            global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
-        {
-            if (!obj.HasValue)
-            {
-                return null;
-            }
-
-            global::StrawberryShake.EntityId entityId = _idSerializer.Parse(obj.Value);
-            entityIds.Add(entityId);
-
-
-            if (entityId.Name.Equals(
-                    "Frequency",
-                    global::System.StringComparison.Ordinal))
-            {
-                if (session.CurrentSnapshot.TryGetEntity(
-                        entityId,
-                        out global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.FrequencyEntity? entity))
-                {
-                    session.SetEntity(
-                        entityId,
-                        new global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.FrequencyEntity(DeserializeNonNullableString(
-                            global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
-                                obj,
-                                "name"))));
-                }
-                else
-                {
-                    session.SetEntity(
-                        entityId,
-                        new global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.FrequencyEntity(DeserializeNonNullableString(
-                            global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
-                                obj,
-                                "name"))));
                 }
 
                 return entityId;
@@ -9176,6 +11656,91 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
                                 global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
                                     obj,
                                     "criticalFailure"))));
+                }
+
+                return entityId;
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::System.String? DeserializeString(global::System.Text.Json.JsonElement? obj)
+        {
+            if (!obj.HasValue)
+            {
+                return null;
+            }
+
+            return _stringParser.Parse(obj.Value.GetString()!);
+        }
+
+        private global::System.Guid DeserializeNonNullableGuid(global::System.Text.Json.JsonElement? obj)
+        {
+            if (!obj.HasValue)
+            {
+                throw new global::System.ArgumentNullException();
+            }
+
+            return _uuidParser.Parse(obj.Value.GetGuid()!);
+        }
+
+        private global::System.String DeserializeNonNullableString(global::System.Text.Json.JsonElement? obj)
+        {
+            if (!obj.HasValue)
+            {
+                throw new global::System.ArgumentNullException();
+            }
+
+            return _stringParser.Parse(obj.Value.GetString()!);
+        }
+
+        private global::System.Int32 DeserializeNonNullableInt32(global::System.Text.Json.JsonElement? obj)
+        {
+            if (!obj.HasValue)
+            {
+                throw new global::System.ArgumentNullException();
+            }
+
+            return _intParser.Parse(obj.Value.GetInt32()!);
+        }
+
+        private global::StrawberryShake.EntityId? UpdateIGetFeatById_Feats_Items_FrequencyEntity(
+            global::StrawberryShake.IEntityStoreUpdateSession session,
+            global::System.Text.Json.JsonElement? obj,
+            global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
+        {
+            if (!obj.HasValue)
+            {
+                return null;
+            }
+
+            global::StrawberryShake.EntityId entityId = _idSerializer.Parse(obj.Value);
+            entityIds.Add(entityId);
+
+
+            if (entityId.Name.Equals(
+                    "Frequency",
+                    global::System.StringComparison.Ordinal))
+            {
+                if (session.CurrentSnapshot.TryGetEntity(
+                        entityId,
+                        out global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.FrequencyEntity? entity))
+                {
+                    session.SetEntity(
+                        entityId,
+                        new global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.FrequencyEntity(DeserializeNonNullableString(
+                            global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                obj,
+                                "name"))));
+                }
+                else
+                {
+                    session.SetEntity(
+                        entityId,
+                        new global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.FrequencyEntity(DeserializeNonNullableString(
+                            global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                obj,
+                                "name"))));
                 }
 
                 return entityId;
@@ -9463,6 +12028,7 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
                     session.SetEntity(
                         entityId,
                         new global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.FeatEntity(
+                            entity.RollableEffect,
                             DeserializeNonNullableGuid(
                                 global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
                                     obj,
@@ -9478,7 +12044,6 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
                             entity.Special,
                             entity.Trigger,
                             entity.Frequency,
-                            entity.RollableEffect,
                             entity.Traits,
                             DeserializeNonNullableBoolean(
                                 global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
@@ -9496,6 +12061,7 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
                     session.SetEntity(
                         entityId,
                         new global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.FeatEntity(
+                            default!,
                             DeserializeNonNullableGuid(
                                 global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
                                     obj,
@@ -9508,7 +12074,6 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
                                 global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
                                     obj,
                                     "level")),
-                            default!,
                             default!,
                             default!,
                             default!,
@@ -9621,6 +12186,801 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
                             global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
                                 obj,
                                 "text"))));
+                }
+
+                return entityId;
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+    }
+}
+
+
+// GetRaceByIdBuilder.StrawberryShake.cs
+#nullable enable
+
+namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
+{
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.1.0.0")]
+    public partial class GetRaceByIdBuilder
+        : global::StrawberryShake.IOperationResultBuilder<global::System.Text.Json.JsonDocument, global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceByIdResult>
+    {
+        private readonly global::StrawberryShake.IEntityStore _entityStore;
+        private readonly global::StrawberryShake.IEntityIdSerializer _idSerializer;
+        private readonly global::StrawberryShake.IOperationResultDataFactory<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceByIdResult> _resultDataFactory;
+        private readonly global::StrawberryShake.Serialization.ILeafValueParser<global::System.Guid, global::System.Guid> _uuidParser;
+        private readonly global::StrawberryShake.Serialization.ILeafValueParser<global::System.String, global::System.String> _stringParser;
+        private readonly global::StrawberryShake.Serialization.ILeafValueParser<global::System.Int32, global::System.Int32> _intParser;
+
+        public GetRaceByIdBuilder(
+            global::StrawberryShake.IEntityStore entityStore,
+            global::StrawberryShake.IEntityIdSerializer idSerializer,
+            global::StrawberryShake.IOperationResultDataFactory<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceByIdResult> resultDataFactory,
+            global::StrawberryShake.Serialization.ISerializerResolver serializerResolver)
+        {
+            _entityStore = entityStore
+                 ?? throw new global::System.ArgumentNullException(nameof(entityStore));
+            _idSerializer = idSerializer
+                 ?? throw new global::System.ArgumentNullException(nameof(idSerializer));
+            _resultDataFactory = resultDataFactory
+                 ?? throw new global::System.ArgumentNullException(nameof(resultDataFactory));
+            _uuidParser = serializerResolver.GetLeafValueParser<global::System.Guid, global::System.Guid>("Uuid")
+                 ?? throw new global::System.ArgumentException("No serializer for type `Uuid` found.");
+            _stringParser = serializerResolver.GetLeafValueParser<global::System.String, global::System.String>("String")
+                 ?? throw new global::System.ArgumentException("No serializer for type `String` found.");
+            _intParser = serializerResolver.GetLeafValueParser<global::System.Int32, global::System.Int32>("Int")
+                 ?? throw new global::System.ArgumentException("No serializer for type `Int` found.");
+        }
+
+        public global::StrawberryShake.IOperationResult<IGetRaceByIdResult> Build(global::StrawberryShake.Response<global::System.Text.Json.JsonDocument> response)
+        {
+            (IGetRaceByIdResult Result, GetRaceByIdResultInfo Info)? data = null;
+            global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.IClientError>? errors = null;
+
+            if (response.Body != null)
+            {
+                if (response.Body.RootElement.TryGetProperty("data", out global::System.Text.Json.JsonElement dataElement))
+                {
+                    data = BuildData(dataElement);
+                }
+                if (response.Body.RootElement.TryGetProperty("errors", out global::System.Text.Json.JsonElement errorsElement))
+                {
+                    errors = global::StrawberryShake.Json.JsonErrorParser.ParseErrors(errorsElement);
+                }
+            }
+
+            return new global::StrawberryShake.OperationResult<IGetRaceByIdResult>(
+                data?.Result,
+                data?.Info,
+                _resultDataFactory,
+                errors);
+        }
+
+        private (IGetRaceByIdResult, GetRaceByIdResultInfo) BuildData(global::System.Text.Json.JsonElement obj)
+        {
+            var entityIds = new global::System.Collections.Generic.HashSet<global::StrawberryShake.EntityId>();
+            global::StrawberryShake.IEntityStoreSnapshot snapshot = default!;
+
+            global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceCollectionSegmentData? racesId = default!;
+            _entityStore.Update(session => 
+            {
+                racesId = DeserializeIGetRaceById_Races(
+                    session,
+                    global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                        obj,
+                        "races"),
+                    entityIds);
+
+                snapshot = session.CurrentSnapshot;
+            });
+
+            var resultInfo = new GetRaceByIdResultInfo(
+                racesId,
+                entityIds,
+                snapshot.Version);
+
+            return (
+                _resultDataFactory.Create(resultInfo),
+                resultInfo
+            );
+        }
+
+        private global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceCollectionSegmentData? DeserializeIGetRaceById_Races(
+            global::StrawberryShake.IEntityStoreUpdateSession session,
+            global::System.Text.Json.JsonElement? obj,
+            global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
+        {
+            if (!obj.HasValue)
+            {
+                return null;
+            }
+
+            var typename = obj.Value
+                .GetProperty("__typename")
+                .GetString();
+
+            if (typename?.Equals("RaceCollectionSegment", global::System.StringComparison.Ordinal) ?? false)
+            {
+                return new global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceCollectionSegmentData(
+                    typename,
+                    items: UpdateIGetRaceById_Races_ItemsEntityArray(
+                        session,
+                        global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                            obj,
+                            "items"),
+                        entityIds));
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId?>? UpdateIGetRaceById_Races_ItemsEntityArray(
+            global::StrawberryShake.IEntityStoreUpdateSession session,
+            global::System.Text.Json.JsonElement? obj,
+            global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
+        {
+            if (!obj.HasValue)
+            {
+                return null;
+            }
+
+            var races = new global::System.Collections.Generic.List<global::StrawberryShake.EntityId?>();
+
+            foreach (global::System.Text.Json.JsonElement child in obj.Value.EnumerateArray())
+            {
+                races.Add(UpdateIGetRaceById_Races_ItemsEntity(
+                    session,
+                    child,
+                    entityIds));
+            }
+
+            return races;
+        }
+
+        private global::StrawberryShake.EntityId? UpdateIGetRaceById_Races_ItemsEntity(
+            global::StrawberryShake.IEntityStoreUpdateSession session,
+            global::System.Text.Json.JsonElement? obj,
+            global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
+        {
+            if (!obj.HasValue)
+            {
+                return null;
+            }
+
+            global::StrawberryShake.EntityId entityId = _idSerializer.Parse(obj.Value);
+            entityIds.Add(entityId);
+
+
+            if (entityId.Name.Equals(
+                    "Race",
+                    global::System.StringComparison.Ordinal))
+            {
+                if (session.CurrentSnapshot.TryGetEntity(
+                        entityId,
+                        out global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceEntity? entity))
+                {
+                    session.SetEntity(
+                        entityId,
+                        new global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceEntity(
+                            UpdateNonNullableIGetRaceById_Races_Items_RaceSizeEntity(
+                                session,
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "raceSize"),
+                                entityIds),
+                            UpdateNonNullableIGetRaceById_Races_Items_RaceRarityEntity(
+                                session,
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "raceRarity"),
+                                entityIds),
+                            DeserializeNonNullableGuid(
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "id")),
+                            DeserializeNonNullableString(
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "name")),
+                            DeserializeNonNullableInt32(
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "baseSpeed")),
+                            DeserializeNonNullableInt32(
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "baseHealth")),
+                            UpdateNonNullableIGetRaceById_Races_Items_LanguagesEntityNonNullableArray(
+                                session,
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "languages"),
+                                entityIds),
+                            UpdateNonNullableIGetRaceById_Races_Items_RaceTraitsEntityNonNullableArray(
+                                session,
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "raceTraits"),
+                                entityIds),
+                            UpdateNonNullableIGetRaceById_Races_Items_HeritagesEntityNonNullableArray(
+                                session,
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "heritages"),
+                                entityIds),
+                            entity.Size,
+                            entity.Rarity));
+                }
+                else
+                {
+                    session.SetEntity(
+                        entityId,
+                        new global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceEntity(
+                            UpdateNonNullableIGetRaceById_Races_Items_RaceSizeEntity(
+                                session,
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "raceSize"),
+                                entityIds),
+                            UpdateNonNullableIGetRaceById_Races_Items_RaceRarityEntity(
+                                session,
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "raceRarity"),
+                                entityIds),
+                            DeserializeNonNullableGuid(
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "id")),
+                            DeserializeNonNullableString(
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "name")),
+                            DeserializeNonNullableInt32(
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "baseSpeed")),
+                            DeserializeNonNullableInt32(
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "baseHealth")),
+                            UpdateNonNullableIGetRaceById_Races_Items_LanguagesEntityNonNullableArray(
+                                session,
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "languages"),
+                                entityIds),
+                            UpdateNonNullableIGetRaceById_Races_Items_RaceTraitsEntityNonNullableArray(
+                                session,
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "raceTraits"),
+                                entityIds),
+                            UpdateNonNullableIGetRaceById_Races_Items_HeritagesEntityNonNullableArray(
+                                session,
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "heritages"),
+                                entityIds),
+                            default!,
+                            default!));
+                }
+
+                return entityId;
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::StrawberryShake.EntityId UpdateNonNullableIGetRaceById_Races_Items_RaceSizeEntity(
+            global::StrawberryShake.IEntityStoreUpdateSession session,
+            global::System.Text.Json.JsonElement? obj,
+            global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
+        {
+            if (!obj.HasValue)
+            {
+                throw new global::System.ArgumentNullException();
+            }
+
+            global::StrawberryShake.EntityId entityId = _idSerializer.Parse(obj.Value);
+            entityIds.Add(entityId);
+
+
+            if (entityId.Name.Equals(
+                    "RaceSize",
+                    global::System.StringComparison.Ordinal))
+            {
+                if (session.CurrentSnapshot.TryGetEntity(
+                        entityId,
+                        out global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceSizeEntity? entity))
+                {
+                    session.SetEntity(
+                        entityId,
+                        new global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceSizeEntity(
+                            DeserializeNonNullableGuid(
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "id")),
+                            DeserializeNonNullableString(
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "name"))));
+                }
+                else
+                {
+                    session.SetEntity(
+                        entityId,
+                        new global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceSizeEntity(
+                            DeserializeNonNullableGuid(
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "id")),
+                            DeserializeNonNullableString(
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "name"))));
+                }
+
+                return entityId;
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::System.Guid DeserializeNonNullableGuid(global::System.Text.Json.JsonElement? obj)
+        {
+            if (!obj.HasValue)
+            {
+                throw new global::System.ArgumentNullException();
+            }
+
+            return _uuidParser.Parse(obj.Value.GetGuid()!);
+        }
+
+        private global::System.String DeserializeNonNullableString(global::System.Text.Json.JsonElement? obj)
+        {
+            if (!obj.HasValue)
+            {
+                throw new global::System.ArgumentNullException();
+            }
+
+            return _stringParser.Parse(obj.Value.GetString()!);
+        }
+
+        private global::StrawberryShake.EntityId UpdateNonNullableIGetRaceById_Races_Items_RaceRarityEntity(
+            global::StrawberryShake.IEntityStoreUpdateSession session,
+            global::System.Text.Json.JsonElement? obj,
+            global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
+        {
+            if (!obj.HasValue)
+            {
+                throw new global::System.ArgumentNullException();
+            }
+
+            global::StrawberryShake.EntityId entityId = _idSerializer.Parse(obj.Value);
+            entityIds.Add(entityId);
+
+
+            if (entityId.Name.Equals(
+                    "RaceRarity",
+                    global::System.StringComparison.Ordinal))
+            {
+                if (session.CurrentSnapshot.TryGetEntity(
+                        entityId,
+                        out global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceRarityEntity? entity))
+                {
+                    session.SetEntity(
+                        entityId,
+                        new global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceRarityEntity(
+                            DeserializeNonNullableGuid(
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "id")),
+                            DeserializeNonNullableString(
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "name"))));
+                }
+                else
+                {
+                    session.SetEntity(
+                        entityId,
+                        new global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceRarityEntity(
+                            DeserializeNonNullableGuid(
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "id")),
+                            DeserializeNonNullableString(
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "name"))));
+                }
+
+                return entityId;
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::System.Int32 DeserializeNonNullableInt32(global::System.Text.Json.JsonElement? obj)
+        {
+            if (!obj.HasValue)
+            {
+                throw new global::System.ArgumentNullException();
+            }
+
+            return _intParser.Parse(obj.Value.GetInt32()!);
+        }
+
+        private global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId> UpdateNonNullableIGetRaceById_Races_Items_LanguagesEntityNonNullableArray(
+            global::StrawberryShake.IEntityStoreUpdateSession session,
+            global::System.Text.Json.JsonElement? obj,
+            global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
+        {
+            if (!obj.HasValue)
+            {
+                throw new global::System.ArgumentNullException();
+            }
+
+            var languages = new global::System.Collections.Generic.List<global::StrawberryShake.EntityId>();
+
+            foreach (global::System.Text.Json.JsonElement child in obj.Value.EnumerateArray())
+            {
+                languages.Add(UpdateNonNullableIGetRaceById_Races_Items_LanguagesEntity(
+                    session,
+                    child,
+                    entityIds));
+            }
+
+            return languages;
+        }
+
+        private global::StrawberryShake.EntityId UpdateNonNullableIGetRaceById_Races_Items_LanguagesEntity(
+            global::StrawberryShake.IEntityStoreUpdateSession session,
+            global::System.Text.Json.JsonElement? obj,
+            global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
+        {
+            if (!obj.HasValue)
+            {
+                throw new global::System.ArgumentNullException();
+            }
+
+            global::StrawberryShake.EntityId entityId = _idSerializer.Parse(obj.Value);
+            entityIds.Add(entityId);
+
+
+            if (entityId.Name.Equals(
+                    "Language",
+                    global::System.StringComparison.Ordinal))
+            {
+                if (session.CurrentSnapshot.TryGetEntity(
+                        entityId,
+                        out global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.LanguageEntity? entity))
+                {
+                    session.SetEntity(
+                        entityId,
+                        new global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.LanguageEntity(
+                            DeserializeNonNullableGuid(
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "id")),
+                            DeserializeNonNullableString(
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "name")),
+                            UpdateNonNullableIGetRaceById_Races_Items_Languages_TypeEntity(
+                                session,
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "type"),
+                                entityIds)));
+                }
+                else
+                {
+                    session.SetEntity(
+                        entityId,
+                        new global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.LanguageEntity(
+                            DeserializeNonNullableGuid(
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "id")),
+                            DeserializeNonNullableString(
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "name")),
+                            UpdateNonNullableIGetRaceById_Races_Items_Languages_TypeEntity(
+                                session,
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "type"),
+                                entityIds)));
+                }
+
+                return entityId;
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::StrawberryShake.EntityId UpdateNonNullableIGetRaceById_Races_Items_Languages_TypeEntity(
+            global::StrawberryShake.IEntityStoreUpdateSession session,
+            global::System.Text.Json.JsonElement? obj,
+            global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
+        {
+            if (!obj.HasValue)
+            {
+                throw new global::System.ArgumentNullException();
+            }
+
+            global::StrawberryShake.EntityId entityId = _idSerializer.Parse(obj.Value);
+            entityIds.Add(entityId);
+
+
+            if (entityId.Name.Equals(
+                    "LanguageType",
+                    global::System.StringComparison.Ordinal))
+            {
+                if (session.CurrentSnapshot.TryGetEntity(
+                        entityId,
+                        out global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.LanguageTypeEntity? entity))
+                {
+                    session.SetEntity(
+                        entityId,
+                        new global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.LanguageTypeEntity(
+                            DeserializeNonNullableGuid(
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "id")),
+                            DeserializeNonNullableString(
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "name"))));
+                }
+                else
+                {
+                    session.SetEntity(
+                        entityId,
+                        new global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.LanguageTypeEntity(
+                            DeserializeNonNullableGuid(
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "id")),
+                            DeserializeNonNullableString(
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "name"))));
+                }
+
+                return entityId;
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId> UpdateNonNullableIGetRaceById_Races_Items_RaceTraitsEntityNonNullableArray(
+            global::StrawberryShake.IEntityStoreUpdateSession session,
+            global::System.Text.Json.JsonElement? obj,
+            global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
+        {
+            if (!obj.HasValue)
+            {
+                throw new global::System.ArgumentNullException();
+            }
+
+            var raceTraits = new global::System.Collections.Generic.List<global::StrawberryShake.EntityId>();
+
+            foreach (global::System.Text.Json.JsonElement child in obj.Value.EnumerateArray())
+            {
+                raceTraits.Add(UpdateNonNullableIGetRaceById_Races_Items_RaceTraitsEntity(
+                    session,
+                    child,
+                    entityIds));
+            }
+
+            return raceTraits;
+        }
+
+        private global::StrawberryShake.EntityId UpdateNonNullableIGetRaceById_Races_Items_RaceTraitsEntity(
+            global::StrawberryShake.IEntityStoreUpdateSession session,
+            global::System.Text.Json.JsonElement? obj,
+            global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
+        {
+            if (!obj.HasValue)
+            {
+                throw new global::System.ArgumentNullException();
+            }
+
+            global::StrawberryShake.EntityId entityId = _idSerializer.Parse(obj.Value);
+            entityIds.Add(entityId);
+
+
+            if (entityId.Name.Equals(
+                    "RaceTrait",
+                    global::System.StringComparison.Ordinal))
+            {
+                if (session.CurrentSnapshot.TryGetEntity(
+                        entityId,
+                        out global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceTraitEntity? entity))
+                {
+                    session.SetEntity(
+                        entityId,
+                        new global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceTraitEntity(
+                            DeserializeNonNullableGuid(
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "id")),
+                            DeserializeNonNullableString(
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "name"))));
+                }
+                else
+                {
+                    session.SetEntity(
+                        entityId,
+                        new global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceTraitEntity(
+                            DeserializeNonNullableGuid(
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "id")),
+                            DeserializeNonNullableString(
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "name"))));
+                }
+
+                return entityId;
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId> UpdateNonNullableIGetRaceById_Races_Items_HeritagesEntityNonNullableArray(
+            global::StrawberryShake.IEntityStoreUpdateSession session,
+            global::System.Text.Json.JsonElement? obj,
+            global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
+        {
+            if (!obj.HasValue)
+            {
+                throw new global::System.ArgumentNullException();
+            }
+
+            var heritages = new global::System.Collections.Generic.List<global::StrawberryShake.EntityId>();
+
+            foreach (global::System.Text.Json.JsonElement child in obj.Value.EnumerateArray())
+            {
+                heritages.Add(UpdateNonNullableIGetRaceById_Races_Items_HeritagesEntity(
+                    session,
+                    child,
+                    entityIds));
+            }
+
+            return heritages;
+        }
+
+        private global::StrawberryShake.EntityId UpdateNonNullableIGetRaceById_Races_Items_HeritagesEntity(
+            global::StrawberryShake.IEntityStoreUpdateSession session,
+            global::System.Text.Json.JsonElement? obj,
+            global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
+        {
+            if (!obj.HasValue)
+            {
+                throw new global::System.ArgumentNullException();
+            }
+
+            global::StrawberryShake.EntityId entityId = _idSerializer.Parse(obj.Value);
+            entityIds.Add(entityId);
+
+
+            if (entityId.Name.Equals(
+                    "Heritage",
+                    global::System.StringComparison.Ordinal))
+            {
+                if (session.CurrentSnapshot.TryGetEntity(
+                        entityId,
+                        out global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.HeritageEntity? entity))
+                {
+                    session.SetEntity(
+                        entityId,
+                        new global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.HeritageEntity(
+                            DeserializeNonNullableGuid(
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "id")),
+                            DeserializeNonNullableString(
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "name")),
+                            DeserializeNonNullableString(
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "description")),
+                            UpdateNonNullableIGetRaceById_Races_Items_Heritages_RarityEntity(
+                                session,
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "rarity"),
+                                entityIds)));
+                }
+                else
+                {
+                    session.SetEntity(
+                        entityId,
+                        new global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.HeritageEntity(
+                            DeserializeNonNullableGuid(
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "id")),
+                            DeserializeNonNullableString(
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "name")),
+                            DeserializeNonNullableString(
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "description")),
+                            UpdateNonNullableIGetRaceById_Races_Items_Heritages_RarityEntity(
+                                session,
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "rarity"),
+                                entityIds)));
+                }
+
+                return entityId;
+            }
+
+            throw new global::System.NotSupportedException();
+        }
+
+        private global::StrawberryShake.EntityId UpdateNonNullableIGetRaceById_Races_Items_Heritages_RarityEntity(
+            global::StrawberryShake.IEntityStoreUpdateSession session,
+            global::System.Text.Json.JsonElement? obj,
+            global::System.Collections.Generic.ISet<global::StrawberryShake.EntityId> entityIds)
+        {
+            if (!obj.HasValue)
+            {
+                throw new global::System.ArgumentNullException();
+            }
+
+            global::StrawberryShake.EntityId entityId = _idSerializer.Parse(obj.Value);
+            entityIds.Add(entityId);
+
+
+            if (entityId.Name.Equals(
+                    "HeritageRarity",
+                    global::System.StringComparison.Ordinal))
+            {
+                if (session.CurrentSnapshot.TryGetEntity(
+                        entityId,
+                        out global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.HeritageRarityEntity? entity))
+                {
+                    session.SetEntity(
+                        entityId,
+                        new global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.HeritageRarityEntity(
+                            DeserializeNonNullableGuid(
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "id")),
+                            DeserializeNonNullableString(
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "name"))));
+                }
+                else
+                {
+                    session.SetEntity(
+                        entityId,
+                        new global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.HeritageRarityEntity(
+                            DeserializeNonNullableGuid(
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "id")),
+                            DeserializeNonNullableString(
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "name"))));
                 }
 
                 return entityId;
@@ -9815,6 +13175,8 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
                     session.SetEntity(
                         entityId,
                         new global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceEntity(
+                            entity.RaceSize,
+                            entity.RaceRarity,
                             DeserializeNonNullableGuid(
                                 global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
                                     obj,
@@ -9831,6 +13193,9 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
                                 global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
                                     obj,
                                     "baseHealth")),
+                            entity.Languages,
+                            entity.RaceTraits,
+                            entity.Heritages,
                             UpdateNonNullableIGetRacesPage_Races_Items_SizeEntity(
                                 session,
                                 global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
@@ -9849,6 +13214,8 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
                     session.SetEntity(
                         entityId,
                         new global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceEntity(
+                            default!,
+                            default!,
                             DeserializeNonNullableGuid(
                                 global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
                                     obj,
@@ -9865,6 +13232,9 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
                                 global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
                                     obj,
                                     "baseHealth")),
+                            default!,
+                            default!,
+                            default!,
                             UpdateNonNullableIGetRacesPage_Races_Items_SizeEntity(
                                 session,
                                 global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
@@ -9929,19 +13299,23 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
                 {
                     session.SetEntity(
                         entityId,
-                        new global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceSizeEntity(DeserializeNonNullableString(
-                            global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
-                                obj,
-                                "name"))));
+                        new global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceSizeEntity(
+                            entity.Id,
+                            DeserializeNonNullableString(
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "name"))));
                 }
                 else
                 {
                     session.SetEntity(
                         entityId,
-                        new global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceSizeEntity(DeserializeNonNullableString(
-                            global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
-                                obj,
-                                "name"))));
+                        new global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceSizeEntity(
+                            default!,
+                            DeserializeNonNullableString(
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "name"))));
                 }
 
                 return entityId;
@@ -9974,19 +13348,23 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
                 {
                     session.SetEntity(
                         entityId,
-                        new global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceRarityEntity(DeserializeNonNullableString(
-                            global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
-                                obj,
-                                "name"))));
+                        new global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceRarityEntity(
+                            entity.Id,
+                            DeserializeNonNullableString(
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "name"))));
                 }
                 else
                 {
                     session.SetEntity(
                         entityId,
-                        new global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceRarityEntity(DeserializeNonNullableString(
-                            global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
-                                obj,
-                                "name"))));
+                        new global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceRarityEntity(
+                            default!,
+                            DeserializeNonNullableString(
+                                global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
+                                    obj,
+                                    "name"))));
                 }
 
                 return entityId;
@@ -10545,6 +13923,7 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
                     session.SetEntity(
                         entityId,
                         new global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.FeatEntity(
+                            entity.RollableEffect,
                             DeserializeNonNullableGuid(
                                 global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
                                     obj,
@@ -10560,7 +13939,6 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
                             entity.Special,
                             entity.Trigger,
                             entity.Frequency,
-                            entity.RollableEffect,
                             entity.Traits,
                             DeserializeNonNullableBoolean(
                                 global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
@@ -10573,6 +13951,7 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
                     session.SetEntity(
                         entityId,
                         new global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.FeatEntity(
+                            default!,
                             DeserializeNonNullableGuid(
                                 global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
                                     obj,
@@ -10585,7 +13964,6 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
                                 global::StrawberryShake.Json.JsonElementExtensions.GetPropertyOrNull(
                                     obj,
                                     "level")),
-                            default!,
                             default!,
                             default!,
                             default!,
@@ -11132,20 +14510,20 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
     {
         public RaceCollectionSegmentData(
             global::System.String typename,
-            global::System.Int32? totalCount = null,
-            global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId?>? items = null)
+            global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId?>? items = null,
+            global::System.Int32? totalCount = null)
         {
             __typename = typename
                  ?? throw new global::System.ArgumentNullException(nameof(typename));
-            TotalCount = totalCount;
             Items = items;
+            TotalCount = totalCount;
         }
 
         public global::System.String __typename { get; }
 
-        public global::System.Int32? TotalCount { get; }
-
         public global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId?>? Items { get; }
+
+        public global::System.Int32? TotalCount { get; }
     }
 }
 
@@ -11219,6 +14597,7 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
     {
         private readonly global::Silvester.Pathfinder.Official.Web.Graphql.Generated.GetFeatByIdQuery _getFeatById;
         private readonly global::Silvester.Pathfinder.Official.Web.Graphql.Generated.GetFeatsPageQuery _getFeatsPage;
+        private readonly global::Silvester.Pathfinder.Official.Web.Graphql.Generated.GetRaceByIdQuery _getRaceById;
         private readonly global::Silvester.Pathfinder.Official.Web.Graphql.Generated.GetRacesPageQuery _getRacesPage;
         private readonly global::Silvester.Pathfinder.Official.Web.Graphql.Generated.GetSpellsPageQuery _getSpellsPage;
         private readonly global::Silvester.Pathfinder.Official.Web.Graphql.Generated.GetTraitByIdQuery _getTraitById;
@@ -11227,6 +14606,7 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
         public PathfinderOfficialApi(
             global::Silvester.Pathfinder.Official.Web.Graphql.Generated.GetFeatByIdQuery getFeatById,
             global::Silvester.Pathfinder.Official.Web.Graphql.Generated.GetFeatsPageQuery getFeatsPage,
+            global::Silvester.Pathfinder.Official.Web.Graphql.Generated.GetRaceByIdQuery getRaceById,
             global::Silvester.Pathfinder.Official.Web.Graphql.Generated.GetRacesPageQuery getRacesPage,
             global::Silvester.Pathfinder.Official.Web.Graphql.Generated.GetSpellsPageQuery getSpellsPage,
             global::Silvester.Pathfinder.Official.Web.Graphql.Generated.GetTraitByIdQuery getTraitById,
@@ -11236,6 +14616,8 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
                  ?? throw new global::System.ArgumentNullException(nameof(getFeatById));
             _getFeatsPage = getFeatsPage
                  ?? throw new global::System.ArgumentNullException(nameof(getFeatsPage));
+            _getRaceById = getRaceById
+                 ?? throw new global::System.ArgumentNullException(nameof(getRaceById));
             _getRacesPage = getRacesPage
                  ?? throw new global::System.ArgumentNullException(nameof(getRacesPage));
             _getSpellsPage = getSpellsPage
@@ -11251,6 +14633,8 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated
         public global::Silvester.Pathfinder.Official.Web.Graphql.Generated.GetFeatByIdQuery GetFeatById => _getFeatById;
 
         public global::Silvester.Pathfinder.Official.Web.Graphql.Generated.GetFeatsPageQuery GetFeatsPage => _getFeatsPage;
+
+        public global::Silvester.Pathfinder.Official.Web.Graphql.Generated.GetRaceByIdQuery GetRaceById => _getRaceById;
 
         public global::Silvester.Pathfinder.Official.Web.Graphql.Generated.GetRacesPageQuery GetRacesPage => _getRacesPage;
 
@@ -11285,10 +14669,10 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
                 "Feat" => ParseFeatEntityId(
                     obj,
                     typeName),
-                "Frequency" => ParseFrequencyEntityId(
+                "RollableEffect" => ParseRollableEffectEntityId(
                     obj,
                     typeName),
-                "RollableEffect" => ParseRollableEffectEntityId(
+                "Frequency" => ParseFrequencyEntityId(
                     obj,
                     typeName),
                 "Trait" => ParseTraitEntityId(
@@ -11304,6 +14688,21 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
                     obj,
                     typeName),
                 "RaceRarity" => ParseRaceRarityEntityId(
+                    obj,
+                    typeName),
+                "Language" => ParseLanguageEntityId(
+                    obj,
+                    typeName),
+                "RaceTrait" => ParseRaceTraitEntityId(
+                    obj,
+                    typeName),
+                "Heritage" => ParseHeritageEntityId(
+                    obj,
+                    typeName),
+                "LanguageType" => ParseLanguageTypeEntityId(
+                    obj,
+                    typeName),
+                "HeritageRarity" => ParseHeritageRarityEntityId(
                     obj,
                     typeName),
                 "Spell" => ParseSpellEntityId(
@@ -11324,13 +14723,18 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
             return entityId.Name switch
             {
                 "Feat" => FormatFeatEntityId(entityId),
-                "Frequency" => FormatFrequencyEntityId(entityId),
                 "RollableEffect" => FormatRollableEffectEntityId(entityId),
+                "Frequency" => FormatFrequencyEntityId(entityId),
                 "Trait" => FormatTraitEntityId(entityId),
                 "FeatDetailsBlock" => FormatFeatDetailsBlockEntityId(entityId),
                 "Race" => FormatRaceEntityId(entityId),
                 "RaceSize" => FormatRaceSizeEntityId(entityId),
                 "RaceRarity" => FormatRaceRarityEntityId(entityId),
+                "Language" => FormatLanguageEntityId(entityId),
+                "RaceTrait" => FormatRaceTraitEntityId(entityId),
+                "Heritage" => FormatHeritageEntityId(entityId),
+                "LanguageType" => FormatLanguageTypeEntityId(entityId),
+                "HeritageRarity" => FormatHeritageRarityEntityId(entityId),
                 "Spell" => FormatSpellEntityId(entityId),
                 "MagicSchool" => FormatMagicSchoolEntityId(entityId),
                 "SpellType" => FormatSpellTypeEntityId(entityId),
@@ -11373,7 +14777,7 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
                 writer.Length);
         }
 
-        private global::StrawberryShake.EntityId ParseFrequencyEntityId(
+        private global::StrawberryShake.EntityId ParseRollableEffectEntityId(
             global::System.Text.Json.JsonElement obj,
             global::System.String type)
         {
@@ -11384,7 +14788,7 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
                     .GetGuid()!);
         }
 
-        private global::System.String FormatFrequencyEntityId(global::StrawberryShake.EntityId entityId)
+        private global::System.String FormatRollableEffectEntityId(global::StrawberryShake.EntityId entityId)
         {
             using var writer = new global::StrawberryShake.Internal.ArrayWriter();
             using var jsonWriter = new global::System.Text.Json.Utf8JsonWriter(
@@ -11408,7 +14812,7 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
                 writer.Length);
         }
 
-        private global::StrawberryShake.EntityId ParseRollableEffectEntityId(
+        private global::StrawberryShake.EntityId ParseFrequencyEntityId(
             global::System.Text.Json.JsonElement obj,
             global::System.String type)
         {
@@ -11419,7 +14823,7 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
                     .GetGuid()!);
         }
 
-        private global::System.String FormatRollableEffectEntityId(global::StrawberryShake.EntityId entityId)
+        private global::System.String FormatFrequencyEntityId(global::StrawberryShake.EntityId entityId)
         {
             using var writer = new global::StrawberryShake.Internal.ArrayWriter();
             using var jsonWriter = new global::System.Text.Json.Utf8JsonWriter(
@@ -11618,6 +15022,181 @@ namespace Silvester.Pathfinder.Official.Web.Graphql.Generated.State
                 writer.Length);
         }
 
+        private global::StrawberryShake.EntityId ParseLanguageEntityId(
+            global::System.Text.Json.JsonElement obj,
+            global::System.String type)
+        {
+            return new global::StrawberryShake.EntityId(
+                type,
+                obj
+                    .GetProperty("id")
+                    .GetGuid()!);
+        }
+
+        private global::System.String FormatLanguageEntityId(global::StrawberryShake.EntityId entityId)
+        {
+            using var writer = new global::StrawberryShake.Internal.ArrayWriter();
+            using var jsonWriter = new global::System.Text.Json.Utf8JsonWriter(
+                writer,
+                _options);
+            jsonWriter.WriteStartObject();
+
+            jsonWriter.WriteString(
+                "__typename",
+                entityId.Name);
+
+            jsonWriter.WriteString(
+                "id",
+                (global::System.Guid)entityId.Value);
+            jsonWriter.WriteEndObject();
+            jsonWriter.Flush();
+
+            return global::System.Text.Encoding.UTF8.GetString(
+                writer.GetInternalBuffer(),
+                0,
+                writer.Length);
+        }
+
+        private global::StrawberryShake.EntityId ParseRaceTraitEntityId(
+            global::System.Text.Json.JsonElement obj,
+            global::System.String type)
+        {
+            return new global::StrawberryShake.EntityId(
+                type,
+                obj
+                    .GetProperty("id")
+                    .GetGuid()!);
+        }
+
+        private global::System.String FormatRaceTraitEntityId(global::StrawberryShake.EntityId entityId)
+        {
+            using var writer = new global::StrawberryShake.Internal.ArrayWriter();
+            using var jsonWriter = new global::System.Text.Json.Utf8JsonWriter(
+                writer,
+                _options);
+            jsonWriter.WriteStartObject();
+
+            jsonWriter.WriteString(
+                "__typename",
+                entityId.Name);
+
+            jsonWriter.WriteString(
+                "id",
+                (global::System.Guid)entityId.Value);
+            jsonWriter.WriteEndObject();
+            jsonWriter.Flush();
+
+            return global::System.Text.Encoding.UTF8.GetString(
+                writer.GetInternalBuffer(),
+                0,
+                writer.Length);
+        }
+
+        private global::StrawberryShake.EntityId ParseHeritageEntityId(
+            global::System.Text.Json.JsonElement obj,
+            global::System.String type)
+        {
+            return new global::StrawberryShake.EntityId(
+                type,
+                obj
+                    .GetProperty("id")
+                    .GetGuid()!);
+        }
+
+        private global::System.String FormatHeritageEntityId(global::StrawberryShake.EntityId entityId)
+        {
+            using var writer = new global::StrawberryShake.Internal.ArrayWriter();
+            using var jsonWriter = new global::System.Text.Json.Utf8JsonWriter(
+                writer,
+                _options);
+            jsonWriter.WriteStartObject();
+
+            jsonWriter.WriteString(
+                "__typename",
+                entityId.Name);
+
+            jsonWriter.WriteString(
+                "id",
+                (global::System.Guid)entityId.Value);
+            jsonWriter.WriteEndObject();
+            jsonWriter.Flush();
+
+            return global::System.Text.Encoding.UTF8.GetString(
+                writer.GetInternalBuffer(),
+                0,
+                writer.Length);
+        }
+
+        private global::StrawberryShake.EntityId ParseLanguageTypeEntityId(
+            global::System.Text.Json.JsonElement obj,
+            global::System.String type)
+        {
+            return new global::StrawberryShake.EntityId(
+                type,
+                obj
+                    .GetProperty("id")
+                    .GetGuid()!);
+        }
+
+        private global::System.String FormatLanguageTypeEntityId(global::StrawberryShake.EntityId entityId)
+        {
+            using var writer = new global::StrawberryShake.Internal.ArrayWriter();
+            using var jsonWriter = new global::System.Text.Json.Utf8JsonWriter(
+                writer,
+                _options);
+            jsonWriter.WriteStartObject();
+
+            jsonWriter.WriteString(
+                "__typename",
+                entityId.Name);
+
+            jsonWriter.WriteString(
+                "id",
+                (global::System.Guid)entityId.Value);
+            jsonWriter.WriteEndObject();
+            jsonWriter.Flush();
+
+            return global::System.Text.Encoding.UTF8.GetString(
+                writer.GetInternalBuffer(),
+                0,
+                writer.Length);
+        }
+
+        private global::StrawberryShake.EntityId ParseHeritageRarityEntityId(
+            global::System.Text.Json.JsonElement obj,
+            global::System.String type)
+        {
+            return new global::StrawberryShake.EntityId(
+                type,
+                obj
+                    .GetProperty("id")
+                    .GetGuid()!);
+        }
+
+        private global::System.String FormatHeritageRarityEntityId(global::StrawberryShake.EntityId entityId)
+        {
+            using var writer = new global::StrawberryShake.Internal.ArrayWriter();
+            using var jsonWriter = new global::System.Text.Json.Utf8JsonWriter(
+                writer,
+                _options);
+            jsonWriter.WriteStartObject();
+
+            jsonWriter.WriteString(
+                "__typename",
+                entityId.Name);
+
+            jsonWriter.WriteString(
+                "id",
+                (global::System.Guid)entityId.Value);
+            jsonWriter.WriteEndObject();
+            jsonWriter.Flush();
+
+            return global::System.Text.Encoding.UTF8.GetString(
+                writer.GetInternalBuffer(),
+                0,
+                writer.Length);
+        }
+
         private global::StrawberryShake.EntityId ParseSpellEntityId(
             global::System.Text.Json.JsonElement obj,
             global::System.String type)
@@ -11774,6 +15353,10 @@ namespace Microsoft.Extensions.DependencyInjection
                     global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp)));
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton(
                 services,
+                sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.GetRaceByIdQuery>(
+                    global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp)));
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton(
+                services,
                 sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.GetRacesPageQuery>(
                     global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<ClientServiceProvider>(sp)));
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton(
@@ -11817,11 +15400,19 @@ namespace Microsoft.Extensions.DependencyInjection
                 });
 
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.FeatEntity, global::Silvester.Pathfinder.Official.Web.Graphql.Generated.GetFeatById_Feats_Items_Feat>, global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.GetFeatById_Feats_Items_FeatFromFeatEntityMapper>(services);
-            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.FrequencyEntity, global::Silvester.Pathfinder.Official.Web.Graphql.Generated.GetFeatById_Feats_Items_Frequency_Frequency>, global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.GetFeatById_Feats_Items_Frequency_FrequencyFromFrequencyEntityMapper>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RollableEffectEntity, global::Silvester.Pathfinder.Official.Web.Graphql.Generated.GetFeatById_Feats_Items_RollableEffect_RollableEffect>, global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.GetFeatById_Feats_Items_RollableEffect_RollableEffectFromRollableEffectEntityMapper>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.FrequencyEntity, global::Silvester.Pathfinder.Official.Web.Graphql.Generated.GetFeatById_Feats_Items_Frequency_Frequency>, global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.GetFeatById_Feats_Items_Frequency_FrequencyFromFrequencyEntityMapper>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.TraitEntity, global::Silvester.Pathfinder.Official.Web.Graphql.Generated.GetFeatById_Feats_Items_Traits_Trait>, global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.GetFeatById_Feats_Items_Traits_TraitFromTraitEntityMapper>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.FeatEntity, global::Silvester.Pathfinder.Official.Web.Graphql.Generated.GetFeatsPage_Feats_Items_Feat>, global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.GetFeatsPage_Feats_Items_FeatFromFeatEntityMapper>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.FeatDetailsBlockEntity, global::Silvester.Pathfinder.Official.Web.Graphql.Generated.GetFeatsPage_Feats_Items_Details_FeatDetailsBlock>, global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.GetFeatsPage_Feats_Items_Details_FeatDetailsBlockFromFeatDetailsBlockEntityMapper>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceEntity, global::Silvester.Pathfinder.Official.Web.Graphql.Generated.GetRaceById_Races_Items_Race>, global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.GetRaceById_Races_Items_RaceFromRaceEntityMapper>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceSizeEntity, global::Silvester.Pathfinder.Official.Web.Graphql.Generated.GetRaceById_Races_Items_RaceSize_RaceSize>, global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.GetRaceById_Races_Items_RaceSize_RaceSizeFromRaceSizeEntityMapper>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceRarityEntity, global::Silvester.Pathfinder.Official.Web.Graphql.Generated.GetRaceById_Races_Items_RaceRarity_RaceRarity>, global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.GetRaceById_Races_Items_RaceRarity_RaceRarityFromRaceRarityEntityMapper>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.LanguageEntity, global::Silvester.Pathfinder.Official.Web.Graphql.Generated.GetRaceById_Races_Items_Languages_Language>, global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.GetRaceById_Races_Items_Languages_LanguageFromLanguageEntityMapper>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceTraitEntity, global::Silvester.Pathfinder.Official.Web.Graphql.Generated.GetRaceById_Races_Items_RaceTraits_RaceTrait>, global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.GetRaceById_Races_Items_RaceTraits_RaceTraitFromRaceTraitEntityMapper>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.HeritageEntity, global::Silvester.Pathfinder.Official.Web.Graphql.Generated.GetRaceById_Races_Items_Heritages_Heritage>, global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.GetRaceById_Races_Items_Heritages_HeritageFromHeritageEntityMapper>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.LanguageTypeEntity, global::Silvester.Pathfinder.Official.Web.Graphql.Generated.GetRaceById_Races_Items_Languages_Type_LanguageType>, global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.GetRaceById_Races_Items_Languages_Type_LanguageTypeFromLanguageTypeEntityMapper>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.HeritageRarityEntity, global::Silvester.Pathfinder.Official.Web.Graphql.Generated.GetRaceById_Races_Items_Heritages_Rarity_HeritageRarity>, global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.GetRaceById_Races_Items_Heritages_Rarity_HeritageRarityFromHeritageRarityEntityMapper>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceEntity, global::Silvester.Pathfinder.Official.Web.Graphql.Generated.GetRacesPage_Races_Items_Race>, global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.GetRacesPage_Races_Items_RaceFromRaceEntityMapper>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceSizeEntity, global::Silvester.Pathfinder.Official.Web.Graphql.Generated.GetRacesPage_Races_Items_Size_RaceSize>, global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.GetRacesPage_Races_Items_Size_RaceSizeFromRaceSizeEntityMapper>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IEntityMapper<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.RaceRarityEntity, global::Silvester.Pathfinder.Official.Web.Graphql.Generated.GetRacesPage_Races_Items_Rarity_RaceRarity>, global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.GetRacesPage_Races_Items_Rarity_RaceRarityFromRaceRarityEntityMapper>(services);
@@ -11903,6 +15494,22 @@ namespace Microsoft.Extensions.DependencyInjection
                     global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IOperationStore>(sp),
                     strategy));
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.GetFeatsPageQuery>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationResultDataFactory<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceByIdResult>, global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.GetRaceByIdResultFactory>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationResultDataFactory>(
+                services,
+                sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IOperationResultDataFactory<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceByIdResult>>(sp));
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationRequestFactory>(
+                services,
+                sp => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.GetRaceByIdQuery>(sp));
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationResultBuilder<global::System.Text.Json.JsonDocument, global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceByIdResult>, global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.GetRaceByIdBuilder>(services);
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationExecutor<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceByIdResult>>(
+                services,
+                sp => new global::StrawberryShake.OperationExecutor<global::System.Text.Json.JsonDocument, global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceByIdResult>(
+                    global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.Transport.Http.HttpConnection>(sp),
+                    () => global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IOperationResultBuilder<global::System.Text.Json.JsonDocument, global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRaceByIdResult>>(sp),
+                    global::Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService<global::StrawberryShake.IOperationStore>(sp),
+                    strategy));
+            global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.GetRaceByIdQuery>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationResultDataFactory<global::Silvester.Pathfinder.Official.Web.Graphql.Generated.IGetRacesPageResult>, global::Silvester.Pathfinder.Official.Web.Graphql.Generated.State.GetRacesPageResultFactory>(services);
             global::Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton<global::StrawberryShake.IOperationResultDataFactory>(
                 services,

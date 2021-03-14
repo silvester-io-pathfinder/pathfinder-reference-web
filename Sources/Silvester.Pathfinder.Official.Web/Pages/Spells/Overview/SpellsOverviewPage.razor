@@ -1,14 +1,13 @@
-﻿@using Silvester.Pathfinder.Official.Web.Pages.Feats.Overview.Components;
+﻿@using Silvester.Pathfinder.Official.Web.Pages.Spells.Overview.Components;
 @using Silvester.Pathfinder.Official.Web.Shared.Layout;
 
-@page "/feats"
+@page "/spells"
 @inherits BaseOverviewPage
 
 <div>
     <PageLayout>
 
         <MudPaper Style="margin: 20px;">
-            <FeatsTable />
         </MudPaper>
 
     </PageLayout>
@@ -17,5 +16,5 @@
 
 @code
 {
-    protected override string Title => "Feats";
+    protected override string Title => "Spells";
 }

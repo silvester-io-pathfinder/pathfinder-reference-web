@@ -1,0 +1,64 @@
+﻿query GetRaceById($id: Uuid!) {
+	races(where: {id: {eq: $id}}) {
+		items {
+			raceSize: size {
+				id,
+				name
+			},
+			raceRarity: rarity {
+				id,
+				name
+			},
+			... RaceById
+		}
+	}
+}
+
+
+fragment RaceById on Race {
+	id,
+	name,
+	baseSpeed,
+	baseHealth,
+	languages {
+		... RaceById_Language
+	},
+	raceTraits {
+		... RaceById_RaceTrait
+	},
+	heritages {
+		... RaceById_Heritage
+	}
+}
+
+fragment RaceById_Language on Language {
+	id, 
+	name
+	type {
+		... RaceById_Language_Type
+	}
+}
+
+fragment RaceById_Language_Type on LanguageType {
+	id,
+	name
+}
+
+fragment RaceById_RaceTrait on RaceTrait {
+	id,
+	name
+}
+
+fragment RaceById_Heritage on Heritage {
+	id,
+	name,
+	description,
+	rarity {
+		... RaceById_Heritage_Rarity
+	}
+}
+
+fragment RaceById_Heritage_Rarity on HeritageRarity {
+	id, 
+	name
+}

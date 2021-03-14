@@ -61,14 +61,14 @@
     private bool IsEmpty { get; set; }
 
     [Parameter]
-    public Func<TSortInput[], TableState, string?, Task<TableData<TEntity>>> GetPage { get; set; } = default!;
+    public Func<TSortInput[], TableState, string, Task<TableData<TEntity>>> GetPage { get; set; } = default!;
 
     public async Task<TableData<TEntity>> GetServerData(TableState state)
     {
         IsLoading = true;
         StateHasChanged();
 
-        TableData<TEntity> result = await GetPage(GetSortInput(state), state, SearchTerm);
+        TableData<TEntity> result = await GetPage(GetSortInput(state), state, SearchTerm ?? "");
 
         IsEmpty = result.TotalItems == 0;
         IsLoading = false;

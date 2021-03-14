@@ -9,11 +9,6 @@
         <Title>
             <MudText Typo="Typo.h6">Trait</MudText>
         </Title>
-        <Actions>
-            <MudTooltip Text="Share">
-                <MudIconButton Size="Size.Medium" OnClick="@(async () => await OnShareClickAsync())" Icon="@Icons.Material.Filled.Share"></MudIconButton>
-            </MudTooltip>
-        </Actions>
         <LeftContent>
             <PreferenceCategory Title="Details">
                 <PreferenceItemText Title="Name" Text="@context.Name" />
@@ -30,20 +25,5 @@
 
 @code {
     [Parameter]
-    public ITraitById? Trait { get; set; } = default!;
-
-    [Inject]
-    public IClipboardService ClipboardService { get; set; } = default!;
-
-    [Inject]
-    public ISnackbar Snackbar { get; set; } = default!;
-
-    [Inject]
-    public NavigationManager NavigationManager { get; set; } = default!;
-
-    public async Task OnShareClickAsync()
-    {
-        await ClipboardService.WriteTextAsync(NavigationManager.Uri);
-        Snackbar.Add(@"Copied URL to clipboard!", Severity.Success);
-    }
+    public ITraitById? Trait { get; set; }
 }

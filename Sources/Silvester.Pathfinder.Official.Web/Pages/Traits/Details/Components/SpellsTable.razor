@@ -12,20 +12,20 @@
     }
     else
     {
-    <RelationshipTable TEntity="ITraitById_Spell" DefaultSortLabel="@nameof(ITraitById_Spell.Name)" Filter="@SpellsFilter" InspectionUrl="@((e) => $"/spells/{e.Id}")" Items="@(() => Trait.Spells)">
-        <Columns>
-            <MudTh><MudTableSortLabel SortLabel="@nameof(ITraitById_Spell.Name)" T="ITraitById_Spell" InitialDirection="SortDirection.Ascending">Name</MudTableSortLabel></MudTh>
-            <MudTh><MudTableSortLabel SortLabel="@nameof(ITraitById_Spell.Level)" T="ITraitById_Spell">Level</MudTableSortLabel></MudTh>
-            <MudTh><MudTableSortLabel SortLabel="@(nameof(ITraitById_Spell.MagicSchool) + "." + nameof(ITraitById_Spell_MagicSchool.Name))" T="ITraitById_Spell">School</MudTableSortLabel></MudTh>
-            <MudTh><MudTableSortLabel SortLabel="@(nameof(ITraitById_Spell.MagicSchool) + "." + nameof(ITraitById_Spell_Type.Name))" T="ITraitById_Spell">Type</MudTableSortLabel></MudTh>
-        </Columns>
-        <Rows>
-            <MudTd>@context.Name</MudTd>
-            <MudTd>@context.Level</MudTd>
-            <MudTd>@context.MagicSchool.Name</MudTd>
-            <MudTdEllipsized Text="@context.SpellType.Name" />
-        </Rows>
-    </RelationshipTable>
+        <RelationshipTable TEntity="ITraitById_Spell" DefaultSortLabel="@nameof(ITraitById_Spell.Name)" Filter="@SpellsFilter" InspectionUrl="@((e) => $"/spells/{e.Id}")" Items="@(() => Trait.Spells)">
+            <Columns>
+                <MudTh><MudTableSortLabel SortLabel="@nameof(ITraitById_Spell.Name)" T="ITraitById_Spell" InitialDirection="SortDirection.Ascending">Name</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortLabel="@nameof(ITraitById_Spell.Level)" T="ITraitById_Spell">Level</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortLabel="@(nameof(ITraitById_Spell.MagicSchool) + "." + nameof(ITraitById_Spell_MagicSchool.Name))" T="ITraitById_Spell">School</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortLabel="@(nameof(ITraitById_Spell.MagicSchool) + "." + nameof(ITraitById_Spell_Type.Name))" T="ITraitById_Spell">Type</MudTableSortLabel></MudTh>
+            </Columns>
+            <Rows>
+                <MudTd>@context.Name</MudTd>
+                <MudTd>@context.Level</MudTd>
+                <MudTd>@context.MagicSchool.Name</MudTd>
+                <MudTdEllipsized Text="@context.SpellType.Name" />
+            </Rows>
+        </RelationshipTable>
     }
 </div>
 

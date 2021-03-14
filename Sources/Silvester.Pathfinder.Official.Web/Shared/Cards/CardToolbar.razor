@@ -1,0 +1,8 @@
+﻿<div style="display:flex; flex-direction: row;padding-left:20px; padding-right: 20px; padding-top:8px; padding-bottom:8px; align-items: center; ">
+   @ChildContent
+</div>
+
+@code {
+    [Parameter]
+    public RenderFragment ChildContent{ get; set; } = default!;
+}

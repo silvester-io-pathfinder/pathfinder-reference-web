@@ -1,0 +1,10 @@
+﻿
+<MudChip Variant="@Variant.Outlined" Size="Size.Small" Color="Color.Tertiary" Style="margin: 0px; margin-right: 8px;" OnClick="@(() => OnClick?.Invoke())">@Text</MudChip>
+
+@code {
+    [Parameter]
+    public Action? OnClick { get; set; }
+
+    [Parameter]
+    public string Text { get; set; } = default!;
+}

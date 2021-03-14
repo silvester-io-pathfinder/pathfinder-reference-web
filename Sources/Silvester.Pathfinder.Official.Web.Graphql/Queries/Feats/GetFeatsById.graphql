@@ -1,6 +1,12 @@
 ﻿query GetFeatById($id: Uuid!) {
 	feats(where: {id: {eq: $id}}) {
 		items {
+			rollableEffect {
+				criticalSuccess,
+				success,
+				failure,
+				criticalFailure
+			},
 			... FeatById
 		}
 	}
@@ -15,12 +21,6 @@ fragment FeatById on Feat {
 	trigger,
 	frequency {
 		name
-	},
-	rollableEffect {
-		criticalSuccess,
-		success,
-		failure,
-		criticalFailure
 	},
 	traits {
 	    ... FeatById_Trait

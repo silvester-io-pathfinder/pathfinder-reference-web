@@ -36,10 +36,10 @@
         NavigationManager.NavigateTo($"/feats/{feat.Id}");
     }
 
-    public async Task<TableData<IFeatsPage>> GetPage(FeatSortInput[] sortInputs, TableState state, string? searchTerm)
+    public async Task<TableData<IFeatsPage>> GetPage(FeatSortInput[] sortInputs, TableState state, string searchTerm)
     {
         IOperationResult<IGetFeatsPageResult> result = await PathfinderOfficialApi.GetFeatsPage
-            .ExecuteAsync(state.Page * state.PageSize, state.PageSize, searchTerm ?? "", sortInputs);
+            .ExecuteAsync(state.Page * state.PageSize, state.PageSize, searchTerm, sortInputs);
 
         TableData<IFeatsPage> page = new TableData<IFeatsPage>()
         {

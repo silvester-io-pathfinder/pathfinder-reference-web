@@ -1,24 +1,19 @@
 ﻿@using Silvester.Pathfinder.Official.Web.Shared.Preferences;
 @using Silvester.Pathfinder.Official.Web.Shared.Cards;
 @using Silvester.Pathfinder.Official.Web.Services;
-
+@using Silvester.Pathfinder.Official.Web.Shared.Chips; 
 <div>
-    <ComponentDetailsCard TEntity="IFeatById" Entity="@Feat">
+    <ComponentDetailsCard TEntity="IGetFeatById_Feats_Items" Entity="@Feat">
         <Title>
             <MudText Typo="Typo.h6">@context.Name</MudText>
         </Title>
-        <Actions>
-            <MudTooltip Text="Share">
-                <MudIconButton Size="Size.Medium" OnClick="@(async () => await OnShareClickAsync())" Icon="@Icons.Material.Filled.Share"></MudIconButton>
-            </MudTooltip>
-        </Actions>
         <LeftContent>
             <PreferenceCategory Title="Traits">
                 <PreferenceItemChips>
                     <Chips>
                         @foreach (IFeatById_Trait trait in @context.Traits)
                         {
-                            <MudChip Variant="@Variant.Outlined" Size="Size.Small" Color="Color.Tertiary" Style="margin: 0px; margin-right: 8px;" OnClick="@(() => OnTraitClick(trait))">@trait.Name</MudChip>
+                            <TraitChip OnClick="@(() => OnTraitClick(trait))" Text="@trait.Name"/>
                         }
                     </Chips>
                 </PreferenceItemChips>
@@ -62,22 +57,10 @@
 
 @code {
     [Parameter]
-    public IFeatById? Feat { get; set; } = default!;
-
-    [Inject]
-    public IClipboardService ClipboardService { get; set; } = default!;
-
-    [Inject]
-    public ISnackbar Snackbar { get; set; } = default!;
+    public IGetFeatById_Feats_Items? Feat { get; set; }
 
     [Inject]
     public NavigationManager NavigationManager { get; set; } = default!;
-
-    public async Task OnShareClickAsync()
-    {
-        await ClipboardService.WriteTextAsync(NavigationManager.Uri);
-        Snackbar.Add(@"Copied URL to clipboard!", Severity.Success);
-    }
 
     public void OnTraitClick(IFeatById_Trait trait)
     {

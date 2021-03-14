@@ -1,0 +1,58 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
+@using Silvester.Pathfinder.Official.Web.Pages.Races.Details.Components;
+
+@inherits BaseDetailPage
+@page "/races/{raceId:guid}"
+@implements IDisposable
+
+<div>
+    <PageLayout>
+        @if (Race != null)
+        {
+            <MudPaper Style="margin: 20px">
+                <DetailsCard Race="@Race" />
+            </MudPaper>
+
+
+            <MudPaper Style="margin: 20px">
+                <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
+                    <MudTabPanel Text="Heritages">
+                        <HeritagesTable Race="@Race" />
+                    </MudTabPanel>
+                </MudTabs>
+            </MudPaper>
+        }
+    </PageLayout>
+</div>
+
+@code {
+    protected override string Title => "Races";
+    protected override string? Subtitle => Race?.Name;
+
+    [Parameter]
+    public Guid RaceId { get; set; }
+
+    [Inject]
+    public PathfinderOfficialApi PathfinderOfficialApi { get; set; } = default!;
+
+    private IGetRaceById_Races_Items? Race { get; set; }
+
+    private IDisposable? StoreSession { get; set; }
+
+    protected override void OnInitialized()
+    {
+        StoreSession = PathfinderOfficialApi.GetRaceById
+        .Watch(RaceId, StrawberryShake.ExecutionStrategy.NetworkOnly)
+        .Select(e => e.Data?.Races?.Items?.FirstOrDefault())
+        .Subscribe(race =>
+        {
+            Race = race;
+            StateHasChanged();
+        });
+    }
+
+    public void Dispose()
+    {
+        StoreSession?.Dispose();
+    }
+}
