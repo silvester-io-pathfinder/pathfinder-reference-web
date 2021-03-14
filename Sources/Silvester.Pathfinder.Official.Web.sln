@@ -6,6 +6,7 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".config", ".config", "{B935BD9F-27B6-497A-8784-243EE1233DEF}"
 	ProjectSection(SolutionItems) = preProject
 		.config\dotnet-tools.json = .config\dotnet-tools.json
+		Properties.proj = Properties.proj
 		.config\scripts.txt = .config\scripts.txt
 	EndProjectSection
 EndProject
