@@ -1,5 +1,7 @@
 FROM mcr.microsoft.com/dotnet/sdk:5.0-focal AS build
 
+USER root
+
 ARG artifactoryUsername
 ARG artifactoryPassword
 
