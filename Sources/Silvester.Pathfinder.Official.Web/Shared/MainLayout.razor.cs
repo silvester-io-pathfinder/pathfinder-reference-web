@@ -1,7 +1,5 @@
 ﻿using Fluxor;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
-using MudBlazor;
 using Silvester.Pathfinder.Official.Web.State;
 using System;
 

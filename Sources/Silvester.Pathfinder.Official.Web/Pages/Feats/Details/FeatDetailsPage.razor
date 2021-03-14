@@ -3,11 +3,11 @@
 
 @page "/feats/{featId:guid}"
 
-@using Silvester.Pathfinder.Official.Web.Pages.Overviews.Feats.Details.Components;
-@using Silvester.Pathfinder.Official.Web.Shared.Pages;
+@using Silvester.Pathfinder.Official.Web.Pages.Feats.Details.Components;
+@using Silvester.Pathfinder.Official.Web.Shared.Layout;
 
 <div>
-    <PageContent>
+    <PageLayout>
         <MudPaper Style="margin: 20px">
 
             @if (Feat != null)
@@ -16,7 +16,7 @@
             }
 
         </MudPaper>
-    </PageContent>
+    </PageLayout>
 </div>
 
 @code {

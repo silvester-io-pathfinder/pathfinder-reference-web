@@ -1,8 +1,4 @@
 ﻿using MudBlazor;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Silvester.Pathfinder.Official.Web.Themes
 {
@@ -13,8 +9,9 @@ namespace Silvester.Pathfinder.Official.Web.Themes
             Palette = new Palette
             {
                 Primary = Colors.Red.Default,
-                Secondary = "#495165",
-                AppbarBackground = Colors.Red.Default
+                Secondary = Colors.Orange.Accent3,
+                AppbarBackground = Colors.Red.Default,
+                Tertiary = Colors.BlueGrey.Default
             };
 
             LayoutProperties = new LayoutProperties

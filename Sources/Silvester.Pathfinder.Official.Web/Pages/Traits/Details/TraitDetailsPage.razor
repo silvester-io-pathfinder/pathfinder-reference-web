@@ -4,14 +4,12 @@
 @page "/traits/{traitId:guid}"
 
 @using System.Linq;
-@using Silvester.Pathfinder.Official.Web.Shared.Pages;
+@using Silvester.Pathfinder.Official.Web.Shared.Layout;
 @using System.Reactive.Linq;
-@using Silvester.Pathfinder.Official.Web.Shared.Preferences;
-@using Silvester.Pathfinder.Official.Web.Shared.Cards;
-@using Silvester.Pathfinder.Official.Web.Shared.Tables;
-@using Silvester.Pathfinder.Official.Web.Pages.Overviews.Traits.Details.Components;
+@using Silvester.Pathfinder.Official.Web.Pages.Traits.Details.Components;
+
 <div>
-    <PageContent>
+    <PageLayout>
         @if (Trait != null)
         {
             <MudPaper Style="margin: 20px">
@@ -29,7 +27,7 @@
                 </MudTabs>
             </MudPaper>
         }
-    </PageContent>
+    </PageLayout>
 </div>
 
 @code {

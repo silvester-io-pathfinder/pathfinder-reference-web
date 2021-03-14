@@ -18,7 +18,7 @@
                     <Chips>
                         @foreach (IFeatById_Trait trait in @context.Traits)
                         {
-                            <MudChip Size="Size.Small" Color="Color.Primary" Style="margin: 0px; margin-right: 8px;" OnClick="@(() => OnTraitClick(trait))">@trait.Name</MudChip>
+                            <MudChip Variant="@Variant.Outlined" Size="Size.Small" Color="Color.Tertiary" Style="margin: 0px; margin-right: 8px;" OnClick="@(() => OnTraitClick(trait))">@trait.Name</MudChip>
                         }
                     </Chips>
                 </PreferenceItemChips>

@@ -1,13 +1,13 @@
 ﻿@using Silvester.Pathfinder.Official.Web.Pages.Overviews
 @using Silvester.Pathfinder.Official.Web.Shared.Tables
 @using Silvester.Pathfinder.Official.Web.Graphql
-@using Silvester.Pathfinder.Official.Web.Shared.Pages;
+@using Silvester.Pathfinder.Official.Web.Shared.Layout;
 
 @page "/feats"
 @inherits BaseOverviewPage
 
 <div>
-    <PageContent>
+    <PageLayout>
         <MudPaper Style="margin: 20px;">
             <GraphqlTable Title="Feats" RowsPerPage="25" GetPage="@GetPage" TSortInput="FeatSortInput" TEntity="IFeatsPage">
                 <Columns>
@@ -30,7 +30,7 @@
                 </Rows>
             </GraphqlTable>
         </MudPaper>
-    </PageContent>
+    </PageLayout>
 
 </div>
 

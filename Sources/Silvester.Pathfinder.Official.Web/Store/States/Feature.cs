@@ -1,9 +1,5 @@
 ﻿using Fluxor;
 using Silvester.Pathfinder.Official.Web.State;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Silvester.Pathfinder.Official.Web.Store.States
 {
