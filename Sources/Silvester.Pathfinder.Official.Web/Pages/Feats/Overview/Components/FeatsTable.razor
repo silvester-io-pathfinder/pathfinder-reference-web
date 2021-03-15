@@ -33,7 +33,7 @@
 
     public void OnInspectClicked(IFeatsPage feat)
     {
-        NavigationManager.NavigateTo($"/feats/{feat.Id}");
+        NavigationManager.NavigateTo($"feats/{feat.Id}");
     }
 
     public async Task<TableData<IFeatsPage>> GetPage(FeatSortInput[] sortInputs, TableState state, string searchTerm)

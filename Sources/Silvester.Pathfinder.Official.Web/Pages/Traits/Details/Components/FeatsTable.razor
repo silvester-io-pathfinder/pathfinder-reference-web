@@ -12,7 +12,7 @@
     }
     else
     {
-        <RelationshipTable TEntity="ITraitById_Feat" DefaultSortLabel="@nameof(ITraitById_Feat.Name)" Filter="@FeatsFilter" InspectionUrl="@((e) => $"/feats/{e.Id}")" Items="@(() => Trait.Feats)" >
+        <RelationshipTable TEntity="ITraitById_Feat" DefaultSortLabel="@nameof(ITraitById_Feat.Name)" Filter="@FeatsFilter" InspectionUrl="@((e) => $"feats/{e.Id}")" Items="@(() => Trait.Feats)" >
             <Columns>
                 <MudTh><MudTableSortLabel SortLabel="@nameof(ITraitById_Feat.Name)" T="ITraitById_Feat" InitialDirection="SortDirection.Ascending">Name</MudTableSortLabel></MudTh>
                 <MudTh><MudTableSortLabel SortLabel="@nameof(ITraitById_Feat.Level)" T="ITraitById_Feat">Level</MudTableSortLabel></MudTh>

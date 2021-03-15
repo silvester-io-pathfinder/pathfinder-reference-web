@@ -35,7 +35,7 @@
 
     public void OnInspectClicked(IGetRacesPage_Races_Items race)
     {
-        NavigationManager.NavigateTo($"/races/{race.Id}");
+        NavigationManager.NavigateTo($"races/{race.Id}");
     }
 
     public async Task<TableData<IGetRacesPage_Races_Items>> GetPage(RaceSortInput[] sortInputs, TableState state, string searchTerm)

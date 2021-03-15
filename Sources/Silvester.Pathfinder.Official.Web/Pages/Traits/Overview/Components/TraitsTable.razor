@@ -30,7 +30,7 @@
 
     public void OnInspectClicked(ITraitsPage trait)
     {
-        NavigationManager.NavigateTo($"/traits/{trait.Id}");
+        NavigationManager.NavigateTo($"traits/{trait.Id}");
     }
 
     public async Task<TableData<ITraitsPage>> GetPage(TraitSortInput[] sortInputs, TableState state, string searchTerm)

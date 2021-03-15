@@ -10,7 +10,7 @@
     }
     else
     {
-        <RelationshipTable TEntity="IGetRaceById_Races_Items_Heritages" DefaultSortLabel="@nameof(IGetRaceById_Races_Items_Heritages.Name)" Filter="@HeritageFilter" InspectionUrl="@((e) => $"/heritages/{e.Id}")" Items="@(() => Race.Heritages)">
+        <RelationshipTable TEntity="IGetRaceById_Races_Items_Heritages" DefaultSortLabel="@nameof(IGetRaceById_Races_Items_Heritages.Name)" Filter="@HeritageFilter" InspectionUrl="@((e) => $"heritages/{e.Id}")" Items="@(() => Race.Heritages)">
             <Columns>
                 <MudTh><MudTableSortLabel SortLabel="@nameof(IGetRaceById_Races_Items_Heritages.Name)" T="IGetRaceById_Races_Items_Heritages" InitialDirection="SortDirection.Ascending">Name</MudTableSortLabel></MudTh>
                 <MudTh><MudTableSortLabel SortLabel="@(nameof(IGetRaceById_Races_Items_Heritages.Rarity) + ".Name")" T="IGetRaceById_Races_Items_Heritages">Rarity</MudTableSortLabel></MudTh>

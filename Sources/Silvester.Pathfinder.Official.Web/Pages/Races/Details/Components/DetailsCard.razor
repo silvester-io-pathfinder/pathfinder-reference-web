@@ -67,21 +67,21 @@
 
     public void OnSizeClick()
     {
-        NavigationManager.NavigateTo($"/race-sizes/{Race!.RaceSize.Id}");
+        NavigationManager.NavigateTo($"race-sizes/{Race!.RaceSize.Id}");
     }
 
     public void OnRarityClick()
     {
-        NavigationManager.NavigateTo($"/race-rarities/{Race!.RaceRarity.Id}");
+        NavigationManager.NavigateTo($"race-rarities/{Race!.RaceRarity.Id}");
     }
 
     public void OnRaceTraitClick(IGetRaceById_Races_Items_RaceTraits trait)
     {
-        NavigationManager.NavigateTo($"/race-traits/{trait.Id}");
+        NavigationManager.NavigateTo($"race-traits/{trait.Id}");
     }
 
     public void OnLanguageClick(IGetRaceById_Races_Items_Languages language)
     {
-        NavigationManager.NavigateTo($"/languages/{language.Id}");
+        NavigationManager.NavigateTo($"languages/{language.Id}");
     }
 }
