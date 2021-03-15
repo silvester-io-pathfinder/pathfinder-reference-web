@@ -16,3 +16,5 @@ RUN dotnet publish ./Sources/Silvester.Pathfinder.Official.Web.sln -c Release -o
 FROM nginx
 COPY --from=build /build/publish/wwwroot /usr/share/nginx/html
 COPY ./default.conf /etc/nginx/conf.d/
+
+sed -i 's/base href=\"/\"/base href=\"/web/\"/g' /usr/share/nginx/html/index.html
