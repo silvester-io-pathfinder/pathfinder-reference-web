@@ -18,7 +18,6 @@ COPY --from=build /build/publish/wwwroot /usr/share/nginx/html
 
 RUN cat > /etc/nginx/conf.d/default.conf  <<-EOF 
 server {
-    root /var/www/example.com;
     location / {
         try_files $uri $uri/ /index.html;
     }
