@@ -14,4 +14,4 @@ RUN dotnet publish ./Sources/Silvester.Pathfinder.Official.Web.sln -c Release -o
 
 
 FROM nginx
-COPY --from=build /build/publish /usr/share/nginx/html
+COPY --from=build /build/publish/wwwroot /usr/share/nginx/html
