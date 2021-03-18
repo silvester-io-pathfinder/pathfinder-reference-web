@@ -1,0 +1,43 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Preferences;
+@using Silvester.Pathfinder.Official.Web.Shared.Cards;
+@using Silvester.Pathfinder.Official.Web.Shared.Tables;
+@using Silvester.Pathfinder.Official.Web.Pages.Traits.Details.Components;
+@using Silvester.Pathfinder.Official.Web.Shared.Fields;
+@using System.Reflection;
+
+<div>
+    @if (MagicComponent == null)
+    {
+
+    }
+    else
+    {
+        <CardToolbar>
+            <MudText Typo="@Typo.h6">Spells</MudText>
+        </CardToolbar>
+        <MudDivider />
+        <RelationshipTable TEntity="IMagicComponentById_Spell" DefaultSortLabel="@nameof(IMagicComponentById_Spell.Name)" Filter="@SpellsFilter" InspectionUrl="@((e) => $"spells/{e.Id}")" Items="@(() => MagicComponent.Spells)">
+            <Columns>
+                <MudTh><MudTableSortLabel SortLabel="@nameof(IMagicComponentById_Spell.Name)" T="IMagicSchoolById_Spell" InitialDirection="SortDirection.Ascending">Name</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortLabel="@nameof(IMagicComponentById_Spell.Level)" T="IMagicSchoolById_Spell">Level</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortLabel="@nameof(IMagicComponentById_Spell.Description)" T="IMagicSchoolById_Spell">Description</MudTableSortLabel></MudTh>
+            </Columns>
+            <Rows>
+                <MudTd>@context.Name</MudTd>
+                <MudTd>@context.Level</MudTd>
+                <MudTdEllipsized Text="@context.Description" />
+            </Rows>
+        </RelationshipTable>
+    }
+</div>
+
+@code
+{
+    [Parameter]
+    public IMagicComponentById? MagicComponent { get; set; }
+
+    public bool SpellsFilter(IMagicComponentById_Spell spell, string searchString)
+    {
+        return spell.Name.ToLower().Contains(searchString);
+    }
+}

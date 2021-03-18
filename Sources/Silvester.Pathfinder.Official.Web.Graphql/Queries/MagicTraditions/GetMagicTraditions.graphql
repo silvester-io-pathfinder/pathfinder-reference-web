@@ -1,0 +1,15 @@
+﻿query GetMagicTraditions {
+	magicTraditions(order: {name: ASC}) 
+	{
+		items {
+			... MagicTradition
+		}
+	}
+}
+
+
+fragment MagicTradition on MagicTradition {
+	id,
+	name,
+	description
+}

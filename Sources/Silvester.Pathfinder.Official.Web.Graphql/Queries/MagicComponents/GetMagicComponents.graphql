@@ -1,0 +1,15 @@
+﻿query GetMagicComponents {
+	spellComponents(order: {name: ASC}) 
+	{
+		items {
+			... MagicComponent
+		}
+	}
+}
+
+
+fragment MagicComponent on SpellComponent {
+	id,
+	name,
+	description
+}

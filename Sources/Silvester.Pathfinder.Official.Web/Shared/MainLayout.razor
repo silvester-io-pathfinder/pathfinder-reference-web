@@ -9,24 +9,24 @@
     </MudAppBar>
     <MudDrawer @bind-Open="@DrawerOpen" Elevation="4">
         <MudNavMenu>
-            <MudNavLink Icon="@Generated.Trait" Href="traits" Match="NavLinkMatch.Prefix">Traits</MudNavLink>
-            <MudNavGroup Title="Abilities">
+            <MudNavGroup Title="Abilities" Expanded="true">
                 <MudNavLink Icon="@Generated.Fire" Href="spells" Match="NavLinkMatch.Prefix">Spells</MudNavLink>
                 <MudNavLink Icon="@Generated.Feat" Href="feats" Match="NavLinkMatch.Prefix">Feats</MudNavLink>
             </MudNavGroup>
-            <MudNavGroup Title="Magic">
+            <MudNavGroup Title="Magic" Expanded="true">
                 <MudNavLink Icon="@Generated.MagicSchool" Href="magic-schools" Match="NavLinkMatch.Prefix">Schools</MudNavLink>
                 <MudNavLink Icon="@Generated.MagicTradition" Href="magic-traditions" Match="NavLinkMatch.Prefix">Traditions</MudNavLink>
                 <MudNavLink Icon="@Generated.MagicComponent" Href="magic-components" Match="NavLinkMatch.Prefix">Components</MudNavLink>
                 <MudNavLink Icon="@Generated.MagicEssence" Href="magic-essences" Match="NavLinkMatch.Prefix">Essences</MudNavLink>
             </MudNavGroup>
-            <MudNavGroup Title="Character">
-                <MudNavLink Icon="@Generated.Classes" Href="classes" Match="NavLinkMatch.Prefix">Classes</MudNavLink>
-                <MudNavLink Icon="@Generated.Stats" Href="stats" Match="NavLinkMatch.Prefix">Stats</MudNavLink>
+            <MudNavGroup Title="Character" Expanded="true">
+                <!--<MudNavLink Icon="@Generated.Classes" Href="classes" Match="NavLinkMatch.Prefix">Classes</MudNavLink>
+                <MudNavLink Icon="@Generated.Stats" Href="stats" Match="NavLinkMatch.Prefix">Stats</MudNavLink>-->
                 <MudNavLink Icon="@Generated.Race" Href="races" Match="NavLinkMatch.Prefix">Races</MudNavLink>
-                <MudNavLink Icon="@Generated.Size" Href="sizes" Match="NavLinkMatch.Prefix">Sizes</MudNavLink>
-                <MudNavLink Icon="@Generated.Traits" Href="race-traits" Match="NavLinkMatch.Prefix">Traits</MudNavLink>
+                <!--<MudNavLink Icon="@Generated.Size" Href="sizes" Match="NavLinkMatch.Prefix">Sizes</MudNavLink>
+                <MudNavLink Icon="@Generated.Traits" Href="race-traits" Match="NavLinkMatch.Prefix">Traits</MudNavLink>-->
             </MudNavGroup>
+            <MudNavLink Icon="@Generated.Trait" Href="traits" Match="NavLinkMatch.Prefix">Traits</MudNavLink>
         </MudNavMenu>
     </MudDrawer>
     <MudMainContent>

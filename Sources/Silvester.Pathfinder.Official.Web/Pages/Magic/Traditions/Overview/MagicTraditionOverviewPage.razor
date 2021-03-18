@@ -1,0 +1,42 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
+@using Silvester.Pathfinder.Official.Web.Pages.Traits.Overview.Components;
+@using Silvester.Pathfinder.Official.Web.Pages.Magic.Traditions.Overview.Components;
+ 
+@page "/magic-traditions"
+@inherits BaseOverviewPage
+
+<div>
+    <PageLayout>
+
+        @if(MagicTraditions != null)
+        {
+            foreach(IMagicTradition tradition in MagicTraditions)
+            {
+                <MudPaper Style="margin: 20px;">
+                    <MagicTraditionCard MagicTradition="@tradition" />
+                </MudPaper>
+            }
+        }
+
+    </PageLayout>
+
+</div>
+
+
+@code {
+    protected override string Title => "Magic Traditions";
+
+    [Inject]
+    public PathfinderOfficialApi PathfinderOfficialApi { get; set; } = default!;
+
+
+    private IReadOnlyList<IMagicTradition> MagicTraditions { get; set; } = default!;
+
+    protected override async Task OnInitializedAsync()
+    {
+        IOperationResult<IGetMagicTraditionsResult> result = await PathfinderOfficialApi.GetMagicTraditions
+            .ExecuteAsync();
+
+        MagicTraditions = result.Data!.MagicTraditions!.Items!;
+    }
+}

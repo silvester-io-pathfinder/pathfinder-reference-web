@@ -1,0 +1,23 @@
+﻿query GetMagicComponentById($id: Uuid!) {
+	spellComponents(where: {id: {eq: $id}}) {
+		items {
+			... MagicComponentById
+		}
+	}
+}
+
+fragment MagicComponentById on SpellComponent {
+	id,
+	name,
+	description,
+	spells {
+		... MagicComponentById_Spell
+	}
+}
+
+fragment MagicComponentById_Spell on Spell {
+	id,
+	name,
+	description,
+	level
+}

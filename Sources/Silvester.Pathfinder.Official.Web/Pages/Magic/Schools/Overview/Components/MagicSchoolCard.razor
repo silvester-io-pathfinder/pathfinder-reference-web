@@ -2,13 +2,14 @@
 @using Silvester.Pathfinder.Official.Web.Shared.Preferences;
 
 <div>
-    <CardToolbar>
+    <CardToolbar Style="padding-right: 10px;">
         <MudText Typo="@Typo.h6">@School.Name</MudText>
         <MudToolBarSpacer />
         <MudTooltip Text="Inspect">
             <MudIconButton Size="Size.Medium" OnClick="@(() => OnInspectClick())" Icon="@Icons.Material.Outlined.ArrowForward"></MudIconButton>
         </MudTooltip>
     </CardToolbar>
+    <MudDivider />
     <PreferenceCategory Title="Description">
         <PreferenceItemText Text="@School.Description" />
     </PreferenceCategory>

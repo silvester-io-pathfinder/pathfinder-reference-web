@@ -106,16 +106,16 @@
 
     public void OnTraditionClick(IGetSpellById_Spells_Items_Traditions tradition)
     {
-        NavigationManager.NavigateTo($"spell-traditions/{tradition.Id}");
+        NavigationManager.NavigateTo($"magic-traditions/{tradition.Id}");
     }
 
     public void OnComponentClick(IGetSpellById_Spells_Items_Components component)
     {
-        NavigationManager.NavigateTo($"spell-components/{component.Id}");
+        NavigationManager.NavigateTo($"magic-components/{component.Id}");
     }
 
     public void OnTraitClick(IGetSpellById_Spells_Items_Traits trait)
     {
-        NavigationManager.NavigateTo($"spell-components/{trait.Id}");
+        NavigationManager.NavigateTo($"traits/{trait.Id}");
     }
 }

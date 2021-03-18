@@ -1,0 +1,23 @@
+﻿query GetMagicTraditionById($id: Uuid!) {
+	magicTraditions(where: {id: {eq: $id}}) {
+		items {
+			... MagicTraditionById
+		}
+	}
+}
+
+fragment MagicTraditionById on MagicTradition {
+	id,
+	name,
+	description,
+	spells {
+		... MagicTraditionById_Spell
+	}
+}
+
+fragment MagicTraditionById_Spell on Spell {
+	id,
+	name,
+	description,
+	level
+}

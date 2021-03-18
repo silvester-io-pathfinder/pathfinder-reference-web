@@ -1,0 +1,15 @@
+﻿query GetMagicEssences {
+	magicEssences(order: {name: ASC}) 
+	{
+		items {
+			... MagicEssence
+		}
+	}
+}
+
+
+fragment MagicEssence on MagicEssence {
+	id,
+	name,
+	description
+}

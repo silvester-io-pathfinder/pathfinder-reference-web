@@ -1,0 +1,18 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Cards;
+@using Silvester.Pathfinder.Official.Web.Shared.Preferences;
+
+<div>
+    <CardToolbar Style="padding-right: 10px;">
+        <MudText Typo="@Typo.h6">@Essence.Name</MudText>
+    </CardToolbar>
+    <MudDivider />
+    <PreferenceCategory Title="Description">
+        <PreferenceItemText Text="@Essence.Description" />
+    </PreferenceCategory>
+</div>
+
+
+@code {
+    [Parameter]
+    public IMagicEssence Essence { get; set; } = default!;
+}
