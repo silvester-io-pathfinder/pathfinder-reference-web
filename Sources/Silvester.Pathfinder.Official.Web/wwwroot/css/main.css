@@ -22,3 +22,7 @@
 .app-loader {
 
 }
+
+svg {
+    display: block;
+}

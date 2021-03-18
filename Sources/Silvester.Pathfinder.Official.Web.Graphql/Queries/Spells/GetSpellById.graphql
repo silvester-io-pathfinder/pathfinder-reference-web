@@ -1,0 +1,63 @@
+﻿query GetSpellById($id: Uuid!) {
+	spells(where: {id: {eq: $id}}) {
+		items {
+			rollableEffect {
+				criticalSuccess,
+				success,
+				failure,
+				criticalFailure
+			},
+			traditions {
+				id,
+				name,
+				description
+			},
+			additionalDetails {
+				id,
+				text
+			},
+			components {
+				id,
+				name,
+				description
+			},
+			traits {
+				id,
+				name
+			},
+			heightenings(order: {level: ASC})
+			{
+				id,
+				level,
+				description,
+				details {
+					id,
+					text	
+				}
+			},
+			triggers {
+				id,
+				text
+			},
+			requirements {
+				id,
+				text
+			}
+			... SpellById
+		}
+	}
+}
+
+
+fragment SpellById on Spell {
+	id,
+	name,
+	description,
+	range,
+	castTime,
+	level,
+	targets,
+	isDismissable,
+	area,
+	duration
+}

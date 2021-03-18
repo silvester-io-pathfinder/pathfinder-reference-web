@@ -1,0 +1,42 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
+@using Silvester.Pathfinder.Official.Web.Pages.Traits.Overview.Components;
+@using Silvester.Pathfinder.Official.Web.Pages.MagicSchools.Overview.Components;
+ 
+@page "/magic-schools"
+@inherits BaseOverviewPage
+
+<div>
+    <PageLayout>
+
+        @if(Schools != null)
+        {
+            foreach(IMagicSchool school in Schools)
+            {
+                <MudPaper Style="margin: 20px;">
+                    <MagicSchoolCard School="@school" />
+                </MudPaper>
+            }
+        }
+
+    </PageLayout>
+
+</div>
+
+
+@code {
+    protected override string Title => "Magic Schools";
+
+    [Inject]
+    public PathfinderOfficialApi PathfinderOfficialApi { get; set; } = default!;
+
+
+    private IReadOnlyList<IMagicSchool> Schools { get; set; } = default!;
+
+    protected override async Task OnInitializedAsync()
+    {
+        IOperationResult<IGetMagicSchoolsResult> result = await PathfinderOfficialApi.GetMagicSchools
+            .ExecuteAsync();
+
+        Schools = result.Data!.MagicSchools!.Items!;
+    }
+}

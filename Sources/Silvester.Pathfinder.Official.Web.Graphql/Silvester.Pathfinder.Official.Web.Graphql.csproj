@@ -5,10 +5,18 @@
   </PropertyGroup>
 
   <Import Project="../Properties.proj" />
+
+  <ItemGroup>
+    <GraphQL Remove="Queries\MagicSchools\GetMagicSchools.graphql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Watch Remove="Queries\MagicSchools\GetMagicSchools.graphql" />
+  </ItemGroup>
   
   <ItemGroup>
-    <PackageReference Include="StrawberryShake.CodeGeneration.CSharp.Analyzers" Version="11.1.0-preview.80" />
-    <PackageReference Include="StrawberryShake.Transport.Http" Version="11.1.0-preview.80" />
+    <PackageReference Include="StrawberryShake.CodeGeneration.CSharp.Analyzers" Version="11.1.0-preview.85" />
+    <PackageReference Include="StrawberryShake.Transport.Http" Version="11.1.0-preview.85" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0" />
   </ItemGroup>

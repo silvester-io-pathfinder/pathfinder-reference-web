@@ -24,6 +24,7 @@ namespace Silvester.Pathfinder.Official.Web
             builder.Services.AddFluxor(options => options.ScanAssemblies(typeof(Program).Assembly));
 
             builder.Services.AddScoped<IClipboardService, ClipboardService>();
+            builder.Services.AddScoped<IActionTypeService, ActionTypeService>();
             builder.Services.AddScoped(sp => new HttpClient
             {
                 BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)

@@ -1,7 +1,10 @@
 ﻿ 
 <div class="isolation-wrapper">
     <div class="preference-category">
-        <p class="category-title">@Title</p>
+        @if(string.IsNullOrWhiteSpace(Title) == false)
+        {
+            <p class="category-title">@Title</p>
+        }
         @ChildContent
     </div>
 </div>

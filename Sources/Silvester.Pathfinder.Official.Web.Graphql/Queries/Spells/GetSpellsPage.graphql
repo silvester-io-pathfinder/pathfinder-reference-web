@@ -6,9 +6,7 @@
 		where: {
 			or: [
 				{name: {contains: $searchTerm}}, 
-				{actionType: {name: {contains: $searchTerm}}},
-				{featType: {name: {contains: $searchTerm}}},
-				{frequency: {name: {contains: $searchTerm}}}
+				{actionType: {name: {contains: $searchTerm}}}
 			]
 		}) 
 	{
@@ -16,7 +14,13 @@
 		items {
 			id,
 			name,
-			level
+			level,
+			savingThrowStat {
+				name
+			},
+			actionType {
+				name
+			}
 		}
 	}
 }

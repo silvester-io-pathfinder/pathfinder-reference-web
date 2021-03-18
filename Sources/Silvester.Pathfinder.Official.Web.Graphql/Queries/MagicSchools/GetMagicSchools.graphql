@@ -1,0 +1,15 @@
+﻿query GetMagicSchools {
+	magicSchools(order: {name: ASC}) 
+	{
+		items {
+			... MagicSchool
+		}
+	}
+}
+
+
+fragment MagicSchool on MagicSchool {
+	id,
+	name,
+	description
+}

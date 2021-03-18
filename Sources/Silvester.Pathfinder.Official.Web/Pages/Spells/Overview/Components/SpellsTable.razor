@@ -1,22 +1,21 @@
 ﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
 @using Silvester.Pathfinder.Official.Web.Graphql
+@using Silvester.Pathfinder.Official.Web.Services
 
 <div>
-    <GraphqlTable Title="Races" RowsPerPage="25" GetPage="@GetPage" TSortInput="RaceSortInput" TEntity="IGetRacesPage_Races_Items">
+    <GraphqlTable Title="Spells" RowsPerPage="25" GetPage="@GetPage" TSortInput="SpellSortInput" TEntity="IGetSpellsPage_Spells_Items">
         <Columns>
-            <MudTh><MudTableSortLabel SortLabel="@nameof(IGetRacesPage_Races_Items.Name)" T="IGetRacesPage_Races_Items">Name</MudTableSortLabel></MudTh>
-            <MudTh><MudTableSortLabel SortLabel="@nameof(IGetRacesPage_Races_Items.BaseSpeed)" T="IGetRacesPage_Races_Items">Speed</MudTableSortLabel></MudTh>
-            <MudTh><MudTableSortLabel SortLabel="@nameof(IGetRacesPage_Races_Items.BaseHealth)" T="IGetRacesPage_Races_Items">Health</MudTableSortLabel></MudTh>
-            <MudTh><MudTableSortLabel SortLabel="@(nameof(IGetRacesPage_Races_Items.Size)  + ".Name")" T="IGetRacesPage_Races_Items">Size</MudTableSortLabel></MudTh>
-            <MudTh><MudTableSortLabel SortLabel="@(nameof(IGetRacesPage_Races_Items.Rarity)  + ".Name")" T="IGetRacesPage_Races_Items">Rarity</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel SortLabel="@(nameof(IGetSpellsPage_Spells_Items.ActionType)  + ".Name")" T="IGetSpellsPage_Spells_Items">Action</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel SortLabel="@nameof(IGetSpellsPage_Spells_Items.Name)" T="IGetSpellsPage_Spells_Items">Name</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel SortLabel="@nameof(IGetSpellsPage_Spells_Items.Level)" T="IGetSpellsPage_Spells_Items">Level</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel SortLabel="@(nameof(IGetSpellsPage_Spells_Items.SavingThrowStat)+".Name")" T="IGetSpellsPage_Spells_Items">Saving Throw</MudTableSortLabel></MudTh>
             <MudTh></MudTh>
         </Columns>
         <Rows>
-            <MudTd DataLabel="@nameof(IGetRacesPage_Races_Items.Name)" Style="font-weight: 500;">@context.Name</MudTd>
-            <MudTd DataLabel="@nameof(IGetRacesPage_Races_Items.BaseSpeed)">@context.BaseSpeed</MudTd>
-            <MudTd DataLabel="@nameof(IGetRacesPage_Races_Items.BaseHealth)">@context.BaseHealth</MudTd>
-            <MudTd DataLabel="@nameof(IGetRacesPage_Races_Items.Size)">@context.Size.Name</MudTd>
-            <MudTdEllipsized DataLabel="@nameof(IGetRacesPage_Races_Items.Rarity)" Text="@context.Rarity.Name" />
+            <MudTd><div style="vertical-align: middle; height: 24px;">@((MarkupString) ActionTypeService.GetActionTypeIcon(context.ActionType!.Name))</div></MudTd>
+            <MudTd Style="font-weight: 500;">@context.Name</MudTd>
+            <MudTd>@context.Level</MudTd>
+            <MudTdEllipsized Text="@context.SavingThrowStat?.Name" />
             <MudTh>
                 <MudTooltip Text="Inspect">
                     <MudIconButton Size="Size.Small" OnClick="@(() => OnInspectClicked(context))" Icon="@Icons.Material.Outlined.ArrowForward"></MudIconButton>
@@ -33,20 +32,23 @@
     [Inject]
     public NavigationManager NavigationManager { get; set; } = default!;
 
-    public void OnInspectClicked(IGetRacesPage_Races_Items race)
+    [Inject]
+    public IActionTypeService ActionTypeService { get; set; } = default!;
+
+    public void OnInspectClicked(IGetSpellsPage_Spells_Items spell)
     {
-        NavigationManager.NavigateTo($"races/{race.Id}");
+        NavigationManager.NavigateTo($"spells/{spell.Id}");
     }
 
-    public async Task<TableData<IGetRacesPage_Races_Items>> GetPage(RaceSortInput[] sortInputs, TableState state, string searchTerm)
+    public async Task<TableData<IGetSpellsPage_Spells_Items>> GetPage(SpellSortInput[] sortInputs, TableState state, string searchTerm)
     {
-        IOperationResult<IGetRacesPageResult> result = await PathfinderOfficialApi.GetRacesPage
+        IOperationResult<IGetSpellsPageResult> result = await PathfinderOfficialApi.GetSpellsPage
             .ExecuteAsync(state.Page * state.PageSize, state.PageSize, searchTerm, sortInputs);
 
-        TableData<IGetRacesPage_Races_Items> page = new TableData<IGetRacesPage_Races_Items>()
+        TableData<IGetSpellsPage_Spells_Items> page = new TableData<IGetSpellsPage_Spells_Items>()
         {
-            TotalItems = result.Data!.Races!.TotalCount,
-            Items = result.Data!.Races!.Items!
+            TotalItems = result.Data!.Spells!.TotalCount,
+            Items = result.Data!.Spells!.Items!
         };
 
         return page;

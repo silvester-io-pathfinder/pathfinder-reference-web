@@ -1,0 +1,121 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Preferences;
+@using Silvester.Pathfinder.Official.Web.Shared.Cards;
+@using Silvester.Pathfinder.Official.Web.Shared.Tables;
+@using Silvester.Pathfinder.Official.Web.Services;
+@using Silvester.Pathfinder.Official.Web.Shared.Chips; 
+
+@if (Spell != null)
+{
+    <ComponentDetailsCard TEntity="IGetSpellById_Spells_Items" Entity="@Spell">
+        <Title>
+            <MudText Typo="Typo.h6">Spell</MudText>
+        </Title>
+        <Actions>
+        </Actions>
+        <LeftContent>
+            <PreferenceCategory Title="Details">
+                <PreferenceItemText Title="Name" Text="@context.Name" />
+                <MudDivider />
+           
+                @if (context.CastTime != null)
+                {
+                    <PreferenceItemText Title="Case Time" Text="@context.CastTime.ToString()" />
+                    <MudDivider />
+                }
+            </PreferenceCategory>
+            <PreferenceCategory Title="Mechanisms">
+                @if (context.Targets != null)
+                {
+                    <PreferenceItemText Title="Targets" Text="@context.Targets" />
+                    <MudDivider />
+                }
+                @if (context.Range != null)
+                {
+                    <PreferenceItemText Title="Range" Text="@context.Range.ToString()" />
+                    <MudDivider />
+                }
+                @if (context.Area != null)
+                {
+                    <PreferenceItemText Title="Area" Text="@context.Area" />
+                    <MudDivider />
+                }
+                @if (context.Duration != null)
+                {
+                    <PreferenceItemText Title="Duration" Text="@context.Duration" />
+                    <MudDivider />
+                }
+
+                <PreferenceItemText Title="Is Dismissable" Text="@context.IsDismissable.ToString()" />
+
+            </PreferenceCategory>
+        </LeftContent>
+        <RightContent>
+            <PreferenceCategory Title="Description">
+                <PreferenceItemText Text="@context.Description" />
+                @foreach (var additional in context.AdditionalDetails)
+                {
+                    <PreferenceItemText Text="@additional.Text" />
+                }
+            </PreferenceCategory>
+
+            <PreferenceCategory Title="Perks">
+                @if (context.Traditions.Count != 0)
+                {
+                    <PreferenceItemChips Title="Traditions">
+                        <Chips>
+                            @foreach (var tradition in context.Traditions)
+                            {
+                                <TraitChip Text="@tradition.Name" OnClick="@(() => OnTraditionClick(tradition))" />
+                            }
+                        </Chips>
+                    </PreferenceItemChips>
+                }
+                @if (context.Components.Count != 0)
+                {
+                    <PreferenceItemChips Title="Components">
+                        <Chips>
+                            @foreach (var component in context.Components)
+                            {
+                                <TraitChip Text="@component.Name" OnClick="@(() => OnComponentClick(component))" />
+                            }
+                        </Chips>
+                    </PreferenceItemChips>
+                }
+                @if (context.Traits.Count != 0)
+                {
+                    <PreferenceItemChips Title="Traits">
+                        <Chips>
+                            @foreach (var trait in context.Traits)
+                            {
+                                <TraitChip Text="@trait.Name" OnClick="@(() => OnTraitClick(trait))" />
+                            }
+                        </Chips>
+                    </PreferenceItemChips>
+                }
+            </PreferenceCategory>
+        </RightContent>
+    </ComponentDetailsCard>
+}
+
+@code {
+    [Parameter]
+    public IGetSpellById_Spells_Items Spell { get; set; } = default!;
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; } = default!;
+
+    public void OnTraditionClick(IGetSpellById_Spells_Items_Traditions tradition)
+    {
+        NavigationManager.NavigateTo($"spell-traditions/{tradition.Id}");
+    }
+
+    public void OnComponentClick(IGetSpellById_Spells_Items_Components component)
+    {
+        NavigationManager.NavigateTo($"spell-components/{component.Id}");
+    }
+
+    public void OnTraitClick(IGetSpellById_Spells_Items_Traits trait)
+    {
+        NavigationManager.NavigateTo($"spell-components/{trait.Id}");
+    }
+}
