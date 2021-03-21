@@ -1,0 +1,19 @@
+﻿query GetDeityCategoriesPage($skip: Int!, $take: Int!, $searchTerm: String! = "", $order: [DeityCategorySortInput!] = [{name: ASC}]) {
+	deityCategories(
+		skip: $skip, 
+		take: $take, 
+		order: $order,
+		where: {
+			or: [
+				{name: {contains: $searchTerm}}
+			]
+		}) 
+	{
+		totalCount,
+		items {
+			id,
+			name,
+			description
+		}
+	}
+}

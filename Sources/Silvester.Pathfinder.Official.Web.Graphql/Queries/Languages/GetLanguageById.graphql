@@ -1,0 +1,13 @@
+﻿query GetLanguageById($id: Uuid!) {
+	languages(where: {id: {eq: $id}}) {
+		items {
+			id,
+			name,
+			races {
+				id,
+				name
+			}
+		}
+	}
+}
+

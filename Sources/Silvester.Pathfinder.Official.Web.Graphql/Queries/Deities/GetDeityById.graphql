@@ -1,0 +1,34 @@
+﻿query GetDeityById($id: Uuid!) {
+	deities(where: {id: {eq: $id}}) {
+		items {
+			id,
+			name,
+			description,
+			category {
+				id,
+				name
+			},
+			alignment {
+				id,
+				name
+			},
+			followerAlignments {
+				alignment {
+					id,
+					name
+				}
+			},
+			divineFonts {
+				id,
+				name,
+				description
+			},
+			domains {
+				id,
+				name,
+				description
+			}
+		}
+	}
+}
+

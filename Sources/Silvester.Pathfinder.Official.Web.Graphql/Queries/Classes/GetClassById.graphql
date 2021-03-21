@@ -1,0 +1,79 @@
+﻿query GetClassById($id: Uuid!) {
+	classes(where: {id: {eq: $id}}) {
+		items {
+			id,
+			name,
+			description,
+			baseHealth,
+			perceptionProficiency {
+				name
+			},
+			fortitudeProficiency {
+				name
+			},
+			willProficiency {
+				name
+			},
+			reflexProficiency {
+				name
+			},
+			classDcProficiency {
+				name
+			},
+			simpleWeaponProficiency {
+				name
+			}
+			martialWeaponProficiency {
+				name
+			},
+			advancedWeaponProficiency {
+				name
+			},
+			unarmedWeaponProficiency {
+				name
+			},
+			lightArmorProficiency {
+				name
+			},
+			mediumArmorProficiency {
+				name
+			},
+			heavyArmorProficiency {
+				name
+			},
+			unarmoredProficiency {
+				name
+			},
+			spellDcProficiency {
+				name
+			},
+			spellAttackProficiency {
+				name
+			},
+			classDcProficiency {
+				name
+			},
+			predefinedMagicTradition {
+				id,
+				name
+			},
+			keyAbilities {
+				id,
+				name,
+				abbreviation
+			},
+			mannerisms {
+				text
+			},
+			characteristics {
+				text
+			},
+			duringCombatEncounters,
+			duringSocialEncounters,
+			whileExploring,
+			inDowntime
+
+		}
+	}
+}
+

@@ -405,6 +405,7 @@ input AlignmentFilterInput {
 
 input DeitySortInput {
   name: SortEnumType
+  description: SortEnumType
   categoryId: SortEnumType
   category: DeityCategorySortInput
   alignmentId: SortEnumType
@@ -416,6 +417,7 @@ input DeityFilterInput {
   and: [DeityFilterInput!]
   or: [DeityFilterInput!]
   name: StringOperationFilterInput
+  description: StringOperationFilterInput
   categoryId: ComparableGuidOperationFilterInput
   category: DeityCategoryFilterInput
   alignmentId: ComparableGuidOperationFilterInput
@@ -428,6 +430,7 @@ input DeityFilterInput {
 
 input DeityCategorySortInput {
   name: SortEnumType
+  description: SortEnumType
   id: SortEnumType
 }
 
@@ -435,6 +438,8 @@ input DeityCategoryFilterInput {
   and: [DeityCategoryFilterInput!]
   or: [DeityCategoryFilterInput!]
   name: StringOperationFilterInput
+  description: StringOperationFilterInput
+  deities: ListFilterInputTypeOfDeityFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -458,6 +463,7 @@ input DeityFollowerAlignmentFilterInput {
 
 input DivineFontSortInput {
   name: SortEnumType
+  description: SortEnumType
   id: SortEnumType
 }
 
@@ -465,6 +471,7 @@ input DivineFontFilterInput {
   and: [DivineFontFilterInput!]
   or: [DivineFontFilterInput!]
   name: StringOperationFilterInput
+  description: StringOperationFilterInput
   deities: ListFilterInputTypeOfDeityFilterInput
   id: ComparableGuidOperationFilterInput
 }
@@ -622,6 +629,43 @@ input BulkFilterInput {
 input ClassSortInput {
   name: SortEnumType
   baseHealth: SortEnumType
+  description: SortEnumType
+  duringCombatEncounters: SortEnumType
+  duringSocialEncounters: SortEnumType
+  whileExploring: SortEnumType
+  inDowntime: SortEnumType
+  perceptionProficiencyId: SortEnumType
+  perceptionProficiency: ProficiencySortInput
+  fortitudeProficiencyId: SortEnumType
+  fortitudeProficiency: ProficiencySortInput
+  willProficiencyId: SortEnumType
+  willProficiency: ProficiencySortInput
+  reflexProficiencyId: SortEnumType
+  reflexProficiency: ProficiencySortInput
+  simpleWeaponProficiencyId: SortEnumType
+  simpleWeaponProficiency: ProficiencySortInput
+  martialWeaponProficiencyId: SortEnumType
+  martialWeaponProficiency: ProficiencySortInput
+  advancedWeaponProficiencyId: SortEnumType
+  advancedWeaponProficiency: ProficiencySortInput
+  unarmedWeaponProficiencyId: SortEnumType
+  unarmedWeaponProficiency: ProficiencySortInput
+  unarmoredProficiencyId: SortEnumType
+  unarmoredProficiency: ProficiencySortInput
+  lightArmorProficiencyId: SortEnumType
+  lightArmorProficiency: ProficiencySortInput
+  mediumArmorProficiencyId: SortEnumType
+  mediumArmorProficiency: ProficiencySortInput
+  heavyArmorProficiencyId: SortEnumType
+  heavyArmorProficiency: ProficiencySortInput
+  classDcProficiencyId: SortEnumType
+  classDcProficiency: ProficiencySortInput
+  spellDcProficiencyId: SortEnumType
+  spellDcProficiency: ProficiencySortInput
+  spellAttackProficiencyId: SortEnumType
+  spellAttackProficiency: ProficiencySortInput
+  predefinedMagicTraditionId: SortEnumType
+  predefinedMagicTradition: MagicTraditionSortInput
   id: SortEnumType
 }
 
@@ -630,6 +674,126 @@ input ClassFilterInput {
   or: [ClassFilterInput!]
   name: StringOperationFilterInput
   baseHealth: ComparableInt32OperationFilterInput
+  description: StringOperationFilterInput
+  duringCombatEncounters: StringOperationFilterInput
+  duringSocialEncounters: StringOperationFilterInput
+  whileExploring: StringOperationFilterInput
+  inDowntime: StringOperationFilterInput
+  perceptionProficiencyId: ComparableGuidOperationFilterInput
+  perceptionProficiency: ProficiencyFilterInput
+  fortitudeProficiencyId: ComparableGuidOperationFilterInput
+  fortitudeProficiency: ProficiencyFilterInput
+  willProficiencyId: ComparableGuidOperationFilterInput
+  willProficiency: ProficiencyFilterInput
+  reflexProficiencyId: ComparableGuidOperationFilterInput
+  reflexProficiency: ProficiencyFilterInput
+  simpleWeaponProficiencyId: ComparableGuidOperationFilterInput
+  simpleWeaponProficiency: ProficiencyFilterInput
+  martialWeaponProficiencyId: ComparableGuidOperationFilterInput
+  martialWeaponProficiency: ProficiencyFilterInput
+  advancedWeaponProficiencyId: ComparableGuidOperationFilterInput
+  advancedWeaponProficiency: ProficiencyFilterInput
+  unarmedWeaponProficiencyId: ComparableGuidOperationFilterInput
+  unarmedWeaponProficiency: ProficiencyFilterInput
+  unarmoredProficiencyId: ComparableGuidOperationFilterInput
+  unarmoredProficiency: ProficiencyFilterInput
+  lightArmorProficiencyId: ComparableGuidOperationFilterInput
+  lightArmorProficiency: ProficiencyFilterInput
+  mediumArmorProficiencyId: ComparableGuidOperationFilterInput
+  mediumArmorProficiency: ProficiencyFilterInput
+  heavyArmorProficiencyId: ComparableGuidOperationFilterInput
+  heavyArmorProficiency: ProficiencyFilterInput
+  classDcProficiencyId: ComparableNullableOfGuidOperationFilterInput
+  classDcProficiency: ProficiencyFilterInput
+  spellDcProficiencyId: ComparableNullableOfGuidOperationFilterInput
+  spellDcProficiency: ProficiencyFilterInput
+  spellAttackProficiencyId: ComparableNullableOfGuidOperationFilterInput
+  spellAttackProficiency: ProficiencyFilterInput
+  predefinedMagicTraditionId: ComparableNullableOfGuidOperationFilterInput
+  predefinedMagicTradition: MagicTraditionFilterInput
+  keyAbilities: ListFilterInputTypeOfStatFilterInput
+  mannerisms: ListFilterInputTypeOfClassMannerismFilterInput
+  characteristics: ListFilterInputTypeOfClassCharacteristicFilterInput
+  features: ListFilterInputTypeOfClassFeatureFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input ProficiencySortInput {
+  name: SortEnumType
+  id: SortEnumType
+}
+
+input ProficiencyFilterInput {
+  and: [ProficiencyFilterInput!]
+  or: [ProficiencyFilterInput!]
+  name: StringOperationFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input StatSortInput {
+  name: SortEnumType
+  abbreviation: SortEnumType
+  id: SortEnumType
+}
+
+input StatFilterInput {
+  and: [StatFilterInput!]
+  or: [StatFilterInput!]
+  name: StringOperationFilterInput
+  abbreviation: StringOperationFilterInput
+  keyAbilityClasses: ListFilterInputTypeOfClassFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input ClassMannerismSortInput {
+  text: SortEnumType
+  classId: SortEnumType
+  class: ClassSortInput
+  id: SortEnumType
+}
+
+input ClassMannerismFilterInput {
+  and: [ClassMannerismFilterInput!]
+  or: [ClassMannerismFilterInput!]
+  text: StringOperationFilterInput
+  classId: ComparableGuidOperationFilterInput
+  class: ClassFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input ClassCharacteristicSortInput {
+  text: SortEnumType
+  classId: SortEnumType
+  class: ClassSortInput
+  id: SortEnumType
+}
+
+input ClassCharacteristicFilterInput {
+  and: [ClassCharacteristicFilterInput!]
+  or: [ClassCharacteristicFilterInput!]
+  text: StringOperationFilterInput
+  classId: ComparableGuidOperationFilterInput
+  class: ClassFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input ClassFeatureSortInput {
+  name: SortEnumType
+  description: SortEnumType
+  level: SortEnumType
+  class: ClassSortInput
+  classId: SortEnumType
+  id: SortEnumType
+}
+
+input ClassFeatureFilterInput {
+  and: [ClassFeatureFilterInput!]
+  or: [ClassFeatureFilterInput!]
+  name: StringOperationFilterInput
+  description: StringOperationFilterInput
+  level: ComparableInt32OperationFilterInput
+  class: ClassFilterInput
+  classId: ComparableGuidOperationFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -812,6 +976,7 @@ input LanguageTypeFilterInput {
   and: [LanguageTypeFilterInput!]
   or: [LanguageTypeFilterInput!]
   name: StringOperationFilterInput
+  languages: ListFilterInputTypeOfLanguageFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -845,18 +1010,6 @@ input GainLoreEffectFilterInput {
   bindingId: ComparableGuidOperationFilterInput
   binding: BaseFeatEffectBindingFilterInput
   triggeredAtLevel: ComparableNullableOfInt32OperationFilterInput
-  id: ComparableGuidOperationFilterInput
-}
-
-input ProficiencySortInput {
-  name: SortEnumType
-  id: SortEnumType
-}
-
-input ProficiencyFilterInput {
-  and: [ProficiencyFilterInput!]
-  or: [ProficiencyFilterInput!]
-  name: StringOperationFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -935,20 +1088,6 @@ input LoreFilterInput {
   name: StringOperationFilterInput
   statModifierId: ComparableGuidOperationFilterInput
   statModifier: StatFilterInput
-  id: ComparableGuidOperationFilterInput
-}
-
-input StatSortInput {
-  name: SortEnumType
-  abbreviation: SortEnumType
-  id: SortEnumType
-}
-
-input StatFilterInput {
-  and: [StatFilterInput!]
-  or: [StatFilterInput!]
-  name: StringOperationFilterInput
-  abbreviation: StringOperationFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -1638,6 +1777,41 @@ input ListFilterInputTypeOfPlaneTraitFilterInput {
   any: Boolean
 }
 
+input ListFilterInputTypeOfStatFilterInput {
+  all: StatFilterInput
+  none: StatFilterInput
+  some: StatFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfClassMannerismFilterInput {
+  all: ClassMannerismFilterInput
+  none: ClassMannerismFilterInput
+  some: ClassMannerismFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfClassCharacteristicFilterInput {
+  all: ClassCharacteristicFilterInput
+  none: ClassCharacteristicFilterInput
+  some: ClassCharacteristicFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfClassFeatureFilterInput {
+  all: ClassFeatureFilterInput
+  none: ClassFeatureFilterInput
+  some: ClassFeatureFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfClassFilterInput {
+  all: ClassFilterInput
+  none: ClassFilterInput
+  some: ClassFilterInput
+  any: Boolean
+}
+
 input ListFilterInputTypeOfFeatEffectFilterInput {
   all: FeatEffectFilterInput
   none: FeatEffectFilterInput
@@ -1695,6 +1869,47 @@ type ArmorGroup {
 type Class {
   name: String!
   baseHealth: Int!
+  description: String!
+  duringCombatEncounters: String!
+  duringSocialEncounters: String!
+  whileExploring: String!
+  inDowntime: String!
+  perceptionProficiencyId: Uuid!
+  perceptionProficiency: Proficiency!
+  fortitudeProficiencyId: Uuid!
+  fortitudeProficiency: Proficiency!
+  willProficiencyId: Uuid!
+  willProficiency: Proficiency!
+  reflexProficiencyId: Uuid!
+  reflexProficiency: Proficiency!
+  simpleWeaponProficiencyId: Uuid!
+  simpleWeaponProficiency: Proficiency!
+  martialWeaponProficiencyId: Uuid!
+  martialWeaponProficiency: Proficiency!
+  advancedWeaponProficiencyId: Uuid!
+  advancedWeaponProficiency: Proficiency!
+  unarmedWeaponProficiencyId: Uuid!
+  unarmedWeaponProficiency: Proficiency!
+  unarmoredProficiencyId: Uuid!
+  unarmoredProficiency: Proficiency!
+  lightArmorProficiencyId: Uuid!
+  lightArmorProficiency: Proficiency!
+  mediumArmorProficiencyId: Uuid!
+  mediumArmorProficiency: Proficiency!
+  heavyArmorProficiencyId: Uuid!
+  heavyArmorProficiency: Proficiency!
+  classDcProficiencyId: Uuid
+  classDcProficiency: Proficiency
+  spellDcProficiencyId: Uuid
+  spellDcProficiency: Proficiency
+  spellAttackProficiencyId: Uuid
+  spellAttackProficiency: Proficiency
+  predefinedMagicTraditionId: Uuid
+  predefinedMagicTradition: MagicTradition
+  keyAbilities(order: [StatSortInput!] where: StatFilterInput): [Stat!]!
+  mannerisms(order: [ClassMannerismSortInput!] where: ClassMannerismFilterInput): [ClassMannerism!]!
+  characteristics(order: [ClassCharacteristicSortInput!] where: ClassCharacteristicFilterInput): [ClassCharacteristic!]!
+  features(order: [ClassFeatureSortInput!] where: ClassFeatureFilterInput): [ClassFeature!]!
   id: Uuid!
 }
 
@@ -1708,6 +1923,7 @@ type Bulk {
 type Stat {
   name: String!
   abbreviation: String!
+  keyAbilityClasses(order: [ClassSortInput!] where: ClassFilterInput): [Class!]!
   id: Uuid!
 }
 
@@ -1733,6 +1949,7 @@ type RaceSize {
 
 type LanguageType {
   name: String!
+  languages(order: [LanguageSortInput!] where: LanguageFilterInput): [Language!]!
   id: Uuid!
 }
 
@@ -1832,6 +2049,7 @@ type ActionType {
 
 type Deity {
   name: String!
+  description: String!
   categoryId: Uuid!
   category: DeityCategory!
   alignmentId: Uuid!
@@ -1844,11 +2062,14 @@ type Deity {
 
 type DeityCategory {
   name: String!
+  description: String!
+  deities(order: [DeitySortInput!] where: DeityFilterInput): [Deity!]!
   id: Uuid!
 }
 
 type DivineFont {
   name: String!
+  description: String!
   deities(order: [DeitySortInput!] where: DeityFilterInput): [Deity!]!
   id: Uuid!
 }
@@ -2369,6 +2590,29 @@ type Background {
 
 type BackgroundAbilityBoost {
   name: String!
+  id: Uuid!
+}
+
+type ClassMannerism {
+  text: String!
+  classId: Uuid!
+  class: Class!
+  id: Uuid!
+}
+
+type ClassCharacteristic {
+  text: String!
+  classId: Uuid!
+  class: Class!
+  id: Uuid!
+}
+
+type ClassFeature {
+  name: String!
+  description: String!
+  level: Int!
+  class: Class!
+  classId: Uuid!
   id: Uuid!
 }
 

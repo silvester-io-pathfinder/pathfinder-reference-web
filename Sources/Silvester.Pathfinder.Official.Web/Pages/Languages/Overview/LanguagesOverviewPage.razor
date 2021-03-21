@@ -1,0 +1,21 @@
+﻿@using Silvester.Pathfinder.Official.Web.Pages.Languages.Overview.Components;
+@using Silvester.Pathfinder.Official.Web.Shared.Layout;
+
+@page "/languages"
+@inherits BaseOverviewPage
+
+<div>
+    <PageLayout>
+
+        <MudPaper Style="margin: 20px;">
+            <LanguagesTable />
+        </MudPaper>
+
+    </PageLayout>
+
+</div>
+
+@code
+{
+    protected override string Title => "Languages";
+}

@@ -1,0 +1,49 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
+@using Silvester.Pathfinder.Official.Web.Pages.Deities.Details.Components;
+
+@inherits BaseDetailPage
+@page "/deities/{deityId:guid}"
+@implements IDisposable
+
+<div>
+    <PageLayout>
+        @if (Deity != null)
+        {
+            <MudPaper Style="margin: 20px">
+                <DetailsCard Deity="@Deity" />
+            </MudPaper>
+        }
+    </PageLayout>
+</div>
+
+@code {
+    protected override string Title => "Deities";
+    protected override string? Subtitle => Deity?.Name;
+
+    [Parameter]
+    public Guid DeityId { get; set; }
+
+    [Inject]
+    public PathfinderOfficialApi PathfinderOfficialApi { get; set; } = default!;
+
+    private IGetDeityById_Deities_Items? Deity { get; set; }
+
+    private IDisposable? StoreSession { get; set; }
+
+    protected override void OnInitialized()
+    {
+        StoreSession = PathfinderOfficialApi.GetDeityById
+            .Watch(DeityId, StrawberryShake.ExecutionStrategy.NetworkOnly)
+            .Select(e => e.Data?.Deities?.Items?.FirstOrDefault())
+            .Subscribe(deity =>
+            {
+                Deity = deity;
+                StateHasChanged();
+            });
+    }
+
+    public void Dispose()
+    {
+        StoreSession?.Dispose();
+    }
+}

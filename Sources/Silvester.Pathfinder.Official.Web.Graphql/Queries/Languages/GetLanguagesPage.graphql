@@ -1,0 +1,18 @@
+﻿query GetLanguagesPage($skip: Int!, $take: Int!, $searchTerm: String! = "", $order: [LanguageSortInput!] = [{name: ASC}]) {
+	languages(
+		skip: $skip, 
+		take: $take, 
+		order: $order,
+		where: {
+			or: [
+				{name: {contains: $searchTerm}}
+			]
+		}) 
+	{
+		totalCount,
+		items {
+			id,
+			name
+		}
+	}
+}

@@ -1,0 +1,48 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+@using Silvester.Pathfinder.Official.Web.Graphql
+
+<div>
+    <GraphqlTable Title="Deities" RowsPerPage="25" GetPage="@GetPage" TSortInput="DeitySortInput" TEntity="IGetDeitiesPage_Deities_Items">
+        <Columns>
+            <MudTh><MudTableSortLabel SortLabel="@nameof(IGetDeitiesPage_Deities_Items.Name)" T="IGetDeitiesPage_Deities_Items">Name</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel SortLabel="@nameof(IGetDeitiesPage_Deities_Items.Description)" T="IGetDeitiesPage_Deities_Items">Description</MudTableSortLabel></MudTh>
+            <MudTh></MudTh>
+        </Columns>
+        <Rows>
+            <MudTd>@context.Name</MudTd>
+            <MudTdEllipsized Text="@context.Description" />
+            <MudTh>
+                <MudTooltip Text="Inspect">
+                    <MudIconButton Size="Size.Small" OnClick="@(() => OnInspectClicked(context))" Icon="@Icons.Material.Outlined.ArrowForward"></MudIconButton>
+                </MudTooltip>
+            </MudTh>
+        </Rows>
+    </GraphqlTable>
+</div>
+
+@code {
+    [Inject]
+    public PathfinderOfficialApi PathfinderOfficialApi { get; set; } = default!;
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; } = default!;
+
+    public void OnInspectClicked(IGetDeitiesPage_Deities_Items deity)
+    {
+        NavigationManager.NavigateTo($"deities/{deity.Id}");
+    }
+
+    public async Task<TableData<IGetDeitiesPage_Deities_Items>> GetPage(DeitySortInput[] sortInputs, TableState state, string searchTerm)
+    {
+        IOperationResult<IGetDeitiesPageResult> result = await PathfinderOfficialApi.GetDeitiesPage
+            .ExecuteAsync(state.Page * state.PageSize, state.PageSize, searchTerm, sortInputs);
+
+        TableData<IGetDeitiesPage_Deities_Items> page = new TableData<IGetDeitiesPage_Deities_Items>()
+        {
+            TotalItems = result.Data!.Deities!.TotalCount,
+            Items = result.Data!.Deities!.Items!
+        };
+
+        return page;
+    }
+}

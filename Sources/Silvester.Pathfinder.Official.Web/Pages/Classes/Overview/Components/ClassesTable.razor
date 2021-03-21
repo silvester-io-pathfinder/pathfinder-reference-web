@@ -1,0 +1,48 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+@using Silvester.Pathfinder.Official.Web.Graphql
+
+<div>
+    <GraphqlTable Title="Classes" RowsPerPage="25" GetPage="@GetPage" TSortInput="ClassSortInput" TEntity="IGetClassesPage_Classes_Items">
+        <Columns>
+            <MudTh><MudTableSortLabel SortLabel="@nameof(IGetClassesPage_Classes_Items.Name)" T="IGetClassesPage_Classes_Items">Name</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel SortLabel="@nameof(IGetClassesPage_Classes_Items.BaseHealth)" T="IGetClassesPage_Classes_Items">Base Health</MudTableSortLabel></MudTh>
+            <MudTh></MudTh>
+        </Columns>
+        <Rows>
+            <MudTd DataLabel="@nameof(IGetClassesPage_Classes_Items.Name)" Style="font-weight: 500;">@context.Name</MudTd>
+            <MudTdEllipsized DataLabel="@nameof(IGetClassesPage_Classes_Items.BaseHealth)" Text="@context.BaseHealth.ToString()" />
+            <MudTh>
+                <MudTooltip Text="Inspect">
+                    <MudIconButton Size="Size.Small" OnClick="@(() => OnInspectClicked(context))" Icon="@Icons.Material.Outlined.ArrowForward"></MudIconButton>
+                </MudTooltip>
+            </MudTh>
+        </Rows>
+    </GraphqlTable>
+</div>
+
+@code {
+    [Inject]
+    public PathfinderOfficialApi PathfinderOfficialApi { get; set; } = default!;
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; } = default!;
+
+    public void OnInspectClicked(IGetClassesPage_Classes_Items @class)
+    {
+        NavigationManager.NavigateTo($"classes/{@class.Id}");
+    }
+
+    public async Task<TableData<IGetClassesPage_Classes_Items>> GetPage(ClassSortInput[] sortInputs, TableState state, string searchTerm)
+    {
+        IOperationResult<IGetClassesPageResult> result = await PathfinderOfficialApi.GetClassesPage
+            .ExecuteAsync(state.Page * state.PageSize, state.PageSize, searchTerm, sortInputs);
+
+        TableData<IGetClassesPage_Classes_Items> page = new TableData<IGetClassesPage_Classes_Items>()
+        {
+            TotalItems = result.Data!.Classes!.TotalCount,
+            Items = result.Data!.Classes!.Items!
+        };
+
+        return page;
+    }
+}

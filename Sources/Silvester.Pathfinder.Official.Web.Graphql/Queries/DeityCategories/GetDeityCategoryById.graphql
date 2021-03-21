@@ -1,0 +1,15 @@
+﻿query GetDeityCategoryById($id: Uuid!) {
+	deityCategories(where: {id: {eq: $id}}) {
+		items {
+			id,
+			name,
+			description,
+			deities {
+				id,
+				name,
+				description
+			}
+		}
+	}
+}
+

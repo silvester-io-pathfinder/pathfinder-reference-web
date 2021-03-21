@@ -1,0 +1,128 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Preferences;
+@using Silvester.Pathfinder.Official.Web.Shared.Cards;
+@using Silvester.Pathfinder.Official.Web.Shared.Tables;
+@using Silvester.Pathfinder.Official.Web.Services;
+@using Silvester.Pathfinder.Official.Web.Shared.Chips;
+
+@if (Class != null)
+{
+    <ComponentDetailsCard TEntity="IGetClassById_Classes_Items" Entity="@Class">
+        <Title>
+            <MudText Typo="Typo.h6">Class</MudText>
+        </Title>
+        <Actions>
+        </Actions>
+        <LeftContent>
+            <PreferenceCategory Title="Details">
+                <PreferenceItemText Title="Name" Text="@context.Name" />
+                <MudDivider />
+                <PreferenceItemText Title="Base Health" Text="@context.BaseHealth.ToString()" />
+                <MudDivider />
+                <PreferenceItemChips Title="Key Abilities">
+                    <Chips>
+                        @foreach (var keyAbility in @context.KeyAbilities)
+                        {
+                            <MudTooltip Text="@keyAbility.Abbreviation">
+                                <TraitChip OnClick="@(() => OnStatClick(keyAbility.Id))" Text="@keyAbility.Name" />
+                            </MudTooltip>
+                        }
+                    </Chips>
+                </PreferenceItemChips>
+            </PreferenceCategory>
+
+            @if(context.ClassDcProficiency != null)
+            {
+                <PreferenceCategory Title="Class Difficulty Check">
+                    <PreferenceItemChips><Chips><TraitChip Text="@context.ClassDcProficiency.Name" /></Chips></PreferenceItemChips>
+                </PreferenceCategory>
+            }
+
+            <PreferenceCategory Title="Weapon Proficiencies">
+                <PreferenceItemChips Title="Unarmed"><Chips><TraitChip Text="@context.UnarmedWeaponProficiency.Name" /></Chips></PreferenceItemChips>
+                <MudDivider />
+                <PreferenceItemChips Title="Simple"><Chips><TraitChip Text="@context.SimpleWeaponProficiency.Name" /></Chips></PreferenceItemChips>
+                <MudDivider />
+                <PreferenceItemChips Title="Martial"><Chips><TraitChip Text="@context.MartialWeaponProficiency.Name" /></Chips></PreferenceItemChips>
+                <MudDivider />
+                <PreferenceItemChips Title="Advanced"><Chips><TraitChip Text="@context.AdvancedWeaponProficiency.Name" /></Chips></PreferenceItemChips>
+            </PreferenceCategory>
+
+            <PreferenceCategory Title="Armor Proficiencies">
+                <PreferenceItemChips Title="Unarmored"><Chips><TraitChip Text="@context.UnarmoredProficiency.Name" /></Chips></PreferenceItemChips>
+                <MudDivider />
+                <PreferenceItemChips Title="Light"><Chips><TraitChip Text="@context.LightArmorProficiency.Name" /></Chips></PreferenceItemChips>
+                <MudDivider />
+                <PreferenceItemChips Title="Medium"><Chips><TraitChip Text="@context.MediumArmorProficiency.Name" /></Chips></PreferenceItemChips>
+                <MudDivider />
+                <PreferenceItemChips Title="Heavy"><Chips><TraitChip Text="@context.HeavyArmorProficiency.Name" /></Chips></PreferenceItemChips>
+            </PreferenceCategory>
+
+            <PreferenceCategory Title="Saving Throw Proficiencies">
+                <PreferenceItemChips Title="Fortitude"><Chips><TraitChip Text="@context.FortitudeProficiency.Name" /></Chips></PreferenceItemChips>
+                <MudDivider />
+                <PreferenceItemChips Title="Reflex"><Chips><TraitChip Text="@context.ReflexProficiency.Name" /></Chips></PreferenceItemChips>
+                <MudDivider />
+                <PreferenceItemChips Title="Will"><Chips><TraitChip Text="@context.WillProficiency.Name" /></Chips></PreferenceItemChips>
+            </PreferenceCategory>
+
+            <PreferenceCategory Title="Perception">
+                <PreferenceItemChips><Chips><TraitChip Text="@context.PerceptionProficiency.Name" /></Chips></PreferenceItemChips>
+            </PreferenceCategory>
+
+            @if (context.SpellAttackProficiency!.Name != "Untrained" && context.SpellDcProficiency!.Name != "Untrained")
+            {
+                <PreferenceCategory Title="Magic">
+                    <PreferenceItemChips Title="Spell Attack"><Chips><TraitChip Text="@context.SpellAttackProficiency.Name" /></Chips></PreferenceItemChips>
+                    <MudDivider />
+                    <PreferenceItemChips Title="Spell Difficulty Check"><Chips><TraitChip Text="@context.SpellDcProficiency.Name" /></Chips></PreferenceItemChips>
+                    @if (context.PredefinedMagicTradition != null)
+                    {
+                        <MudDivider />
+
+                        <PreferenceItemChips Title="Predefined Magic Tradition"><Chips><TraitChip Text="@context.PredefinedMagicTradition.Name" /></Chips></PreferenceItemChips>
+                    }
+                </PreferenceCategory>
+            }
+        </LeftContent>
+        <RightContent>
+            <PreferenceCategory Title="Description">
+                <PreferenceItemText Text="@context.Description" />
+            </PreferenceCategory>
+
+            <PreferenceCategory Title="Personality">
+                <PreferenceItemText Text="@context.DuringCombatEncounters" Title="During Combat Encounters" />
+                <PreferenceItemText Text="@context.DuringSocialEncounters" Title="During Social Encounters" />
+                <PreferenceItemText Text="@context.WhileExploring" Title="While Exploring" />
+                <PreferenceItemText Text="@context.InDowntime" Title="In Downtime" />
+            </PreferenceCategory>
+
+            <PreferenceCategory Title="Characteristics">
+                <PreferenceItemText Title="You might..." />
+                @foreach (var mannerism in context.Mannerisms)
+                {
+
+                    <PreferenceItemText Text="@mannerism.Text" />
+                }
+
+                <PreferenceItemText Title="Others probably..." />
+                @foreach (var characteristic in context.Characteristics)
+                {
+                    <PreferenceItemText Text="@characteristic.Text" />
+                }
+            </PreferenceCategory>
+        </RightContent>
+    </ComponentDetailsCard>
+}
+
+@code {
+    [Parameter]
+    public IGetClassById_Classes_Items Class { get; set; } = default!;
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; } = default!;
+
+    public void OnStatClick(Guid statId)
+    {
+        NavigationManager.NavigateTo($"stats/{statId}");
+    }
+}

@@ -1,0 +1,15 @@
+﻿query GetDivineFonts {
+	divineFonts {
+		items {
+			id,
+			name,
+			description,
+			deities {
+				id,
+				name,
+				description
+			}
+		}
+	}
+}
+

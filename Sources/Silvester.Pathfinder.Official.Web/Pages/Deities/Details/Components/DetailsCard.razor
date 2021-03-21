@@ -1,0 +1,94 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Preferences;
+@using Silvester.Pathfinder.Official.Web.Shared.Cards;
+@using Silvester.Pathfinder.Official.Web.Shared.Tables;
+@using Silvester.Pathfinder.Official.Web.Services;
+@using Silvester.Pathfinder.Official.Web.Shared.Chips;
+
+@if (Deity != null)
+{
+    <ComponentDetailsCard TEntity="IGetDeityById_Deities_Items" Entity="@Deity">
+        <Title>
+            <MudText Typo="Typo.h6">Deity</MudText>
+        </Title>
+        <Actions>
+        </Actions>
+        <LeftContent>
+            <PreferenceCategory Title="Details">
+                <PreferenceItemText Title="Name" Text="@context.Name" />
+            </PreferenceCategory>
+
+            <PreferenceCategory Title="Dominion">
+                <PreferenceItemChips Title="Category">
+                    <Chips>
+                        <TraitChip OnClick="@(() => OnCategoryClick())" Text="@context.Category.Name" />
+                    </Chips>
+                </PreferenceItemChips>
+                <MudDivider />
+
+                <PreferenceItemChips Title="Domains">
+                    <Chips>
+                        @foreach (var domain in context.Domains)
+                        {
+                            <MudTooltip Text="@domain.Description">
+                                <TraitChip Text="@domain.Name" />
+                            </MudTooltip>
+                        }
+                    </Chips>
+                </PreferenceItemChips>
+
+                <PreferenceItemChips Title="Divine Fonts">
+                    <Chips>
+                        @foreach (var font in context.DivineFonts)
+                        {
+                            <TraitChip OnClick="@(() => OnDivineFontClick(font.Id))" Text="@font.Name" />
+                        }
+                    </Chips>
+                </PreferenceItemChips>
+            </PreferenceCategory>
+        </LeftContent>
+        <RightContent>
+            <PreferenceCategory Title="Description">
+                <PreferenceItemText Text="@context.Description" />
+            </PreferenceCategory>
+            <PreferenceCategory Title="Morality">
+                <PreferenceItemChips Title="Alignment">
+                    <Chips>
+                        <TraitChip OnClick="@(() => OnAlignmentClick(context.Alignment.Id))" Text="@context.Alignment.Name" />
+                    </Chips>
+                </PreferenceItemChips>
+                <MudDivider />
+                <PreferenceItemChips Title="Follower Alignments">
+                    <Chips>
+                        @foreach (var followerAlignment in context.FollowerAlignments)
+                        {
+                            <TraitChip OnClick="@(() => OnAlignmentClick(followerAlignment.Alignment.Id))" Text="@followerAlignment.Alignment.Name" />
+                        }
+                    </Chips>
+                </PreferenceItemChips>
+            </PreferenceCategory>
+        </RightContent>
+    </ComponentDetailsCard>
+}
+
+@code {
+    [Parameter]
+    public IGetDeityById_Deities_Items Deity { get; set; } = default!;
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; } = default!;
+
+    public void OnAlignmentClick(Guid alignmentId)
+    {
+        NavigationManager.NavigateTo($"alignments/{alignmentId}");
+    }
+    
+    public void OnDivineFontClick(Guid divineFontId)
+    {
+        NavigationManager.NavigateTo($"divine-fonts");
+    }
+
+    public void OnCategoryClick()
+    {
+        NavigationManager.NavigateTo($"deity-categories/{Deity.Category.Id}");
+    }
+}

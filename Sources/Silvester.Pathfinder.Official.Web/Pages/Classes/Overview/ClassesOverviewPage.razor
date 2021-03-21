@@ -1,0 +1,21 @@
+﻿@using Silvester.Pathfinder.Official.Web.Pages.Classes.Overview.Components;
+@using Silvester.Pathfinder.Official.Web.Shared.Layout;
+
+@page "/classes"
+@inherits BaseOverviewPage
+
+<div>
+    <PageLayout>
+
+        <MudPaper Style="margin: 20px;">
+            <ClassesTable />
+        </MudPaper>
+
+    </PageLayout>
+
+</div>
+
+@code
+{
+    protected override string Title => "Classes";
+}

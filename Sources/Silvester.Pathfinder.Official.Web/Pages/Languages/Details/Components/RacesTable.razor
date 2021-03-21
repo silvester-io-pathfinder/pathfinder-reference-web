@@ -1,0 +1,33 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Preferences;
+@using Silvester.Pathfinder.Official.Web.Shared.Cards;
+@using Silvester.Pathfinder.Official.Web.Shared.Tables;
+@using Silvester.Pathfinder.Official.Web.Pages.Traits.Details.Components;
+
+<div>
+    @if (Language == null)
+    {
+
+    }
+    else
+    {
+        <RelationshipTable TEntity="IGetLanguageById_Languages_Items_Races" DefaultSortLabel="@nameof(IGetLanguageById_Languages_Items_Races.Name)" Filter="@RaceFilter" InspectionUrl="@((e) => $"races/{e.Id}")" Items="@(() => Language.Races)">
+            <Columns>
+                <MudTh><MudTableSortLabel SortLabel="@nameof(IGetLanguageById_Languages_Items_Races.Name)" T="IGetLanguageById_Languages_Items" InitialDirection="SortDirection.Ascending">Name</MudTableSortLabel></MudTh>
+            </Columns>
+            <Rows>
+                <MudTdEllipsized Text="@context.Name" />
+            </Rows>
+        </RelationshipTable>
+    }
+</div>
+
+@code
+{
+    [Parameter]
+    public IGetLanguageById_Languages_Items Language { get; set; } = default!;
+
+    public bool RaceFilter(IGetLanguageById_Languages_Items_Races race, string searchString)
+    {
+        return race.Name.ToLower().Contains(searchString);
+    }
+}

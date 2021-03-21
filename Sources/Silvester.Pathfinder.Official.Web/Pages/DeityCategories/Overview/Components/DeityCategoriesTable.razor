@@ -1,0 +1,48 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+@using Silvester.Pathfinder.Official.Web.Graphql
+
+<div>
+    <GraphqlTable Title="Deity Categories" RowsPerPage="25" GetPage="@GetPage" TSortInput="DeityCategorySortInput" TEntity="IGetDeityCategoriesPage_DeityCategories_Items">
+        <Columns>
+            <MudTh><MudTableSortLabel SortLabel="@nameof(IGetDeityCategoriesPage_DeityCategories_Items.Name)" T="IGetDeityCategoriesPage_DeityCategories_Items">Name</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel SortLabel="@nameof(IGetDeityCategoriesPage_DeityCategories_Items.Description)" T="IGetDeityCategoriesPage_DeityCategories_Items">Description</MudTableSortLabel></MudTh>
+            <MudTh></MudTh>
+        </Columns>
+        <Rows>
+            <MudTd>@context.Name</MudTd>
+            <MudTdEllipsized Text="@context.Description" />
+            <MudTh>
+                <MudTooltip Text="Inspect">
+                    <MudIconButton Size="Size.Small" OnClick="@(() => OnInspectClicked(context))" Icon="@Icons.Material.Outlined.ArrowForward"></MudIconButton>
+                </MudTooltip>
+            </MudTh>
+        </Rows>
+    </GraphqlTable>
+</div>
+
+@code {
+    [Inject]
+    public PathfinderOfficialApi PathfinderOfficialApi { get; set; } = default!;
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; } = default!;
+
+    public void OnInspectClicked(IGetDeityCategoriesPage_DeityCategories_Items deityCategory)
+    {
+        NavigationManager.NavigateTo($"deity-categories/{deityCategory.Id}");
+    }
+
+    public async Task<TableData<IGetDeityCategoriesPage_DeityCategories_Items>> GetPage(DeityCategorySortInput[] sortInputs, TableState state, string searchTerm)
+    {
+        IOperationResult<IGetDeityCategoriesPageResult> result = await PathfinderOfficialApi.GetDeityCategoriesPage
+            .ExecuteAsync(state.Page * state.PageSize, state.PageSize, searchTerm, sortInputs);
+
+        TableData<IGetDeityCategoriesPage_DeityCategories_Items> page = new TableData<IGetDeityCategoriesPage_DeityCategories_Items>()
+        {
+            TotalItems = result.Data!.DeityCategories!.TotalCount,
+            Items = result.Data!.DeityCategories!.Items!
+        };
+
+        return page;
+    }
+}
