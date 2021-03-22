@@ -1,0 +1,28 @@
+﻿@using Silvester.Pathfinder.Official.Web.Pages.Planes.Overview.Components;
+@using Silvester.Pathfinder.Official.Web.Shared.Layout;
+
+@page "/planes"
+@inherits BaseOverviewPage
+
+<div>
+    <PageLayout>
+
+        <MudPaper Style="margin: 20px;">
+            <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
+                <MudTabPanel Text="Planes">
+                    <PlanesTable />
+                </MudTabPanel>
+                <MudTabPanel Text="Categories">
+                    <PlaneCategoriesTable />
+                </MudTabPanel>
+            </MudTabs>
+        </MudPaper>
+
+    </PageLayout>
+
+</div>
+
+@code
+{
+    protected override string Title => "Planes";
+}

@@ -101,13 +101,13 @@
                 @foreach (var mannerism in context.Mannerisms)
                 {
 
-                    <PreferenceItemText Text="@mannerism.Text" />
+                    <PreferenceItemText Text="@("- " + mannerism.Text)" />
                 }
 
                 <PreferenceItemText Title="Others probably..." />
                 @foreach (var characteristic in context.Characteristics)
                 {
-                    <PreferenceItemText Text="@characteristic.Text" />
+                    <PreferenceItemText Text="@("- " + characteristic.Text)" />
                 }
             </PreferenceCategory>
         </RightContent>

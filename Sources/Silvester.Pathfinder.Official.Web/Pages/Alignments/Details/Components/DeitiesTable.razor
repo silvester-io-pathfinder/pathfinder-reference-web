@@ -1,0 +1,37 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Preferences;
+@using Silvester.Pathfinder.Official.Web.Shared.Cards;
+@using Silvester.Pathfinder.Official.Web.Shared.Tables;
+
+<div>
+    @if (Alignment == null)
+    {
+
+    }
+    else
+    {
+    <RelationshipTable TEntity="IAlignmentById_Deity" DefaultSortLabel="@nameof(IAlignmentById_Deity.Name)" Filter="@DeityFilter" InspectionUrl="@((e) => $"deities/{e.Id}")" Items="@(() => Alignment.Deities)">
+        <Columns>
+            <MudTh><MudTableSortLabel SortLabel="@nameof(IAlignmentById_Deity.Name)" T="IAlignmentById_Deity" InitialDirection="SortDirection.Ascending">Name</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel SortLabel="@(nameof(IAlignmentById_Deity.Category) + nameof(IAlignmentById_Deity_Category.Name) )" T="IAlignmentById_Deity">Category</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel SortLabel="@nameof(IAlignmentById_Deity.Description)" T="IAlignmentById_Deity">Description</MudTableSortLabel></MudTh>
+        </Columns>
+        <Rows>
+            <MudTd Style="font-weight: 500;">@context.Name</MudTd>
+            <MudTd>@context.Category.Name</MudTd>
+            <MudTdEllipsized Text="@context.Description" />
+        </Rows>
+    </RelationshipTable>
+    }
+</div>
+
+@code
+{
+    [Parameter]
+    public IAlignmentById Alignment { get; set; } = default!;
+
+    public bool DeityFilter(IAlignmentById_Deity deity, string searchString)
+    {
+        return deity.Name.ToLower().Contains(searchString)
+            || deity.Description.ToLower().Contains(searchString);
+    }
+}

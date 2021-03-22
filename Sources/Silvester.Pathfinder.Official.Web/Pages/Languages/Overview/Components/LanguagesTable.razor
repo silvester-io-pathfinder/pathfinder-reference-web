@@ -2,13 +2,13 @@
 @using Silvester.Pathfinder.Official.Web.Graphql
 
 <div>
-    <GraphqlTable Title="Languages" RowsPerPage="25" GetPage="@GetPage" TSortInput="LanguageSortInput" TEntity="IGetLanguagesPage_Languages_Items">
+    <GraphqlTable Title="Languages" RowsPerPage="25" GetPage="@GetPage" TSortInput="LanguageSortInput" TEntity="ILanguagesPage">
         <Columns>
-            <MudTh><MudTableSortLabel SortLabel="@nameof(IGetLanguagesPage_Languages_Items.Name)" T="IGetLanguagesPage_Languages_Items">Name</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel SortLabel="@nameof(ILanguagesPage.Name)" T="ILanguagesPage">Name</MudTableSortLabel></MudTh>
             <MudTh></MudTh>
         </Columns>
         <Rows>
-            <MudTdEllipsized DataLabel="@nameof(IGetLanguagesPage_Languages_Items.Name)" Text="@context.Name" />
+            <MudTdEllipsized DataLabel="@(nameof(ILanguagesPage.Name))" Text="@context.Name" />
             <MudTh>
                 <MudTooltip Text="Inspect">
                     <MudIconButton Size="Size.Small" OnClick="@(() => OnInspectClicked(context))" Icon="@Icons.Material.Outlined.ArrowForward"></MudIconButton>
@@ -25,17 +25,17 @@
     [Inject]
     public NavigationManager NavigationManager { get; set; } = default!;
 
-    public void OnInspectClicked(IGetLanguagesPage_Languages_Items language)
+    public void OnInspectClicked(ILanguagesPage language)
     {
         NavigationManager.NavigateTo($"languages/{language.Id}");
     }
 
-    public async Task<TableData<IGetLanguagesPage_Languages_Items>> GetPage(LanguageSortInput[] sortInputs, TableState state, string searchTerm)
+    public async Task<TableData<ILanguagesPage>> GetPage(LanguageSortInput[] sortInputs, TableState state, string searchTerm)
     {
         IOperationResult<IGetLanguagesPageResult> result = await PathfinderOfficialApi.GetLanguagesPage
             .ExecuteAsync(state.Page * state.PageSize, state.PageSize, searchTerm, sortInputs);
 
-        TableData<IGetLanguagesPage_Languages_Items> page = new TableData<IGetLanguagesPage_Languages_Items>()
+        TableData<ILanguagesPage> page = new TableData<ILanguagesPage>()
         {
             TotalItems = result.Data!.Languages!.TotalCount,
             Items = result.Data!.Languages!.Items!

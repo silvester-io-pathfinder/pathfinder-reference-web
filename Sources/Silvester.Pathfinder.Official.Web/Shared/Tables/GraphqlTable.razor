@@ -5,12 +5,16 @@
 
 <div>
     <MudTable T="TEntity" RowsPerPage="@RowsPerPage" ServerData="@GetServerData" Dense="true" Hover="true" @ref="Table" Elevation="0">
+
         <ToolBarContent>
             <div style="display:flex; flex-direction: column; width: 100%;">
-                <div style="display:flex; flex-direction: row; padding-left: 16px; padding-right: 16px; padding-top:10px; padding-bottom:10px; border-bottom: 1px solid var(--mud-palette-table-lines);">
-                    <MudText Typo="Typo.h6">@Title</MudText>
-                    <MudToolBarSpacer />
-                </div>
+                @if(string.IsNullOrWhiteSpace(Title) == false)
+                {
+                    <div style="display:flex; flex-direction: row; padding-left: 16px; padding-right: 16px; padding-top:10px; padding-bottom:10px; border-bottom: 1px solid var(--mud-palette-table-lines);">
+                        <MudText Typo="Typo.h6">@Title</MudText>
+                        <MudToolBarSpacer />
+                    </div>
+                }
                 <div>
                     <MudTextField T="string" Style="background-color: white; padding: 8px;" ValueChanged="@(text => OnSearch(text))" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0" />
                 </div>
@@ -47,7 +51,7 @@
     public RenderFragment Columns { get; set; } = default!;
 
     [Parameter]
-    public string Title { get; set; } = default!;
+    public string? Title { get; set; }
 
     [Parameter]
     public int RowsPerPage { get; set; } = 10;

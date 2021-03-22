@@ -1,0 +1,54 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+@using Silvester.Pathfinder.Official.Web.Graphql
+
+<div>
+    <GraphqlTable Title="Skills" RowsPerPage="25" GetPage="@GetPage" TSortInput="SkillSortInput" TEntity="IGetSkillsPage_Skills_Items">
+        <Columns>
+            <MudTh><MudTableSortLabel SortLabel="@nameof(ISkillsPage.Name)" T="ISkillsPage">Name</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel SortLabel="@(nameof(IGetSkillsPage_Skills_Items.StatModifier) + ".Name")" T="ISkillsPage">Modifier</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel SortLabel="@nameof(ISkillsPage.HasArmorCheckPenalty)" T="ISkillsPage">AC Penalty</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel SortLabel="@nameof(ISkillsPage.HasRecallKnowledgeAction)" T="ISkillsPage">Recall Knowledge</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel SortLabel="@nameof(ISkillsPage.Description)" T="ISkillsPage">Description</MudTableSortLabel></MudTh>
+            <MudTh></MudTh>
+        </Columns>
+        <Rows>
+            <MudTd DataLabel="@nameof(ISkillsPage.Name)" >@context.Name</MudTd>
+            <MudTd DataLabel="@(nameof(IGetSkillsPage_Skills_Items.StatModifier) + ".Name")" >@context.StatModifier.Name</MudTd>
+            <MudTd DataLabel="@nameof(ISkillsPage.HasArmorCheckPenalty)" >@context.HasArmorCheckPenalty</MudTd>
+            <MudTd DataLabel="@nameof(ISkillsPage.HasRecallKnowledgeAction)" >@context.HasRecallKnowledgeAction</MudTd>
+            <MudTdEllipsized DataLabel="@nameof(ISkillsPage.Description)" Text="@context.Description" />
+            <MudTh>
+                <MudTooltip Text="Inspect">
+                    <MudIconButton Size="Size.Small" OnClick="@(() => OnInspectClicked(context))" Icon="@Icons.Material.Outlined.ArrowForward"></MudIconButton>
+                </MudTooltip>
+            </MudTh>
+        </Rows>
+    </GraphqlTable>
+</div>
+
+@code {
+    [Inject]
+    public PathfinderOfficialApi PathfinderOfficialApi { get; set; } = default!;
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; } = default!;
+
+    public void OnInspectClicked(ISkillsPage skill)
+    {
+        NavigationManager.NavigateTo($"skills/{skill.Id}");
+    }
+
+    public async Task<TableData<IGetSkillsPage_Skills_Items>> GetPage(SkillSortInput[] sortInputs, TableState state, string searchTerm)
+    {
+        IOperationResult<IGetSkillsPageResult> result = await PathfinderOfficialApi.GetSkillsPage
+            .ExecuteAsync(state.Page * state.PageSize, state.PageSize, searchTerm, sortInputs);
+
+        TableData<IGetSkillsPage_Skills_Items> page = new TableData<IGetSkillsPage_Skills_Items>()
+        {
+            TotalItems = result.Data!.Skills!.TotalCount,
+            Items = result.Data!.Skills!.Items!
+        };
+
+        return page;
+    }
+}

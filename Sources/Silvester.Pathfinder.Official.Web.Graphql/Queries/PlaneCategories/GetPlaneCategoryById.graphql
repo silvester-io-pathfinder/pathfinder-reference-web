@@ -1,0 +1,18 @@
+﻿query GetPlaneCategoryById($id: Uuid!) {
+	planeCategories(where: {id: {eq: $id}}) {
+		items {
+			id,
+			name,
+			description,
+			planes {
+				id,
+				name, 
+				alignment {
+					name
+				}
+				description
+			}
+		}
+	}
+}
+

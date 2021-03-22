@@ -1,0 +1,51 @@
+﻿query GetAlignmentById($id: Uuid!) {
+	alignments(where: {id: {eq: $id}}) {
+		items {
+			... AlignmentById
+		}
+	}
+}
+
+
+fragment AlignmentById on Alignment
+{
+	id,
+	name,
+	description,
+	planes {
+		... AlignmentById_Plane
+	},
+	deities {
+		... AlignmentById_Deity
+	}
+}
+
+fragment AlignmentById_Plane on Plane
+{
+	id,
+	name,
+	description,
+	category {
+		... AlignmentById_Plane_Category
+	}
+}
+
+fragment AlignmentById_Plane_Category on PlaneCategory
+{
+	name
+}
+
+fragment AlignmentById_Deity on Deity
+{
+	id,
+	name,
+	description,
+	category {
+		... AlignmentById_Deity_Category
+	}
+}
+
+fragment AlignmentById_Deity_Category on DeityCategory
+{
+	name
+}

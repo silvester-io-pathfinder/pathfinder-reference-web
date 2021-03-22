@@ -1,0 +1,39 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Preferences;
+@using Silvester.Pathfinder.Official.Web.Shared.Cards;
+@using Silvester.Pathfinder.Official.Web.Shared.Tables;
+@using Silvester.Pathfinder.Official.Web.Services;
+@using Silvester.Pathfinder.Official.Web.Shared.Chips;
+
+@if (Alignment != null)
+{
+    <ComponentDetailsCard TEntity="IAlignmentById" Entity="@Alignment">
+        <Title>
+            <MudText Typo="Typo.h6">Alignment</MudText>
+        </Title>
+        <Actions>
+        </Actions>
+        <LeftContent>
+            <PreferenceCategory Title="Details">
+                <PreferenceItemText Title="Name" Text="@context.Name" />
+            </PreferenceCategory>
+        </LeftContent>
+        <RightContent>
+            <PreferenceCategory Title="Description">
+                <PreferenceItemText Text="@context.Description" />
+            </PreferenceCategory>
+        </RightContent>
+    </ComponentDetailsCard>
+}
+
+@code {
+    [Parameter]
+    public IAlignmentById Alignment { get; set; } = default!;
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; } = default!;
+
+    public void OnCategoryClick()
+    {
+        //NavigationManager.NavigateTo($"plane-category/{Alignment.Category.Id}");
+    }
+}

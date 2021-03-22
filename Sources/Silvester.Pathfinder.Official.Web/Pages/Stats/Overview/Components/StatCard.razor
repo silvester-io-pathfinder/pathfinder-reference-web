@@ -1,0 +1,22 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Cards;
+@using Silvester.Pathfinder.Official.Web.Shared.Preferences;
+
+<div>
+    <CardToolbar Style="padding-right: 10px;">
+        <MudText Typo="@Typo.h6">@(Stat.Name + " (" + Stat.Abbreviation + ")")</MudText>
+        <MudToolBarSpacer />
+    </CardToolbar>
+    <MudDivider />
+    <PreferenceCategory Title="Description">
+        <PreferenceItemText Text="@Stat.Description" />
+    </PreferenceCategory>
+</div>
+
+@code {
+    [Parameter]
+    public IStatsPage Stat { get; set; } = default!;
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; } = default!;
+
+}

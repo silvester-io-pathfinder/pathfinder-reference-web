@@ -391,6 +391,7 @@ input SpellRequirementFilterInput {
 
 input AlignmentSortInput {
   name: SortEnumType
+  description: SortEnumType
   id: SortEnumType
 }
 
@@ -398,6 +399,7 @@ input AlignmentFilterInput {
   and: [AlignmentFilterInput!]
   or: [AlignmentFilterInput!]
   name: StringOperationFilterInput
+  description: StringOperationFilterInput
   deities: ListFilterInputTypeOfDeityFilterInput
   planes: ListFilterInputTypeOfPlaneFilterInput
   id: ComparableGuidOperationFilterInput
@@ -720,6 +722,7 @@ input ClassFilterInput {
 
 input ProficiencySortInput {
   name: SortEnumType
+  bonus: SortEnumType
   id: SortEnumType
 }
 
@@ -727,12 +730,14 @@ input ProficiencyFilterInput {
   and: [ProficiencyFilterInput!]
   or: [ProficiencyFilterInput!]
   name: StringOperationFilterInput
+  bonus: ComparableInt32OperationFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
 input StatSortInput {
   name: SortEnumType
   abbreviation: SortEnumType
+  description: SortEnumType
   id: SortEnumType
 }
 
@@ -741,6 +746,7 @@ input StatFilterInput {
   or: [StatFilterInput!]
   name: StringOperationFilterInput
   abbreviation: StringOperationFilterInput
+  description: StringOperationFilterInput
   keyAbilityClasses: ListFilterInputTypeOfClassFilterInput
   id: ComparableGuidOperationFilterInput
 }
@@ -894,6 +900,7 @@ input HeritageFilterInput {
 
 input RaceSortInput {
   name: SortEnumType
+  description: SortEnumType
   baseSpeed: SortEnumType
   baseHealth: SortEnumType
   sizeId: SortEnumType
@@ -907,6 +914,7 @@ input RaceFilterInput {
   and: [RaceFilterInput!]
   or: [RaceFilterInput!]
   name: StringOperationFilterInput
+  description: StringOperationFilterInput
   baseSpeed: ComparableInt32OperationFilterInput
   baseHealth: ComparableInt32OperationFilterInput
   sizeId: ComparableGuidOperationFilterInput
@@ -1265,6 +1273,7 @@ input SkillPrerequisiteFilterInput {
 
 input SkillSortInput {
   name: SortEnumType
+  description: SortEnumType
   hasArmorCheckPenalty: SortEnumType
   hasRecallKnowledgeAction: SortEnumType
   statModifierId: SortEnumType
@@ -1276,6 +1285,7 @@ input SkillFilterInput {
   and: [SkillFilterInput!]
   or: [SkillFilterInput!]
   name: StringOperationFilterInput
+  description: StringOperationFilterInput
   hasArmorCheckPenalty: BooleanOperationFilterInput
   hasRecallKnowledgeAction: BooleanOperationFilterInput
   statModifierId: ComparableGuidOperationFilterInput
@@ -1856,6 +1866,7 @@ input ListFilterInputTypeOfPrerequisiteFilterInput {
 
 type Alignment {
   name: String!
+  description: String!
   deities(order: [DeitySortInput!] where: DeityFilterInput): [Deity!]!
   planes(order: [PlaneSortInput!] where: PlaneFilterInput): [Plane!]!
   id: Uuid!
@@ -1923,6 +1934,7 @@ type Bulk {
 type Stat {
   name: String!
   abbreviation: String!
+  description: String!
   keyAbilityClasses(order: [ClassSortInput!] where: ClassFilterInput): [Class!]!
   id: Uuid!
 }
@@ -1968,6 +1980,7 @@ type Source {
 
 type Race {
   name: String!
+  description: String!
   baseSpeed: Int!
   baseHealth: Int!
   sizeId: Uuid!
@@ -1982,6 +1995,7 @@ type Race {
 
 type Skill {
   name: String!
+  description: String!
   hasArmorCheckPenalty: Boolean!
   hasRecallKnowledgeAction: Boolean!
   statModifierId: Uuid!
@@ -2098,6 +2112,7 @@ type Frequency {
 
 type Proficiency {
   name: String!
+  bonus: Int!
   id: Uuid!
 }
 

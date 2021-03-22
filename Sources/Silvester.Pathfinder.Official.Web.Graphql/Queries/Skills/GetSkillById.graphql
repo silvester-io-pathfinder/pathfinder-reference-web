@@ -1,0 +1,20 @@
+﻿query GetSkillById($id: Uuid!) {
+	skills(where: {id: {eq: $id}}) {
+		items {
+			... SkillById
+			statModifier {
+				name,
+				abbreviation
+			}
+		}
+	}
+}
+
+fragment SkillById on Skill
+{
+	id,
+	name,
+	description,
+	hasArmorCheckPenalty,
+	hasRecallKnowledgeAction
+}

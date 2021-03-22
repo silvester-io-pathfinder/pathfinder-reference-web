@@ -1,0 +1,57 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
+@using Silvester.Pathfinder.Official.Web.Pages.Planes.Details.Components;
+
+@inherits BaseDetailPage
+@page "/plane-categories/{planeCategoryId:guid}"
+@implements IDisposable
+
+<div>
+    <PageLayout>
+        @if (PlaneCategory != null)
+        {
+            <MudPaper Style="margin: 20px">
+                <PlaneCategoryDetailsCard PlaneCategory="@PlaneCategory" />
+            </MudPaper>
+
+            <MudPaper Style="margin: 20px">
+                <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
+                    <MudTabPanel Text="Planes">
+                        <PlanesTable PlaneCategory="@PlaneCategory" />
+                    </MudTabPanel>
+                </MudTabs>
+            </MudPaper>
+        }
+    </PageLayout>
+</div>
+
+@code {
+    protected override string Title => "Plane Categories";
+    protected override string? Subtitle => PlaneCategory?.Name;
+
+    [Parameter]
+    public Guid PlaneCategoryId { get; set; }
+
+    [Inject]
+    public PathfinderOfficialApi PathfinderOfficialApi { get; set; } = default!;
+
+    private IGetPlaneCategoryById_PlaneCategories_Items? PlaneCategory { get; set; }
+
+    private IDisposable? StoreSession { get; set; }
+
+    protected override void OnInitialized()
+    {
+        StoreSession = PathfinderOfficialApi.GetPlaneCategoryById
+            .Watch(PlaneCategoryId)
+            .Select(e => e.Data?.PlaneCategories?.Items?.FirstOrDefault())
+            .Subscribe(planeCategory =>
+            {
+                PlaneCategory = planeCategory;
+                StateHasChanged();
+            });
+    }
+
+    public void Dispose()
+    {
+        StoreSession?.Dispose();
+    }
+}

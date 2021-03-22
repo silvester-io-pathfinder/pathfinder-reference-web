@@ -1,0 +1,37 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Preferences;
+@using Silvester.Pathfinder.Official.Web.Shared.Cards;
+@using Silvester.Pathfinder.Official.Web.Shared.Tables;
+
+<div>
+    @if (PlaneCategory == null)
+    {
+
+    }
+    else
+    {
+        <RelationshipTable TEntity="IGetPlaneCategoryById_PlaneCategories_Items_Planes" DefaultSortLabel="@nameof(IGetPlaneCategoryById_PlaneCategories_Items_Planes.Name)" Filter="@PlaneFilter" InspectionUrl="@((e) => $"planes/{e.Id}")" Items="@(() => PlaneCategory.Planes)">
+            <Columns>
+                <MudTh><MudTableSortLabel SortLabel="@nameof(IGetPlaneCategoryById_PlaneCategories_Items_Planes.Name)" T="IGetPlaneCategoryById_PlaneCategories_Items_Planes" InitialDirection="SortDirection.Ascending">Name</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortLabel="@(nameof(IGetPlaneCategoryById_PlaneCategories_Items_Planes.Alignment) + ".Name")" T="IGetPlaneCategoryById_PlaneCategories_Items_Planes">Alignment</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortLabel="@nameof(IGetPlaneCategoryById_PlaneCategories_Items_Planes.Description)" T="IGetPlaneCategoryById_PlaneCategories_Items_Planes">Description</MudTableSortLabel></MudTh>
+            </Columns>
+            <Rows>
+                <MudTd Style="font-weight: 500;">@context.Name</MudTd>
+                <MudTd>@context.Alignment.Name</MudTd>
+                <MudTdEllipsized Text="@context.Description" />
+            </Rows>
+        </RelationshipTable>
+    }
+</div>
+
+@code
+{
+    [Parameter]
+    public IGetPlaneCategoryById_PlaneCategories_Items PlaneCategory { get; set; } = default!;
+
+    public bool PlaneFilter(IGetPlaneCategoryById_PlaneCategories_Items_Planes plane, string searchString)
+    {
+        return plane.Name.ToLower().Contains(searchString)
+            || plane.Description.ToLower().Contains(searchString);
+    }
+}

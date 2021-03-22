@@ -1,0 +1,16 @@
+﻿query GetStats {
+	stats {
+		totalCount,
+		items {
+			... StatsPage
+		}
+	}
+}
+
+fragment StatsPage on Stat
+{
+	id,
+	name,
+	description,
+	abbreviation
+}

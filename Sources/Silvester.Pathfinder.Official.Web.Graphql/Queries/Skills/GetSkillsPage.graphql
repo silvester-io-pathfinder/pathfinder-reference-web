@@ -1,0 +1,29 @@
+﻿query GetSkillsPage($skip: Int!, $take: Int!, $searchTerm: String! = "", $order: [SkillSortInput!] = [{name: ASC}]) {
+	skills(
+		skip: $skip, 
+		take: $take, 
+		order: $order,
+		where: {
+			or: [
+				{name: {contains: $searchTerm}}
+			]
+		}) 
+	{
+		totalCount,
+		items {
+			statModifier {
+				name
+			}
+			... SkillsPage
+		}
+	}
+}
+
+fragment SkillsPage on Skill
+{
+	id,
+	name,
+	description,
+	hasArmorCheckPenalty,
+	hasRecallKnowledgeAction
+}

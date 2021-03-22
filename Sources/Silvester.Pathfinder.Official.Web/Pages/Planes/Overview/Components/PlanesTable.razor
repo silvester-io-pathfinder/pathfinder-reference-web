@@ -1,0 +1,48 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+@using Silvester.Pathfinder.Official.Web.Graphql
+
+<div>
+    <GraphqlTable RowsPerPage="25" GetPage="@GetPage" TSortInput="PlaneSortInput" TEntity="IGetPlanesPage_Planes_Items">
+        <Columns>
+            <MudTh><MudTableSortLabel SortLabel="@nameof(IGetPlanesPage_Planes_Items.Name)" T="IGetPlanesPage_Planes_Items">Name</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel SortLabel="@nameof(IGetPlanesPage_Planes_Items.Description)" T="IGetPlanesPage_Planes_Items">Description</MudTableSortLabel></MudTh>
+            <MudTh></MudTh>
+        </Columns>
+        <Rows>
+            <MudTd DataLabel="@nameof(IGetPlanesPage_Planes_Items.Name)" Style="font-weight: 500;">@context.Name</MudTd>
+            <MudTdEllipsized DataLabel="@nameof(IGetPlanesPage_Planes_Items.Description)" Text="@context.Description" />
+            <MudTh>
+                <MudTooltip Text="Inspect">
+                    <MudIconButton Size="Size.Small" OnClick="@(() => OnInspectClicked(context))" Icon="@Icons.Material.Outlined.ArrowForward"></MudIconButton>
+                </MudTooltip>
+            </MudTh>
+        </Rows>
+    </GraphqlTable>
+</div>
+
+@code {
+    [Inject]
+    public PathfinderOfficialApi PathfinderOfficialApi { get; set; } = default!;
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; } = default!;
+
+    public void OnInspectClicked(IGetPlanesPage_Planes_Items plane)
+    {
+        NavigationManager.NavigateTo($"planes/{plane.Id}");
+    }
+
+    public async Task<TableData<IGetPlanesPage_Planes_Items>> GetPage(PlaneSortInput[] sortInputs, TableState state, string searchTerm)
+    {
+        IOperationResult<IGetPlanesPageResult> result = await PathfinderOfficialApi.GetPlanesPage
+            .ExecuteAsync(state.Page * state.PageSize, state.PageSize, searchTerm, sortInputs);
+
+        TableData<IGetPlanesPage_Planes_Items> page = new TableData<IGetPlanesPage_Planes_Items>()
+        {
+            TotalItems = result.Data!.Planes!.TotalCount,
+            Items = result.Data!.Planes!.Items!
+        };
+
+        return page;
+    }
+}

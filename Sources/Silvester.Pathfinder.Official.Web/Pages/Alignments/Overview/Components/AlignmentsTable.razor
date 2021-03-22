@@ -1,0 +1,48 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+@using Silvester.Pathfinder.Official.Web.Graphql
+
+<div>
+    <GraphqlTable Title="Alignments" RowsPerPage="25" GetPage="@GetPage" TSortInput="AlignmentSortInput" TEntity="IAlignmentsPage">
+        <Columns>
+            <MudTh><MudTableSortLabel SortLabel="@nameof(IAlignmentsPage.Name)" T="IAlignmentsPage">Name</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel SortLabel="@nameof(IAlignmentsPage.Description)" T="IAlignmentsPage">Description</MudTableSortLabel></MudTh>
+            <MudTh></MudTh>
+        </Columns>
+        <Rows>
+            <MudTd DataLabel="@nameof(IAlignmentsPage.Name)" >@context.Name</MudTd>
+            <MudTdEllipsized DataLabel="@nameof(IAlignmentsPage.Description)" Text="@context.Description" />
+            <MudTh>
+                <MudTooltip Text="Inspect">
+                    <MudIconButton Size="Size.Small" OnClick="@(() => OnInspectClicked(context))" Icon="@Icons.Material.Outlined.ArrowForward"></MudIconButton>
+                </MudTooltip>
+            </MudTh>
+        </Rows>
+    </GraphqlTable>
+</div>
+
+@code {
+    [Inject]
+    public PathfinderOfficialApi PathfinderOfficialApi { get; set; } = default!;
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; } = default!;
+
+    public void OnInspectClicked(IAlignmentsPage alignment)
+    {
+        NavigationManager.NavigateTo($"alignments/{alignment.Id}");
+    }
+
+    public async Task<TableData<IAlignmentsPage>> GetPage(AlignmentSortInput[] sortInputs, TableState state, string searchTerm)
+    {
+        IOperationResult<IGetAlignmentsPageResult> result = await PathfinderOfficialApi.GetAlignmentsPage
+            .ExecuteAsync(state.Page * state.PageSize, state.PageSize, searchTerm, sortInputs);
+
+        TableData<IAlignmentsPage> page = new TableData<IAlignmentsPage>()
+        {
+            TotalItems = result.Data!.Alignments!.TotalCount,
+            Items = result.Data!.Alignments!.Items!
+        };
+
+        return page;
+    }
+}
