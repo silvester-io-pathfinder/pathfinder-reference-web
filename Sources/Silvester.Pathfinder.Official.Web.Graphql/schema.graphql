@@ -14,6 +14,32 @@ input BaseEntityFilterInput {
   id: ComparableGuidOperationFilterInput
 }
 
+input ActionSortInput {
+  name: SortEnumType
+  trigger: SortEnumType
+  requirements: SortEnumType
+  actionTypeId: SortEnumType
+  actionType: ActionTypeSortInput
+  rollableEffectId: SortEnumType
+  rollableEffect: RollableEffectSortInput
+  id: SortEnumType
+}
+
+input ActionFilterInput {
+  and: [ActionFilterInput!]
+  or: [ActionFilterInput!]
+  name: StringOperationFilterInput
+  trigger: StringOperationFilterInput
+  requirements: StringOperationFilterInput
+  actionTypeId: ComparableGuidOperationFilterInput
+  actionType: ActionTypeFilterInput
+  rollableEffectId: ComparableNullableOfGuidOperationFilterInput
+  rollableEffect: RollableEffectFilterInput
+  details: ListFilterInputTypeOfActionDetailsBlockFilterInput
+  traits: ListFilterInputTypeOfTraitFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
 input ActionTypeSortInput {
   name: SortEnumType
   id: SortEnumType
@@ -25,6 +51,7 @@ input ActionTypeFilterInput {
   name: StringOperationFilterInput
   spells: ListFilterInputTypeOfSpellFilterInput
   feats: ListFilterInputTypeOfFeatFilterInput
+  actions: ListFilterInputTypeOfActionFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -204,6 +231,7 @@ input TraitFilterInput {
   description: StringOperationFilterInput
   spells: ListFilterInputTypeOfSpellFilterInput
   feats: ListFilterInputTypeOfFeatFilterInput
+  actions: ListFilterInputTypeOfActionFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -386,6 +414,22 @@ input SpellRequirementFilterInput {
   text: StringOperationFilterInput
   spell: SpellFilterInput
   spellId: ComparableGuidOperationFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input ActionDetailsBlockSortInput {
+  text: SortEnumType
+  actionId: SortEnumType
+  action: ActionSortInput
+  id: SortEnumType
+}
+
+input ActionDetailsBlockFilterInput {
+  and: [ActionDetailsBlockFilterInput!]
+  or: [ActionDetailsBlockFilterInput!]
+  text: StringOperationFilterInput
+  actionId: ComparableGuidOperationFilterInput
+  action: ActionFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -748,6 +792,29 @@ input StatFilterInput {
   abbreviation: StringOperationFilterInput
   description: StringOperationFilterInput
   keyAbilityClasses: ListFilterInputTypeOfClassFilterInput
+  skills: ListFilterInputTypeOfSkillFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
+input SkillSortInput {
+  name: SortEnumType
+  description: SortEnumType
+  hasArmorCheckPenalty: SortEnumType
+  hasRecallKnowledgeAction: SortEnumType
+  statModifierId: SortEnumType
+  statModifier: StatSortInput
+  id: SortEnumType
+}
+
+input SkillFilterInput {
+  and: [SkillFilterInput!]
+  or: [SkillFilterInput!]
+  name: StringOperationFilterInput
+  description: StringOperationFilterInput
+  hasArmorCheckPenalty: BooleanOperationFilterInput
+  hasRecallKnowledgeAction: BooleanOperationFilterInput
+  statModifierId: ComparableGuidOperationFilterInput
+  statModifier: StatFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -955,6 +1022,7 @@ input RaceRarityFilterInput {
   and: [RaceRarityFilterInput!]
   or: [RaceRarityFilterInput!]
   name: StringOperationFilterInput
+  races: ListFilterInputTypeOfRaceFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -1271,28 +1339,6 @@ input SkillPrerequisiteFilterInput {
   id: ComparableGuidOperationFilterInput
 }
 
-input SkillSortInput {
-  name: SortEnumType
-  description: SortEnumType
-  hasArmorCheckPenalty: SortEnumType
-  hasRecallKnowledgeAction: SortEnumType
-  statModifierId: SortEnumType
-  statModifier: StatSortInput
-  id: SortEnumType
-}
-
-input SkillFilterInput {
-  and: [SkillFilterInput!]
-  or: [SkillFilterInput!]
-  name: StringOperationFilterInput
-  description: StringOperationFilterInput
-  hasArmorCheckPenalty: BooleanOperationFilterInput
-  hasRecallKnowledgeAction: BooleanOperationFilterInput
-  statModifierId: ComparableGuidOperationFilterInput
-  statModifier: StatFilterInput
-  id: ComparableGuidOperationFilterInput
-}
-
 input RecallKnowledgePrerequisiteSortInput {
   requiredProficiencyId: SortEnumType
   requiredProficiency: ProficiencySortInput
@@ -1537,6 +1583,7 @@ type Query {
   traits(skip: Int take: Int where: TraitFilterInput order: [TraitSortInput!]): TraitCollectionSegment
   spellTypes(skip: Int take: Int where: SpellTypeFilterInput order: [SpellTypeSortInput!]): SpellTypeCollectionSegment
   itemCategories(skip: Int take: Int where: ItemCategoryFilterInput order: [ItemCategorySortInput!]): ItemCategoryCollectionSegment
+  actions(skip: Int take: Int where: ActionFilterInput order: [ActionSortInput!]): ActionCollectionSegment
 }
 
 enum SortEnumType {
@@ -1574,6 +1621,35 @@ input StringOperationFilterInput {
   nendsWith: String
 }
 
+input ComparableNullableOfGuidOperationFilterInput {
+  eq: Uuid
+  neq: Uuid
+  in: [Uuid]
+  nin: [Uuid]
+  gt: Uuid
+  ngt: Uuid
+  gte: Uuid
+  ngte: Uuid
+  lt: Uuid
+  nlt: Uuid
+  lte: Uuid
+  nlte: Uuid
+}
+
+input ListFilterInputTypeOfActionDetailsBlockFilterInput {
+  all: ActionDetailsBlockFilterInput
+  none: ActionDetailsBlockFilterInput
+  some: ActionDetailsBlockFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfTraitFilterInput {
+  all: TraitFilterInput
+  none: TraitFilterInput
+  some: TraitFilterInput
+  any: Boolean
+}
+
 input ListFilterInputTypeOfSpellFilterInput {
   all: SpellFilterInput
   none: SpellFilterInput
@@ -1585,6 +1661,13 @@ input ListFilterInputTypeOfFeatFilterInput {
   all: FeatFilterInput
   none: FeatFilterInput
   some: FeatFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfActionFilterInput {
+  all: ActionFilterInput
+  none: ActionFilterInput
+  some: ActionFilterInput
   any: Boolean
 }
 
@@ -1638,21 +1721,6 @@ input BooleanOperationFilterInput {
   neq: Boolean
 }
 
-input ComparableNullableOfGuidOperationFilterInput {
-  eq: Uuid
-  neq: Uuid
-  in: [Uuid]
-  nin: [Uuid]
-  gt: Uuid
-  ngt: Uuid
-  gte: Uuid
-  ngte: Uuid
-  lt: Uuid
-  nlt: Uuid
-  lte: Uuid
-  nlte: Uuid
-}
-
 input ListFilterInputTypeOfSpellDetailBlockFilterInput {
   all: SpellDetailBlockFilterInput
   none: SpellDetailBlockFilterInput
@@ -1671,13 +1739,6 @@ input ListFilterInputTypeOfSpellComponentFilterInput {
   all: SpellComponentFilterInput
   none: SpellComponentFilterInput
   some: SpellComponentFilterInput
-  any: Boolean
-}
-
-input ListFilterInputTypeOfTraitFilterInput {
-  all: TraitFilterInput
-  none: TraitFilterInput
-  some: TraitFilterInput
   any: Boolean
 }
 
@@ -1822,6 +1883,13 @@ input ListFilterInputTypeOfClassFilterInput {
   any: Boolean
 }
 
+input ListFilterInputTypeOfSkillFilterInput {
+  all: SkillFilterInput
+  none: SkillFilterInput
+  some: SkillFilterInput
+  any: Boolean
+}
+
 input ListFilterInputTypeOfFeatEffectFilterInput {
   all: FeatEffectFilterInput
   none: FeatEffectFilterInput
@@ -1936,11 +2004,13 @@ type Stat {
   abbreviation: String!
   description: String!
   keyAbilityClasses(order: [ClassSortInput!] where: ClassFilterInput): [Class!]!
+  skills(order: [SkillSortInput!] where: SkillFilterInput): [Skill!]!
   id: Uuid!
 }
 
 type RaceRarity {
   name: String!
+  races(order: [RaceSortInput!] where: RaceFilterInput): [Race!]!
   id: Uuid!
 }
 
@@ -2058,6 +2128,7 @@ type ActionType {
   name: String!
   spells(order: [SpellSortInput!] where: SpellFilterInput): [Spell!]!
   feats(order: [FeatSortInput!] where: FeatFilterInput): [Feat!]!
+  actions(order: [ActionSortInput!] where: ActionFilterInput): [Action!]!
   id: Uuid!
 }
 
@@ -2218,6 +2289,7 @@ type Trait {
   description: String!
   spells(order: [SpellSortInput!] where: SpellFilterInput): [Spell!]!
   feats(order: [FeatSortInput!] where: FeatFilterInput): [Feat!]!
+  actions(order: [ActionSortInput!] where: ActionFilterInput): [Action!]!
   id: Uuid!
 }
 
@@ -2232,6 +2304,19 @@ type ItemCategory {
   name: String!
   description: String!
   pageNumber: Int!
+  id: Uuid!
+}
+
+type Action {
+  name: String!
+  trigger: String
+  requirements: String
+  actionTypeId: Uuid!
+  actionType: ActionType!
+  rollableEffectId: Uuid
+  rollableEffect: RollableEffect
+  details(order: [ActionDetailsBlockSortInput!] where: ActionDetailsBlockFilterInput): [ActionDetailsBlock!]!
+  traits(order: [TraitSortInput!] where: TraitFilterInput): [Trait!]!
   id: Uuid!
 }
 
@@ -2515,6 +2600,13 @@ type ItemCategoryCollectionSegment {
   totalCount: Int!
 }
 
+type ActionCollectionSegment {
+  items: [Action]
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  totalCount: Int!
+}
+
 "Information about the offset pagination."
 type CollectionSegmentInfo {
   "Indicates whether more items exist following the set defined by the clients arguments."
@@ -2592,6 +2684,13 @@ type SpellRequirement {
   text: String!
   spell: Spell!
   spellId: Uuid!
+  id: Uuid!
+}
+
+type ActionDetailsBlock {
+  text: String!
+  actionId: Uuid!
+  action: Action!
   id: Uuid!
 }
 

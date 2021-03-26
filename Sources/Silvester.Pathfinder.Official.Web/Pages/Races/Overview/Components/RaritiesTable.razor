@@ -1,0 +1,46 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+@using Silvester.Pathfinder.Official.Web.Graphql
+
+<div>
+    <GraphqlTable RowsPerPage="25" GetPage="@GetPage" TSortInput="RaceRaritySortInput" TEntity="IRaceRaritiesPage">
+        <Columns>
+            <MudTh><MudTableSortLabel SortLabel="@nameof(IRaceRaritiesPage.Name)" T="IGetRacesPage_Races_Items">Name</MudTableSortLabel></MudTh>
+            <MudTh></MudTh>
+        </Columns>
+        <Rows>
+            <MudTdEllipsized DataLabel="@nameof(IRaceRaritiesPage.Name)" Text="@context.Name" />
+            <MudTh>
+                <MudTooltip Text="Inspect">
+                    <MudIconButton Size="Size.Small" OnClick="@(() => OnInspectClicked(context))" Icon="@Icons.Material.Outlined.ArrowForward"></MudIconButton>
+                </MudTooltip>
+            </MudTh>
+        </Rows>
+    </GraphqlTable>
+</div>
+
+@code {
+    [Inject]
+    public PathfinderOfficialApi PathfinderOfficialApi { get; set; } = default!;
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; } = default!;
+
+    public void OnInspectClicked(IRaceRaritiesPage raceRarity)
+    {
+        NavigationManager.NavigateTo($"race-rarities/{raceRarity.Id}");
+    }
+
+    public async Task<TableData<IRaceRaritiesPage>> GetPage(RaceRaritySortInput[] sortInputs, TableState state, string searchTerm)
+    {
+        IOperationResult<IGetRaceRaritiesPageResult> result = await PathfinderOfficialApi.GetRaceRaritiesPage
+            .ExecuteAsync(state.Page * state.PageSize, state.PageSize, searchTerm, sortInputs);
+
+        TableData<IRaceRaritiesPage> page = new TableData<IRaceRaritiesPage>()
+        {
+            TotalItems = result.Data!.RaceRarities!.TotalCount,
+            Items = result.Data!.RaceRarities!.Items!
+        };
+
+        return page;
+    }
+}

@@ -8,7 +8,14 @@
     <PageLayout>
 
         <MudPaper Style="margin: 20px;">
-            <DeitiesTable />
+            <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
+                <MudTabPanel Text="Deities">
+                    <DeitiesTable />
+                </MudTabPanel>
+                <MudTabPanel Text="Categories">
+                    <DeityCategoriesTable />
+                </MudTabPanel>
+            </MudTabs>
         </MudPaper>
 
     </PageLayout>

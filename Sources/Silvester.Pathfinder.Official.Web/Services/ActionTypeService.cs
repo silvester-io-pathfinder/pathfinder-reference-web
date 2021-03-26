@@ -14,7 +14,7 @@
                 "One Action" => Icons.Generated.OneAction,
                 "Two Actions" => Icons.Generated.TwoActions,
                 "Three Actions" => Icons.Generated.ThreeActions,
-                "Free Action" => Icons.Generated.FreeAction,
+                "Free" => Icons.Generated.FreeAction,
                 "Reaction" => Icons.Generated.Reaction,
                 _ => ""
             };

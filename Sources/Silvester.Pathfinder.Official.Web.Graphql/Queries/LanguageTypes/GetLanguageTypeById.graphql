@@ -1,13 +1,22 @@
 ﻿query GetLanguageTypeById($id: Uuid!) {
 	languageTypes(where: {id: {eq: $id}}) {
 		items {
-			id,
-			name,
-			languages {
-				id, 
-				name
-			}
+			... LanguageTypeById
 		}
 	}
 }
 
+fragment LanguageTypeById on LanguageType
+{
+	id,
+	name,
+	languages {
+		... LanguageTypeById_Language
+	}
+}
+
+fragment LanguageTypeById_Language on Language
+{
+	id,
+	name
+}

@@ -24,7 +24,7 @@
                 @Rows(context)
                 <MudTd>
                     <MudTooltip Text="Inspect">
-                        <MudIconButton Size="Size.Small" OnClick="@(() => OnInspectFeatClicked(context))" Icon="@Icons.Material.Outlined.ArrowForward"></MudIconButton>
+                        <MudIconButton Size="Size.Small" OnClick="@(() => OnInspectClick(context))" Icon="@Icons.Material.Outlined.ArrowForward"></MudIconButton>
                     </MudTooltip>
                 </MudTd>
             </RowTemplate>
@@ -65,7 +65,7 @@
 
     private bool IsEmpty { get; set; }
 
-    public void OnInspectFeatClicked(TEntity entity)
+    public void OnInspectClick(TEntity entity)
     {
         NavigationManager.NavigateTo(InspectionUrl.Invoke(entity));
     }

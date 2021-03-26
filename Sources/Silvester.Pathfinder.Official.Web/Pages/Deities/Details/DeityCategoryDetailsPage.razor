@@ -1,5 +1,5 @@
 ﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
-@using Silvester.Pathfinder.Official.Web.Pages.DeityCategories.Details.Components;
+@using Silvester.Pathfinder.Official.Web.Pages.Deities.Details.Components;
 
 @inherits BaseDetailPage
 @page "/deity-categories/{deityCategoryId:guid}"
@@ -10,7 +10,7 @@
         @if (DeityCategory != null)
         {
             <MudPaper Style="margin: 20px">
-                <DetailsCard DeityCategory="@DeityCategory" />
+                <DeityCategoryDetailsCard DeityCategory="@DeityCategory" />
             </MudPaper>
 
             <MudPaper Style="margin: 20px">

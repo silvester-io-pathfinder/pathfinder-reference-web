@@ -10,7 +10,7 @@
     }
     else
     {
-        <RelationshipTable TEntity="IGetRaceById_Races_Items_Languages" DefaultSortLabel="@nameof(IGetRaceById_Races_Items_Languages.Name)" Filter="@HeritageFilter" InspectionUrl="@((e) => $"languages/{e.Id}")" Items="@(() => Race.Languages)">
+        <RelationshipTable TEntity="IGetRaceById_Races_Items_Languages" DefaultSortLabel="@nameof(IGetRaceById_Races_Items_Languages.Name)" Filter="@LanguageFilter" InspectionUrl="@((e) => $"languages/{e.Id}")" Items="@(() => Race.Languages)">
             <Columns>
                 <MudTh><MudTableSortLabel SortLabel="@nameof(IGetRaceById_Races_Items_Languages.Name)" T="IGetRaceById_Races_Items_Languages" InitialDirection="SortDirection.Ascending">Name</MudTableSortLabel></MudTh>
                 <MudTh><MudTableSortLabel SortLabel="@(nameof(IGetRaceById_Races_Items_Languages.Type) + ".Name")" T="IGetRaceById_Races_Items_Languages">Type</MudTableSortLabel></MudTh>
@@ -28,7 +28,7 @@
     [Parameter]
     public IGetRaceById_Races_Items Race { get; set; } = default!;
 
-    public bool HeritageFilter(IGetRaceById_Races_Items_Languages language, string searchString)
+    public bool LanguageFilter(IGetRaceById_Races_Items_Languages language, string searchString)
     {
         return language.Name.ToLower().Contains(searchString)
             || language.Type.Name.ToLower().Contains(searchString);

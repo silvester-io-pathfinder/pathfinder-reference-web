@@ -1,6 +1,5 @@
 ﻿@inherits LayoutComponentBase
 
-
 <MudLayout>
     <MudAppBar Elevation="4">
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@ToggleDrawer" />
@@ -8,37 +7,56 @@
         <MudAppBarSpacer />
     </MudAppBar>
     <MudDrawer @bind-Open="@DrawerOpen" Elevation="4">
-        <MudNavMenu>
-            <MudNavGroup Title="Abilities" Expanded="true">
-                <MudNavLink Href="spells" Match="NavLinkMatch.Prefix">Spells</MudNavLink>
-                <MudNavLink Href="feats" Match="NavLinkMatch.Prefix">Feats</MudNavLink>
-            </MudNavGroup>
-            <MudNavGroup Title="Magic" Expanded="true">
-                <MudNavLink Href="magic-schools" Match="NavLinkMatch.Prefix">Schools</MudNavLink>
-                <MudNavLink Href="magic-traditions" Match="NavLinkMatch.Prefix">Traditions</MudNavLink>
-                <MudNavLink Href="magic-components" Match="NavLinkMatch.Prefix">Components</MudNavLink>
-                <MudNavLink Href="magic-essences" Match="NavLinkMatch.Prefix">Essences</MudNavLink>
-            </MudNavGroup>
-            <MudNavGroup Title="Character" Expanded="true">
-                <MudNavLink Href="classes" Match="NavLinkMatch.Prefix">Classes</MudNavLink>
-                <MudNavLink Href="stats" Match="NavLinkMatch.Prefix">Stats</MudNavLink>
-                <MudNavLink Href="skills" Match="NavLinkMatch.Prefix">Skills</MudNavLink>
-                <MudNavLink Href="races" Match="NavLinkMatch.Prefix">Races</MudNavLink>
-                <!--<MudNavLink Icon="@Generated.Size" Href="sizes" Match="NavLinkMatch.Prefix">Sizes</MudNavLink>
-        <MudNavLink Icon="@Generated.Traits" Href="race-traits" Match="NavLinkMatch.Prefix">Traits</MudNavLink>-->
-            </MudNavGroup>
-            <MudNavLink Href="traits" Match="NavLinkMatch.Prefix">Traits</MudNavLink>
-            <MudNavLink Href="languages" Match="NavLinkMatch.Prefix">Languages</MudNavLink>
-            <MudNavLink Href="planes" Match="NavLinkMatch.Prefix">Planes</MudNavLink>
-            <MudNavLink Href="alignments" Match="NavLinkMatch.Prefix">Alignments</MudNavLink>
-            <MudNavGroup Title="Religion" Expanded="true">
-                <MudNavLink Href="deities" Match="NavLinkMatch.Prefix">Deities</MudNavLink>
-                <MudNavLink Href="deity-categories" Match="NavLinkMatch.Prefix">Deity Categories</MudNavLink>
-                <MudNavLink Href="divine-fonts" Match="NavLinkMatch.Prefix">Divine Fonts</MudNavLink>
-            </MudNavGroup>
-        </MudNavMenu>
+        <MudList Clickable="true">
+            <MudListItem Text="Abilities" InitiallyExpanded="true">
+                <NestedList>
+                    <MudNavLink Href="actions" Match="NavLinkMatch.Prefix">Actions</MudNavLink>
+                    <MudNavLink Href="spells" Match="NavLinkMatch.Prefix">Spells</MudNavLink>
+                    <MudNavLink Href="feats" Match="NavLinkMatch.Prefix">Feats</MudNavLink>
+                    <MudNavLink Href="traits" Match="NavLinkMatch.Prefix">Traits</MudNavLink>
+                </NestedList>
+            </MudListItem>
+            <MudDivider />
+            <MudListItem Text="Magic" InitiallyExpanded="true">
+                <NestedList>
+                    <MudNavLink Href="magic-schools" Match="NavLinkMatch.Prefix">Schools</MudNavLink>
+                    <MudNavLink Href="magic-traditions" Match="NavLinkMatch.Prefix">Traditions</MudNavLink>
+                    <MudNavLink Href="magic-components" Match="NavLinkMatch.Prefix">Components</MudNavLink>
+                    <MudNavLink Href="magic-essences" Match="NavLinkMatch.Prefix">Essences</MudNavLink>
+                </NestedList>
+            </MudListItem>
+            <MudDivider />
+            <MudListItem Text="Character" InitiallyExpanded="true">
+                <NestedList>
+                    <MudNavLink Href="classes" Match="NavLinkMatch.Prefix">Classes</MudNavLink>
+                    <MudNavLink Href="stats" Match="NavLinkMatch.Prefix">Stats</MudNavLink>
+                    <MudNavLink Href="skills" Match="NavLinkMatch.Prefix">Skills</MudNavLink>
+                    <MudNavLink Href="races" Match="NavLinkMatch.Prefix">Races</MudNavLink>
+                    <MudNavLink Href="alignments" Match="NavLinkMatch.Prefix">Alignments</MudNavLink>
+                </NestedList>
+            </MudListItem>
+            <MudDivider />
+            <MudListItem Text="World" InitiallyExpanded="true">
+                <NestedList>
+                    <MudNavLink Href="languages" Match="NavLinkMatch.Prefix">Languages</MudNavLink>
+                    <MudNavLink Href="planes" Match="NavLinkMatch.Prefix">Planes</MudNavLink>
+                </NestedList>
+            </MudListItem>
+            <MudDivider />
+            <MudListItem Text="Religion" InitiallyExpanded="true">
+                <NestedList>
+                    <MudNavLink Href="deities" Match="NavLinkMatch.Prefix">Deities</MudNavLink>
+                    <MudNavLink Href="divine-fonts" Match="NavLinkMatch.Prefix">Divine Fonts</MudNavLink>
+                </NestedList>
+            </MudListItem>
+        </MudList>
     </MudDrawer>
     <MudMainContent>
+
         @Body
+        <MudScrollToTop>
+            <MudFab Color="Color.Tertiary" Icon="@Icons.Filled.ArrowUpward" />
+        </MudScrollToTop>
+
     </MudMainContent>
 </MudLayout>

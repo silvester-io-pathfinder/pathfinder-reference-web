@@ -8,7 +8,14 @@
     <PageLayout>
 
         <MudPaper Style="margin: 20px;">
-            <LanguagesTable />
+            <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
+                <MudTabPanel Text="Languages">
+                    <LanguagesTable />
+                </MudTabPanel>
+                <MudTabPanel Text="Types">
+                    <LanguageTypesTable />
+                </MudTabPanel>
+            </MudTabs>
         </MudPaper>
 
     </PageLayout>

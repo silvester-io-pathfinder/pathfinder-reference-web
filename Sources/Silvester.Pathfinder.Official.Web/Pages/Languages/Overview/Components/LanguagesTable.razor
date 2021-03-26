@@ -2,7 +2,7 @@
 @using Silvester.Pathfinder.Official.Web.Graphql
 
 <div>
-    <GraphqlTable Title="Languages" RowsPerPage="25" GetPage="@GetPage" TSortInput="LanguageSortInput" TEntity="ILanguagesPage">
+    <GraphqlTable RowsPerPage="25" GetPage="@GetPage" TSortInput="LanguageSortInput" TEntity="ILanguagesPage">
         <Columns>
             <MudTh><MudTableSortLabel SortLabel="@nameof(ILanguagesPage.Name)" T="ILanguagesPage">Name</MudTableSortLabel></MudTh>
             <MudTh></MudTh>

@@ -1,0 +1,23 @@
+﻿query GetRaceRaritiesPage($skip: Int!, $take: Int!, $searchTerm: String! = "", $order: [RaceRaritySortInput!] = [{name: ASC}]) {
+	raceRarities(
+		skip: $skip, 
+		take: $take, 
+		order: $order,
+		where: {
+			or: [
+				{name: {contains: $searchTerm}}
+			]
+		}) 
+	{
+		totalCount,
+		items {
+			... RaceRaritiesPage,
+		}
+	}
+}
+
+fragment RaceRaritiesPage on RaceRarity 
+{
+	id,
+	name
+}

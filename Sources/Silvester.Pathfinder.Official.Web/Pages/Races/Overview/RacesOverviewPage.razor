@@ -8,7 +8,14 @@
     <PageLayout>
 
         <MudPaper Style="margin: 20px;">
-            <RacesTable />
+            <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
+                <MudTabPanel Text="Races">
+                    <RacesTable />
+                </MudTabPanel>
+                <MudTabPanel Text="Rarities">
+                    <RaritiesTable />
+                </MudTabPanel>
+            </MudTabs>
         </MudPaper>
 
     </PageLayout>

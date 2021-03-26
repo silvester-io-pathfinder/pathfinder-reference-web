@@ -1,0 +1,46 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+@using Silvester.Pathfinder.Official.Web.Graphql
+
+<div>
+    <GraphqlTable RowsPerPage="25" GetPage="@GetPage" TSortInput="LanguageTypeSortInput" TEntity="ILanguageTypesPage">
+        <Columns>
+            <MudTh><MudTableSortLabel SortLabel="@nameof(ILanguageTypesPage.Name)" T="ILanguageTypesPage">Name</MudTableSortLabel></MudTh>
+            <MudTh></MudTh>
+        </Columns>
+        <Rows>
+            <MudTdEllipsized DataLabel="@(nameof(ILanguageTypesPage.Name))" Text="@context.Name" />
+            <MudTh>
+                <MudTooltip Text="Inspect">
+                    <MudIconButton Size="Size.Small" OnClick="@(() => OnInspectClicked(context))" Icon="@Icons.Material.Outlined.ArrowForward"></MudIconButton>
+                </MudTooltip>
+            </MudTh>
+        </Rows>
+    </GraphqlTable>
+</div>
+
+@code {
+    [Inject]
+    public PathfinderOfficialApi PathfinderOfficialApi { get; set; } = default!;
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; } = default!;
+
+    public void OnInspectClicked(ILanguageTypesPage languageType)
+    {
+        NavigationManager.NavigateTo($"language-types/{languageType.Id}");
+    }
+
+    public async Task<TableData<ILanguageTypesPage>> GetPage(LanguageTypeSortInput[] sortInputs, TableState state, string searchTerm)
+    {
+        IOperationResult<IGetLanguageTypesPageResult> result = await PathfinderOfficialApi.GetLanguageTypesPage
+            .ExecuteAsync(state.Page * state.PageSize, state.PageSize, searchTerm, sortInputs);
+
+        TableData<ILanguageTypesPage> page = new TableData<ILanguageTypesPage>()
+        {
+            TotalItems = result.Data!.LanguageTypes!.TotalCount,
+            Items = result.Data!.LanguageTypes!.Items!
+        };
+
+        return page;
+    }
+}

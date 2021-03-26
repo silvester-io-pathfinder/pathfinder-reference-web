@@ -1,0 +1,52 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+@using Silvester.Pathfinder.Official.Web.Graphql
+@using Silvester.Pathfinder.Official.Web.Services
+
+<div>
+    <GraphqlTable Title="Actions" RowsPerPage="25" GetPage="@GetPage" TSortInput="ActionSortInput" TEntity="IGetActionsPage_Actions_Items">
+        <Columns>
+            <MudTh><MudTableSortLabel SortLabel="@(nameof(IGetActionsPage_Actions_Items.ActionType)+ ".Name")" T="IActionsPage">Name</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel SortLabel="@nameof(IActionsPage.Name)" T="IActionsPage">Name</MudTableSortLabel></MudTh>
+            <MudTh></MudTh>
+        </Columns>
+        <Rows>
+            <MudTd><div style="vertical-align: middle; height: 24px;">@((MarkupString) ActionTypeService.GetActionTypeIcon(context.ActionType!.Name))</div></MudTd>
+            <MudTdEllipsized DataLabel="@nameof(IActionsPage.Name)" Text="@context.Name" />
+            <MudTh>
+                <MudTooltip Text="Inspect">
+                    <MudIconButton Size="Size.Small" OnClick="@(() => OnInspectClicked(context))" Icon="@Icons.Material.Outlined.ArrowForward"></MudIconButton>
+                </MudTooltip>
+            </MudTh>
+        </Rows>
+    </GraphqlTable>
+</div>
+
+@code {
+    [Inject]
+    public IActionTypeService ActionTypeService { get; set; } = default!;
+
+    [Inject]
+    public PathfinderOfficialApi PathfinderOfficialApi { get; set; } = default!;
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; } = default!;
+
+    public void OnInspectClicked(IGetActionsPage_Actions_Items action)
+    {
+        NavigationManager.NavigateTo($"actions/{action.Id}");
+    }
+
+    public async Task<TableData<IGetActionsPage_Actions_Items>> GetPage(ActionSortInput[] sortInputs, TableState state, string searchTerm)
+    {
+        IOperationResult<IGetActionsPageResult> result = await PathfinderOfficialApi.GetActionsPage
+            .ExecuteAsync(state.Page * state.PageSize, state.PageSize, searchTerm, sortInputs);
+
+        TableData<IGetActionsPage_Actions_Items> page = new TableData<IGetActionsPage_Actions_Items>()
+        {
+            TotalItems = result.Data!.Actions!.TotalCount,
+            Items = result.Data!.Actions!.Items!
+        };
+
+        return page;
+    }
+}

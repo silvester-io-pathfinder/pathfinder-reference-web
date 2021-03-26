@@ -11,8 +11,13 @@
 	{
 		totalCount,
 		items {
-			id,
-			name
+			... LanguageTypesPage
 		}
 	}
+}
+
+fragment LanguageTypesPage on LanguageType
+{
+	id,
+	name
 }

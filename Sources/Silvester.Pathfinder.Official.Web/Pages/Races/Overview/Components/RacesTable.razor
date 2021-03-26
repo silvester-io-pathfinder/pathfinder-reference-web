@@ -2,7 +2,7 @@
 @using Silvester.Pathfinder.Official.Web.Graphql
 
 <div>
-    <GraphqlTable Title="Races" RowsPerPage="25" GetPage="@GetPage" TSortInput="RaceSortInput" TEntity="IGetRacesPage_Races_Items">
+    <GraphqlTable RowsPerPage="25" GetPage="@GetPage" TSortInput="RaceSortInput" TEntity="IGetRacesPage_Races_Items">
         <Columns>
             <MudTh><MudTableSortLabel SortLabel="@nameof(IGetRacesPage_Races_Items.Name)" T="IGetRacesPage_Races_Items">Name</MudTableSortLabel></MudTh>
             <MudTh><MudTableSortLabel SortLabel="@nameof(IGetRacesPage_Races_Items.BaseSpeed)" T="IGetRacesPage_Races_Items">Speed</MudTableSortLabel></MudTh>

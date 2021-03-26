@@ -1,0 +1,35 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Preferences;
+@using Silvester.Pathfinder.Official.Web.Shared.Cards;
+@using Silvester.Pathfinder.Official.Web.Shared.Tables;
+
+<div>
+    @if (RaceRarity == null)
+    {
+
+    }
+    else
+    {
+        <RelationshipTable TEntity="IRaceRarityById_Race" DefaultSortLabel="@nameof(IRaceRarityById_Race.Name)" Filter="@RaceFilter" InspectionUrl="@((e) => $"races/{e.Id}")" Items="@(() => RaceRarity.Races)">
+            <Columns>
+                <MudTh><MudTableSortLabel SortLabel="@nameof(IRaceRarityById_Race.Name)" T="IRaceRarityById_Race" InitialDirection="SortDirection.Ascending">Name</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortLabel="(nameof(IRaceRarityById_Race.Description)" T="IRaceRarityById_Race">Description</MudTableSortLabel></MudTh>
+            </Columns>
+            <Rows>
+                <MudTd Style="font-weight: 500;">@context.Name</MudTd>
+                <MudTdEllipsized Text="@context.Description" />
+            </Rows>
+        </RelationshipTable>
+    }
+</div>
+
+@code
+{
+    [Parameter]
+    public IRaceRarityById RaceRarity { get; set; } = default!;
+
+    public bool RaceFilter(IRaceRarityById_Race race, string searchString)
+    {
+        return race.Name.ToLower().Contains(searchString)
+            || race.Description.ToLower().Contains(searchString);
+    }
+}

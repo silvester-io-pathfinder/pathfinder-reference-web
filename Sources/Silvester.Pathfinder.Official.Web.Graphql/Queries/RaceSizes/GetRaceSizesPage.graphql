@@ -1,0 +1,26 @@
+﻿query GetRaceSizesPage($skip: Int!, $take: Int!, $searchTerm: String! = "", $order: [RaceSizeSortInput!] = [{name: ASC}]) {
+	raceSizes(
+		skip: $skip, 
+		take: $take, 
+		order: $order,
+		where: {
+			or: [
+				{name: {contains: $searchTerm}}
+			]
+		}) 
+	{
+		totalCount,
+		items {
+			... RaceSizesPage,
+		}
+	}
+}
+
+fragment RaceSizesPage on RaceSize 
+{
+	id,
+	name,
+	space,
+	heightReach,
+	breadthReach
+}

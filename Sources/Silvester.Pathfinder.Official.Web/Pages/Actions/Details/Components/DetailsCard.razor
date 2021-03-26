@@ -1,0 +1,69 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Preferences;
+@using Silvester.Pathfinder.Official.Web.Shared.Cards;
+@using Silvester.Pathfinder.Official.Web.Shared.Tables;
+@using Silvester.Pathfinder.Official.Web.Services;
+@using Silvester.Pathfinder.Official.Web.Shared.Chips;
+
+@if (Action != null)
+{
+    <ComponentDetailsCard TEntity="IGetActionById_Actions_Items" Entity="@Action">
+        <Title>
+            <MudText Typo="Typo.h6">@context.Name</MudText>
+        </Title>
+        <LeftContent>
+            <PreferenceCategory Title="Traits">
+                <PreferenceItemChips>
+                    <Chips>
+                        @foreach (IGetActionById_Actions_Items_Traits trait in @context.Traits)
+                        {
+                            <TraitChip OnClick="@(() => OnTraitClick(trait))" Text="@trait.Name" />
+                        }
+                    </Chips>
+                </PreferenceItemChips>
+            </PreferenceCategory>
+        </LeftContent>
+        <RightContent>
+            <PreferenceCategory Title="Description">
+                @foreach(IGetActionById_Actions_Items_Details detail in context.Details)
+                {
+                    <PreferenceItemText Text="@detail.Text" />
+                }
+            </PreferenceCategory>
+            @if (context.RollableEffect != null)
+            {
+                <PreferenceCategory Title="Rollable Effect">
+                    @if (context.RollableEffect.CriticalSuccess != null)
+                    {
+                        <PreferenceItemText Title="Critical Success" Text="@context.RollableEffect.CriticalSuccess" />
+                    }
+                    @if (context.RollableEffect.Success != null)
+                    { 
+                        <PreferenceItemText Title="Success" Text="@context.RollableEffect.Success" />
+                    }
+                    @if (context.RollableEffect.Failure != null)
+                    {
+                        <PreferenceItemText Title="Failure" Text="@context.RollableEffect.Failure" />
+                    }
+                    @if (context.RollableEffect.Success != null)
+                    {
+                        <PreferenceItemText Title="Critical Failure" Text="@context.RollableEffect.Success" />
+                    }
+                </PreferenceCategory>
+            }
+
+        </RightContent>
+    </ComponentDetailsCard>
+}
+
+@code {
+    [Parameter]
+    public IGetActionById_Actions_Items Action { get; set; } = default!;
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; } = default!;
+
+    public void OnTraitClick(IGetActionById_Actions_Items_Traits trait)
+    {
+        NavigationManager.NavigateTo($"traits/{trait.Id}");
+    }
+}

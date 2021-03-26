@@ -1,0 +1,24 @@
+﻿query GetActionById($id: Uuid!) {
+	actions(where: {id: {eq: $id}}) {
+		items {
+			id,
+			name,
+			actionType {
+				name	
+			}
+			details {
+				text
+			},
+			rollableEffect {
+				criticalSuccess,
+				success,
+				failure,
+				criticalFailure
+			},
+			traits {
+				id,
+				name
+			}
+		}
+	}
+}

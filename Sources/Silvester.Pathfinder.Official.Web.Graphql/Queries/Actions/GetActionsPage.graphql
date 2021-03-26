@@ -1,0 +1,26 @@
+﻿query GetActionsPage($skip: Int!, $take: Int!, $searchTerm: String! = "", $order: [ActionSortInput!] = [{name: ASC}]) {
+	actions(
+		skip: $skip, 
+		take: $take, 
+		order: $order,
+		where: {
+			or: [
+				{name: {contains: $searchTerm}}
+			]
+		}) 
+	{
+		totalCount,
+		items {
+			actionType {
+					name
+			},
+			... ActionsPage
+		}
+	}
+}
+
+fragment ActionsPage on Action
+{
+	id,
+	name
+}
