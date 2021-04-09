@@ -1,0 +1,12 @@
+﻿fragment HeritagesPage on Heritage {
+	id,
+	name,
+	description,
+	rarity {
+		... HeritagesPage_Rarity
+	}
+}
+
+fragment HeritagesPage_Rarity on HeritageRarity {
+	name
+}

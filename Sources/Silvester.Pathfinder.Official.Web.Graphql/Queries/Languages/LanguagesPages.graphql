@@ -1,0 +1,12 @@
+﻿fragment LanguagesPage on Language
+{
+	id,
+	name,
+	type {
+		... LanguagesPage_Type 
+	}
+}
+
+fragment LanguagesPage_Type on LanguageType {
+	name
+}

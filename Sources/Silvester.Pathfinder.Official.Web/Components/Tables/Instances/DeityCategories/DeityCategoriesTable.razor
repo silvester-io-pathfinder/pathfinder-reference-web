@@ -1,0 +1,18 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+@using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
+@using Silvester.Pathfinder.Official.Web.Graphql
+@using Silvester.Pathfinder.Official.Web.Services
+
+@inherits AbstractTable<IDeityCategoriesPage, DeityCategorySortInput>
+
+@Table
+
+@code {
+    protected override void CreateModel(TableBuilder<IDeityCategoriesPage> builder)
+    {
+        builder
+            .AddTextColumn(e => e.Name, "Name", nameof(IDeitiesPage.Name), true)
+            .AddTextColumn(e => e.Description, "Description", nameof(IPlanesPage.Description))
+            .AddInspectColumn(NavigationManager, e => $"deity-categories/{e.Id}");
+    }
+}

@@ -1,0 +1,22 @@
+﻿query GetDeitiesPageWithDivineFont($skip: Int!, $take: Int!, $divineFontName: String!, $searchTerm: String! = "", $order: [DeitySortInput!] = [{name: ASC}]) {
+	deities(
+		skip: $skip, 
+		take: $take, 
+		order: $order,
+		where: {
+			or: [
+				{name: {contains: $searchTerm}}
+			]
+			divineFonts: {
+				some: {
+					name: {eq: $divineFontName}
+				}
+			}
+		}) 
+	{
+		totalCount,
+		items {
+			... DeitiesPage
+		}
+	}
+}

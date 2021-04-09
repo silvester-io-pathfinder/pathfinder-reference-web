@@ -1,0 +1,20 @@
+﻿query GetPlanesPageWithCategory($skip: Int!, $take: Int!, $planeCategoryId: Uuid!, $searchTerm: String! = "", $order: [PlaneSortInput!] = [{name: ASC}]) {
+	planes(
+		skip: $skip, 
+		take: $take, 
+		order: $order,
+		where: {
+			or: [
+				{name: {contains: $searchTerm}}
+			],
+			category: {
+				id: {eq: $planeCategoryId}
+			}
+		}) 
+	{
+		totalCount,
+		items {
+		    ... PlanesPage
+		}
+	}
+}

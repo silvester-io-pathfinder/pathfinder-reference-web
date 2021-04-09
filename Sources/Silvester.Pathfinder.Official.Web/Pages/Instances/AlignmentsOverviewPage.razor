@@ -1,0 +1,23 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Alignments;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Alignments.Providers;
+@using Silvester.Pathfinder.Official.Web.Components.Cards;
+
+@page "/alignments"
+@inherits BaseOverviewPage
+
+<div>
+    <PageLayout>
+
+        <MudPaper Style="margin: 20px;">
+            <AlignmentsTable Title="Alignments" PageProvider="@(new AlignmentPageProvider(PathfinderOfficialApi))" />
+        </MudPaper>
+
+    </PageLayout>
+
+</div>
+
+@code
+{
+    protected override string Title => "Alignments";
+}

@@ -1,0 +1,8 @@
+﻿fragment RaceSizesPage on RaceSize 
+{
+	id,
+	name,
+	space,
+	heightReach,
+	breadthReach
+}

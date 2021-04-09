@@ -1,0 +1,63 @@
+﻿@using System.Linq;
+@using Silvester.Pathfinder.Official.Web.Shared.Layout;
+@using System.Reactive.Linq;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Feats;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Feats.Providers;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Spells;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Spells.Providers;
+@using Silvester.Pathfinder.Official.Web.Components.Cards;
+
+@inherits BaseDetailPage
+@implements IDisposable
+
+@page "/traits/{traitId:guid}"
+<div>
+    <PageLayout>
+        @if (Trait != null)
+        {
+            <MudPaper Style="margin: 20px">
+                <TraitDetailsCard Trait="@Trait" />
+            </MudPaper>
+
+            <MudPaper Style="margin: 20px; margin-top:40px;">
+                <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
+                    <MudTabPanel Text="Feats">
+                        <FeatsTable PageProvider="@(new FeatPageWithTraitProvider(PathfinderOfficialApi, TraitId))" />
+                    </MudTabPanel>
+                    <MudTabPanel Text="Spells">
+                        <SpellsTable PageProvider="@(new SpellPageWithTraitProvider(PathfinderOfficialApi, TraitId))" />
+                    </MudTabPanel>
+                </MudTabs>
+            </MudPaper>
+        }
+    </PageLayout>
+</div>
+
+@code {
+    protected override string Title => "Traits";
+    protected override string? Subtitle => Trait?.Name;
+
+    [Parameter]
+    public Guid TraitId { get; set; }
+
+    public ITraitById? Trait { get; set; }
+
+    private IDisposable? StoreSession { get; set; }
+
+    protected override void OnInitialized()
+    {
+        StoreSession = PathfinderOfficialApi.GetTraitById
+            .Watch(TraitId, StrawberryShake.ExecutionStrategy.CacheFirst)
+            .Select(e => e.Data?.Traits?.Items?.FirstOrDefault())
+            .Subscribe(trait =>
+            {
+                Trait = trait;
+                StateHasChanged();
+            });
+    }
+
+    public void Dispose()
+    {
+        StoreSession?.Dispose();
+    }
+}

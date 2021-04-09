@@ -1,0 +1,61 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Planes;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Planes.Providers;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Deities;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Deities.Providers;
+@using Silvester.Pathfinder.Official.Web.Components.Cards;
+
+@inherits BaseDetailPage
+@page "/alignments/{alignmentId:guid}"
+@implements IDisposable
+
+<div>
+    <PageLayout>
+        @if (Alignment != null)
+        {
+        <MudPaper Style="margin: 20px">
+            <AlignmentDetailsCard Alignment="@Alignment" />
+        </MudPaper>
+
+        <MudPaper Style="margin: 20px">
+            <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
+                <MudTabPanel Text="Deities">
+                    <DeitiesTable PageProvider="@(new DeityPageWithAlignmentProvider(PathfinderOfficialApi, AlignmentId))" />
+                </MudTabPanel>
+                <MudTabPanel Text="Planes">
+                    <PlanesTable PageProvider="@(new PlanePageWithAlignmentProvider(PathfinderOfficialApi, AlignmentId))" />
+                </MudTabPanel>
+            </MudTabs>
+        </MudPaper>
+        }
+    </PageLayout>
+</div>
+
+@code {
+    protected override string Title => "Alignment";
+    protected override string? Subtitle => Alignment?.Name;
+
+    [Parameter]
+    public Guid AlignmentId { get; set; }
+
+    private IAlignmentById? Alignment { get; set; }
+
+    private IDisposable? StoreSession { get; set; }
+
+    protected override void OnInitialized()
+    {
+        StoreSession = PathfinderOfficialApi.GetAlignmentById
+            .Watch(AlignmentId)
+            .Select(e => e.Data?.Alignments?.Items?.FirstOrDefault())
+            .Subscribe(alignment =>
+            {
+                Alignment = alignment;
+                StateHasChanged();
+            });
+    }
+
+    public void Dispose()
+    {
+        StoreSession?.Dispose();
+    }
+}

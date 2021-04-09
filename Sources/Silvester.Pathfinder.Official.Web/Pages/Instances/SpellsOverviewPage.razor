@@ -1,0 +1,23 @@
+﻿@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Spells.Providers;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Spells;
+@using Silvester.Pathfinder.Official.Web.Shared.Layout;
+@using Silvester.Pathfinder.Official.Web.Components.Cards;
+
+@page "/spells"
+@inherits BaseOverviewPage
+
+<div>
+    <PageLayout>
+
+        <MudPaper Style="margin: 20px;">
+            <SpellsTable Title="Spells" PageProvider="@(new SpellPageProvider(PathfinderOfficialApi))" />
+        </MudPaper>
+
+    </PageLayout>
+
+</div>
+
+@code
+{
+    protected override string Title => "Spells";
+}

@@ -1,0 +1,26 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Preferences;
+@using Silvester.Pathfinder.Official.Web.Shared.Tables;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Deities;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Deities.Providers;
+
+<div>
+    <PreferenceCategory Title="Description">
+        <PreferenceItemText Text="@DivineFont.Description" />
+    </PreferenceCategory>
+    <MudDivider />
+    <DeitiesTable PageProvider="@(new DeityPageWithDivineFontProvider(PathfinderOfficialApi, DivineFont.Name))" />
+</div>
+
+@code {
+    [Inject]
+    public IPathfinderOfficialApi PathfinderOfficialApi { get; set; } = default!;
+
+    [Parameter]
+    public IGetDivineFonts_DivineFonts_Items DivineFont { get; set; } = default!;
+
+    public bool DeityFilter(IGetDivineFonts_DivineFonts_Items_Deities deity, string searchString)
+    {
+        return deity.Name.ToLower().Contains(searchString)
+            || deity.Description.ToLower().Contains(searchString);
+    }
+}

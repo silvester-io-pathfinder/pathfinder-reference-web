@@ -6,10 +6,3 @@
 		}
 	}
 }
-
-
-fragment MagicTradition on MagicTradition {
-	id,
-	name,
-	description
-}

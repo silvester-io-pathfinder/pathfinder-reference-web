@@ -1,0 +1,46 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
+@using Silvester.Pathfinder.Official.Web.Components.Cards;
+
+@inherits BaseDetailPage
+@page "/classes/{classId:guid}"
+@implements IDisposable
+
+<div>
+    <PageLayout>
+        @if (Class != null)
+        {
+        <MudPaper Style="margin: 20px">
+            <ClassDetailsCard Class="@Class" />
+        </MudPaper>
+        }
+    </PageLayout>
+</div>
+
+@code {
+    protected override string Title => "Classes";
+    protected override string? Subtitle => Class?.Name;
+
+    [Parameter]
+    public Guid ClassId { get; set; }
+
+    private IGetClassById_Classes_Items? Class { get; set; }
+
+    private IDisposable? StoreSession { get; set; }
+
+    protected override void OnInitialized()
+    {
+        StoreSession = PathfinderOfficialApi.GetClassById
+            .Watch(ClassId)
+            .Select(e => e.Data?.Classes?.Items?.FirstOrDefault())
+            .Subscribe(@class =>
+            {
+                Class = @class;
+                StateHasChanged();
+            });
+    }
+
+    public void Dispose()
+    {
+        StoreSession?.Dispose();
+    }
+}

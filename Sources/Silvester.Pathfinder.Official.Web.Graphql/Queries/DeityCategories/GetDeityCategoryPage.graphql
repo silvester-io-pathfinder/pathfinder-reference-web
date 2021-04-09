@@ -15,9 +15,3 @@
 		}
 	}
 }
-
-fragment DeityCategoriesPage on DeityCategory {
-	id,
-	name,
-	description
-}

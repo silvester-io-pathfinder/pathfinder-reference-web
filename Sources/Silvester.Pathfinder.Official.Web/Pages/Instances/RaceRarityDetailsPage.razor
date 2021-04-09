@@ -1,0 +1,52 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Races;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Races.Providers;
+@using Silvester.Pathfinder.Official.Web.Components.Cards;
+
+@inherits BaseDetailPage
+@page "/race-rarities/{raceRarityId:guid}"
+@implements IDisposable
+
+<div>
+    <PageLayout>
+        @if (RaceRarity != null)
+        {
+        <MudPaper Style="margin: 20px">
+            <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
+                <MudTabPanel Text="Races">
+                    <RacesTable PageProvider="@(new RacePageWithRarityProvider(PathfinderOfficialApi, RaceRarityId))" />
+                </MudTabPanel>
+            </MudTabs>
+        </MudPaper>
+        }
+    </PageLayout>
+</div>
+
+@code {
+    protected override string Title => "Race Rarities";
+    protected override string? Subtitle => RaceRarity?.Name;
+
+    [Parameter]
+    public Guid RaceRarityId { get; set; }
+
+    private IRaceRarityById? RaceRarity { get; set; }
+
+    private IDisposable? StoreSession { get; set; }
+
+    protected override void OnInitialized()
+    {
+        StoreSession = PathfinderOfficialApi.GetRaceRarityById
+            .Watch(RaceRarityId, StrawberryShake.ExecutionStrategy.NetworkOnly)
+            .Select(e => e.Data?.RaceRarities?.Items?.FirstOrDefault())
+            .Subscribe(rarity =>
+            {
+                RaceRarity = rarity;
+                StateHasChanged();
+            });
+    }
+
+    public void Dispose()
+    {
+        StoreSession?.Dispose();
+    }
+}

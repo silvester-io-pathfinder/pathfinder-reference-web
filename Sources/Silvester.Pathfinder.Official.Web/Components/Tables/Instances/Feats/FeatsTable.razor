@@ -1,0 +1,21 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+@using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
+@using Silvester.Pathfinder.Official.Web.Graphql
+@using Silvester.Pathfinder.Official.Web.Services
+
+@inherits AbstractTable<IFeatsPage, FeatSortInput>
+
+@Table
+
+@code {
+    protected override void CreateModel(TableBuilder<IFeatsPage> builder)
+    {
+        builder
+            .AddIconColumn(e => ActionTypeService.GetActionTypeIcon(e.ActionType!.Name), "Action", nameof(IFeatsPage.ActionType) + "." + nameof(IFeatsPage_ActionType.Name))
+            .AddTextColumn(e => e.Name, "Name", nameof(IFeatsPage.Name), true)
+            .AddTextColumn(e => e.Level.ToString(), "Level", nameof(IFeatsPage.Name))
+            .AddTextColumn(e => e.FeatType.Name, "Type", nameof(IFeatsPage.FeatType) + "." + nameof(IFeatsPage_FeatType.Name))
+            .AddTextColumn(e => e.Details.FirstOrDefault()?.Text, "Description", nameof(IFeatsPage.Details) + "." + nameof(IFeatsPage_Details.Text), true)
+            .AddInspectColumn(NavigationManager, e => $"feats/{e.Id}");
+    }
+}

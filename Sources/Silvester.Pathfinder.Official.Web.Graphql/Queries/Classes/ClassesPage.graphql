@@ -1,0 +1,22 @@
+﻿fragment ClassesPage on Class {
+	id,
+	name,
+	baseHealth,
+	description,
+	willProficiency {
+		... ClassesPage_Proficiency
+	},
+	fortitudeProficiency {
+		... ClassesPage_Proficiency
+	},
+	reflexProficiency {
+		... ClassesPage_Proficiency
+	},
+	perceptionProficiency {
+		... ClassesPage_Proficiency
+	}
+}
+
+fragment ClassesPage_Proficiency on Proficiency {
+	name
+}

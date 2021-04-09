@@ -1,0 +1,18 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+@using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
+@using Silvester.Pathfinder.Official.Web.Graphql
+@using Silvester.Pathfinder.Official.Web.Services
+
+@inherits AbstractTable<IAlignmentsPage, AlignmentSortInput>
+
+@Table
+
+@code {
+    protected override void CreateModel(TableBuilder<IAlignmentsPage> builder)
+    {
+        builder
+            .AddTextColumn(e => e.Name, "Name", nameof(IAlignmentsPage.Name), true)
+            .AddTextColumn(e => e.Description, "Description", nameof(IAlignmentsPage.Description))
+            .AddInspectColumn(NavigationManager, e => $"alignments/{e.Id}");
+    }
+}

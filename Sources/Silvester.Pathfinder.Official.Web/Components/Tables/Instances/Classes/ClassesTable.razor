@@ -1,0 +1,22 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+@using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
+@using Silvester.Pathfinder.Official.Web.Graphql
+@using Silvester.Pathfinder.Official.Web.Services
+
+@inherits AbstractTable<IClassesPage, ClassSortInput>
+
+@Table
+
+@code {
+    protected override void CreateModel(TableBuilder<IClassesPage> builder)
+    {
+        builder
+             .AddTextColumn(e => e.Name, "Name", nameof(IClassesPage.Name), true)
+            .AddTextColumn(e => e.PerceptionProficiency.Name, "Perception", nameof(IClassesPage.PerceptionProficiency) + "." + nameof(IClassesPage_Proficiency.Name))
+            .AddTextColumn(e => e.FortitudeProficiency.Name, "Fortitude", nameof(IClassesPage.FortitudeProficiency) + "." + nameof(IClassesPage_Proficiency.Name))
+            .AddTextColumn(e => e.ReflexProficiency.Name, "Reflex", nameof(IClassesPage.ReflexProficiency) + "." + nameof(IClassesPage_Proficiency.Name))
+            .AddTextColumn(e => e.WillProficiency.Name, "Will", nameof(IClassesPage.WillProficiency) + "." + nameof(IClassesPage_Proficiency.Name))
+            .AddTextColumn(e => e.Description, "Description", nameof(IClassesPage.Description))
+            .AddInspectColumn(NavigationManager, e => $"classes/{e.Id}");
+    }
+}

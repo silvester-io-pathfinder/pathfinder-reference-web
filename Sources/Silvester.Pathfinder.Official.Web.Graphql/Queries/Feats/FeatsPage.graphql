@@ -1,0 +1,27 @@
+﻿fragment FeatsPage on Feat {
+	id,
+	name,
+	level,
+	canBeLearnedMoreThanOnce,
+	details {
+		... FeatsPage_Details
+	},
+	actionType {
+		... FeatsPage_ActionType
+	},
+	featType {
+		... FeatsPage_FeatType
+	}
+}
+
+fragment FeatsPage_ActionType on ActionType {
+	name
+}
+
+fragment FeatsPage_FeatType on FeatType {
+	name
+}
+
+fragment FeatsPage_Details on FeatDetailsBlock {
+    text
+}

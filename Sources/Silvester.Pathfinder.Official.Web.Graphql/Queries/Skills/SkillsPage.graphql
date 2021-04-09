@@ -1,0 +1,15 @@
+﻿fragment SkillsPage on Skill
+{
+	id,
+	name,
+	description,
+	hasArmorCheckPenalty,
+	hasRecallKnowledgeAction,
+	statModifier {
+		... SkillsPage_Stat
+	}
+}
+
+fragment SkillsPage_Stat on Stat {
+	name
+}

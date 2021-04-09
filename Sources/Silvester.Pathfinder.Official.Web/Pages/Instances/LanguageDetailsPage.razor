@@ -1,0 +1,54 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Races;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Races.Providers;
+@using Silvester.Pathfinder.Official.Web.Components.Cards;
+
+@inherits BaseDetailPage
+@implements IDisposable
+@page "/languages/{languageId:guid}"
+
+<div>
+    <PageLayout>
+        <MudPaper Style="margin: 20px">
+
+            @if (Language != null)
+            {
+                <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
+                    <MudTabPanel Text="Races">
+                        <RacesTable PageProvider="@(new RacePageWithLanguageProvider(PathfinderOfficialApi, LanguageId))" />
+                    </MudTabPanel>
+                </MudTabs>
+            }
+
+        </MudPaper>
+    </PageLayout>
+</div>
+
+@code {
+    protected override string Title => "Languages";
+    protected override string? Subtitle => Language?.Name;
+
+    [Parameter]
+    public Guid LanguageId { get; set; }
+
+    private IGetLanguageById_Languages_Items? Language { get; set; }
+
+    private IDisposable? StoreSession { get; set; }
+
+    protected override void OnInitialized()
+    {
+        StoreSession = PathfinderOfficialApi.GetLanguageById
+            .Watch(LanguageId)
+            .Select(e => e.Data?.Languages?.Items?.FirstOrDefault())
+            .Subscribe(language =>
+            {
+                Language = language;
+                StateHasChanged();
+            });
+    }
+
+    public void Dispose()
+    {
+        StoreSession?.Dispose();
+    }
+}

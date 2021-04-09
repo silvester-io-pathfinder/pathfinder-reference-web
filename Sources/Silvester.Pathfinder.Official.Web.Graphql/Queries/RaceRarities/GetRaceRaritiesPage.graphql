@@ -15,9 +15,3 @@
 		}
 	}
 }
-
-fragment RaceRaritiesPage on RaceRarity 
-{
-	id,
-	name
-}

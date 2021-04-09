@@ -1,0 +1,23 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Traits;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Traits.Providers;
+@using Silvester.Pathfinder.Official.Web.Components.Cards;
+
+@page "/traits"
+@inherits BaseOverviewPage
+
+<div>
+    <PageLayout>
+
+        <MudPaper Style="margin: 20px;">
+            <TraitsTable Title="Traits" PageProvider="@(new TraitPageProvider(PathfinderOfficialApi))" />
+        </MudPaper>
+
+    </PageLayout>
+
+</div>
+
+
+@code {
+    protected override string Title => "Traits";
+}

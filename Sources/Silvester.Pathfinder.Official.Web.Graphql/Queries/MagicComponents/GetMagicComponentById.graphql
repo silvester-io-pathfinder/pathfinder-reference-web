@@ -7,9 +7,7 @@
 }
 
 fragment MagicComponentById on SpellComponent {
-	id,
-	name,
-	description,
+	... MagicComponent
 	spells {
 		... MagicComponentById_Spell
 	}

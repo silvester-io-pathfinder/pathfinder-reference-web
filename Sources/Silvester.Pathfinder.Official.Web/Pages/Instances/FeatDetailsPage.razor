@@ -1,0 +1,53 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
+@using Silvester.Pathfinder.Official.Web.Components.Cards;
+
+@inherits BaseDetailPage
+@implements IDisposable
+
+@page "/feats/{featId:guid}"
+
+<div>
+    <PageLayout>
+        <MudPaper Style="margin: 20px">
+
+            @if (Feat == null)
+            {
+
+            }
+            else
+            {
+                <FeatDetailsCard Feat="@Feat" />
+            }
+
+        </MudPaper>
+    </PageLayout>
+</div>
+
+@code {
+    protected override string Title => "Feats";
+    protected override string? Subtitle => Feat?.Name;
+
+    [Parameter]
+    public Guid FeatId { get; set; }
+
+    private IGetFeatById_Feats_Items? Feat { get; set; }
+
+    private IDisposable? StoreSession { get; set; }
+
+    protected override void OnInitialized()
+    {
+        StoreSession = PathfinderOfficialApi.GetFeatById
+            .Watch(FeatId, StrawberryShake.ExecutionStrategy.NetworkOnly)
+            .Select(e => e.Data?.Feats?.Items?.FirstOrDefault())
+            .Subscribe(feat =>
+            {
+                Feat = feat;
+                StateHasChanged();
+            });
+    }
+
+    public void Dispose()
+    {
+        StoreSession?.Dispose();
+    }
+}

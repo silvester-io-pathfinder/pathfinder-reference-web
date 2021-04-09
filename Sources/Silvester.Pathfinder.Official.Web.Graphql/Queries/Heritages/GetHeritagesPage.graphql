@@ -1,0 +1,17 @@
+﻿query GetHeritagesPage($skip: Int!, $take: Int!, $searchTerm: String! = "", $order: [HeritageSortInput!] = [{name: ASC}]) {
+	heritages(
+		skip: $skip, 
+		take: $take, 
+		order: $order,
+		where: {
+			or: [
+				{name: {contains: $searchTerm}}
+			]
+		}) 
+	{
+		totalCount,
+		items {
+			... HeritagesPage
+		}
+	}
+}

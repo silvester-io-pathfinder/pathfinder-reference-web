@@ -6,10 +6,3 @@
 		}
 	}
 }
-
-
-fragment MagicSchool on MagicSchool {
-	id,
-	name,
-	description
-}

@@ -1,0 +1,22 @@
+﻿query GetHeritagesPageWithRace($skip: Int!, $take: Int!, $raceId: Uuid!, $searchTerm: String! = "", $order: [HeritageSortInput!] = [{name: ASC}]) {
+	heritages(
+		skip: $skip, 
+		take: $take, 
+		order: $order,
+		where: {
+			or: [
+				{name: {contains: $searchTerm}}
+			],
+			races: {
+				some: {
+					id: {eq: $raceId}
+				}
+			}
+		}) 
+	{
+		totalCount,
+		items {
+			... HeritagesPage
+		}
+	}
+}

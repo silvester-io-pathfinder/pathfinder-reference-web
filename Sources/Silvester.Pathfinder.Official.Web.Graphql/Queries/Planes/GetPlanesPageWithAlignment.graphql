@@ -1,0 +1,20 @@
+﻿query GetPlanesPageWithAlignment($skip: Int!, $take: Int!, $alignmentId: Uuid!, $searchTerm: String! = "", $order: [PlaneSortInput!] = [{name: ASC}]) {
+	planes(
+		skip: $skip, 
+		take: $take, 
+		order: $order,
+		where: {
+			or: [
+				{name: {contains: $searchTerm}}
+			],
+			alignment: {
+				id: { eq: $alignmentId }
+			}
+		}) 
+	{
+		totalCount,
+		items {
+		    ... PlanesPage
+		}
+	}
+}

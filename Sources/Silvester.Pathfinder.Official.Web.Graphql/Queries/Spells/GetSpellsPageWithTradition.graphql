@@ -1,0 +1,23 @@
+﻿query GetSpellsPageWithTradition($skip: Int!, $take: Int!, $magicTraditionId: Uuid!, $searchTerm: String! = "", $order: [SpellSortInput!] = [{name: ASC}]) {
+	spells(
+		skip: $skip, 
+		take: $take, 
+		order: $order,
+		where: {
+			or: [
+				{name: {contains: $searchTerm}}, 
+				{actionType: {name: {contains: $searchTerm}}}
+			],
+			traditions: {
+				some: {
+					id: {eq: $magicTraditionId}
+				}
+			}
+		}) 
+	{
+		totalCount,
+		items {
+			... SpellsPage
+		}
+	}
+}

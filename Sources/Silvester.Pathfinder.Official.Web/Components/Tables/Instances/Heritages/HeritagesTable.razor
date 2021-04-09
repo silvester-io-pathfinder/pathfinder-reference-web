@@ -1,0 +1,19 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+@using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
+@using Silvester.Pathfinder.Official.Web.Graphql
+@using Silvester.Pathfinder.Official.Web.Services
+
+@inherits AbstractTable<IHeritagesPage, HeritageSortInput>
+
+@Table
+
+@code {
+    protected override void CreateModel(TableBuilder<IHeritagesPage> builder)
+    {
+        builder
+            .AddTextColumn(e => e.Name, "Name", nameof(IHeritagesPage.Name), true)
+            .AddTextColumn(e => e.Rarity.Name, "Rarity", nameof(IHeritagesPage.Rarity) + "." + nameof(IHeritagesPage_Rarity.Name), true)
+            .AddTextColumn(e => e.Description, "Description", nameof(IHeritagesPage.Description))
+            .AddInspectColumn(NavigationManager, e => $"heritages/{e.Id}");
+    }
+}

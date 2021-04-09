@@ -1,0 +1,6 @@
+﻿fragment AlignmentsPage on Alignment
+{
+	id,
+	name,
+	description
+}

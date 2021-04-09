@@ -1,0 +1,32 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Races;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Races.Providers;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.RaceRarities;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.RaceRarities.Providers;
+@using Silvester.Pathfinder.Official.Web.Components.Cards;
+
+@page "/races"
+@inherits BaseOverviewPage
+
+<div>
+    <PageLayout>
+
+        <MudPaper Style="margin: 20px;">
+            <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
+                <MudTabPanel Text="Races">
+                    <RacesTable PageProvider="@(new RacePageProvider(PathfinderOfficialApi))" />
+                </MudTabPanel>
+                <MudTabPanel Text="Rarities">
+                    <RaceRaritiesTable PageProvider="@(new RaceRarityPageProvider(PathfinderOfficialApi))" />
+                </MudTabPanel>
+            </MudTabs>
+        </MudPaper>
+
+    </PageLayout>
+
+</div>
+
+@code
+{
+    protected override string Title => "Races";
+}

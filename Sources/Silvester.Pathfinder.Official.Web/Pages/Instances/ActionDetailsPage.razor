@@ -1,0 +1,46 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
+@using Silvester.Pathfinder.Official.Web.Components.Cards;
+
+@inherits BaseDetailPage
+@page "/actions/{actionId:guid}"
+@implements IDisposable
+
+<div>
+    <PageLayout>
+        @if (Action != null)
+        {
+            <MudPaper Style="margin: 20px">
+                <ActionDetailsCard Action="@Action" />
+            </MudPaper>
+        }
+    </PageLayout>
+</div>
+
+@code {
+    protected override string Title => "Action";
+    protected override string? Subtitle => Action?.Name;
+
+    [Parameter]
+    public Guid ActionId { get; set; }
+
+    private IGetActionById_Actions_Items? Action { get; set; }
+
+    private IDisposable? StoreSession { get; set; }
+
+    protected override void OnInitialized()
+    {
+        StoreSession = PathfinderOfficialApi.GetActionById
+            .Watch(ActionId)
+            .Select(e => e.Data?.Actions?.Items?.FirstOrDefault())
+            .Subscribe(action =>
+            {
+                Action = action;
+                StateHasChanged();
+            });
+    }
+
+    public void Dispose()
+    {
+        StoreSession?.Dispose();
+    }
+}

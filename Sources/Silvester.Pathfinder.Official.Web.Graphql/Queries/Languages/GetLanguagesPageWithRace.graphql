@@ -1,0 +1,22 @@
+﻿query GetLanguagesPageWithRace($skip: Int!, $take: Int!, $raceId: Uuid!, $searchTerm: String! = "", $order: [LanguageSortInput!] = [{name: ASC}]) {
+	languages(
+		skip: $skip, 
+		take: $take, 
+		order: $order,
+		where: {
+			or: [
+				{name: {contains: $searchTerm}}
+			],
+			races: {
+				some: {
+					id: {eq: $raceId}
+				}
+			}
+		}) 
+	{
+		totalCount,
+		items {
+			... LanguagesPage
+		}
+	}
+}

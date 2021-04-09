@@ -15,24 +15,3 @@
 		}
 	}
 }
-
-
-fragment DeitiesPage on Deity {
-	id,
-	name,
-	description,
-	category {
-		... DeitiesPage_Category
-	},
-	alignment {
-		... DeitiesPage_Alignment
-	}
-}
-
-fragment DeitiesPage_Category on DeityCategory {
-	name
-}
-
-fragment DeitiesPage_Alignment on Alignment {
-	name
-}

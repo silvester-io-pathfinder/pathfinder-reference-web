@@ -1,0 +1,23 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+@using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
+@using Silvester.Pathfinder.Official.Web.Graphql
+@using Silvester.Pathfinder.Official.Web.Services
+
+@inherits AbstractTable<IRacesPage, RaceSortInput>
+
+@Table
+
+@code {
+
+    protected override void CreateModel(TableBuilder<IRacesPage> builder)
+    {
+        builder
+            .AddTextColumn(e => e.Name, "Name", nameof(IRacesPage.Name), true)
+            .AddTextColumn(e => e.BaseSpeed.ToString(), "Base Speed", nameof(IRacesPage.BaseSpeed))
+            .AddTextColumn(e => e.BaseHealth.ToString(), "Base Health", nameof(IRacesPage.BaseHealth))
+            .AddTextColumn(e => e.Size.Name, "Size", nameof(IRacesPage.Size) + "." + nameof(IRacesPage_Size.Name))
+            .AddTextColumn(e => e.Rarity.Name, "Rarity", nameof(IRacesPage.Rarity) + "." + nameof(IRacesPage_Rarity.Name))
+            .AddTextColumn(e => e.Description, "Description", nameof(IRacesPage.Description))
+            .AddInspectColumn(NavigationManager, e => $"races/{e.Id}");
+    }
+}

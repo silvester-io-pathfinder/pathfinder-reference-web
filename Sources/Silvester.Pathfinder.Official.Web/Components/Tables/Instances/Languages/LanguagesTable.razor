@@ -1,0 +1,18 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+@using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
+@using Silvester.Pathfinder.Official.Web.Graphql
+@using Silvester.Pathfinder.Official.Web.Services
+
+@inherits AbstractTable<ILanguagesPage, LanguageSortInput>
+
+@Table
+
+@code {
+    protected override void CreateModel(TableBuilder<ILanguagesPage> builder)
+    {
+        builder
+            .AddTextColumn(e => e.Name, "Name", nameof(ILanguagesPage.Name), true)
+            .AddTextColumn(e => e.Type.Name, "Type", nameof(ILanguagesPage.Type) + "." + nameof(ILanguagesPage_Type.Name))
+            .AddInspectColumn(NavigationManager, e => $"language-types/{e.Id}");
+    }
+}

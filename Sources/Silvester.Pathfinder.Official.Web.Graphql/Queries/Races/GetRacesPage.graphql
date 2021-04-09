@@ -17,25 +17,3 @@
 		}
 	}
 }
-
-fragment RacesPage on Race {
-	id,
-	name,
-	baseSpeed,
-	baseHealth,
-	description,
-	size {
-		... RacesPage_Size
-	}
-	rarity {
-		... RacesPage_Rarity
-	}
-}
-
-fragment RacesPage_Rarity on RaceRarity {
-	name
-}
-
-fragment RacesPage_Size on RaceSize {
-	name
-}

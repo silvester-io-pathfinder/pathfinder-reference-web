@@ -1,0 +1,52 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Spells;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Spells.Providers;
+@using Silvester.Pathfinder.Official.Web.Components.Cards;
+
+@inherits BaseDetailPage
+@implements IDisposable
+@page "/magic-schools/{magicSchoolId:guid}"
+
+<div>
+    <PageLayout>
+        @if (MagicSchool != null)
+        {
+            <MudPaper Style="margin: 20px">
+                <MagicSchoolCard MagicSchool="@MagicSchool" />
+            </MudPaper>
+
+            <MudPaper Style="margin: 20px">
+                <SpellsTable IsSearchEnabled="false" PageProvider="@(new SpellPageWithSchoolProvider(PathfinderOfficialApi, MagicSchoolId))" />
+            </MudPaper>
+        }
+    </PageLayout>
+</div>
+
+@code {
+    protected override string Title => "Magic Schools";
+    protected override string? Subtitle => MagicSchool?.Name;
+
+    [Parameter]
+    public Guid MagicSchoolId { get; set; }
+
+    private IMagicSchool? MagicSchool { get; set; }
+
+    private IDisposable? StoreSession { get; set; }
+
+    protected override void OnInitialized()
+    {
+        StoreSession = PathfinderOfficialApi.GetMagicSchoolById
+            .Watch(MagicSchoolId)
+            .Select(e => e.Data?.MagicSchools?.Items?.FirstOrDefault())
+            .Subscribe(magicSchool =>
+            {
+                MagicSchool = magicSchool;
+                StateHasChanged();
+            });
+    }
+
+    public void Dispose()
+    {
+        StoreSession?.Dispose();
+    }
+}

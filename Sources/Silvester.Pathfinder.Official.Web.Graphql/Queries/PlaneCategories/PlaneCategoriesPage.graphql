@@ -1,0 +1,5 @@
+﻿fragment PlaneCategoriesPage on PlaneCategory {
+	id,
+	name,
+	description
+}

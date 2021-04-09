@@ -1,0 +1,5 @@
+﻿fragment MagicComponent on SpellComponent {
+	id,
+	name,
+	description
+}

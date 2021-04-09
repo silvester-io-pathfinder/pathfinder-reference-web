@@ -1,5 +1,6 @@
 ﻿using Fluxor;
 using Microsoft.AspNetCore.Components;
+using Silvester.Pathfinder.Official.Web.Graphql.Generated;
 using Silvester.Pathfinder.Official.Web.Store.States;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,9 @@ namespace Silvester.Pathfinder.Official.Web.Pages
 
         [Inject]
         protected NavigationManager NavigationManager { get; set; } = default!;
+
+        [Inject]
+        protected IPathfinderOfficialApi PathfinderOfficialApi { get; set; } = default!;
 
         protected virtual IReadOnlyList<string> GetTitleComponents()
         {

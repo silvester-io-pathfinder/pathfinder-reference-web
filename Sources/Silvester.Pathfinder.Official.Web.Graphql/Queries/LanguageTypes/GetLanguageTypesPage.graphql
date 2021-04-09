@@ -15,9 +15,3 @@
 		}
 	}
 }
-
-fragment LanguageTypesPage on LanguageType
-{
-	id,
-	name
-}

@@ -1,0 +1,18 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+@using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
+@using Silvester.Pathfinder.Official.Web.Graphql
+@using Silvester.Pathfinder.Official.Web.Services
+
+@inherits AbstractTable<ITraitsPage, TraitSortInput>
+
+@Table
+
+@code {
+    protected override void CreateModel(TableBuilder<ITraitsPage> builder)
+    {
+        builder
+            .AddTextColumn(e => e.Name, "Name", nameof(ITraitsPage.Name), true)
+            .AddTextColumn(e => e.Description, "Description", nameof(ITraitsPage.Description))
+            .AddInspectColumn(NavigationManager, e => $"traits/{e.Id}");
+    }
+}

@@ -1,0 +1,23 @@
+﻿query GetSpellsPageWithComponent($skip: Int!, $take: Int!, $magicComponentId: Uuid!, $searchTerm: String! = "", $order: [SpellSortInput!] = [{name: ASC}]) {
+	spells(
+		skip: $skip, 
+		take: $take, 
+		order: $order,
+		where: {
+			or: [
+				{name: {contains: $searchTerm}}, 
+				{actionType: {name: {contains: $searchTerm}}}
+			],
+			components: {
+				some: {
+					id: {eq: $magicComponentId}
+				}
+			}
+		}) 
+	{
+		totalCount,
+		items {
+			... SpellsPage
+		}
+	}
+}

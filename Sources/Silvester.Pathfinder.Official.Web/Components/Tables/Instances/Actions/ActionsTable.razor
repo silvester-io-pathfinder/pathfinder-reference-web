@@ -1,0 +1,19 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+@using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
+@using Silvester.Pathfinder.Official.Web.Graphql
+@using Silvester.Pathfinder.Official.Web.Services
+
+@inherits AbstractTable<IActionsPage, ActionSortInput>
+
+@Table
+
+@code {
+    protected override void CreateModel(TableBuilder<IActionsPage> builder)
+    {
+        builder
+            .AddIconColumn(e => ActionTypeService.GetActionTypeIcon(e.ActionType!.Name), "Action", nameof(IFeatsPage.ActionType) + "." + nameof(IFeatsPage_ActionType.Name))
+            .AddTextColumn(e => e.Name, "Name", nameof(IActionsPage.Name), true)
+            .AddTextColumn(e => e.Details.FirstOrDefault()?.Text, "Description", nameof(IActionsPage.Details) + "." + nameof(IActionsPage_Details.Text))
+            .AddInspectColumn(NavigationManager, e => $"actions/{e.Id}");
+    }
+}

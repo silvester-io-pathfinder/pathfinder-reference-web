@@ -9,22 +9,25 @@ using System.Threading.Tasks;
 
 namespace Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Spells.Providers
 {
-    public class SpellPageWithTraitProvider : IPageProvider<ISpellsPage, SpellSortInput>
+    public class SpellPageWithTraitProvider : GraphqlPageProvider<ISpellsPage, SpellSortInput>
     {
-        private PathfinderOfficialApi PathfinderOfficialApi { get;}
-
         private Guid TraitId { get; }
 
-        public SpellPageWithTraitProvider(PathfinderOfficialApi pathfinderOfficialApi, Guid traitId)
+        public SpellPageWithTraitProvider(IPathfinderOfficialApi api, Guid traitId)
+            : base(api)
         {
-            PathfinderOfficialApi = pathfinderOfficialApi;
             TraitId = traitId;
         }
 
-        public async Task<TableData<ISpellsPage>> GetPage(SpellSortInput[] sortInputs, TableState state, string searchTerm)
+        public override async Task<TableData<ISpellsPage>> GetPage(SpellSortInput[] sortInputs, TableState state, string searchTerm)
         {
             IOperationResult<IGetSpellsPageWithTraitResult> result = await PathfinderOfficialApi.GetSpellsPageWithTrait
                      .ExecuteAsync(state.Page * state.PageSize, state.PageSize, TraitId, searchTerm, sortInputs);
+
+            if (result?.Data?.Spells == null)
+            {
+                return EmptyPage();
+            }
 
             TableData<ISpellsPage> page = new TableData<ISpellsPage>()
             {
