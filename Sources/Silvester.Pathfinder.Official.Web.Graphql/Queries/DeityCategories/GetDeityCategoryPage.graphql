@@ -11,9 +11,13 @@
 	{
 		totalCount,
 		items {
-			id,
-			name,
-			description
+			... DeityCategoriesPage
 		}
 	}
+}
+
+fragment DeityCategoriesPage on DeityCategory {
+	id,
+	name,
+	description
 }

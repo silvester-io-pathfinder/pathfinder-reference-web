@@ -1,6 +1,7 @@
 ﻿@using Silvester.Pathfinder.Official.Web.Shared.Preferences;
 @using Silvester.Pathfinder.Official.Web.Shared.Cards;
 @using Silvester.Pathfinder.Official.Web.Shared.Tables;
+@using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder;
 @using Silvester.Pathfinder.Official.Web.Pages.Traits.Details.Components;
 @using Silvester.Pathfinder.Official.Web.Shared.Fields;
 @using System.Reflection;
@@ -14,22 +15,30 @@
     }
     else
     {
-        <SearchBar OnSearch="@((text) => OnSearch(text))" />
+        @if (Model.IsSearchEnabled)
+        {
+            <SearchBar OnSearch="@((text) => OnSearch(text))" />
+        }
         <MudTable Dense="true" Hover="true" ServerData="@(GetItems)" SortLabel="Sort By" @ref="@Table" Elevation="0">
             <HeaderContent>
-                @Columns
-                <MudTh></MudTh>
+            @foreach (ITableColumn<TEntity> column in Model.Columns)
+            {
+                <TableColumn Column="@column" />
+            }
+
+            @if (IsLoading)
+            {
+                <div style="position: absolute; left:0; bottom: 0; transform: translateY(50%); width: 100%; z-index: 10;"><MudProgressLinear Color="Color.Primary" Indeterminate="true" /></div>
+            }
             </HeaderContent>
             <RowTemplate>
-                @Rows(context)
-                <MudTd>
-                    <MudTooltip Text="Inspect">
-                        <MudIconButton Size="Size.Small" OnClick="@(() => OnInspectClick(context))" Icon="@Icons.Material.Outlined.ArrowForward"></MudIconButton>
-                    </MudTooltip>
-                </MudTd>
+                @foreach (ITableColumn<TEntity> column in Model.Columns)
+                {
+                    <TableRow Column="@column" Entity="context" />
+                }
             </RowTemplate>
         </MudTable>
-        @if(IsEmpty)
+        @if (IsEmpty)
         {
             <EmptyMessage />
         }
@@ -39,22 +48,16 @@
 @code
 {
     [Parameter]
-    public Func<IEnumerable<TEntity>> Items { get; set; } = default!;
+    public TableModel<TEntity> Model { get; set; } = default!;
 
     [Parameter]
-    public Func<TEntity, string> InspectionUrl { get; set; } = default!;
+    public Func<IEnumerable<TEntity>> Items { get; set; } = default!;
 
     [Parameter]
     public Func<TEntity, string, bool> Filter { get; set; } = default!;
 
     [Parameter]
     public string? DefaultSortLabel { get; set; }
-
-    [Parameter]
-    public RenderFragment<TEntity> Rows { get; set; } = default!;
-
-    [Parameter]
-    public RenderFragment Columns { get; set; } = default!;
 
     [Inject]
     public NavigationManager NavigationManager { get; set; } = default!;
@@ -65,10 +68,7 @@
 
     private bool IsEmpty { get; set; }
 
-    public void OnInspectClick(TEntity entity)
-    {
-        NavigationManager.NavigateTo(InspectionUrl.Invoke(entity));
-    }
+    private bool IsLoading { get; set; }
 
     public void OnSearch(string? searchString)
     {
@@ -116,7 +116,7 @@
         }
 
         object currentValue = entity;
-        foreach(string name in sortPropertyName.Split("."))
+        foreach (string name in sortPropertyName.Split("."))
         {
             currentValue = currentValue.GetType().GetProperty(name)!.GetValue(currentValue)!;
         }

@@ -23,17 +23,45 @@ fragment TraitById_Feat on Feat {
 	name,
 	level,
 	canBeLearnedMoreThanOnce
+	details {
+		... TraitById_Feat_Details
+	},
+	actionType {
+		... TraitById_Feat_ActionType
+	},
+	featType {
+		... TraitById_Feat_FeatType
+	}
+}
+
+fragment TraitById_Feat_ActionType on ActionType {
+	name
+}
+
+fragment TraitById_Feat_FeatType on FeatType {
+	name
+}
+
+fragment TraitById_Feat_Details on FeatDetailsBlock {
+    text
 }
 
 fragment TraitById_Spell on Spell {
 	id,
 	name,
 	level,
+	description
 	magicSchool {
 		... TraitById_Spell_MagicSchool
 	},
 	spellType {
 		... TraitById_Spell_Type
+	},
+	savingThrowStat {
+		... TraitById_Spell_SavingThrowStat
+	},
+	actionType {
+		... TraitById_Spell_ActionType
 	}
 }
 
@@ -44,5 +72,13 @@ fragment TraitById_Spell_MagicSchool on MagicSchool {
 
 fragment TraitById_Spell_Type on SpellType {
 	id, 
+	name
+}
+
+fragment TraitById_Spell_SavingThrowStat on SavingThrowStat  {
+	name
+}
+
+fragment TraitById_Spell_ActionType on ActionType {
 	name
 }

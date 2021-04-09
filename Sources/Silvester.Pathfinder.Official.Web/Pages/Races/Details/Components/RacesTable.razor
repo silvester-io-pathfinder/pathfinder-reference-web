@@ -9,6 +9,8 @@
     }
     else
     {
+        <RelationshipTable TEntity="IRaceRarityById_Race" DefaultSortLabel="@nameof(IRaceRarityById_Race.Name)" Filter="@RaceFilter" Items="@(() => RaceRarity.Races)" Model="GetModel()" />
+
         <RelationshipTable TEntity="IRaceRarityById_Race" DefaultSortLabel="@nameof(IRaceRarityById_Race.Name)" Filter="@RaceFilter" InspectionUrl="@((e) => $"races/{e.Id}")" Items="@(() => RaceRarity.Races)">
             <Columns>
                 <MudTh><MudTableSortLabel SortLabel="@nameof(IRaceRarityById_Race.Name)" T="IRaceRarityById_Race" InitialDirection="SortDirection.Ascending">Name</MudTableSortLabel></MudTh>

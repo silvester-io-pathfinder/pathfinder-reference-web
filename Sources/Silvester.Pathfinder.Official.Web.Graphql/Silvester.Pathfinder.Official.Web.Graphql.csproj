@@ -7,8 +7,18 @@
   <Import Project="../Properties.proj" />
 
   <ItemGroup>
-    <PackageReference Include="StrawberryShake.CodeGeneration.CSharp.Analyzers" Version="11.1.0-rc.5" />
-    <PackageReference Include="StrawberryShake.Transport.Http" Version="11.1.0-rc.5" />
+    <GraphQL Remove="Queries\Spells\GetSpellsPageWithTrait.graphql" />
+    <GraphQL Remove="Queries\Spells\SpellsPage.graphql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Watch Remove="Queries\Spells\GetSpellsPageWithTrait.graphql" />
+    <Watch Remove="Queries\Spells\SpellsPage.graphql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="StrawberryShake.CodeGeneration.CSharp.Analyzers" Version="11.1.0" />
+    <PackageReference Include="StrawberryShake.Transport.Http" Version="11.1.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0" />
   </ItemGroup>

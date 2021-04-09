@@ -1,0 +1,42 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+@using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
+@using Silvester.Pathfinder.Official.Web.Graphql
+@using Silvester.Pathfinder.Official.Web.Services
+
+<div>
+    <GraphqlTable Model="@GetModel()" PageProvider="@PageProvider" TSortInput="SpellSortInput" TEntity="ISpellsPage" />
+</div>
+
+@code {
+    [Parameter]
+    public string? Title { get; set; }
+
+    [Parameter]
+    public IPageProvider<ISpellsPage, SpellSortInput> PageProvider { get; set; } = default!;
+
+    [Inject]
+    public PathfinderOfficialApi PathfinderOfficialApi { get; set; } = default!;
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; } = default!;
+
+    [Inject]
+    public IActionTypeService ActionTypeService { get; set; } = default!;
+
+    public TableModel<ISpellsPage> GetModel()
+    {
+        return new TableBuilder<ISpellsPage>()
+            {
+                Title = Title
+            }
+            .AddIconColumn(e => ActionTypeService.GetActionTypeIcon(e.ActionType!.Name), "Action", nameof(ISpellsPage.ActionType) + "." + nameof(ISpellsPage_ActionType.Name))
+            .AddTextColumn(e => e.Name, "Name", nameof(ISpellsPage.Name), true)
+            .AddTextColumn(e => e.MagicSchool.Name, "School", nameof(ISpellsPage.MagicSchool) + "." + nameof(ISpellsPage_MagicSchool.Name))
+            .AddTextColumn(e => e.Level.ToString(), "Level", nameof(ISpellsPage.Level))
+            .AddTextColumn(e => e.SpellType.Name, "Type", nameof(ISpellsPage.SpellType) + "." + nameof(ISpellsPage_SpellType.Name))
+            .AddTextColumn(e => e.SavingThrowStat?.Name, "Saving Throw", nameof(ISpellsPage.SavingThrowStat) + "." + nameof(ISpellsPage_SavingThrowStat.Name))
+            .AddTextColumn(e => e.Description, "Description", nameof(ISpellsPage.Description))
+            .AddInspectColumn(NavigationManager, e => $"spells/{e.Id}")
+            .Build();
+    }
+}

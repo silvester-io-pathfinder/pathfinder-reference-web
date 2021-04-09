@@ -1,5 +1,7 @@
-﻿@using Silvester.Pathfinder.Official.Web.Shared.Preferences;
+﻿@using Silvester.Pathfinder.Official.Web.Services;
+@using Silvester.Pathfinder.Official.Web.Shared.Preferences;
 @using Silvester.Pathfinder.Official.Web.Shared.Cards;
+@using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder;
 @using Silvester.Pathfinder.Official.Web.Shared.Tables;
 @using Silvester.Pathfinder.Official.Web.Pages.Traits.Details.Components;
 @using Silvester.Pathfinder.Official.Web.Shared.Fields;
@@ -12,20 +14,7 @@
     }
     else
     {
-        <RelationshipTable TEntity="ITraitById_Spell" DefaultSortLabel="@nameof(ITraitById_Spell.Name)" Filter="@SpellsFilter" InspectionUrl="@((e) => $"spells/{e.Id}")" Items="@(() => Trait.Spells)">
-            <Columns>
-                <MudTh><MudTableSortLabel SortLabel="@nameof(ITraitById_Spell.Name)" T="ITraitById_Spell" InitialDirection="SortDirection.Ascending">Name</MudTableSortLabel></MudTh>
-                <MudTh><MudTableSortLabel SortLabel="@nameof(ITraitById_Spell.Level)" T="ITraitById_Spell">Level</MudTableSortLabel></MudTh>
-                <MudTh><MudTableSortLabel SortLabel="@(nameof(ITraitById_Spell.MagicSchool) + "." + nameof(ITraitById_Spell_MagicSchool.Name))" T="ITraitById_Spell">School</MudTableSortLabel></MudTh>
-                <MudTh><MudTableSortLabel SortLabel="@(nameof(ITraitById_Spell.MagicSchool) + "." + nameof(ITraitById_Spell_Type.Name))" T="ITraitById_Spell">Type</MudTableSortLabel></MudTh>
-            </Columns>
-            <Rows>
-                <MudTd>@context.Name</MudTd>
-                <MudTd>@context.Level</MudTd>
-                <MudTd>@context.MagicSchool.Name</MudTd>
-                <MudTdEllipsized Text="@context.SpellType.Name" />
-            </Rows>
-        </RelationshipTable>
+        <RelationshipTable TEntity="ITraitById_Spell" DefaultSortLabel="@nameof(ITraitById_Spell.Name)" Filter="@SpellsFilter" Items="@(() => Trait.Spells)" Model="GetModel()" />
     }
 </div>
 
@@ -33,6 +22,26 @@
 {
     [Parameter]
     public ITraitById? Trait { get; set; }
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; } = default!;
+
+    [Inject]
+    public IActionTypeService ActionTypeService { get; set; } = default!;
+
+    public TableModel<ITraitById_Spell> GetModel()
+    {
+        return new TableBuilder<ITraitById_Spell>()
+            .AddIconColumn(e => ActionTypeService.GetActionTypeIcon(e.ActionType!.Name), "Action", nameof(ITraitById_Spell.ActionType) + "." + nameof(ITraitById_Spell_ActionType.Name))
+            .AddTextColumn(e => e.Name, "Name", nameof(ITraitById_Spell.Name), true)
+            .AddTextColumn(e => e.MagicSchool.Name, "School", nameof(ITraitById_Spell.MagicSchool) + "." + nameof(ITraitById_Spell_MagicSchool.Name))
+            .AddTextColumn(e => e.Level.ToString(), "Level", nameof(ITraitById_Spell.Level))
+            .AddTextColumn(e => e.SpellType.Name, "Type", nameof(ITraitById_Spell.SpellType) + "." + nameof(ITraitById_Spell_Type.Name))
+            .AddTextColumn(e => e.SavingThrowStat?.Name, "Saving Throw", nameof(ITraitById_Spell.SavingThrowStat) + "." + nameof(ITraitById_Spell_SavingThrowStat.Name))
+            .AddTextColumn(e => e.Description, "Description", nameof(ITraitById_Spell.Description))
+            .AddInspectColumn(NavigationManager, e => $"spells/{e.Id}")
+            .Build();
+    }
 
     public bool SpellsFilter(ITraitById_Spell spell, string searchString)
     {

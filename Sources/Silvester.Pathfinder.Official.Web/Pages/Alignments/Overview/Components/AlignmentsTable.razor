@@ -1,23 +1,9 @@
-﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
+@using Silvester.Pathfinder.Official.Web.Shared.Tables
 @using Silvester.Pathfinder.Official.Web.Graphql
 
 <div>
-    <GraphqlTable Title="Alignments" RowsPerPage="25" GetPage="@GetPage" TSortInput="AlignmentSortInput" TEntity="IAlignmentsPage">
-        <Columns>
-            <MudTh><MudTableSortLabel SortLabel="@nameof(IAlignmentsPage.Name)" T="IAlignmentsPage">Name</MudTableSortLabel></MudTh>
-            <MudTh><MudTableSortLabel SortLabel="@nameof(IAlignmentsPage.Description)" T="IAlignmentsPage">Description</MudTableSortLabel></MudTh>
-            <MudTh></MudTh>
-        </Columns>
-        <Rows>
-            <MudTd DataLabel="@nameof(IAlignmentsPage.Name)" >@context.Name</MudTd>
-            <MudTdEllipsized DataLabel="@nameof(IAlignmentsPage.Description)" Text="@context.Description" />
-            <MudTh>
-                <MudTooltip Text="Inspect">
-                    <MudIconButton Size="Size.Small" OnClick="@(() => OnInspectClicked(context))" Icon="@Icons.Material.Outlined.ArrowForward"></MudIconButton>
-                </MudTooltip>
-            </MudTh>
-        </Rows>
-    </GraphqlTable>
+    <GraphqlTable Model="@GetModel()" GetPage="@GetPage" TSortInput="AlignmentSortInput" TEntity="IAlignmentsPage" />
 </div>
 
 @code {
@@ -27,9 +13,16 @@
     [Inject]
     public NavigationManager NavigationManager { get; set; } = default!;
 
-    public void OnInspectClicked(IAlignmentsPage alignment)
+    public TableModel<IAlignmentsPage> GetModel()
     {
-        NavigationManager.NavigateTo($"alignments/{alignment.Id}");
+        return new TableBuilder<IAlignmentsPage>()
+        {
+            Title = "Alignments",
+        }
+        .AddTextColumn(e => e.Name, "Name", nameof(IAlignmentsPage.Name), true)
+        .AddTextColumn(e => e.Description, "Description", nameof(IAlignmentsPage.Description))
+        .AddInspectColumn(NavigationManager, e => $"alignments/{e.Id}")
+        .Build();
     }
 
     public async Task<TableData<IAlignmentsPage>> GetPage(AlignmentSortInput[] sortInputs, TableState state, string searchTerm)

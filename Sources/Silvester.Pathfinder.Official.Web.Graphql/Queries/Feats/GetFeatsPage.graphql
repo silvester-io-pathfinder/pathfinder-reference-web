@@ -24,6 +24,24 @@ fragment FeatsPage on Feat {
 	level,
 	canBeLearnedMoreThanOnce,
 	details {
-		text
+		... FeatsPage_Details
+	},
+	actionType {
+		... FeatsPage_ActionType
+	},
+	featType {
+		... FeatsPage_FeatType
 	}
+}
+
+fragment FeatsPage_ActionType on ActionType {
+	name
+}
+
+fragment FeatsPage_FeatType on FeatType {
+	name
+}
+
+fragment FeatsPage_Details on FeatDetailsBlock {
+    text
 }

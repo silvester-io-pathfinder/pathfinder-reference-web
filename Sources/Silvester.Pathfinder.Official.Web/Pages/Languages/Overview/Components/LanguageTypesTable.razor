@@ -1,21 +1,9 @@
-﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
+@using Silvester.Pathfinder.Official.Web.Shared.Tables
 @using Silvester.Pathfinder.Official.Web.Graphql
 
 <div>
-    <GraphqlTable RowsPerPage="25" GetPage="@GetPage" TSortInput="LanguageTypeSortInput" TEntity="ILanguageTypesPage">
-        <Columns>
-            <MudTh><MudTableSortLabel SortLabel="@nameof(ILanguageTypesPage.Name)" T="ILanguageTypesPage">Name</MudTableSortLabel></MudTh>
-            <MudTh></MudTh>
-        </Columns>
-        <Rows>
-            <MudTdEllipsized DataLabel="@(nameof(ILanguageTypesPage.Name))" Text="@context.Name" />
-            <MudTh>
-                <MudTooltip Text="Inspect">
-                    <MudIconButton Size="Size.Small" OnClick="@(() => OnInspectClicked(context))" Icon="@Icons.Material.Outlined.ArrowForward"></MudIconButton>
-                </MudTooltip>
-            </MudTh>
-        </Rows>
-    </GraphqlTable>
+    <GraphqlTable Model="@GetModel()" GetPage="@GetPage" TSortInput="LanguageTypeSortInput" TEntity="ILanguageTypesPage" />
 </div>
 
 @code {
@@ -25,9 +13,15 @@
     [Inject]
     public NavigationManager NavigationManager { get; set; } = default!;
 
-    public void OnInspectClicked(ILanguageTypesPage languageType)
+    public TableModel<ILanguageTypesPage> GetModel()
     {
-        NavigationManager.NavigateTo($"language-types/{languageType.Id}");
+        return new TableBuilder<ILanguageTypesPage>()
+        {
+            Title = "Language Types",
+        }
+        .AddTextColumn(e => e.Name, "Name", nameof(ILanguageTypesPage.Name), true)
+        .AddInspectColumn(NavigationManager, e => $"language-types/{e.Id}")
+        .Build();
     }
 
     public async Task<TableData<ILanguageTypesPage>> GetPage(LanguageTypeSortInput[] sortInputs, TableState state, string searchTerm)

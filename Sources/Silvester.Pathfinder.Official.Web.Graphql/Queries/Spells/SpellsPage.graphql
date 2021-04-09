@@ -1,0 +1,34 @@
+﻿fragment SpellsPage on Spell {
+	id,
+	name,
+	level,
+	description,
+	spellType {
+		... SpellsPage_SpellType	
+	}
+	magicSchool {
+		... SpellsPage_MagicSchool
+	}
+	savingThrowStat {
+		... SpellsPage_SavingThrowStat
+	},
+	actionType {
+		... SpellsPage_ActionType
+	}
+}
+
+fragment SpellsPage_SpellType on SpellType {
+	name
+}
+
+fragment SpellsPage_MagicSchool on MagicSchool {
+	name
+}
+
+fragment SpellsPage_SavingThrowStat on SavingThrowStat  {
+	name
+}
+
+fragment SpellsPage_ActionType on ActionType {
+	name
+}

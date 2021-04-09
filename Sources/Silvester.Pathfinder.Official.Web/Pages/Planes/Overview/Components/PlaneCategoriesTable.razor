@@ -1,23 +1,9 @@
-﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
+@using Silvester.Pathfinder.Official.Web.Shared.Tables
 @using Silvester.Pathfinder.Official.Web.Graphql
 
 <div>
-    <GraphqlTable RowsPerPage="25" GetPage="@GetPage" TSortInput="PlaneCategorySortInput" TEntity="IGetPlaneCategoriesPage_PlaneCategories_Items">
-        <Columns>
-            <MudTh><MudTableSortLabel SortLabel="@nameof(IGetPlaneCategoriesPage_PlaneCategories_Items.Name)" T="IGetPlaneCategoriesPage_PlaneCategories_Items">Name</MudTableSortLabel></MudTh>
-            <MudTh><MudTableSortLabel SortLabel="@nameof(IGetPlaneCategoriesPage_PlaneCategories_Items.Description)" T="IGetPlaneCategoriesPage_PlaneCategories_Items">Description</MudTableSortLabel></MudTh>
-            <MudTh></MudTh>
-        </Columns>
-        <Rows>
-            <MudTd DataLabel="@nameof(IGetPlaneCategoriesPage_PlaneCategories_Items.Name)" Style="font-weight: 500;">@context.Name</MudTd>
-            <MudTdEllipsized DataLabel="@nameof(IGetPlaneCategoriesPage_PlaneCategories_Items.Description)" Text="@context.Description" />
-            <MudTh>
-                <MudTooltip Text="Inspect">
-                    <MudIconButton Size="Size.Small" OnClick="@(() => OnInspectClicked(context))" Icon="@Icons.Material.Outlined.ArrowForward"></MudIconButton>
-                </MudTooltip>
-            </MudTh>
-        </Rows>
-    </GraphqlTable>
+    <GraphqlTable Model="@GetModel()" GetPage="@GetPage" TSortInput="PlaneCategorySortInput" TEntity="IPlaneCategoriesPage" />
 </div>
 
 @code {
@@ -27,17 +13,21 @@
     [Inject]
     public NavigationManager NavigationManager { get; set; } = default!;
 
-    public void OnInspectClicked(IGetPlaneCategoriesPage_PlaneCategories_Items plane)
+    public TableModel<IPlaneCategoriesPage> GetModel()
     {
-        NavigationManager.NavigateTo($"plane-categories/{plane.Id}");
+        return new TableBuilder<IPlaneCategoriesPage>()
+        .AddTextColumn(e => e.Name, "Name", nameof(IPlaneCategoriesPage.Name), true)
+        .AddTextColumn(e => e.Description, "Description", nameof(IPlaneCategoriesPage.Description))
+        .AddInspectColumn(NavigationManager, e => $"plane-categories/{e.Id}")
+        .Build();
     }
 
-    public async Task<TableData<IGetPlaneCategoriesPage_PlaneCategories_Items>> GetPage(PlaneCategorySortInput[] sortInputs, TableState state, string searchTerm)
+    public async Task<TableData<IPlaneCategoriesPage>> GetPage(PlaneCategorySortInput[] sortInputs, TableState state, string searchTerm)
     {
         IOperationResult<IGetPlaneCategoriesPageResult> result = await PathfinderOfficialApi.GetPlaneCategoriesPage
             .ExecuteAsync(state.Page * state.PageSize, state.PageSize, searchTerm, sortInputs);
 
-        TableData<IGetPlaneCategoriesPage_PlaneCategories_Items> page = new TableData<IGetPlaneCategoriesPage_PlaneCategories_Items>()
+        TableData<IPlaneCategoriesPage> page = new TableData<IPlaneCategoriesPage>()
         {
             TotalItems = result.Data!.PlaneCategories!.TotalCount,
             Items = result.Data!.PlaneCategories!.Items!

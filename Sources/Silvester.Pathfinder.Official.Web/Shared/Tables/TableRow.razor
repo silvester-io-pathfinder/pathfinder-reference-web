@@ -1,0 +1,46 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+@using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
+@using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder.Columns
+
+@typeparam TEntity;
+
+@{
+    switch (Column)
+    {
+        case IconColumn<TEntity> icon:
+            <MudTd><div style="vertical-align: middle; height: 24px;">@((MarkupString) icon.SvgFunc(Entity))</div></MudTd>
+            break;
+        case TextColumn<TEntity> text:
+            @if (text.IsLastTextColumn)
+            {
+                <MudTdEllipsized Style="@GetStyle(text)" Text="@text.ValueFunc(Entity)"></MudTdEllipsized>
+            }
+            else
+            {
+                <MudTd Style="@GetStyle(text)">@text.ValueFunc(Entity)</MudTd>
+            }
+            break;
+        case ActionColumn<TEntity> action:
+            <MudTh>
+                <MudTooltip Text="@action.Tooltip">
+                    <MudIconButton Size="@action.Size" OnClick="@(() => action.OnClick(Entity))" Icon="@Icons.Material.Outlined.ArrowForward" />
+                </MudTooltip>
+            </MudTh>
+            break;
+    }
+}
+
+@code {
+    [Parameter]
+    public ITableColumn<TEntity> Column { get; set; } = default!;
+
+    [Parameter]
+    public TEntity Entity { get; set; } = default!;
+
+    private string GetStyle(TextColumn<TEntity> column)
+    {
+        return column.IsBold
+            ? "font-weight: 500"
+            : "";
+    }
+}

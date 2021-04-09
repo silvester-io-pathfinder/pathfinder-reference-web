@@ -11,9 +11,6 @@
 	{
 		totalCount,
 		items {
-			actionType {
-					name
-			},
 			... ActionsPage
 		}
 	}
@@ -22,5 +19,19 @@
 fragment ActionsPage on Action
 {
 	id,
+	name,
+	actionType {
+		... ActionsPage_ActionType
+	},
+	details {
+		... ActionsPage_Details
+	}
+}
+
+fragment ActionsPage_ActionType on ActionType {
 	name
+}
+
+fragment ActionsPage_Details on ActionDetailsBlock {
+    text
 }

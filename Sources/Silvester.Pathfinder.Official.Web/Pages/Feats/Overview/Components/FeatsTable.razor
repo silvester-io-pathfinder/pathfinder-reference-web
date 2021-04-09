@@ -1,27 +1,10 @@
-﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
+@using Silvester.Pathfinder.Official.Web.Shared.Tables
 @using Silvester.Pathfinder.Official.Web.Graphql
+@using Silvester.Pathfinder.Official.Web.Services
 
 <div>
-    <GraphqlTable Title="Feats" RowsPerPage="25" GetPage="@GetPage" TSortInput="FeatSortInput" TEntity="IFeatsPage">
-        <Columns>
-            <MudTh><MudTableSortLabel SortLabel="@nameof(IFeatsPage.Name)" T="IFeatsPage">Name</MudTableSortLabel></MudTh>
-            <MudTh><MudTableSortLabel SortLabel="@nameof(IFeatsPage.Level)" T="IFeatsPage">Level</MudTableSortLabel></MudTh>
-            <MudTh><MudTableSortLabel SortLabel="@nameof(IFeatsPage.CanBeLearnedMoreThanOnce)" T="IFeatsPage">Relearnable</MudTableSortLabel></MudTh>
-            <MudTh>Description</MudTh>
-            <MudTh></MudTh>
-        </Columns>
-        <Rows>
-            <MudTd DataLabel="@nameof(IFeatsPage.Name)" Style="font-weight: 500;">@context.Name</MudTd>
-            <MudTd DataLabel="@nameof(IFeatsPage.Level)">@context.Level</MudTd>
-            <MudTd DataLabel="@nameof(IFeatsPage.CanBeLearnedMoreThanOnce)">@context.CanBeLearnedMoreThanOnce</MudTd>
-            <MudTdEllipsized DataLabel="@nameof(IFeatsPage.Details)" Text="@(string.Join(Environment.NewLine, context.Details.Select(e => e.Text)))" />
-            <MudTh>
-                <MudTooltip Text="Inspect">
-                    <MudIconButton Size="Size.Small" OnClick="@(() => OnInspectClicked(context))" Icon="@Icons.Material.Outlined.ArrowForward"></MudIconButton>
-                </MudTooltip>
-            </MudTh>
-        </Rows>
-    </GraphqlTable>
+    <GraphqlTable Model="@GetModel()" GetPage="@GetPage" TSortInput="FeatSortInput" TEntity="IFeatsPage" />
 </div>
 
 @code {
@@ -31,9 +14,22 @@
     [Inject]
     public NavigationManager NavigationManager { get; set; } = default!;
 
-    public void OnInspectClicked(IFeatsPage feat)
+    [Inject]
+    public IActionTypeService ActionTypeService { get; set; } = default!;
+
+    public TableModel<IFeatsPage> GetModel()
     {
-        NavigationManager.NavigateTo($"feats/{feat.Id}");
+        return new TableBuilder<IFeatsPage>()
+        {
+            Title = "Feats",
+        }
+        .AddIconColumn(e => ActionTypeService.GetActionTypeIcon(e.ActionType!.Name), "Action", nameof(IFeatsPage.ActionType) + "." + nameof(IFeatsPage_ActionType.Name))
+        .AddTextColumn(e => e.Name, "Name", nameof(IFeatsPage.Name), true)
+        .AddTextColumn(e => e.Level.ToString(), "Level", nameof(IFeatsPage.Name))
+        .AddTextColumn(e => e.FeatType.Name, "Type", nameof(IFeatsPage.FeatType) + "." + nameof(IFeatsPage_FeatType.Name))
+        .AddTextColumn(e => e.Details.FirstOrDefault()?.Text, "Description", nameof(IFeatsPage.Details) + "." + nameof(IFeatsPage_Details.Text), true)
+        .AddInspectColumn(NavigationManager, e => $"feats/{e.Id}")
+        .Build();
     }
 
     public async Task<TableData<IFeatsPage>> GetPage(FeatSortInput[] sortInputs, TableState state, string searchTerm)

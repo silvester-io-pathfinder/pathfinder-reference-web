@@ -11,9 +11,27 @@
 	{
 		totalCount,
 		items {
-			id,
-			name,
-			description
+		    ... PlanesPage
 		}
 	}
+}
+
+fragment PlanesPage on Plane {
+	id,
+	name,
+	description,
+	category {
+		... PlanesPage_Category
+	},
+	alignment {
+		... PlanesPage_Alignment
+	}
+}
+
+fragment PlanesPage_Category on PlaneCategory {
+	name
+}
+
+fragment PlanesPage_Alignment on Alignment {
+	name
 }

@@ -1,0 +1,21 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+@using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
+@using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder.Columns
+
+@typeparam TEntity;
+
+@{
+    @if (Column is ISortable<TEntity> sortable)
+    {
+        <MudTh><MudTableSortLabel SortLabel="@sortable.SortLabel" T="TEntity">@Column.Name</MudTableSortLabel></MudTh>
+    }
+    else
+    {
+        <MudTh>@Column.Name</MudTh>
+    }
+}
+
+@code {
+    [Parameter]
+    public ITableColumn<TEntity> Column { get; set; } = default!;
+}

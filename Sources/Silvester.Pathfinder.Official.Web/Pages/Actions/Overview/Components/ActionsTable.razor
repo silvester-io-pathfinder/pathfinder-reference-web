@@ -1,24 +1,10 @@
-﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
+@using Silvester.Pathfinder.Official.Web.Shared.Tables
 @using Silvester.Pathfinder.Official.Web.Graphql
 @using Silvester.Pathfinder.Official.Web.Services
 
 <div>
-    <GraphqlTable Title="Actions" RowsPerPage="25" GetPage="@GetPage" TSortInput="ActionSortInput" TEntity="IGetActionsPage_Actions_Items">
-        <Columns>
-            <MudTh><MudTableSortLabel SortLabel="@(nameof(IGetActionsPage_Actions_Items.ActionType)+ ".Name")" T="IActionsPage">Name</MudTableSortLabel></MudTh>
-            <MudTh><MudTableSortLabel SortLabel="@nameof(IActionsPage.Name)" T="IActionsPage">Name</MudTableSortLabel></MudTh>
-            <MudTh></MudTh>
-        </Columns>
-        <Rows>
-            <MudTd><div style="vertical-align: middle; height: 24px;">@((MarkupString) ActionTypeService.GetActionTypeIcon(context.ActionType!.Name))</div></MudTd>
-            <MudTdEllipsized DataLabel="@nameof(IActionsPage.Name)" Text="@context.Name" />
-            <MudTh>
-                <MudTooltip Text="Inspect">
-                    <MudIconButton Size="Size.Small" OnClick="@(() => OnInspectClicked(context))" Icon="@Icons.Material.Outlined.ArrowForward"></MudIconButton>
-                </MudTooltip>
-            </MudTh>
-        </Rows>
-    </GraphqlTable>
+    <GraphqlTable Model="@GetModel()" GetPage="@GetPage" TSortInput="ActionSortInput" TEntity="IActionsPage" />
 </div>
 
 @code {
@@ -31,17 +17,25 @@
     [Inject]
     public NavigationManager NavigationManager { get; set; } = default!;
 
-    public void OnInspectClicked(IGetActionsPage_Actions_Items action)
+    public TableModel<IActionsPage> GetModel()
     {
-        NavigationManager.NavigateTo($"actions/{action.Id}");
+        return new TableBuilder<IActionsPage>()
+        {
+            Title = "Actions",
+        }
+        .AddIconColumn(e => ActionTypeService.GetActionTypeIcon(e.ActionType!.Name), "Action", nameof(IFeatsPage.ActionType) + "." + nameof(IFeatsPage_ActionType.Name))
+        .AddTextColumn(e => e.Name, "Name", nameof(IActionsPage.Name), true)
+        .AddTextColumn(e => e.Details.FirstOrDefault()?.Text, "Description", nameof(IActionsPage.Details) + "." + nameof(IActionsPage_Details.Text))
+        .AddInspectColumn(NavigationManager, e => $"actions/{e.Id}")
+        .Build();
     }
 
-    public async Task<TableData<IGetActionsPage_Actions_Items>> GetPage(ActionSortInput[] sortInputs, TableState state, string searchTerm)
+    public async Task<TableData<IActionsPage>> GetPage(ActionSortInput[] sortInputs, TableState state, string searchTerm)
     {
         IOperationResult<IGetActionsPageResult> result = await PathfinderOfficialApi.GetActionsPage
             .ExecuteAsync(state.Page * state.PageSize, state.PageSize, searchTerm, sortInputs);
 
-        TableData<IGetActionsPage_Actions_Items> page = new TableData<IGetActionsPage_Actions_Items>()
+        TableData<IActionsPage> page = new TableData<IActionsPage>()
         {
             TotalItems = result.Data!.Actions!.TotalCount,
             Items = result.Data!.Actions!.Items!

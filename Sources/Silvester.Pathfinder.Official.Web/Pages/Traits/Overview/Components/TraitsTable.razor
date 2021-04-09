@@ -1,24 +1,10 @@
 ﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+@using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
 @using Silvester.Pathfinder.Official.Web.Graphql
 @using Silvester.Pathfinder.Official.Web.Shared.Layout;
 
 <div>
-    <GraphqlTable Title="Traits" RowsPerPage="25" GetPage="@GetPage" TSortInput="TraitSortInput" TEntity="ITraitsPage">
-        <Columns>
-            <MudTh><MudTableSortLabel SortLabel="@nameof(ITraitsPage.Name)" T="ITraitsPage">Name</MudTableSortLabel></MudTh>
-            <MudTh>Description</MudTh>
-            <MudTh></MudTh>
-        </Columns>
-        <Rows>
-            <MudTd DataLabel="@nameof(ITraitsPage.Name)" Style="font-weight: 500;">@context.Name</MudTd>
-            <MudTdEllipsized DataLabel="@nameof(ITraitsPage.Description)" Text="@(context.Description)" />
-            <MudTh>
-                <MudTooltip Text="Inspect">
-                    <MudIconButton Size="Size.Small" OnClick="@(() => OnInspectClicked(context))" Icon="@Icons.Material.Outlined.ArrowForward"></MudIconButton>
-                </MudTooltip>
-            </MudTh>
-        </Rows>
-    </GraphqlTable>
+    <GraphqlTable Model="@GetModel()" GetPage="@GetPage" TSortInput="TraitSortInput" TEntity="ITraitsPage" />
 </div>
 
 @code {
@@ -28,9 +14,16 @@
     [Inject]
     public NavigationManager NavigationManager { get; set; } = default!;
 
-    public void OnInspectClicked(ITraitsPage trait)
+    public TableModel<ITraitsPage> GetModel()
     {
-        NavigationManager.NavigateTo($"traits/{trait.Id}");
+        return new TableBuilder<ITraitsPage>()
+        {
+            Title = "Traits",
+        }
+        .AddTextColumn(e => e.Name, "Name", nameof(ITraitsPage.Name), true)
+        .AddTextColumn(e => e.Description, "Description", nameof(ITraitsPage.Description))
+        .AddInspectColumn(NavigationManager, e => $"traits/{e.Id}")
+        .Build();
     }
 
     public async Task<TableData<ITraitsPage>> GetPage(TraitSortInput[] sortInputs, TableState state, string searchTerm)

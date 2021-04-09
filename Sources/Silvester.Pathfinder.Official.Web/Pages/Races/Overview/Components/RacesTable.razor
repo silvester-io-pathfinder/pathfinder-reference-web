@@ -1,29 +1,9 @@
-﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
+@using Silvester.Pathfinder.Official.Web.Shared.Tables
 @using Silvester.Pathfinder.Official.Web.Graphql
 
 <div>
-    <GraphqlTable RowsPerPage="25" GetPage="@GetPage" TSortInput="RaceSortInput" TEntity="IGetRacesPage_Races_Items">
-        <Columns>
-            <MudTh><MudTableSortLabel SortLabel="@nameof(IGetRacesPage_Races_Items.Name)" T="IGetRacesPage_Races_Items">Name</MudTableSortLabel></MudTh>
-            <MudTh><MudTableSortLabel SortLabel="@nameof(IGetRacesPage_Races_Items.BaseSpeed)" T="IGetRacesPage_Races_Items">Speed</MudTableSortLabel></MudTh>
-            <MudTh><MudTableSortLabel SortLabel="@nameof(IGetRacesPage_Races_Items.BaseHealth)" T="IGetRacesPage_Races_Items">Health</MudTableSortLabel></MudTh>
-            <MudTh><MudTableSortLabel SortLabel="@(nameof(IGetRacesPage_Races_Items.Size)  + ".Name")" T="IGetRacesPage_Races_Items">Size</MudTableSortLabel></MudTh>
-            <MudTh><MudTableSortLabel SortLabel="@(nameof(IGetRacesPage_Races_Items.Rarity)  + ".Name")" T="IGetRacesPage_Races_Items">Rarity</MudTableSortLabel></MudTh>
-            <MudTh></MudTh>
-        </Columns>
-        <Rows>
-            <MudTd DataLabel="@nameof(IGetRacesPage_Races_Items.Name)" Style="font-weight: 500;">@context.Name</MudTd>
-            <MudTd DataLabel="@nameof(IGetRacesPage_Races_Items.BaseSpeed)">@context.BaseSpeed</MudTd>
-            <MudTd DataLabel="@nameof(IGetRacesPage_Races_Items.BaseHealth)">@context.BaseHealth</MudTd>
-            <MudTd DataLabel="@nameof(IGetRacesPage_Races_Items.Size)">@context.Size.Name</MudTd>
-            <MudTdEllipsized DataLabel="@nameof(IGetRacesPage_Races_Items.Rarity)" Text="@context.Rarity.Name" />
-            <MudTh>
-                <MudTooltip Text="Inspect">
-                    <MudIconButton Size="Size.Small" OnClick="@(() => OnInspectClicked(context))" Icon="@Icons.Material.Outlined.ArrowForward"></MudIconButton>
-                </MudTooltip>
-            </MudTh>
-        </Rows>
-    </GraphqlTable>
+    <GraphqlTable Model="@GetModel()" GetPage="@GetPage" TSortInput="RaceSortInput" TEntity="IRacesPage" />
 </div>
 
 @code {
@@ -33,17 +13,25 @@
     [Inject]
     public NavigationManager NavigationManager { get; set; } = default!;
 
-    public void OnInspectClicked(IGetRacesPage_Races_Items race)
+    public TableModel<IRacesPage> GetModel()
     {
-        NavigationManager.NavigateTo($"races/{race.Id}");
+        return new TableBuilder<IRacesPage>()
+            .AddTextColumn(e => e.Name, "Name", nameof(IRacesPage.Name), true)
+            .AddTextColumn(e => e.BaseSpeed.ToString(), "Base Speed", nameof(IRacesPage.BaseSpeed))
+            .AddTextColumn(e => e.BaseHealth.ToString(), "Base Health", nameof(IRacesPage.BaseHealth))
+            .AddTextColumn(e => e.Size.Name, "Size", nameof(IRacesPage.Size) + "." + nameof(IRacesPage_Size.Name))
+            .AddTextColumn(e => e.Rarity.Name, "Rarity", nameof(IRacesPage.Rarity) + "." + nameof(IRacesPage_Rarity.Name))
+            .AddTextColumn(e => e.Description, "Description", nameof(IRacesPage.Description))
+            .AddInspectColumn(NavigationManager, e => $"races/{e.Id}")
+            .Build();
     }
 
-    public async Task<TableData<IGetRacesPage_Races_Items>> GetPage(RaceSortInput[] sortInputs, TableState state, string searchTerm)
+    public async Task<TableData<IRacesPage>> GetPage(RaceSortInput[] sortInputs, TableState state, string searchTerm)
     {
         IOperationResult<IGetRacesPageResult> result = await PathfinderOfficialApi.GetRacesPage
             .ExecuteAsync(state.Page * state.PageSize, state.PageSize, searchTerm, sortInputs);
 
-        TableData<IGetRacesPage_Races_Items> page = new TableData<IGetRacesPage_Races_Items>()
+        TableData<IRacesPage> page = new TableData<IRacesPage>()
         {
             TotalItems = result.Data!.Races!.TotalCount,
             Items = result.Data!.Races!.Items!

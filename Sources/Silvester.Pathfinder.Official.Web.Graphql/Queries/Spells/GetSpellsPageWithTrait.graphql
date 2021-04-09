@@ -1,4 +1,4 @@
-﻿query GetSpellsPage($skip: Int!, $take: Int!, $searchTerm: String! = "", $order: [SpellSortInput!] = [{name: ASC}]) {
+﻿query GetSpellsPageWithTrait($skip: Int!, $take: Int!, $traitId: Uuid!, $searchTerm: String! = "", $order: [SpellSortInput!] = [{name: ASC}]) {
 	spells(
 		skip: $skip, 
 		take: $take, 
@@ -7,7 +7,12 @@
 			or: [
 				{name: {contains: $searchTerm}}, 
 				{actionType: {name: {contains: $searchTerm}}}
-			]
+			],
+			traits: {
+				some: {
+					id: {eq: $traitId}
+				}
+			}
 		}) 
 	{
 		totalCount,

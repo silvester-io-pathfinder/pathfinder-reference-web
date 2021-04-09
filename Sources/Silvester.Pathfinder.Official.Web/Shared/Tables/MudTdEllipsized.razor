@@ -1,5 +1,19 @@
-﻿<MudTd Style="position: relative; width: 100vw;" DataLabel="@DataLabel">
+﻿<MudTd Style="@("position: relative; width: 100vw; " + @Style)" DataLabel="@DataLabel">
     <div style="text-overflow: ellipsis; white-space: nowrap; position: absolute; overflow: hidden; width: 100%; transform: translateY(-50%); padding-right: 36px;">
         @Text
     </div>
 </MudTd>
+
+@code {
+    [Parameter]
+    public string? Style { get; set; }
+
+    [Parameter]
+    public string DataLabel { get; set; } = default!;
+
+    [Parameter]
+    public string Text { get; set; } = default!;
+
+    [Parameter]
+    public bool HideSmall { get; set; }
+}

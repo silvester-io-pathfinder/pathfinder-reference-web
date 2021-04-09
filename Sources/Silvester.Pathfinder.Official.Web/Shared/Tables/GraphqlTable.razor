@@ -1,35 +1,48 @@
 ﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+@using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
+@using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder.Columns
+@using Silvester.Pathfinder.Official.Web.Components.Tables;
 
 @typeparam TEntity
 @typeparam TSortInput
 
 <div>
-    <MudTable T="TEntity" RowsPerPage="@RowsPerPage" ServerData="@GetServerData" Dense="true" Hover="true" @ref="Table" Elevation="0">
+    <MudTable T="TEntity" RowsPerPage="@Model.RowsPerPage" ServerData="@GetServerData" Dense="true" Hover="true" @ref="Instance" Elevation="0">
 
         <ToolBarContent>
             <div style="display:flex; flex-direction: column; width: 100%;">
-                @if(string.IsNullOrWhiteSpace(Title) == false)
+                @if (string.IsNullOrWhiteSpace(Model.Title) == false)
                 {
                     <div style="display:flex; flex-direction: row; padding-left: 16px; padding-right: 16px; padding-top:10px; padding-bottom:10px; border-bottom: 1px solid var(--mud-palette-table-lines);">
-                        <MudText Typo="Typo.h6">@Title</MudText>
+                        <MudText Typo="Typo.h6">@Model.Title</MudText>
                         <MudToolBarSpacer />
                     </div>
                 }
-                <div>
-                    <MudTextField T="string" Style="background-color: white; padding: 8px;" ValueChanged="@(text => OnSearch(text))" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0" />
-                </div>
+                @if (Model.IsSearchEnabled)
+                {
+                    <div>
+                        <MudTextField T="string" Style="background-color: white; padding: 8px;" ValueChanged="@(text => OnSearch(text))" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0" />
+                    </div>
+                }
             </div>
         </ToolBarContent>
         <HeaderContent>
-            @Columns
+            @foreach (ITableColumn<TEntity> column in Model.Columns)
+            {
+                <TableColumn Column="@column"/>
+            }
             @if (IsLoading)
             {
                 <div style="position: absolute; left:0; bottom: 0; transform: translateY(50%); width: 100%; z-index: 10;"><MudProgressLinear Color="Color.Primary" Indeterminate="true" /></div>
             }
         </HeaderContent>
         <RowTemplate>
-            @Rows(context)
+            @foreach (ITableColumn<TEntity> column in Model.Columns)
+            {
+                <TableRow Column="@column" Entity="context" />
+            }
         </RowTemplate>
+
         <PagerContent>
             @if (IsEmpty)
             {
@@ -45,34 +58,25 @@
 
 @code {
     [Parameter]
-    public RenderFragment<TEntity> Rows { get; set; } = default!;
+    public TableModel<TEntity> Model { get; set; } = default!;
 
     [Parameter]
-    public RenderFragment Columns { get; set; } = default!;
-
-    [Parameter]
-    public string? Title { get; set; }
-
-    [Parameter]
-    public int RowsPerPage { get; set; } = 10;
+    public IPageProvider<TEntity, TSortInput> PageProvider { get; set; } = default!;
 
     public string? SearchTerm { get; set; }
-
-    public MudTable<TEntity>? Table { get; set; }
 
     private bool IsLoading { get; set; }
 
     private bool IsEmpty { get; set; }
 
-    [Parameter]
-    public Func<TSortInput[], TableState, string, Task<TableData<TEntity>>> GetPage { get; set; } = default!;
+    public MudTable<TEntity>? Instance { get; set; }
 
     public async Task<TableData<TEntity>> GetServerData(TableState state)
     {
         IsLoading = true;
         StateHasChanged();
 
-        TableData<TEntity> result = await GetPage(GetSortInput(state), state, SearchTerm ?? "");
+        TableData<TEntity> result = await PageProvider.GetPage(GetSortInput(state), state, SearchTerm ?? "");
 
         IsEmpty = result.TotalItems == 0;
         IsLoading = false;
@@ -84,7 +88,7 @@
     public void OnSearch(string searchTerm)
     {
         SearchTerm = searchTerm;
-        Table!.ReloadServerData();
+        Instance!.ReloadServerData();
     }
 
     private static TSortInput[] GetSortInput(TableState state)
