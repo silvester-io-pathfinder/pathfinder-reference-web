@@ -13,3 +13,7 @@
 ::deep .mud-table-container {
     position: relative;
 }
+
+::deep .graphql-table-row:hover {
+    cursor: pointer
+}

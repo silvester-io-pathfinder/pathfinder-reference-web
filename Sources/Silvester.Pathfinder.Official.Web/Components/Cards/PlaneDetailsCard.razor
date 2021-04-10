@@ -57,7 +57,7 @@
 
     public void OnCategoryClick()
     {
-        NavigationManager.NavigateTo($"plane-category/{Plane.Category.Id}");
+        NavigationManager.NavigateTo($"plane-categories/{Plane.Category.Id}");
     }
 
     public void OnAlignmentClick()
@@ -67,6 +67,6 @@
 
     public void OnPlaneTraitClick(Guid id)
     {
-        NavigationManager.NavigateTo($"plane-traits/{id}");
+        NavigationManager.NavigateTo($"traits/{id}");
     }
 }

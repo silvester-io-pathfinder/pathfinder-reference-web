@@ -42,7 +42,7 @@ namespace Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
 
         public TableBuilder<TEntity> AddInspectColumn(NavigationManager navigationManager, Func<TEntity, string> redirect)
         {
-            return AddActionColumn((e) => navigationManager.NavigateTo(redirect(e)), "", "Inspect", MudBlazor.Icons.Material.Outlined.ArrowForward, Size.Small);
+            return Add(new InspectColumn<TEntity>(navigationManager, redirect));
         }
 
         public TableBuilder<TEntity> Add(ITableColumn<TEntity> column)
@@ -67,12 +67,28 @@ namespace Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
 
         public string? Title { get; }
 
-        public TableModel(IList<ITableColumn<TEntity>> columns, bool isSearchEnabled, int rowsPerPage, string? title)
+        public bool IsInspectable => Columns.Any(e => e.GetType() == typeof(InspectColumn<TEntity>));
+
+        public Action<TEntity> OnRowClick { get; }
+
+        public TableModel(IList<ITableColumn<TEntity>> columns, bool isSearchEnabled, int rowsPerPage, string? title, Action<TEntity>? onRowClick = null)
         {
             Columns = columns;
             IsSearchEnabled = isSearchEnabled;
             RowsPerPage = rowsPerPage;
             Title = title;
+
+            if(onRowClick == null)
+            {
+                OnRowClick = (e) => Columns
+                    .OfType<InspectColumn<TEntity>>()
+                    .FirstOrDefault()?
+                    .OnClick(e);
+            }
+            else
+            {
+                OnRowClick = onRowClick;
+            }
 
             TextColumn<TEntity>[] textColumns = Columns
                 .OfType<TextColumn<TEntity>>()

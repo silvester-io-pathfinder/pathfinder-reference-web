@@ -7,7 +7,8 @@
 @typeparam TSortInput
 
 <div>
-    <MudTable T="TEntity" RowsPerPage="@Model.RowsPerPage" ServerData="@GetServerData" Dense="true" Hover="true" @ref="Instance" Elevation="0">
+    <MudTable T="TEntity" RowsPerPage="@Model.RowsPerPage" ServerData="@GetServerData" RowClass="graphql-table-row"
+              Dense="true"  Striped="true" Hover="@Model.IsInspectable" @ref="Instance" Elevation="0" OnRowClick="@((e) => Model.OnRowClick(e.Item))">
 
         <ToolBarContent>
             <div style="display:flex; flex-direction: column; width: 100%;">
@@ -68,6 +69,8 @@
     private bool IsLoading { get; set; }
 
     private bool IsEmpty { get; set; }
+
+    public bool Inspectable { get; set; }
 
     public MudTable<TEntity>? Instance { get; set; }
 
