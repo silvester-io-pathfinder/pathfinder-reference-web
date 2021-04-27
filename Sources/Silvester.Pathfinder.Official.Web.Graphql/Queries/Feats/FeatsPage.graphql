@@ -4,7 +4,7 @@
 	level,
 	canBeLearnedMoreThanOnce,
 	details {
-		... FeatsPage_Details
+		... TextBlock
 	},
 	actionType {
 		... FeatsPage_ActionType
@@ -20,8 +20,4 @@ fragment FeatsPage_ActionType on ActionType {
 
 fragment FeatsPage_FeatType on FeatType {
 	name
-}
-
-fragment FeatsPage_Details on FeatDetailsBlock {
-    text
 }

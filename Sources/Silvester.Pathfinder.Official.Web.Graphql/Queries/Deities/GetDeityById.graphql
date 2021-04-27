@@ -13,10 +13,8 @@
 				name
 			},
 			followerAlignments {
-				alignment {
-					id,
-					name
-				}
+				id,
+				name
 			},
 			divineFonts {
 				id,

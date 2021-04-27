@@ -16,6 +16,8 @@ fragment MagicTraditionById on MagicTradition {
 fragment MagicTraditionById_Spell on Spell {
 	id,
 	name,
-	description,
-	level
+	level,
+	details {
+		... TextBlock
+	}
 }

@@ -14,7 +14,7 @@
             .AddTextColumn(e => e.Name, "Name", nameof(IPlanesPage.Name), true)
             .AddTextColumn(e => e.Category.Name, "Category", nameof(IPlanesPage.Category) + "." + nameof(IPlanesPage_Category.Name))
             .AddTextColumn(e => e.Alignment.Name, "Alignment", nameof(IPlanesPage.Alignment) + "." + nameof(IPlanesPage_Alignment.Name))
-            .AddTextColumn(e => e.Description, "Description", nameof(IPlanesPage.Description))
+            .AddTextColumn(e => e.Details.First(e => e.Order == 0).Text, "Description", nameof(IPlanesPage.Details) + "." + nameof(ITextBlock.Text))
             .AddInspectColumn(NavigationManager, e => $"planes/{e.Id}");
     }
 }

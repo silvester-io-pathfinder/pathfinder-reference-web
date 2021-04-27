@@ -61,7 +61,7 @@
                     <Chips>
                         @foreach (var followerAlignment in context.FollowerAlignments)
                         {
-                            <TraitChip OnClick="@(() => OnAlignmentClick(followerAlignment.Alignment.Id))" Text="@followerAlignment.Alignment.Name" />
+                            <TraitChip OnClick="@(() => OnAlignmentClick(followerAlignment.Id))" Text="@followerAlignment.Name" />
                         }
                     </Chips>
                 </PreferenceItemChips>

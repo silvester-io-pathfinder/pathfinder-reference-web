@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Silvester.Pathfinder.Official.Web.Components.Tables.Instances.RaceRarities.Providers
 {
-    public class RaceRarityPageProvider : GraphqlPageProvider<IRaceRaritiesPage, RaceRaritySortInput>
+    public class RaceRarityPageProvider : GraphqlPageProvider<IRaritiesPage, RaritySortInput>
     {
         public RaceRarityPageProvider(IPathfinderOfficialApi api)
             : base(api)
@@ -17,20 +17,20 @@ namespace Silvester.Pathfinder.Official.Web.Components.Tables.Instances.RaceRari
 
         }
 
-        public override async Task<TableData<IRaceRaritiesPage>> GetPage(RaceRaritySortInput[] sortInputs, TableState state, string searchTerm)
+        public override async Task<TableData<IRaritiesPage>> GetPage(RaritySortInput[] sortInputs, TableState state, string searchTerm)
         {
-            IOperationResult<IGetRaceRaritiesPageResult> result = await PathfinderOfficialApi.GetRaceRaritiesPage
+            IOperationResult<IGetRaritiesPageResult> result = await PathfinderOfficialApi.GetRaritiesPage
                      .ExecuteAsync(state.Page * state.PageSize, state.PageSize, searchTerm, sortInputs);
 
-            if (result?.Data?.RaceRarities == null)
+            if (result?.Data?.Rarities == null)
             {
                 return EmptyPage();
             }
 
-            TableData<IRaceRaritiesPage> page = new TableData<IRaceRaritiesPage>()
+            TableData<IRaritiesPage> page = new TableData<IRaritiesPage>()
             {
-                TotalItems = result.Data!.RaceRarities!.TotalCount,
-                Items = result.Data!.RaceRarities!.Items!
+                TotalItems = result.Data!.Rarities!.TotalCount,
+                Items = result.Data!.Rarities!.Items!
             };
 
             return page;

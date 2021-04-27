@@ -17,11 +17,8 @@
         <PreferenceCategory>
             @for (int i = 0; i < Spell.Heightenings.Count; i++)
             {
-                <PreferenceItemText Title="@("Heightened (" + Spell.Heightenings[i].Level  + "):")" Text="@Spell.Heightenings[i].Description" />
-                @foreach (var details in Spell.Heightenings[i].Details)
-                {
-                    <PreferenceItemText Text="@details.Text" />
-                }
+                <PreferenceItemText Title="@("Heightened (" + Spell.Heightenings[i].Level  + ")")" />
+                <PreferenceItemTextBlocks TextBlocks="@Spell.Heightenings[i].Details" />
 
                 if (i != Spell.Heightenings.Count - 1)
                 {

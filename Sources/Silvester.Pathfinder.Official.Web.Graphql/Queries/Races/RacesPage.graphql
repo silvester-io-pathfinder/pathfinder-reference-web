@@ -12,7 +12,7 @@
 	}
 }
 
-fragment RacesPage_Rarity on RaceRarity {
+fragment RacesPage_Rarity on Rarity {
 	name
 }
 

@@ -1,5 +1,7 @@
 ﻿fragment TraitsPage on Trait {
 	id,
 	name,
-	description
+	details {
+		... TextBlock
+	}
 }

@@ -17,7 +17,7 @@
             .AddTextColumn(e => e.Level.ToString(), "Level", nameof(ISpellsPage.Level))
             .AddTextColumn(e => e.SpellType.Name, "Type", nameof(ISpellsPage.SpellType) + "." + nameof(ISpellsPage_SpellType.Name))
             .AddTextColumn(e => e.SavingThrowStat?.Name, "Saving Throw", nameof(ISpellsPage.SavingThrowStat) + "." + nameof(ISpellsPage_SavingThrowStat.Name))
-            .AddTextColumn(e => e.Description, "Description", nameof(ISpellsPage.Description))
+            .AddTextColumn(e => e.Details.First(e => e.Order == 0).Text, "Description", nameof(ISpellsPage.Details) + "." + nameof(ITextBlock.Text))
             .AddInspectColumn(NavigationManager, e => $"spells/{e.Id}");
     }
 }

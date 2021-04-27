@@ -24,7 +24,9 @@ fragment AlignmentById_Plane on Plane
 {
 	id,
 	name,
-	description,
+	details {
+		... TextBlock
+	},
 	category {
 		... AlignmentById_Plane_Category
 	}

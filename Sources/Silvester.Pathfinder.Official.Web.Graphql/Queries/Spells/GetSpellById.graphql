@@ -12,9 +12,8 @@
 				name,
 				description
 			},
-			additionalDetails {
-				id,
-				text
+			details {
+				... TextBlock
 			},
 			components {
 				id,
@@ -29,10 +28,8 @@
 			{
 				id,
 				level,
-				description,
 				details {
-					id,
-					text	
+					... TextBlock
 				}
 			},
 			triggers {
@@ -52,7 +49,6 @@
 fragment SpellById on Spell {
 	id,
 	name,
-	description,
 	range,
 	castTime,
 	level,

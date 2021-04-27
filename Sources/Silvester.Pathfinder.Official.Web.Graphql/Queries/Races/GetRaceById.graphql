@@ -24,7 +24,7 @@ fragment RaceById on Race {
 		... RaceById_Language
 	},
 	raceTraits {
-		... RaceById_RaceTrait
+		... RaceById_Trait
 	},
 	heritages {
 		... RaceById_Heritage
@@ -44,7 +44,7 @@ fragment RaceById_Language_Type on LanguageType {
 	name
 }
 
-fragment RaceById_RaceTrait on RaceTrait {
+fragment RaceById_Trait on Trait {
 	id,
 	name
 }
@@ -58,7 +58,7 @@ fragment RaceById_Heritage on Heritage {
 	}
 }
 
-fragment RaceById_Heritage_Rarity on HeritageRarity {
+fragment RaceById_Heritage_Rarity on Rarity {
 	id, 
 	name
 }

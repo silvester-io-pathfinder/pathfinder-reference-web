@@ -29,15 +29,15 @@
     [Parameter]
     public Guid RaceRarityId { get; set; }
 
-    private IRaceRarityById? RaceRarity { get; set; }
+    private IRarityById? RaceRarity { get; set; }
 
     private IDisposable? StoreSession { get; set; }
 
     protected override void OnInitialized()
     {
-        StoreSession = PathfinderOfficialApi.GetRaceRarityById
+        StoreSession = PathfinderOfficialApi.GetRarityById
             .Watch(RaceRarityId, StrawberryShake.ExecutionStrategy.NetworkOnly)
-            .Select(e => e.Data?.RaceRarities?.Items?.FirstOrDefault())
+            .Select(e => e.Data?.Rarities?.Items?.FirstOrDefault())
             .Subscribe(rarity =>
             {
                 RaceRarity = rarity;

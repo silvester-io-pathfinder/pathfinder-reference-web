@@ -12,7 +12,7 @@
     {
         builder
             .AddTextColumn(e => e.Name, "Name", nameof(IDeitiesPage.Name), true)
-            .AddTextColumn(e => e.Description, "Description", nameof(IPlanesPage.Description))
+            .AddTextColumn(e => e.Description, "Description", nameof(IPlanesPage.Details) + "." + nameof(ITextBlock.Text))
             .AddInspectColumn(NavigationManager, e => $"deity-categories/{e.Id}");
     }
 }

@@ -16,6 +16,8 @@ fragment MagicSchoolById on MagicSchool {
 fragment MagicSchoolById_Spell on Spell {
 	id,
 	name,
-	description,
-	level
+	level,
+	details {
+		... TextBlock
+	}
 }

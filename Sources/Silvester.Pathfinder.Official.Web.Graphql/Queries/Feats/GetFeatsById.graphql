@@ -34,5 +34,7 @@ fragment FeatById_RollableEffect on RollableEffect {
 fragment FeatById_Trait on Trait {
 	id,
 	name, 
-	description
+	details {
+		... TextBlock
+	}
 }

@@ -1,0 +1,5 @@
+﻿fragment TextBlock on TextBlock {
+	order,
+	type,
+	text
+}

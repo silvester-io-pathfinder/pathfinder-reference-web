@@ -9,7 +9,9 @@
 fragment TraitById on Trait {
 	id,
 	name,
-	description,
+	details {
+		... TextBlock
+	},
 	feats {
 		... TraitById_Feat
 	},
@@ -22,9 +24,9 @@ fragment TraitById_Feat on Feat {
 	id,
 	name,
 	level,
-	canBeLearnedMoreThanOnce
+	canBeLearnedMoreThanOnce,
 	details {
-		... TraitById_Feat_Details
+		... TextBlock
 	},
 	actionType {
 		... TraitById_Feat_ActionType
@@ -42,15 +44,13 @@ fragment TraitById_Feat_FeatType on FeatType {
 	name
 }
 
-fragment TraitById_Feat_Details on FeatDetailsBlock {
-    text
-}
-
 fragment TraitById_Spell on Spell {
 	id,
 	name,
 	level,
-	description
+	details {
+		... TextBlock
+	},
 	magicSchool {
 		... TraitById_Spell_MagicSchool
 	},

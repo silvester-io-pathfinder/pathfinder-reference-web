@@ -15,7 +15,7 @@
             .AddTextColumn(e => e.Name, "Name", nameof(IFeatsPage.Name), true)
             .AddTextColumn(e => e.Level.ToString(), "Level", nameof(IFeatsPage.Name))
             .AddTextColumn(e => e.FeatType.Name, "Type", nameof(IFeatsPage.FeatType) + "." + nameof(IFeatsPage_FeatType.Name))
-            .AddTextColumn(e => e.Details.FirstOrDefault()?.Text, "Description", nameof(IFeatsPage.Details) + "." + nameof(IFeatsPage_Details.Text))
+            .AddTextColumn(e => e.Details.First(e => e.Order == 0).Text, "Description", nameof(IFeatsPage.Details) + "." + nameof(ITextBlock.Text))
             .AddInspectColumn(NavigationManager, e => $"feats/{e.Id}");
     }
 }

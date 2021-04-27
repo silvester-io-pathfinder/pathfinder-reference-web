@@ -6,7 +6,7 @@
 		where: {
 			or: [
 				{name: {contains: $searchTerm}}, 
-				{description: {contains: $searchTerm}}
+				{details: {some: {text: {contains: $searchTerm}}}}
 			]
 		}) 
 	{

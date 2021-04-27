@@ -1,7 +1,9 @@
 ﻿fragment PlanesPage on Plane {
 	id,
 	name,
-	description,
+	details {
+		... TextBlock
+	},
 	category {
 		... PlanesPage_Category
 	},

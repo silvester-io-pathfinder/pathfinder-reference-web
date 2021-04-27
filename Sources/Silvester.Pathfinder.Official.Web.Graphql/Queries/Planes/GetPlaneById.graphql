@@ -3,7 +3,9 @@
 		items {
 			id,
 			name,
-			description,
+			details {
+				... TextBlock
+			},
 			category {
 				id, 
 				name,
@@ -16,7 +18,9 @@
 			traits {
 				id
 				name,
-				description
+				details {
+					... TextBlock
+				}
 			}
 		}
 	}

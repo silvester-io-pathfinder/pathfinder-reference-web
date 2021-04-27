@@ -9,8 +9,10 @@
 				name, 
 				alignment {
 					name
+				},
+				details {
+					... TextBlock
 				}
-				description
 			}
 		}
 	}

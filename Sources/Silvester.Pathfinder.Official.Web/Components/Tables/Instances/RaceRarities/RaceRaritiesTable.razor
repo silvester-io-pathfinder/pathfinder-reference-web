@@ -3,15 +3,15 @@
 @using Silvester.Pathfinder.Official.Web.Graphql
 @using Silvester.Pathfinder.Official.Web.Services
 
-@inherits AbstractTable<IRaceRaritiesPage, RaceRaritySortInput>
+@inherits AbstractTable<IRaritiesPage, RaritySortInput>
 
 @Table
 
 @code {
-    protected override void CreateModel(TableBuilder<IRaceRaritiesPage> builder)
+    protected override void CreateModel(TableBuilder<IRaritiesPage> builder)
     {
         builder
-            .AddTextColumn(e => e.Name, "Name", nameof(IRaceRaritiesPage.Name), true)
+            .AddTextColumn(e => e.Name, "Name", nameof(IRaritiesPage.Name), true)
             .AddInspectColumn(NavigationManager, e => $"race-rarities/{e.Id}");
     }
 }

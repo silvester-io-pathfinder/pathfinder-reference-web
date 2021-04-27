@@ -51,11 +51,7 @@
         </LeftContent>
         <RightContent>
             <PreferenceCategory Title="Description">
-                <PreferenceItemText Text="@context.Description" />
-                @foreach (var additional in context.AdditionalDetails)
-                {
-                    <PreferenceItemText Text="@additional.Text" />
-                }
+                <PreferenceItemTextBlocks TextBlocks="@context.Details" />
             </PreferenceCategory>
 
             <PreferenceCategory Title="Perks">

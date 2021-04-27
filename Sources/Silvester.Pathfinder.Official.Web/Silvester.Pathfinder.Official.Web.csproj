@@ -34,6 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Components\Texts\" />
     <Folder Include="Utilities\" />
   </ItemGroup>
 

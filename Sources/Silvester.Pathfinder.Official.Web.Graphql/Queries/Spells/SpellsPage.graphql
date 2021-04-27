@@ -2,7 +2,9 @@
 	id,
 	name,
 	level,
-	description,
+	details {
+		... TextBlock
+	},
 	spellType {
 		... SpellsPage_SpellType	
 	}

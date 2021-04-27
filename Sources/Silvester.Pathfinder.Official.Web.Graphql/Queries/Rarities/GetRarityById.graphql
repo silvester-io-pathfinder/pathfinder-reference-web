@@ -1,0 +1,21 @@
+﻿query GetRarityById($id: Uuid!) {
+	rarities(where: {id: {eq: $id}}) {
+		items {
+			... RarityById
+		}
+	}
+}
+
+fragment RarityById on Rarity {
+	id,
+	name,
+	races {
+		... RarityById_Race
+	}
+}
+
+fragment RarityById_Race on Race {
+	id, 
+	name,
+	description
+}

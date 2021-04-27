@@ -7,6 +7,6 @@
 	}
 }
 
-fragment HeritagesPage_Rarity on HeritageRarity {
+fragment HeritagesPage_Rarity on Rarity {
 	name
 }
