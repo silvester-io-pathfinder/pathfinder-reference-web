@@ -13,6 +13,6 @@
         builder
             .AddTextColumn(e => e.Name, "Name", nameof(ILanguagesPage.Name), true)
             .AddTextColumn(e => e.Type.Name, "Type", nameof(ILanguagesPage.Type) + "." + nameof(ILanguagesPage_Type.Name))
-            .AddInspectColumn(NavigationManager, e => $"language-types/{e.Id}");
+            .AddInspectColumn(NavigationManager, e => $"languages/{e.Id}");
     }
 }
