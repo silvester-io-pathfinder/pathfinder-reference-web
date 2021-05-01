@@ -1,0 +1,30 @@
+﻿@if (HideBelow.HasValue)
+{
+    <MudHidden Breakpoint="@HideBelow.Value" Invert="@Invert">
+        @ChildContent
+    </MudHidden>
+    @if (ContentWhenHidden != null)
+    {
+        <MudHidden Breakpoint="@HideBelow.Value" Invert="@(!Invert)">
+            @ContentWhenHidden
+        </MudHidden>
+    }
+}
+else
+{
+    @ChildContent
+}
+
+@code {
+    [Parameter]
+    public bool Invert { get; set; } = false;
+
+    [Parameter]
+    public Breakpoint? HideBelow { get; set; }
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; } = default!;
+
+    [Parameter]
+    public RenderFragment? ContentWhenHidden { get; set; }
+}

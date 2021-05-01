@@ -12,7 +12,7 @@
     {
         builder
             .AddTextColumn(e => e.Name, "Name", nameof(ITraitsPage.Name), true)
-            .AddTextColumn(e => e.Details.First(e => e.Order == 0).Text, "Description", nameof(ITraitsPage.Details) + "." + nameof(ITextBlock.Text))
+            .AddTextColumn(e => e.Details.First(e => e.Order == 0).Text, "Description", nameof(ITraitsPage.Details) + "." + nameof(ITextBlock.Text), hideBelow: Breakpoint.Xs)
             .AddInspectColumn(NavigationManager, e => $"traits/{e.Id}");
     }
 }

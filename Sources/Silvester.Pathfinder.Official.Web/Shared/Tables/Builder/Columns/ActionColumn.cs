@@ -17,6 +17,8 @@ namespace Silvester.Pathfinder.Official.Web.Shared.Tables.Builder.Columns
         public string Tooltip { get; }
 
         public Size Size { get; }
+        
+        public Breakpoint? HideBelow { get; set; }
 
         public ActionColumn(Action<TEntity> onClick, string name, string icon, string tooltip, Size size)
         {

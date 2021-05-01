@@ -5,6 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using MudBlazor;
 using Microsoft.AspNetCore.Components;
+using MudBlazor.Services;
+using Silvester.Pathfinder.Official.Web.Services;
 
 namespace Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
 {
@@ -30,9 +32,9 @@ namespace Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
             return Add(new IconColumn<TEntity>(name, sortLabel, svgFunc));
         }
 
-        public TableBuilder<TEntity> AddTextColumn(Func<TEntity, string?> valueFunc, string name, string sortLabel, bool isBold = false)
+        public TableBuilder<TEntity> AddTextColumn(Func<TEntity, string?> valueFunc, string name, string sortLabel, bool isBold = false, Breakpoint? hideBelow = null)
         {
-            return Add(new TextColumn<TEntity>(name, sortLabel, isBold, valueFunc));
+            return Add(new TextColumn<TEntity>(name, sortLabel, isBold, hideBelow, valueFunc));
         }
 
         public TableBuilder<TEntity> AddActionColumn(Action<TEntity> onClick, string name, string tooltip, string icon, Size size = Size.Small)
@@ -89,28 +91,25 @@ namespace Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
             {
                 OnRowClick = onRowClick;
             }
-
-            TextColumn<TEntity>[] textColumns = Columns
-                .OfType<TextColumn<TEntity>>()
-                .ToArray();
-
-            for (int i = 0; i < textColumns.Length; i ++)
-            {
-                textColumns[i].IsLastTextColumn = i == textColumns.Length - 1;
-            }
         }
 
-        public bool IsLastTextColumn(TextColumn<TEntity> textColumn)
+        public bool IsLastVisibleTextColumn(TextColumn<TEntity> textColumn, BrowserWindowSize size, IBreakpointService breakpointService)
         {
-            for (int i = Columns.IndexOf(textColumn) + 1; i < Columns.Count; i++)
+            return GetLastVisibleTextColumn(breakpointService.GetBreakpoint(size.Width)) == textColumn;
+        }
+
+        public TextColumn<TEntity>? GetLastVisibleTextColumn(Breakpoint currentBreakpoint)
+        {
+            for(int i = Columns.Count - 1; i >= 0; i --)
             {
-                if (Columns.ElementAt(i) is TextColumn<TEntity>)
+                ITableColumn<TEntity> current = Columns.ElementAt(i);
+                if (current is TextColumn<TEntity> textColumn && (textColumn.HideBelow == null || currentBreakpoint > textColumn.HideBelow.Value))
                 {
-                    return false;
+                    return textColumn;
                 }
             }
 
-            return true;
+            return null;
         }
     }
 }

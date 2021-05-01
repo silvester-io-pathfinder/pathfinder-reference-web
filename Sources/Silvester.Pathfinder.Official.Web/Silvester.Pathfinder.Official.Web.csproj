@@ -7,6 +7,14 @@
   <Import Project="../Properties.proj" />
 
   <ItemGroup>
+    <None Remove="Shared\Footers\IconFooterItem.razor.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Shared\Footers\IconFooterItem.razor.css" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="wwwroot\css\main.css" />
   </ItemGroup>
 
@@ -17,8 +25,8 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.0" PrivateAssets="all" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0" />
-    <PackageReference Include="MudBlazor" Version="5.0.5" />
-    <PackageReference Include="Silvester.Pathfinder.Official.Icons" Version="1.0.6" />
+    <PackageReference Include="MudBlazor" Version="5.0.8" />
+    <PackageReference Include="Silvester.Pathfinder.Official.Icons" Version="1.0.9" />
     <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
     <PackageReference Include="System.Reactive" Version="5.0.0" />
   </ItemGroup>
@@ -34,7 +42,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Components\Texts\" />
     <Folder Include="Utilities\" />
   </ItemGroup>
 

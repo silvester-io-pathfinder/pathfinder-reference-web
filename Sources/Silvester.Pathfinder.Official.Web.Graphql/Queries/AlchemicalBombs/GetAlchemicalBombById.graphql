@@ -1,0 +1,49 @@
+﻿query GetAlchemicalBombById($id: Uuid!) {
+	alchemicalBombs(where: {id: {eq: $id}}) {
+		items {
+			... AlchemicalBombById
+		}
+	}
+}
+
+fragment AlchemicalBombById on AlchemicalBomb {
+	name,
+	usage,
+	itemBonus,
+	bulk {
+		... Bulk
+	},
+	action {
+		name,
+		actionType {
+			name
+		}
+	},
+	sourcePage {
+		... SourcePage
+	},
+	traits {
+		... AlchemicalBombById_Trait
+	},
+	details {
+		... TextBlock
+	},
+	potencies {
+		... AlchemicalBombById_Potency 
+	}
+}
+
+fragment AlchemicalBombById_Potency on AlchemicalBombPotencyBinding {
+	level,
+	price,
+	benefits,
+	potionPotency {
+		name,
+		order
+	}
+}
+
+fragment AlchemicalBombById_Trait on Trait {
+	id,
+	name
+}

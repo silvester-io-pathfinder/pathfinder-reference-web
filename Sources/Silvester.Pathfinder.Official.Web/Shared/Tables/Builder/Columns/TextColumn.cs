@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MudBlazor;
+using System;
 
 namespace Silvester.Pathfinder.Official.Web.Shared.Tables.Builder.Columns
 {
@@ -8,19 +9,21 @@ namespace Silvester.Pathfinder.Official.Web.Shared.Tables.Builder.Columns
 
         public Func<TEntity, string?> ValueFunc { get; }
 
-        public string SortLabel {get;}
+        public string SortLabel { get; }
 
         public bool IsBold { get; }
 
-        public bool IsLastTextColumn { get; set; }
+        public Func<bool> IsLastVisibleTextColumn { get; set; } = default!;
 
-        public TextColumn(string name, string sortLabel, bool isBold, Func<TEntity, string?> valueFunc)
+        public Breakpoint? HideBelow { get; set; }
+
+        public TextColumn(string name, string sortLabel, bool isBold, Breakpoint? hideBelow, Func<TEntity, string?> valueFunc)
         {
             Name = name;
             SortLabel = sortLabel;
             IsBold = isBold;
+            HideBelow = hideBelow;
             ValueFunc = valueFunc;
-            IsLastTextColumn = false;
         }
     }
 }

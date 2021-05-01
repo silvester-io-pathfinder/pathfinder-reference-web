@@ -1,0 +1,48 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
+@using Silvester.Pathfinder.Official.Web.Components.Cards;
+
+@inherits BaseDetailPage
+@page "/alchemical-bombs/{alchemicalBombId:guid}"
+@implements IDisposable
+
+<div>
+    <PageLayout>
+        @if (Bomb != null)
+        {
+            <MudPaper Style="margin: 20px">
+                <AlchemicalBombDetailsCard AlchemicalBomb="@Bomb" />
+            </MudPaper>
+
+            <AlchemicalBombPotenciesCard AlchemicalBomb="@Bomb" />
+        }
+    </PageLayout>
+</div>
+
+@code {
+    protected override string Title => "Alchemical Bombs";
+    protected override string? Subtitle => Bomb?.Name;
+
+    [Parameter]
+    public Guid AlchemicalBombId { get; set; }
+
+    private IAlchemicalBombById? Bomb { get; set; }
+
+    private IDisposable? StoreSession { get; set; }
+
+    protected override void OnInitialized()
+    {
+        StoreSession = PathfinderOfficialApi.GetAlchemicalBombById
+            .Watch(AlchemicalBombId)
+            .Select(e => e.Data?.AlchemicalBombs?.Items?.FirstOrDefault())
+            .Subscribe(bomb =>
+            {
+                Bomb = bomb;
+                StateHasChanged();
+            });
+    }
+
+    public void Dispose()
+    {
+        StoreSession?.Dispose();
+    }
+}

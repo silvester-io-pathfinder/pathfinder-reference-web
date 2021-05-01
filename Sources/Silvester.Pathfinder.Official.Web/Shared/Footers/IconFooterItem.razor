@@ -1,0 +1,17 @@
+﻿<MudTooltip Text="@Tooltip">
+    <div class="spacer" style="display:flex; flex-direction:row; margin-right: 15px">
+        <div style="align-self:center; height: 12px; color: #AAAAAA;">@((MarkupString) Icon)</div>
+        <p style="font-size: 12px; margin-top: 3px; margin-left: 5px; color: #AAAAAA;">@Text</p>
+    </div>
+</MudTooltip>
+
+@code {  
+    [Parameter]
+    public MarkupString Icon { get; set; } = default!;
+
+    [Parameter]
+    public string Text { get; set; } = default!;
+
+    [Parameter]
+    public string Tooltip { get; set; } = default!;
+}

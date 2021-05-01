@@ -1,0 +1,21 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+@using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
+@using Silvester.Pathfinder.Official.Web.Graphql
+@using Silvester.Pathfinder.Official.Web.Services
+
+@inherits AbstractTable<IAlchemicalBombsPage, AlchemicalBombSortInput>
+
+@Table
+
+@code {
+    protected override void CreateModel(TableBuilder<IAlchemicalBombsPage> builder)
+    {
+        builder
+            .AddIconColumn(e => ActionTypeService.GetActionTypeIcon(e.Action.ActionType.Name), "Action", nameof(IAlchemicalBombsPage.Action) + "." + nameof(IAlchemicalBomb_Action.Name) + "." + nameof(IAlchemicalBomb_Action_ActionType.Name))
+            .AddTextColumn(e => e.Name, "Name", nameof(IAlchemicalBombsPage.Name), true)
+            .AddTextColumn(e => e.Bulk.Name, "Bulk", nameof(IAlchemicalBombsPage.Bulk) + "." + nameof(IBulk.Name))
+            .AddTextColumn(e => e.SourcePage.Source.Name, "Source", nameof(IAlchemicalBombsPage.SourcePage) + "." + nameof(IAlchemicalBomb_SourcePage.Source) + "." + nameof(IAlchemicalBomb_SourcePage_Source.Name))
+            .AddTextColumn(e => e.Details.First(e => e.Order == 0).Text, "Description", nameof(IAlchemicalBombsPage.Details) + "." + nameof(ITextBlock.Text), hideBelow: Breakpoint.Xs)
+            .AddInspectColumn(NavigationManager, e => $"alchemical-bombs/{e.Id}");
+    }
+}

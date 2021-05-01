@@ -1213,6 +1213,7 @@ input AlchemicalBombPotencyBindingFilterInput {
 
 input PotencySortInput {
   name: SortEnumType
+  order: SortEnumType
   id: SortEnumType
 }
 
@@ -1220,6 +1221,7 @@ input PotencyFilterInput {
   and: [PotencyFilterInput!]
   or: [PotencyFilterInput!]
   name: StringOperationFilterInput
+  order: ComparableInt32OperationFilterInput
   alchemicalBombs: ListFilterInputTypeOfAlchemicalBombPotencyBindingFilterInput
   alchemicalTools: ListFilterInputTypeOfAlchemicalToolPotencyBindingFilterInput
   id: ComparableGuidOperationFilterInput
@@ -3798,6 +3800,7 @@ type Plane {
 
 type Potency {
   name: String!
+  order: Int!
   alchemicalBombs(order: [AlchemicalBombPotencyBindingSortInput!] where: AlchemicalBombPotencyBindingFilterInput): [AlchemicalBombPotencyBinding!]!
   alchemicalTools(order: [AlchemicalToolPotencyBindingSortInput!] where: AlchemicalToolPotencyBindingFilterInput): [AlchemicalToolPotencyBinding!]!
   id: Uuid!

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MudBlazor;
+using System;
 
 namespace Silvester.Pathfinder.Official.Web.Shared.Tables.Builder.Columns
 {
@@ -9,6 +10,8 @@ namespace Silvester.Pathfinder.Official.Web.Shared.Tables.Builder.Columns
         public string Name { get; }
 
         public string SortLabel { get; }
+
+        public Breakpoint? HideBelow { get; set; }
 
         public IconColumn(string name, string sortLabel, Func<TEntity, string> svgFunc)
         {

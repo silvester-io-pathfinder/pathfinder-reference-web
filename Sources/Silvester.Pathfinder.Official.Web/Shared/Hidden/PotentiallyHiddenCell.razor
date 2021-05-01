@@ -1,0 +1,21 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
+@using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder.Columns
+
+@typeparam TEntity
+
+<PotentiallyHidden HideBelow="@Column.HideBelow">
+    <ContentWhenHidden>
+        <MudTd Style="padding: 0px;" />
+    </ContentWhenHidden>
+    <ChildContent>
+        @ChildContent
+    </ChildContent>
+</PotentiallyHidden>
+
+@code {
+    [Parameter]
+    public ITableColumn<TEntity> Column { get; set; } = default!;
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; } = default!;
+}

@@ -1,31 +1,55 @@
 ﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
 @using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
 @using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder.Columns
+@using Microsoft.AspNetCore.Components.Web;
+@using Silvester.Pathfinder.Official.Web.Shared.Hidden;
+@using MudBlazor.Services
+@using Silvester.Pathfinder.Official.Web.Services;
 
 @typeparam TEntity;
+@implements IDisposable;
 
-@{
+@if(BrowserWindowSize != null)
+{
     switch (Column)
     {
-        case IconColumn<TEntity> icon:
-            <MudTd><div style="vertical-align: middle; height: 24px;">@((MarkupString) icon.SvgFunc(Entity))</div></MudTd>
-            break;
         case TextColumn<TEntity> text:
-            @if (text.IsLastTextColumn)
+            if (Model.IsLastVisibleTextColumn(text, BrowserWindowSize, BreakpointService))
             {
-                <MudTdEllipsized Style="@GetStyle(text)" Text="@text.ValueFunc(Entity)"></MudTdEllipsized>
+                <PotentiallyHiddenCell Column="@Column">
+                    <MudTd Style="@("position: relative; width: 100vw;")" DataLabel="@text.Name">
+                        <div style="text-overflow: ellipsis; white-space: nowrap; position: absolute; overflow: hidden; width: 100%; transform: translateY(-50%); padding-right: 36px;">
+                            @text.ValueFunc(Entity)
+                        </div>
+                    </MudTd>
+                </PotentiallyHiddenCell>
             }
             else
             {
-                <MudTd Style="@GetStyle(text)">@text.ValueFunc(Entity)</MudTd>
+                <PotentiallyHiddenCell Column="@Column">
+                    <MudTd Class="pf-table-cell" DataLabel="@text.Name">
+                        @text.ValueFunc(Entity)
+                    </MudTd>
+                </PotentiallyHiddenCell>
             }
             break;
+
+        case IconColumn<TEntity> icon:
+            <PotentiallyHiddenCell Column="@Column">
+                <MudTd Class="pf-table-cell" DataLabel="@icon.Name">
+                    <div style="vertical-align: middle; height: 24px; width: 24px;">@((MarkupString)icon.SvgFunc(Entity))</div>
+                </MudTd>
+            </PotentiallyHiddenCell>
+            break;
+
         case ActionColumn<TEntity> action:
-            <MudTh>
-                <MudTooltip Text="@action.Tooltip">
-                    <MudIconButton Size="@action.Size" OnClick="@(() => action.OnClick(Entity))" Icon="@Icons.Material.Outlined.ArrowForward" />
-                </MudTooltip>
-            </MudTh>
+            <PotentiallyHiddenCell Column="@Column">
+                <MudTd Class="pf-table-cell" DataLabel="@action.Name">
+                    <MudTooltip Text="@action.Tooltip">
+                        <MudIconButton Size="@action.Size" OnClick="((e) => action.OnClick.Invoke(Entity))" Icon="@Icons.Material.Outlined.ArrowForward" />
+                    </MudTooltip>
+                </MudTd>
+            </PotentiallyHiddenCell>
             break;
     }
 }
@@ -35,12 +59,52 @@
     public ITableColumn<TEntity> Column { get; set; } = default!;
 
     [Parameter]
+    public TableModel<TEntity> Model { get; set; } = default!;
+
+    [Parameter]
     public TEntity Entity { get; set; } = default!;
 
-    private string GetStyle(TextColumn<TEntity> column)
+    [Inject]
+    public IResizeListenerService ResizeListener { get; set; } = default!;
+
+    [Inject]
+    public IBreakpointService BreakpointService { get; set; } = default!;
+
+    private BrowserWindowSize? BrowserWindowSize { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        return column.IsBold
-            ? "font-weight: 500"
-            : "";
+        if (firstRender)
+        {
+            ResizeListener.OnResized += OnResized;
+
+            BrowserWindowSize = await ResizeListener.GetBrowserWindowSize();
+            StateHasChanged();
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    private void OnResized(object? sender, BrowserWindowSize size)
+    {
+        BrowserWindowSize = size;
+        InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        ResizeListener.OnResized -= OnResized;
+    }
+
+    private string GetStyle()
+    {
+        if (Column is TextColumn<TEntity> text)
+        {
+            return text.IsBold
+                ? "font-weight: 500"
+                : "";
+        }
+
+        return "";
     }
 }

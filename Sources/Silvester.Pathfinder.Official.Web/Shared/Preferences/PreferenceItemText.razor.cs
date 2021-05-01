@@ -9,5 +9,8 @@ namespace Silvester.Pathfinder.Official.Web.Shared.Preferences
         
         [Parameter]
         public string Text { get; set; } = default!;
+
+        [Parameter]
+        public string? Icon { get; set; } = default!;
     }
 }

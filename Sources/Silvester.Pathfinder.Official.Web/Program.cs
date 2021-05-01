@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using MudBlazor.Services;
 using Silvester.Pathfinder.Official.Web.Graphql.Generated;
 using Silvester.Pathfinder.Official.Web.Services;
+using Silvester.Pathfinder.Official.Web.Services.Currencies;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -24,6 +25,8 @@ namespace Silvester.Pathfinder.Official.Web
             builder.Services.AddFluxor(options => options.ScanAssemblies(typeof(Program).Assembly));
 
             builder.Services.AddScoped<IClipboardService, ClipboardService>();
+            builder.Services.AddScoped<IBreakpointService, BreakpointService>();
+            builder.Services.AddScoped<ICurrencyService, CurrencyService>();
             builder.Services.AddScoped<IActionTypeService, ActionTypeService>();
             builder.Services.AddScoped(sp => new HttpClient
             {

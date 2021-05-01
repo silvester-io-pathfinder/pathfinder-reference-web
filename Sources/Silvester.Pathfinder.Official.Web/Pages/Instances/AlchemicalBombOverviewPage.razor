@@ -1,0 +1,23 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.AlchemicalBombs;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.AlchemicalBombs.Providers;
+@using Silvester.Pathfinder.Official.Web.Components.Cards;
+
+@page "/alchemical-bombs"
+@inherits BaseOverviewPage
+
+<div>
+    <PageLayout>
+
+        <MudPaper Style="margin: 20px;">
+            <AlchemicalBombsTable Title="Alchemical Bombs" PageProvider="@(new AlchemicalBombPageProvider(PathfinderOfficialApi))" />
+        </MudPaper>
+
+    </PageLayout>
+
+</div>
+
+@code
+{
+    protected override string Title => "Alchemical Bombs";
+}

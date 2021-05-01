@@ -1,0 +1,40 @@
+﻿fragment AlchemicalBombsPage on AlchemicalBomb {
+	id,
+	name,
+	usage,
+	itemBonus,
+	bulk {
+		... Bulk
+	},
+	action {
+		... AlchemicalBomb_Action
+	},
+	sourcePage {
+		... AlchemicalBomb_SourcePage
+	},
+	details {
+		... TextBlock
+	}
+}
+
+fragment AlchemicalBomb_SourcePage on SourcePage {
+	page,
+	source {
+		... AlchemicalBomb_SourcePage_Source
+	}
+}
+
+fragment AlchemicalBomb_SourcePage_Source on Source {
+	name
+}
+
+fragment AlchemicalBomb_Action on Action {
+	name,
+	actionType {
+		... AlchemicalBomb_Action_ActionType
+	}
+}
+
+fragment AlchemicalBomb_Action_ActionType on ActionType {
+	name
+}

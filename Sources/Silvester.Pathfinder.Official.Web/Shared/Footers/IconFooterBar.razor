@@ -1,0 +1,25 @@
+﻿<div style="display:inline-block; flex-direction:row;">
+    @foreach (Item item in Items)
+    {
+        <IconFooterItem Icon="@item.Icon" Text="@item.Text" Tooltip="@item.Tooltip" />
+    }
+</div>
+
+@code {
+    [Parameter]
+    public IEnumerable<Item> Items { get; set; } = default!;
+
+    public class Item
+    {
+        public MarkupString Icon { get; set; }
+        public string Text { get; set; }
+        public string Tooltip { get; set; }
+
+        public Item(MarkupString icon, string text, string tooltip)
+        {
+            Tooltip = tooltip;
+            Icon = icon;
+            Text = text;
+        }
+    }
+}

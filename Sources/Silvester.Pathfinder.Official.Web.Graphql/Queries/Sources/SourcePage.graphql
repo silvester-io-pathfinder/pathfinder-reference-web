@@ -1,0 +1,6 @@
+﻿fragment SourcePage on SourcePage {
+	page,
+	source {
+		name
+	}
+}

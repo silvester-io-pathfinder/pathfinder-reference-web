@@ -1,0 +1,5 @@
+﻿fragment Bulk on Bulk {
+	name,
+	bulkWeight,
+	lightWeight
+}

@@ -6,5 +6,11 @@
             <p class="preference-item-title">@Title</p>
         } 
     }
-    <p class="preference-item-text">@Text</p>
+    <div style="display: flex; flex-direction: row; ">
+        @if(string.IsNullOrWhiteSpace(Icon) == false)
+        {
+            <MudIcon Size="Size.Small" Icon="@Icon" Style="margin-right: 15px;"/>
+        }
+        <p class="preference-item-text">@Text</p>
+    </div>
 </div>

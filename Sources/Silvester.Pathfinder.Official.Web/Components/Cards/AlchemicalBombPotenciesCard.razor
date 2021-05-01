@@ -1,0 +1,64 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Preferences;
+@using Silvester.Pathfinder.Official.Web.Shared.Cards;
+@using Silvester.Pathfinder.Official.Web.Shared.Tables;
+@using Silvester.Pathfinder.Official.Web.Services;
+@using Silvester.Pathfinder.Official.Web.Shared.Chips;
+@using Silvester.Pathfinder.Official.Web.Services.Currencies;
+@using Silvester.Pathfinder.Official.Web.Shared.Footers;
+
+@if (AlchemicalBomb != null)
+{
+<div>
+    @foreach (IAlchemicalBombById_Potency potency in AlchemicalBomb.Potencies.OrderBy(e => e.PotionPotency.Order))
+    {
+    <MudPaper Style="margin:20px;">
+        <CardToolbar>
+            <MudText Typo="@Typo.h6">@potency.PotionPotency.Name</MudText>
+            <MudToolBarSpacer />
+        </CardToolbar>
+        <MudDivider />
+        <PreferenceCategory Title="Description">
+            <PreferenceItemText Text="@potency.Benefits" />
+        </PreferenceCategory>
+        <MudDivider />
+        <PreferenceCategory>
+            <PreferenceItemFooter Items="GetFooterItems(potency)"></PreferenceItemFooter>
+        </PreferenceCategory>
+    </MudPaper>
+    }
+</div>
+
+    <!--
+    <MudExpansionPanels>
+        @foreach (IAlchemicalBombById_Potency potency in AlchemicalBomb.Potencies.OrderBy(e => e.PotionPotency.Order))
+        {
+            <MudExpansionPanel Dense="true" DisableGutters="true" Text="@potency.PotionPotency.Name">
+                <PreferenceCategory Title="Description">
+                    <PreferenceItemText Text="@potency.Benefits" />
+                </PreferenceCategory>
+                <PreferenceCategory Title="Details">
+                    <PreferenceItemText Title="Price" Text="@CurrencyService.Denormalize(potency.Price, Coin.Types.Gold).ToString()" />
+                    <PreferenceItemText Title="Level" Text="@potency.Level.ToString()" />
+                </PreferenceCategory>
+            </MudExpansionPanel>
+        }
+    </MudExpansionPanels>
+        -->
+}
+
+@code {
+    [Parameter]
+    public IAlchemicalBombById AlchemicalBomb { get; set; } = default!;
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; } = default!;
+
+    [Inject]
+    public ICurrencyService CurrencyService { get; set; } = default!;
+
+    public IEnumerable<IconFooterBar.Item> GetFooterItems(IAlchemicalBombById_Potency potency)
+    {
+        yield return new IconFooterBar.Item((MarkupString)Silvester.Pathfinder.Official.Icons.Generated.Slider, potency.Level.ToString(), "Level");
+        yield return new IconFooterBar.Item((MarkupString)Silvester.Pathfinder.Official.Icons.Generated.Coins, CurrencyService.Denormalize(potency.Price, Coin.Types.Gold).ToString(), "Price");
+    }
+}

@@ -1,0 +1,17 @@
+﻿query GetAlchemicalBombsPage($skip: Int!, $take: Int!, $searchTerm: String! = "", $order: [AlchemicalBombSortInput!] = [{name: ASC}]) {
+	alchemicalBombs(
+		skip: $skip, 
+		take: $take, 
+		order: $order,
+		where: {
+			or: [
+				{name: {contains: $searchTerm}}
+			]
+		}) 
+	{
+		totalCount,
+		items {
+			... AlchemicalBombsPage
+		}
+	}
+}

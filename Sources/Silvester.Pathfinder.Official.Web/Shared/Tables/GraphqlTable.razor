@@ -7,8 +7,8 @@
 @typeparam TSortInput
 
 <div>
-    <MudTable T="TEntity" RowsPerPage="@Model.RowsPerPage" ServerData="@GetServerData" RowClass="graphql-table-row"
-              Dense="true"  Striped="true" Hover="@Model.IsInspectable" @ref="Instance" Elevation="0" OnRowClick="@((e) => Model.OnRowClick(e.Item))">
+    <MudTable T="TEntity" RowsPerPage="@Model.RowsPerPage" ServerData="@GetServerData" RowClass="graphql-table-row" Breakpoint="Breakpoint.None"
+              Dense="true" Striped="true" Hover="@Model.IsInspectable" @ref="Instance" Elevation="0" OnRowClick="@((e) => Model.OnRowClick(e.Item))">
 
         <ToolBarContent>
             <div style="display:flex; flex-direction: column; width: 100%;">
@@ -22,7 +22,7 @@
                 @if (Model.IsSearchEnabled)
                 {
                     <div>
-                        <MudTextField T="string" Style="background-color: white; padding: 8px;" ValueChanged="@(text => OnSearch(text))" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0" />
+                        <MudTextField T="string" Style="background-color: white; padding: 8px; width: 100%;" ValueChanged="@(text => OnSearch(text))" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0" />
                     </div>
                 }
             </div>
@@ -30,7 +30,7 @@
         <HeaderContent>
             @foreach (ITableColumn<TEntity> column in Model.Columns)
             {
-                <TableColumn Column="@column"/>
+                <TableColumn Column="@column" />
             }
             @if (IsLoading)
             {
@@ -40,7 +40,7 @@
         <RowTemplate>
             @foreach (ITableColumn<TEntity> column in Model.Columns)
             {
-                <TableRow Column="@column" Entity="context" />
+                <TableRow Column="@column" Model="@Model" Entity="context" />
             }
         </RowTemplate>
 
@@ -51,7 +51,7 @@
             }
             else
             {
-                <MudTablePager />
+                <CustomTablePaginator />
             }
         </PagerContent>
     </MudTable>
