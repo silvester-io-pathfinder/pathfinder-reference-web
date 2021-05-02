@@ -1,0 +1,51 @@
+﻿query GetAlchemicalElixirById($id: Uuid!) {
+	alchemicalElixirs(where: {id: {eq: $id}}) {
+		items {
+			... AlchemicalElixirById
+		}
+	}
+}
+
+fragment AlchemicalElixirById on AlchemicalElixir{
+	name,
+	usage,
+	itemBonus,
+	benefit,
+	drawback,
+	bulk {
+		... Bulk
+	},
+	action {
+		name,
+		actionType {
+			name
+		}
+	},
+	sourcePage {
+		... SourcePage
+	},
+	traits {
+		... AlchemicalElixirById_Trait
+	},
+	details {
+		... TextBlock
+	}	
+	potencies {
+		... AlchemicalElixirById_Potency 
+	}
+}
+
+fragment AlchemicalElixirById_Potency on AlchemicalElixirPotencyBinding {
+	level,
+	price,
+	benefits,
+	potionPotency {
+		name,
+		order
+	}
+}
+
+fragment AlchemicalElixirById_Trait on Trait {
+	id,
+	name
+}

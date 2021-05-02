@@ -7,30 +7,6 @@
   <Import Project="../Properties.proj" />
 
   <ItemGroup>
-    <GraphQL Remove="Queries\AlchemicalPoisons\AlchemicalPoisonsPage.graphql" />
-    <GraphQL Remove="Queries\AlchemicalPoisons\GetAlchemicalPoisonById.graphql" />
-    <GraphQL Remove="Queries\AlchemicalPoisons\GetAlchemicalPoisonsPage.graphql" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="Queries\AlchemicalPoisons\AlchemicalPoisonsPage.graphql" />
-    <None Remove="Queries\AlchemicalPoisons\GetAlchemicalPoisonById.graphql" />
-    <None Remove="Queries\AlchemicalPoisons\GetAlchemicalPoisonsPage.graphql" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <AdditionalFiles Include="Queries\AlchemicalPoisons\AlchemicalPoisonsPage.graphql">
-      <GraphQL>true</GraphQL>
-    </AdditionalFiles>
-    <AdditionalFiles Include="Queries\AlchemicalPoisons\GetAlchemicalPoisonById.graphql">
-      <GraphQL>true</GraphQL>
-    </AdditionalFiles>
-    <AdditionalFiles Include="Queries\AlchemicalPoisons\GetAlchemicalPoisonsPage.graphql">
-      <GraphQL>true</GraphQL>
-    </AdditionalFiles>
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="StrawberryShake.CodeGeneration.CSharp.Analyzers" Version="11.2.2" />
     <PackageReference Include="StrawberryShake.Transport.Http" Version="11.2.2" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />

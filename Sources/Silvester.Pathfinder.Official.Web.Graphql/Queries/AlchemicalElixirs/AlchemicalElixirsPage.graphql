@@ -1,0 +1,26 @@
+﻿fragment AlchemicalElixirsPage on AlchemicalElixir {
+	id,
+	name,
+	usage,
+	itemBonus,
+	bulk {
+		... Bulk
+	},
+	action {
+		... AlchemicalElixirPage_Action
+	},
+	details {
+		... TextBlock
+	}
+}
+
+fragment AlchemicalElixirPage_Action on Action {
+	name,
+	actionType {
+		... AlchemicalElixirPage_Action_ActionType
+	}
+}
+
+fragment AlchemicalElixirPage_Action_ActionType on ActionType {
+	name
+}

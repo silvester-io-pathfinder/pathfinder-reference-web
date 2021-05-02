@@ -1,0 +1,17 @@
+﻿query GetAlchemicalElixirsPage($skip: Int!, $take: Int!, $searchTerm: String! = "", $order: [AlchemicalElixirSortInput!] = [{name: ASC}]) {
+	alchemicalElixirs(
+		skip: $skip, 
+		take: $take, 
+		order: $order,
+		where: {
+			or: [
+				{name: {contains: $searchTerm}}
+			]
+		}) 
+	{
+		totalCount,
+		items {
+			... AlchemicalElixirsPage
+		}
+	}
+}

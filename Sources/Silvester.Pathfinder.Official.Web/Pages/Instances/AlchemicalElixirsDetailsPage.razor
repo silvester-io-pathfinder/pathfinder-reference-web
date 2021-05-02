@@ -1,0 +1,48 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
+@using Silvester.Pathfinder.Official.Web.Components.Cards;
+
+@inherits BaseDetailPage
+@page "/alchemical-elixirs/{alchemicalElixirId:guid}"
+@implements IDisposable
+
+<div>
+    <PageLayout>
+        @if (Elixir != null)
+        {
+            <MudPaper Style="margin: 20px">
+                <AlchemicalElixirDetailsCard AlchemicalElixir="@Elixir" />
+            </MudPaper>
+
+            <AlchemicalElixirPotenciesCard AlchemicalElixir="@Elixir" />
+        }
+    </PageLayout>
+</div>
+
+@code {
+    protected override string Title => "Alchemical Elixirs";
+    protected override string? Subtitle => Elixir?.Name;
+
+    [Parameter]
+    public Guid AlchemicalElixirId { get; set; }
+
+    private IAlchemicalElixirById? Elixir { get; set; }
+
+    private IDisposable? StoreSession { get; set; }
+
+    protected override void OnInitialized()
+    {
+        StoreSession = PathfinderOfficialApi.GetAlchemicalElixirById
+            .Watch(AlchemicalElixirId)
+            .Select(e => e.Data?.AlchemicalElixirs?.Items?.FirstOrDefault())
+            .Subscribe(elixir =>
+            {
+                Elixir = elixir;
+                StateHasChanged();
+            });
+    }
+
+    public void Dispose()
+    {
+        StoreSession?.Dispose();
+    }
+}
