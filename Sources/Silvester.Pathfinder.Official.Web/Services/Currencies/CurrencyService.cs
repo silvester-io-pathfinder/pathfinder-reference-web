@@ -5,7 +5,7 @@ namespace Silvester.Pathfinder.Official.Web.Services.Currencies
 {
     public interface ICurrencyService
     {
-        Wallet Denormalize(int copper, Coin.Types preferredType = Coin.Types.Gold);
+        Wallet Denormalize(int? copper, Coin.Types preferredType = Coin.Types.Gold);
         int Normalize(Wallet wallet);
         int Convert(int sourceAmount, Coin.Types sourceType, Coin.Types targetType, out int remainderAmount);
         int ConvertIfPreferred(int sourceAmount, Coin.Types sourceType, Coin.Types targetType, Coin.Types preferredType, out int remainderAmount);
@@ -13,7 +13,14 @@ namespace Silvester.Pathfinder.Official.Web.Services.Currencies
 
     public class CurrencyService : ICurrencyService
     {
-        public Wallet Denormalize(int copper, Coin.Types preferredType = Coin.Types.Gold)
+        public Wallet Denormalize(int? copper, Coin.Types preferredType = Coin.Types.Gold)
+        {
+            return copper == null
+                ? new Wallet(0, 0, 0, 0)
+                : DenormalizeInternal(copper.Value, preferredType);
+        }
+
+        private Wallet DenormalizeInternal(int copper, Coin.Types preferredType = Coin.Types.Gold)
         {
             int platinum = ConvertIfPreferred(copper, Coin.Types.Copper, Coin.Types.Platinum, preferredType, out copper);
             int gold = ConvertIfPreferred(copper, Coin.Types.Copper, Coin.Types.Gold, preferredType, out copper);

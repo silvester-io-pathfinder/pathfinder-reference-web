@@ -1,0 +1,22 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+@using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
+@using Silvester.Pathfinder.Official.Web.Graphql
+@using Silvester.Pathfinder.Official.Web.Services
+
+@inherits AbstractTable<IAlchemicalPoisonsPage, AlchemicalPoisonSortInput>
+
+@Table
+
+@code {
+    protected override void CreateModel(TableBuilder<IAlchemicalPoisonsPage> builder)
+    {
+        builder
+            .AddActionIconColumn(e => e.ActionType.Name, nameof(IAlchemicalPoisonsPage.Action) + "." + nameof(IAlchemicalPoison_Action.Name))
+            .AddTextColumn(e => e.Name, "Name", nameof(IAlchemicalPoisonsPage.Name), true)
+            .AddTextColumn(e => e.ItemLevel.ToString(), "Level", nameof(IAlchemicalPoisonsPage.ItemLevel), hasDenseRightPadding: true, hideBelow: Breakpoint.Xs)
+            .AddPriceColumn(e => e.Price, "Price", nameof(IAlchemicalPoisonsPage.ItemLevel), hideBelow: Breakpoint.Xs)
+            .AddTextColumn(e => e.Bulk.Name, "Bulk", nameof(IAlchemicalPoisonsPage.Bulk) + "." + nameof(IBulk.Name), hasDenseRightPadding: true, hideBelow: Breakpoint.Xs)
+            .AddTextColumn(e => e.Details.First(e => e.Order == 0).Text, "Description", nameof(IAlchemicalPoisonsPage.Details) + "." + nameof(ITextBlock.Text), hideBelow: Breakpoint.MdAndDown)
+            .AddInspectColumn(NavigationManager, e => $"alchemical-poisons/{e.Id}");
+    }
+}

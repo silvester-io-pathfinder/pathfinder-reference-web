@@ -1,0 +1,37 @@
+﻿query GetAlchemicalPoisonById($id: Uuid!) {
+	alchemicalPoisons(where: {id: {eq: $id}}) {
+		items {
+			... AlchemicalPoisonById
+		}
+	}
+}
+
+fragment AlchemicalPoisonById on AlchemicalPoison{
+	name,
+	usage,
+	itemLevel,
+	price,
+	bulk {
+		... Bulk
+	},
+	action {
+		name,
+	},
+	actionType {
+		name
+	}
+	sourcePage {
+		... SourcePage
+	},
+	traits {
+		... AlchemicalPoisonById_Trait
+	},
+	details {
+		... TextBlock
+	}
+}
+
+fragment AlchemicalPoisonById_Trait on Trait {
+	id,
+	name
+}

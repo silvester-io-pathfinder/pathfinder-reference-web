@@ -1,0 +1,27 @@
+﻿fragment AlchemicalPoisonsPage on AlchemicalPoison {
+	id,
+	name,
+	usage,
+	itemLevel,
+	price,
+	bulk {
+		... Bulk
+	},
+	action {
+		... AlchemicalPoison_Action
+	},
+	actionType {
+		... AlchemicalPoison_ActionType
+	},
+	details {
+		... TextBlock
+	}
+}
+
+fragment AlchemicalPoison_ActionType on ActionType {
+	name,
+}
+
+fragment AlchemicalPoison_Action on Action {
+	name,
+}

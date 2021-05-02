@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components.Rendering;
 using Silvester.Pathfinder.Official.Web.Graphql.Generated;
 using Silvester.Pathfinder.Official.Web.Services;
+using Silvester.Pathfinder.Official.Web.Services.Currencies;
 using Silvester.Pathfinder.Official.Web.Shared.Tables;
 using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder;
 using System;
@@ -31,6 +32,9 @@ namespace Silvester.Pathfinder.Official.Web.Components.Tables
         [Inject]
         public IActionTypeService ActionTypeService { get; set; } = default!;
 
+        [Inject]
+        public ICurrencyService CurrencyService { get; set; } = default!;
+
         public TableModel<TEntity> Model { get; private set; } = default!;
 
         protected RenderFragment Table { get; private set; } = default!;
@@ -39,7 +43,7 @@ namespace Silvester.Pathfinder.Official.Web.Components.Tables
         {
             base.OnInitialized();
 
-            TableBuilder<TEntity> builder = new TableBuilder<TEntity>(ActionTypeService)
+            TableBuilder<TEntity> builder = new TableBuilder<TEntity>(ActionTypeService, CurrencyService)
             {
                 Title = Title,
                 IsSearchEnabled = IsSearchEnabled

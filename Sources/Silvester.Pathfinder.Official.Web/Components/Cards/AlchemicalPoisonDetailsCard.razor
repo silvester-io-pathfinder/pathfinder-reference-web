@@ -1,0 +1,71 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Preferences;
+@using Silvester.Pathfinder.Official.Web.Shared.Cards;
+@using Silvester.Pathfinder.Official.Web.Shared.Tables;
+@using Silvester.Pathfinder.Official.Web.Services;
+@using Silvester.Pathfinder.Official.Web.Shared.Chips;
+@using Silvester.Pathfinder.Official.Web.Components.Footers;
+@using Silvester.Pathfinder.Official.Web.Shared.Footers;
+
+@if (AlchemicalPoison != null)
+{
+    <ComponentDetailsCard TEntity="IAlchemicalPoisonById" Entity="@AlchemicalPoison">
+        <Title>
+            <MudText Typo="Typo.h6">@context.Name</MudText>
+        </Title>
+        <LeftContent>
+            <PreferenceCategory Title="Traits">
+                <PreferenceItemChips>
+                    <Chips>
+                        @foreach (IAlchemicalPoisonById_Trait trait in @context.Traits)
+                        {
+                            <TraitChip OnClick="@(() => OnTraitClick(trait))" Text="@trait.Name" />
+                        }
+                    </Chips>
+                </PreferenceItemChips>
+            </PreferenceCategory>
+
+            <PreferenceCategory Title="Characteristics">
+                <PreferenceItemText Title="Action" Text="@context.Action.Name" Icon="@ActionTypeService.GetActionTypeIcon(context.ActionType.Name)" />
+                <MudDivider />
+                <PreferenceItemText Title="Usage" Text="@context.Usage" />
+                <MudDivider />
+                <PreferenceItemText Title="Level" Text="@context.ItemLevel.ToString()" />
+            </PreferenceCategory>
+            <MudDivider />
+            <PreferenceCategory>
+                <PreferenceItemFooter Items="@(GetFooterItems())" />
+            </PreferenceCategory>
+        </LeftContent>
+        <RightContent>
+            <PreferenceCategory Title="Description">
+                <PreferenceItemTextBlocks TextBlocks="@context.Details" />
+            </PreferenceCategory>
+        </RightContent>
+    </ComponentDetailsCard>
+}
+
+@code {
+    [Parameter]
+    public IAlchemicalPoisonById AlchemicalPoison { get; set; } = default!;
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; } = default!;
+
+    [Inject]
+    public IActionTypeService ActionTypeService { get; set; } = default!;
+
+    public void OnTraitClick(IAlchemicalPoisonById_Trait trait)
+    {
+        NavigationManager.NavigateTo($"traits/{trait.Id}");
+    }
+
+    public IEnumerable<IconFooterBar.Item> GetFooterItems()
+    {
+        foreach (IconFooterBar.Item item in new SourceFooterBarItems(AlchemicalPoison.SourcePage))
+        {
+            yield return item;
+        }
+
+        yield return new IconFooterBar.Item((MarkupString)Silvester.Pathfinder.Official.Icons.Generated.Weight, AlchemicalPoison.Bulk.Name, "Bulk");
+    }
+}

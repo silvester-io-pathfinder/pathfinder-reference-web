@@ -7,12 +7,15 @@ using MudBlazor;
 using Microsoft.AspNetCore.Components;
 using MudBlazor.Services;
 using Silvester.Pathfinder.Official.Web.Services;
+using Silvester.Pathfinder.Official.Web.Services.Currencies;
 
 namespace Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
 {
     public class TableBuilder<TEntity>
     {
         private IActionTypeService ActionTypeService { get; }
+
+        private ICurrencyService CurrencyService { get; }
 
         private IList<ITableColumn<TEntity>> Columns { get; }
 
@@ -22,12 +25,13 @@ namespace Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
 
         public string? Title { get; set; }
 
-        public TableBuilder(IActionTypeService actionTypeService)
+        public TableBuilder(IActionTypeService actionTypeService, ICurrencyService currencyService)
         {
             Columns = new List<ITableColumn<TEntity>>();
             IsSearchEnabled = true;
             RowsPerPage = 25;
             ActionTypeService = actionTypeService;
+            CurrencyService = currencyService;
         }
 
         public TableBuilder<TEntity> AddActionIconColumn(Func<TEntity, string> actionTypeNameSelector, string sortLabel)
@@ -39,6 +43,11 @@ namespace Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
         public TableBuilder<TEntity> AddIconColumn(Func<TEntity, string> svgFunc, string name, string sortLabel, int height, Func<TEntity, double> widthFunc, bool hasDenseRightPadding = false)
         {
             return Add(new IconColumn<TEntity>(name, sortLabel, height, svgFunc, widthFunc, hasDenseRightPadding));
+        }
+
+        public TableBuilder<TEntity> AddPriceColumn(Func<TEntity, int?> valueFunc, string name, string sortLabel, bool isBold = false, Breakpoint? hideBelow = null)
+        {
+            return Add(new TextColumn<TEntity>(name, sortLabel, isBold, hideBelow, (e) => CurrencyService.Denormalize(valueFunc.Invoke(e)).ToString(), true));
         }
 
         public TableBuilder<TEntity> AddTextColumn(Func<TEntity, string?> valueFunc, string name, string sortLabel, bool isBold = false, Breakpoint? hideBelow = null, bool hasDenseRightPadding = false)
