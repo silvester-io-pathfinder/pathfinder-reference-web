@@ -39,7 +39,7 @@ namespace Silvester.Pathfinder.Official.Web.Components.Tables
         {
             base.OnInitialized();
 
-            TableBuilder<TEntity> builder = new TableBuilder<TEntity>
+            TableBuilder<TEntity> builder = new TableBuilder<TEntity>(ActionTypeService)
             {
                 Title = Title,
                 IsSearchEnabled = IsSearchEnabled

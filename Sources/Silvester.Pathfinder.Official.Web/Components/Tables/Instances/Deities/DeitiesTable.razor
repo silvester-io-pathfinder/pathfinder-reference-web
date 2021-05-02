@@ -12,9 +12,9 @@
     {
         builder
             .AddTextColumn(e => e.Name, "Name", nameof(IDeitiesPage.Name), true)
-            .AddTextColumn(e => e.Alignment.Name, "Alignment", nameof(IDeitiesPage.Alignment) + "." + nameof(IDeitiesPage_Alignment.Name))
-            .AddTextColumn(e => e.Category.Name, "Category", nameof(IDeitiesPage.Category) + "." + nameof(IDeitiesPage_Category.Name))
-            .AddTextColumn(e => e.Description, "Description", nameof(IPlanesPage.Details) + "." + nameof(ITextBlock.Text))
+            .AddTextColumn(e => e.Alignment.Name, "Alignment", nameof(IDeitiesPage.Alignment) + "." + nameof(IDeitiesPage_Alignment.Name), hideBelow: Breakpoint.Xs)
+            .AddTextColumn(e => e.Category.Name, "Category", nameof(IDeitiesPage.Category) + "." + nameof(IDeitiesPage_Category.Name), hideBelow: Breakpoint.Xs)
+            .AddTextColumn(e => e.Description, "Description", nameof(IPlanesPage.Details) + "." + nameof(ITextBlock.Text), hideBelow: Breakpoint.SmAndDown)
             .AddInspectColumn(NavigationManager, e => $"deities/{e.Id}");
     }
 }

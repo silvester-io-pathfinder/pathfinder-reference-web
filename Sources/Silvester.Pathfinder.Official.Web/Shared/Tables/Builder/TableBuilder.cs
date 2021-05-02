@@ -12,6 +12,8 @@ namespace Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
 {
     public class TableBuilder<TEntity>
     {
+        private IActionTypeService ActionTypeService { get; }
+
         private IList<ITableColumn<TEntity>> Columns { get; }
 
         public bool IsSearchEnabled { get; set; }
@@ -20,31 +22,38 @@ namespace Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
 
         public string? Title { get; set; }
 
-        public TableBuilder()
+        public TableBuilder(IActionTypeService actionTypeService)
         {
             Columns = new List<ITableColumn<TEntity>>();
             IsSearchEnabled = true;
             RowsPerPage = 25;
+            ActionTypeService = actionTypeService;
         }
 
-        public TableBuilder<TEntity> AddIconColumn(Func<TEntity, string> svgFunc, string name, string sortLabel)
+        public TableBuilder<TEntity> AddActionIconColumn(Func<TEntity, string> actionTypeNameSelector, string sortLabel)
         {
-            return Add(new IconColumn<TEntity>(name, sortLabel, svgFunc));
+            int height = 24;
+            return AddIconColumn((e) => ActionTypeService.GetActionTypeIcon(actionTypeNameSelector(e)), "Action", sortLabel, height, (e) => ActionTypeService.GetActionTypeIconWidth(actionTypeNameSelector(e), height), hasDenseRightPadding: true);
         }
 
-        public TableBuilder<TEntity> AddTextColumn(Func<TEntity, string?> valueFunc, string name, string sortLabel, bool isBold = false, Breakpoint? hideBelow = null)
+        public TableBuilder<TEntity> AddIconColumn(Func<TEntity, string> svgFunc, string name, string sortLabel, int height, Func<TEntity, double> widthFunc, bool hasDenseRightPadding = false)
         {
-            return Add(new TextColumn<TEntity>(name, sortLabel, isBold, hideBelow, valueFunc));
+            return Add(new IconColumn<TEntity>(name, sortLabel, height, svgFunc, widthFunc, hasDenseRightPadding));
+        }
+
+        public TableBuilder<TEntity> AddTextColumn(Func<TEntity, string?> valueFunc, string name, string sortLabel, bool isBold = false, Breakpoint? hideBelow = null, bool hasDenseRightPadding = false)
+        {
+            return Add(new TextColumn<TEntity>(name, sortLabel, isBold, hideBelow, valueFunc, hasDenseRightPadding));
         }
 
         public TableBuilder<TEntity> AddActionColumn(Action<TEntity> onClick, string name, string tooltip, string icon, Size size = Size.Small)
         {
-            return Add(new ActionColumn<TEntity>(onClick, name, icon, tooltip, size));
+            return Add(new ActionColumn<TEntity>(onClick, name, icon, tooltip, size, true));
         }
 
-        public TableBuilder<TEntity> AddInspectColumn(NavigationManager navigationManager, Func<TEntity, string> redirect)
+        public TableBuilder<TEntity> AddInspectColumn(NavigationManager navigationManager, Func<TEntity, string> redirect, bool hasDenseRightPadding = false)
         {
-            return Add(new InspectColumn<TEntity>(navigationManager, redirect));
+            return Add(new InspectColumn<TEntity>(navigationManager, redirect, hasDenseRightPadding));
         }
 
         public TableBuilder<TEntity> Add(ITableColumn<TEntity> column)
@@ -93,18 +102,27 @@ namespace Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
             }
         }
 
-        public bool IsLastVisibleTextColumn(TextColumn<TEntity> textColumn, BrowserWindowSize size, IBreakpointService breakpointService)
+        public bool IsLastVisibleTextColumn(ITableColumn<TEntity> column, int windowWidth, IBreakpointService breakpointService)
         {
-            return GetLastVisibleTextColumn(breakpointService.GetBreakpoint(size.Width)) == textColumn;
+            if(!(column is TextColumn<TEntity> textColumn))
+            {
+                return false;
+            }
+
+            return GetLastVisibleTextColumn(breakpointService.GetBreakpoint(windowWidth), breakpointService) == textColumn;
         }
 
-        public TextColumn<TEntity>? GetLastVisibleTextColumn(Breakpoint currentBreakpoint)
+        public TextColumn<TEntity>? GetLastVisibleTextColumn(Breakpoint currentBreakpoint, IBreakpointService breakpointService)
         {
+            Console.WriteLine("Current breakpoint: " + currentBreakpoint);
+
             for(int i = Columns.Count - 1; i >= 0; i --)
             {
                 ITableColumn<TEntity> current = Columns.ElementAt(i);
-                if (current is TextColumn<TEntity> textColumn && (textColumn.HideBelow == null || currentBreakpoint > textColumn.HideBelow.Value))
+                Console.WriteLine("Processing column: " + current.Name);
+                if (current is TextColumn<TEntity> textColumn && (textColumn.HideBelow == null || breakpointService.IsMatch(currentBreakpoint, textColumn.HideBelow.Value) == false))
                 {
+                    Console.WriteLine("Last Visible Text Column: " + textColumn.Name);
                     return textColumn;
                 }
             }

@@ -7,5 +7,7 @@ namespace Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
         public string Name { get; }
 
         public Breakpoint? HideBelow { get; set; }
+
+        public bool HasDenseRightPadding { get; set; }
     }
 }

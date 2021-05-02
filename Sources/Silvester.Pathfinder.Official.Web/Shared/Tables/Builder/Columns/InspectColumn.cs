@@ -9,8 +9,8 @@ namespace Silvester.Pathfinder.Official.Web.Shared.Tables.Builder.Columns
 {
     public class InspectColumn<TEntity> : ActionColumn<TEntity>
     {
-        public InspectColumn(NavigationManager navigationManager, Func<TEntity, string> redirect)
-            : base ((e) => navigationManager.NavigateTo(redirect(e)), "", "Inspect", MudBlazor.Icons.Material.Outlined.ArrowForward, Size.Small)
+        public InspectColumn(NavigationManager navigationManager, Func<TEntity, string> redirect, bool hasDenseRightPadding)
+            : base ((e) => navigationManager.NavigateTo(redirect(e)), "", "Inspect", MudBlazor.Icons.Material.Outlined.ArrowForward, Size.Small, hasDenseRightPadding)
         {
           
         }

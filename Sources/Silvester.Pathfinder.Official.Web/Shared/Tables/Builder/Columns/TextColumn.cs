@@ -12,18 +12,21 @@ namespace Silvester.Pathfinder.Official.Web.Shared.Tables.Builder.Columns
         public string SortLabel { get; }
 
         public bool IsBold { get; }
+        
+        public bool HasDenseRightPadding { get; set; }
 
         public Func<bool> IsLastVisibleTextColumn { get; set; } = default!;
 
         public Breakpoint? HideBelow { get; set; }
 
-        public TextColumn(string name, string sortLabel, bool isBold, Breakpoint? hideBelow, Func<TEntity, string?> valueFunc)
+        public TextColumn(string name, string sortLabel, bool isBold, Breakpoint? hideBelow, Func<TEntity, string?> valueFunc, bool hasDenseRightPadding)
         {
             Name = name;
             SortLabel = sortLabel;
             IsBold = isBold;
             HideBelow = hideBelow;
             ValueFunc = valueFunc;
+            HasDenseRightPadding = hasDenseRightPadding;
         }
     }
 }

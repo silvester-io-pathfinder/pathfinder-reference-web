@@ -11,11 +11,11 @@
     protected override void CreateModel(TableBuilder<IFeatsPage> builder)
     {
         builder
-            .AddIconColumn(e => ActionTypeService.GetActionTypeIcon(e.ActionType!.Name), "Action", nameof(IFeatsPage.ActionType) + "." + nameof(IFeatsPage_ActionType.Name))
+            .AddActionIconColumn(e => e.ActionType!.Name, nameof(IFeatsPage.ActionType) + "." + nameof(IFeatsPage_ActionType.Name))
             .AddTextColumn(e => e.Name, "Name", nameof(IFeatsPage.Name), true)
-            .AddTextColumn(e => e.Level.ToString(), "Level", nameof(IFeatsPage.Name))
-            .AddTextColumn(e => e.FeatType.Name, "Type", nameof(IFeatsPage.FeatType) + "." + nameof(IFeatsPage_FeatType.Name))
-            .AddTextColumn(e => e.Details.First(e => e.Order == 0).Text, "Description", nameof(IFeatsPage.Details) + "." + nameof(ITextBlock.Text), hideBelow: Breakpoint.Xs)
+            .AddTextColumn(e => e.Level.ToString(), "Level", nameof(IFeatsPage.Name), hideBelow: Breakpoint.Xs)
+            .AddTextColumn(e => e.FeatType.Name, "Type", nameof(IFeatsPage.FeatType) + "." + nameof(IFeatsPage_FeatType.Name), hideBelow: Breakpoint.SmAndDown)
+            .AddTextColumn(e => e.Details.First(e => e.Order == 0).Text, "Description", nameof(IFeatsPage.Details) + "." + nameof(ITextBlock.Text), hideBelow: Breakpoint.MdAndDown)
             .AddInspectColumn(NavigationManager, e => $"feats/{e.Id}");
     }
 }

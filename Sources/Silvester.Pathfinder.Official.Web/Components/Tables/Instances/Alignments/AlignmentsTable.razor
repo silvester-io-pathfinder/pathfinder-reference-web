@@ -12,7 +12,7 @@
     {
         builder
             .AddTextColumn(e => e.Name, "Name", nameof(IAlignmentsPage.Name), true)
-            .AddTextColumn(e => e.Description, "Description", nameof(IAlignmentsPage.Description))
+            .AddTextColumn(e => e.Description, "Description", nameof(IAlignmentsPage.Description), hideBelow: Breakpoint.Xs)
             .AddInspectColumn(NavigationManager, e => $"alignments/{e.Id}");
     }
 }

@@ -11,7 +11,7 @@
     protected override void CreateModel(TableBuilder<IActionsPage> builder)
     {
         builder
-            .AddIconColumn(e => ActionTypeService.GetActionTypeIcon(e.ActionType!.Name), "Action", nameof(IFeatsPage.ActionType) + "." + nameof(IFeatsPage_ActionType.Name))
+            .AddActionIconColumn(e => e.ActionType!.Name, nameof(IFeatsPage.ActionType) + "." + nameof(IFeatsPage_ActionType.Name))
             .AddTextColumn(e => e.Name, "Name", nameof(IActionsPage.Name), true)
             .AddTextColumn(e => e.Details.First(e => e.Order == 0).Text, "Description", nameof(IActionsPage.Details) + "." + nameof(ITextBlock.Text), hideBelow: Breakpoint.Xs)
             .AddInspectColumn(NavigationManager, e => $"actions/{e.Id}");

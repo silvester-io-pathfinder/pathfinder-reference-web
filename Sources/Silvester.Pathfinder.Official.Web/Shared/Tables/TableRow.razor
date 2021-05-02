@@ -9,49 +9,37 @@
 @typeparam TEntity;
 @implements IDisposable;
 
-@if(BrowserWindowSize != null)
+@if(WindowWidth != null)
 {
-    switch (Column)
-    {
-        case TextColumn<TEntity> text:
-            if (Model.IsLastVisibleTextColumn(text, BrowserWindowSize, BreakpointService))
-            {
-                <PotentiallyHiddenCell Column="@Column">
-                    <MudTd Style="@("position: relative; width: 100vw;")" DataLabel="@text.Name">
+    <PotentiallyHiddenCell Column="@Column">
+        <MudTd DataLabel="@Column.Name" Style="@GetStyle()">
+            @switch (Column)
+                {
+                    case TextColumn<TEntity> text:
+                    if (Model.IsLastVisibleTextColumn(text, WindowWidth.Value, BreakpointService))
+                    {
                         <div style="text-overflow: ellipsis; white-space: nowrap; position: absolute; overflow: hidden; width: 100%; transform: translateY(-50%); padding-right: 36px;">
                             @text.ValueFunc(Entity)
                         </div>
-                    </MudTd>
-                </PotentiallyHiddenCell>
-            }
-            else
-            {
-                <PotentiallyHiddenCell Column="@Column">
-                    <MudTd Class="pf-table-cell" DataLabel="@text.Name">
+                    }
+                    else
+                    {
                         @text.ValueFunc(Entity)
-                    </MudTd>
-                </PotentiallyHiddenCell>
-            }
-            break;
+                    }
+                    break;
 
-        case IconColumn<TEntity> icon:
-            <PotentiallyHiddenCell Column="@Column">
-                <MudTd Class="pf-table-cell" DataLabel="@icon.Name">
-                    <div style="vertical-align: middle; height: 24px; width: 24px;">@((MarkupString)icon.SvgFunc(Entity))</div>
-                </MudTd>
-            </PotentiallyHiddenCell>
-            break;
+                case IconColumn<TEntity> icon:
+                    <div style="@($"vertical-align: middle; height: {icon.Height}px; width: {icon.WidthFunc(Entity)}px;")">@((MarkupString) icon.SvgFunc(Entity))</div>
+                    break;
 
-        case ActionColumn<TEntity> action:
-            <PotentiallyHiddenCell Column="@Column">
-                <MudTd Class="pf-table-cell" DataLabel="@action.Name">
+                case ActionColumn<TEntity> action:
                     <MudTooltip Text="@action.Tooltip">
-                        <MudIconButton Size="@action.Size" OnClick="((e) => action.OnClick.Invoke(Entity))" Icon="@Icons.Material.Outlined.ArrowForward" />
+                        <MudIconButton Size="@action.Size" OnClick="((e) => action.OnClick.Invoke(Entity))" Icon="@Icons.Material.Outlined.ArrowForward"  />
                     </MudTooltip>
-                </MudTd>
-            </PotentiallyHiddenCell>
-            break;
-    }
+                    break;
+            }
+        </MudTd>
+    </PotentiallyHiddenCell>
 }
 
 @code {
@@ -70,7 +58,7 @@
     [Inject]
     public IBreakpointService BreakpointService { get; set; } = default!;
 
-    private BrowserWindowSize? BrowserWindowSize { get; set; }
+    int? WindowWidth;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -78,17 +66,23 @@
         {
             ResizeListener.OnResized += OnResized;
 
-            BrowserWindowSize = await ResizeListener.GetBrowserWindowSize();
+            BrowserWindowSize size = await ResizeListener.GetBrowserWindowSize();
+            WindowWidth = size.Width;
             StateHasChanged();
         }
 
         await base.OnAfterRenderAsync(firstRender);
     }
 
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+    }
+
     private void OnResized(object? sender, BrowserWindowSize size)
     {
-        BrowserWindowSize = size;
-        InvokeAsync(StateHasChanged);
+        WindowWidth = size.Width;
+        base.StateHasChanged();
     }
 
     public void Dispose()
@@ -98,13 +92,27 @@
 
     private string GetStyle()
     {
-        if (Column is TextColumn<TEntity> text)
+        return string.Join(" ", GetStyleComponents());
+    }
+
+    public IEnumerable<string> GetStyleComponents()
+    {
+        if(Column.HasDenseRightPadding)
         {
-            return text.IsBold
-                ? "font-weight: 500"
-                : "";
+            yield return "padding-right: 0px;";
         }
 
-        return "";
+        if (Column is TextColumn<TEntity> text)
+        {
+            if(text.IsBold)
+            {
+                yield return "font-weight: 500";
+            }
+
+            if(Model.IsLastVisibleTextColumn(text, WindowWidth!.Value, BreakpointService))
+            {
+                yield return "position: relative; width: 100vw;";
+            }
+        }
     }
 }

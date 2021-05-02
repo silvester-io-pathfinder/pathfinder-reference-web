@@ -12,10 +12,10 @@
     {
         builder
             .AddTextColumn(e => e.Name, "Name", nameof(ISkillsPage.Name), true)
-            .AddTextColumn(e => e.StatModifier.Name, "Modifier", nameof(ISkillsPage.StatModifier) + "." + nameof(ISkillsPage_Stat.Name))
-            .AddTextColumn(e => e.HasArmorCheckPenalty.ToString(), "AC Penalty", nameof(ISkillsPage.HasArmorCheckPenalty))
-            .AddTextColumn(e => e.HasRecallKnowledgeAction.ToString(), "Recall Knowledge", nameof(ISkillsPage.HasRecallKnowledgeAction))
-            .AddTextColumn(e => e.Description, "Description", nameof(ISkillsPage.Description))
+            .AddTextColumn(e => e.StatModifier.Name, "Modifier", nameof(ISkillsPage.StatModifier) + "." + nameof(ISkillsPage_Stat.Name), hideBelow: Breakpoint.Xs)
+            .AddTextColumn(e => e.HasArmorCheckPenalty.ToString(), "AC Penalty", nameof(ISkillsPage.HasArmorCheckPenalty), hideBelow: Breakpoint.Xs, hasDenseRightPadding: true)
+            .AddTextColumn(e => e.HasRecallKnowledgeAction.ToString(), "Recall Knowledge", nameof(ISkillsPage.HasRecallKnowledgeAction), hideBelow: Breakpoint.SmAndDown, hasDenseRightPadding: true)
+            .AddTextColumn(e => e.Description, "Description", nameof(ISkillsPage.Description), hideBelow: Breakpoint.MdAndDown)
             .AddInspectColumn(NavigationManager, e => $"skills/{e.Id}");
     }
 }

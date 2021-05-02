@@ -12,7 +12,7 @@
     {
         builder
             .AddTextColumn(e => e.Name, "Name", nameof(IPlaneCategoriesPage.Name), true)
-            .AddTextColumn(e => e.Description, "Description", nameof(IPlaneCategoriesPage.Description))
+            .AddTextColumn(e => e.Description, "Description", nameof(IPlaneCategoriesPage.Description), hideBelow: Breakpoint.Xs)
             .AddInspectColumn(NavigationManager, e => $"plane-categories/{e.Id}");
     }
 }

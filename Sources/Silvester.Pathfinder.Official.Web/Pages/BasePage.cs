@@ -34,7 +34,7 @@ namespace Silvester.Pathfinder.Official.Web.Pages
 
         protected virtual void OnTitleChanged()
         {
-            List<string> components = new List<string>() { "Silvester Pathfinder" };
+            List<string> components = new List<string>();
             components.AddRange(GetTitleComponents());
 
             Dispatcher.Dispatch(new SetPageTitleAction(components.Where(e => e != null).ToList()));

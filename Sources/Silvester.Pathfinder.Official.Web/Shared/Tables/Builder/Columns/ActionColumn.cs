@@ -15,18 +15,21 @@ namespace Silvester.Pathfinder.Official.Web.Shared.Tables.Builder.Columns
         public string Icon { get; }
 
         public string Tooltip { get; }
+        
+        public bool HasDenseRightPadding { get; set; }
 
         public Size Size { get; }
         
         public Breakpoint? HideBelow { get; set; }
 
-        public ActionColumn(Action<TEntity> onClick, string name, string icon, string tooltip, Size size)
+        public ActionColumn(Action<TEntity> onClick, string name, string icon, string tooltip, Size size, bool hasDenseRightPadding)
         {
             OnClick = onClick;
             Name = name;
             Icon = icon;
             Tooltip = tooltip;
             Size = size;
+            HasDenseRightPadding = hasDenseRightPadding;
         }
     }
 }

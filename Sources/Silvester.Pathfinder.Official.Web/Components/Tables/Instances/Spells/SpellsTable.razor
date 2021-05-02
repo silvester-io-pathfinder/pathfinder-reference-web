@@ -11,13 +11,13 @@
     protected override void CreateModel(TableBuilder<ISpellsPage> builder)
     {
         builder
-            .AddIconColumn(e => ActionTypeService.GetActionTypeIcon(e.ActionType!.Name), "Action", nameof(ISpellsPage.ActionType) + "." + nameof(ISpellsPage_ActionType.Name))
+            .AddActionIconColumn(e => e.ActionType!.Name, nameof(ISpellsPage.ActionType) + "." + nameof(ISpellsPage_ActionType.Name))
             .AddTextColumn(e => e.Name, "Name", nameof(ISpellsPage.Name), true)
-            .AddTextColumn(e => e.MagicSchool.Name, "School", nameof(ISpellsPage.MagicSchool) + "." + nameof(ISpellsPage_MagicSchool.Name))
-            .AddTextColumn(e => e.Level.ToString(), "Level", nameof(ISpellsPage.Level))
-            .AddTextColumn(e => e.SpellType.Name, "Type", nameof(ISpellsPage.SpellType) + "." + nameof(ISpellsPage_SpellType.Name))
-            .AddTextColumn(e => e.SavingThrowStat?.Name, "Saving Throw", nameof(ISpellsPage.SavingThrowStat) + "." + nameof(ISpellsPage_SavingThrowStat.Name))
-            .AddTextColumn(e => e.Details.First(e => e.Order == 0).Text, "Description", nameof(ISpellsPage.Details) + "." + nameof(ITextBlock.Text), hideBelow: Breakpoint.Xs)
+            .AddTextColumn(e => e.MagicSchool.Name, "School", nameof(ISpellsPage.MagicSchool) + "." + nameof(ISpellsPage_MagicSchool.Name), hideBelow: Breakpoint.SmAndDown)
+            .AddTextColumn(e => e.Level.ToString(), "Level", nameof(ISpellsPage.Level), hideBelow: Breakpoint.Xs)
+            .AddTextColumn(e => e.SpellType.Name, "Type", nameof(ISpellsPage.SpellType) + "." + nameof(ISpellsPage_SpellType.Name), hideBelow: Breakpoint.Xs)
+            .AddTextColumn(e => e.SavingThrowStat?.Name, "Saving Throw", nameof(ISpellsPage.SavingThrowStat) + "." + nameof(ISpellsPage_SavingThrowStat.Name), hideBelow: Breakpoint.MdAndDown)
+            .AddTextColumn(e => e.Details.First(e => e.Order == 0).Text, "Description", nameof(ISpellsPage.Details) + "." + nameof(ITextBlock.Text), hideBelow: Breakpoint.MdAndDown)
             .AddInspectColumn(NavigationManager, e => $"spells/{e.Id}");
     }
 }

@@ -13,11 +13,11 @@
     {
         builder
             .AddTextColumn(e => e.Name, "Name", nameof(IRacesPage.Name), true)
-            .AddTextColumn(e => e.BaseSpeed.ToString(), "Base Speed", nameof(IRacesPage.BaseSpeed))
-            .AddTextColumn(e => e.BaseHealth.ToString(), "Base Health", nameof(IRacesPage.BaseHealth))
-            .AddTextColumn(e => e.Size.Name, "Size", nameof(IRacesPage.Size) + "." + nameof(IRacesPage_Size.Name))
-            .AddTextColumn(e => e.Rarity.Name, "Rarity", nameof(IRacesPage.Rarity) + "." + nameof(IRacesPage_Rarity.Name))
-            .AddTextColumn(e => e.Description, "Description", nameof(IRacesPage.Description))
+            .AddTextColumn(e => e.BaseSpeed.ToString(), "Base Speed", nameof(IRacesPage.BaseSpeed), hasDenseRightPadding: true)
+            .AddTextColumn(e => e.BaseHealth.ToString(), "Base Health", nameof(IRacesPage.BaseHealth), hideBelow: Breakpoint.Xs, hasDenseRightPadding: true)
+            .AddTextColumn(e => e.Size.Name, "Size", nameof(IRacesPage.Size) + "." + nameof(IRacesPage_Size.Name), hideBelow: Breakpoint.Xs)
+            .AddTextColumn(e => e.Rarity.Name, "Rarity", nameof(IRacesPage.Rarity) + "." + nameof(IRacesPage_Rarity.Name), hideBelow: Breakpoint.SmAndDown)
+            .AddTextColumn(e => e.Description, "Description", nameof(IRacesPage.Description), hideBelow: Breakpoint.MdAndDown)
             .AddInspectColumn(NavigationManager, e => $"races/{e.Id}");
     }
 }

@@ -7,7 +7,7 @@
 
 @{
     <PotentiallyHiddenCell Column="@Column">
-        <MudTh>
+        <MudTh Style="@(Column.HasDenseRightPadding ? "padding-right: 0px" : "")">
             @if (Column is ISortable<TEntity> sortable)
             {
                 <MudTableSortLabel SortLabel="@sortable.SortLabel" T="TEntity">@Column.Name</MudTableSortLabel>
