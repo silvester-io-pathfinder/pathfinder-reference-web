@@ -13,7 +13,7 @@
 	actionType {
 		... AlchemicalPoison_ActionType
 	},
-	details {
+	details(where: {order: {eq: 0}})  {
 		... TextBlock
 	}
 }

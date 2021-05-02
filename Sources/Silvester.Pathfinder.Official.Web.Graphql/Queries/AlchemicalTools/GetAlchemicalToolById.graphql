@@ -1,0 +1,51 @@
+﻿query GetAlchemicalToolById($id: Uuid!) {
+	alchemicalTools(where: {id: {eq: $id}}) {
+		items {
+			... AlchemicalToolById
+		}
+	}
+}
+
+fragment AlchemicalToolById on AlchemicalTool{
+	name,
+	usage,
+	price
+	itemLevel,
+	activationAddendum,
+	bulk {
+		... Bulk
+	},
+	action {
+		name,
+		actionType {
+			name
+		}
+	},
+	sourcePage {
+		... SourcePage
+	},
+	traits {
+		... AlchemicalToolById_Trait
+	},
+	details {
+		... TextBlock
+	}	
+	potencies {
+		... AlchemicalToolById_Potency 
+	}
+}
+
+fragment AlchemicalToolById_Potency on AlchemicalToolPotencyBinding {
+	level,
+	price,
+	benefits,
+	potency {
+		name,
+		order
+	}
+}
+
+fragment AlchemicalToolById_Trait on Trait {
+	id,
+	name
+}

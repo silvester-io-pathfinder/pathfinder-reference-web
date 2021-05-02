@@ -9,7 +9,7 @@
 	action {
 		... AlchemicalElixirPage_Action
 	},
-	details {
+	details(where: {order: {eq: 0}})  {
 		... TextBlock
 	}
 }

@@ -1,0 +1,22 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+@using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
+@using Silvester.Pathfinder.Official.Web.Graphql
+@using Silvester.Pathfinder.Official.Web.Services
+
+@inherits AbstractTable<IAlchemicalToolsPage, AlchemicalToolSortInput>
+
+@Table
+
+@code {
+    protected override void CreateModel(TableBuilder<IAlchemicalToolsPage> builder)
+    {
+        builder
+            .AddActionIconColumn(e => e.ActionType.Name, nameof(IAlchemicalToolsPage.Action) + "." + nameof(IAlchemicalToolPage_ActionType.Name))
+            .AddTextColumn(e => e.Name, "Name", nameof(IAlchemicalToolsPage.Name), true)
+            .AddTextColumn(e => e.ItemLevel.ToString(), "Level", nameof(IAlchemicalToolsPage.ItemLevel), hasDenseRightPadding: true, hideBelow: Breakpoint.Xs)
+            .AddPriceColumn(e => e.Price, "Price", nameof(IAlchemicalToolsPage.ItemLevel), hideBelow: Breakpoint.Xs)
+            .AddTextColumn(e => e.Bulk.Name, "Bulk", nameof(IAlchemicalToolsPage.Bulk) + "." + nameof(IBulk.Name), hasDenseRightPadding: true, hideBelow: Breakpoint.Xs)
+            .AddTextColumn(e => e.Details.First().Text, "Description", nameof(IAlchemicalToolsPage.Details) + "." + nameof(ITextBlock.Text), hideBelow: Breakpoint.MdAndDown)
+            .AddInspectColumn(NavigationManager, e => $"alchemical-tools/{e.Id}");
+    }
+}

@@ -1,0 +1,27 @@
+﻿fragment AlchemicalToolsPage on AlchemicalTool {
+	id,
+	name,
+	usage,
+	price
+	itemLevel,
+	bulk {
+		... Bulk
+	},
+	action {
+		... AlchemicalToolPage_Action
+	},
+	actionType {
+		... AlchemicalToolPage_ActionType
+	}
+	details(where: {order: {eq: 0}})  {
+		... TextBlock
+	}
+}
+
+fragment AlchemicalToolPage_Action on Action {
+	name,
+}
+
+fragment AlchemicalToolPage_ActionType on ActionType {
+	name
+}

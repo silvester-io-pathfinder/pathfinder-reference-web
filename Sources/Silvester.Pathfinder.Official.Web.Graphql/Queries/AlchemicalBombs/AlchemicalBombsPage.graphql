@@ -12,7 +12,7 @@
 	sourcePage {
 		... AlchemicalBomb_SourcePage
 	},
-	details {
+	details(where: {order: {eq: 0}})  {
 		... TextBlock
 	}
 }
