@@ -1,0 +1,17 @@
+﻿query GetCursesPage($skip: Int!, $take: Int!, $searchTerm: String! = "", $order: [CurseSortInput!] = [{name: ASC}]) {
+	curses(
+		skip: $skip, 
+		take: $take, 
+		order: $order,
+		where: {
+			or: [
+				{name: {contains: $searchTerm}}
+			]
+		}) 
+	{
+		totalCount,
+		items {
+			... CursesPage
+		}
+	}
+}

@@ -1,0 +1,21 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+@using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
+@using Silvester.Pathfinder.Official.Web.Graphql
+@using Silvester.Pathfinder.Official.Web.Services
+
+@inherits AbstractTable<ICursesPage, CurseSortInput>
+
+@Table
+
+@code {
+    protected override void CreateModel(TableBuilder<ICursesPage> builder)
+    {
+        builder
+            .AddTextColumn(e => e.Name, "Name", nameof(ICursesPage.Name), true)
+            .AddTextColumn(e => e.Level.ToString(), "Level", nameof(ICursesPage.Level), hasDenseRightPadding: true, hideBelow: Breakpoint.Xs)
+            .AddTextColumn(e => e.DifficultyCheck.ToString(), "DC", nameof(ICursesPage.DifficultyCheck), hasDenseRightPadding: true)
+            .AddTextColumn(e => e.SavingThrowStat.Name, "Saving Throw", nameof(ICursesPage.SavingThrowStat) + "." + nameof(ICursesPage_SavingThrowStat.Name), hasDenseRightPadding: true, hideBelow: Breakpoint.Xs)
+            .AddTextColumn(e => e.Details.First().Text, "Description", nameof(ICursesPage.Details) + "." + nameof(ITextBlock.Text), hideBelow: Breakpoint.MdAndDown)
+            .AddInspectColumn(NavigationManager, e => $"curses/{e.Id}");
+    }
+}

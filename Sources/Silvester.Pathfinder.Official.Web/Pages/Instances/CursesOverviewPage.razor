@@ -1,0 +1,23 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Curses;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Curses.Providers;
+@using Silvester.Pathfinder.Official.Web.Components.Cards;
+
+@page "/curses"
+@inherits BaseOverviewPage
+
+<div>
+    <PageLayout>
+
+        <MudPaper Style="margin: 20px;">
+            <CursesTable Title="Curses" PageProvider="@(new CursePageProvider(PathfinderOfficialApi))" />
+        </MudPaper>
+
+    </PageLayout>
+
+</div>
+
+@code
+{
+    protected override string Title => "Curses";
+}

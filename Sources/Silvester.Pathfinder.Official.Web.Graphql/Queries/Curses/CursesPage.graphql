@@ -1,0 +1,18 @@
+﻿fragment CursesPage on Curse
+{
+	id,
+	name,
+	level,
+	difficultyCheck,
+	effect, 
+	savingThrowStat {
+		... CursesPage_SavingThrowStat
+	},
+	details (where: {order: {eq: 0}}) {
+		... TextBlock
+	}
+}
+
+fragment CursesPage_SavingThrowStat on SavingThrowStat {
+	name
+}

@@ -1,0 +1,39 @@
+﻿query GetCurseById($id: Uuid!) {
+	curses(where: {id: {eq: $id}}) {
+		items {
+			... CurseById
+		}
+	}
+}
+
+
+fragment CurseById on Curse
+{
+	id,
+	name,
+	effect,
+	level,
+	difficultyCheck,
+	savingThrowStat {
+		... CurseById_SavingThrowStat
+	},
+	details {
+		... TextBlock
+	},
+	sourcePage {
+		... SourcePage
+	},
+	traits {
+		... CurseById_Trait
+	}
+}
+
+fragment CurseById_Trait on Trait {
+	id,
+	name
+}
+
+fragment CurseById_SavingThrowStat on SavingThrowStat {
+	id,
+	name
+}
