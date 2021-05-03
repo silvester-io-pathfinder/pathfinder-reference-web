@@ -1,0 +1,21 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+@using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
+@using Silvester.Pathfinder.Official.Web.Graphql
+@using Silvester.Pathfinder.Official.Web.Services
+
+@inherits AbstractTable<IDiseasesPage, DiseaseSortInput>
+
+@Table
+
+@code {
+    protected override void CreateModel(TableBuilder<IDiseasesPage> builder)
+    {
+        builder
+            .AddTextColumn(e => e.Name, "Name", nameof(IDiseasesPage.Name), true)
+            .AddTextColumn(e => e.Onset, "Onset", nameof(IDiseasesPage.Onset), hideBelow: Breakpoint.Xs)
+            .AddTextColumn(e => e.DifficultyCheck.ToString(), "DC", nameof(IDiseasesPage.DifficultyCheck), hasDenseRightPadding: true)
+            .AddTextColumn(e => e.SavingThrowStat.Name, "Saving Throw", nameof(IDiseasesPage.SavingThrowStat) + "." + nameof(IDiseasesPage_SavingThrowStat.Name), hasDenseRightPadding: true, hideBelow: Breakpoint.Xs)
+            .AddTextColumn(e => e.Description, "Description", nameof(IDiseasesPage.Description), hideBelow: Breakpoint.MdAndDown)
+            .AddInspectColumn(NavigationManager, e => $"diseases/{e.Id}");
+    }
+}

@@ -1,0 +1,17 @@
+﻿query GetDiseasesPage($skip: Int!, $take: Int!, $searchTerm: String! = "", $order: [DiseaseSortInput!] = [{name: ASC}]) {
+	diseases(
+		skip: $skip, 
+		take: $take, 
+		order: $order,
+		where: {
+			or: [
+				{name: {contains: $searchTerm}}
+			]
+		}) 
+	{
+		totalCount,
+		items {
+			... DiseasesPage
+		}
+	}
+}

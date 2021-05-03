@@ -1,0 +1,74 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Preferences;
+@using Silvester.Pathfinder.Official.Web.Shared.Cards;
+@using Silvester.Pathfinder.Official.Web.Shared.Tables;
+@using Silvester.Pathfinder.Official.Web.Services;
+@using Silvester.Pathfinder.Official.Web.Shared.Chips;
+@using Silvester.Pathfinder.Official.Web.Shared.Footers;
+@using Silvester.Pathfinder.Official.Web.Components.Footers;
+
+@if (Disease != null)
+{
+    <ComponentDetailsCard TEntity="IDiseaseById" Entity="@Disease">
+        <Title>
+            <MudText Typo="Typo.h6">Disease</MudText>
+        </Title>
+        <Actions>
+        </Actions>
+        <LeftContent>
+            <PreferenceCategory Title="Details">
+                <PreferenceItemChips>
+                    <Chips>
+                        @foreach (IDiseaseById_Trait trait in @context.Traits)
+                        {
+                            <TraitChip OnClick="@(() => OnTraitClick(trait))" Text="@trait.Name" />
+                        }
+                    </Chips>
+                </PreferenceItemChips>
+                <PreferenceItemChips Title="Saving Throw Stat">
+                    <Chips>
+                        <TraitChip Text="@context.SavingThrowStat.Name" OnClick="@(() => OnSavingThrowStatClick())" />
+                    </Chips>
+                </PreferenceItemChips>
+                <PreferenceItemText Title="Name" Text="@context.Name" />
+                <PreferenceItemText Title="Onset" Text="@context.Onset" />
+            </PreferenceCategory>
+            <MudDivider />
+            <PreferenceCategory>
+                <PreferenceItemFooter Items="@(GetFooterItems())" />
+            </PreferenceCategory>
+        </LeftContent>
+        <RightContent>
+            <PreferenceCategory Title="Description">
+                <PreferenceItemText Text="@context.Description" />
+            </PreferenceCategory>
+        </RightContent>
+    </ComponentDetailsCard>
+}
+
+@code {
+    [Parameter]
+    public IDiseaseById Disease { get; set; } = default!;
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; } = default!;
+
+    public void OnTraitClick(IDiseaseById_Trait trait)
+    {
+        NavigationManager.NavigateTo($"traits/{trait.Id}");
+    }
+
+    public void OnSavingThrowStatClick()
+    {
+        NavigationManager.NavigateTo($"saving-throw-stats/{Disease.SavingThrowStat.Id}");
+    }
+
+    public IEnumerable<IconFooterBar.Item> GetFooterItems()
+    {
+        foreach (IconFooterBar.Item item in new SourceFooterBarItems(Disease.SourcePage))
+        {
+            yield return item;
+        }
+
+        yield return new IconFooterBar.Item((MarkupString)Silvester.Pathfinder.Official.Icons.Generated.Check, Disease.DifficultyCheck.ToString(), "Difficulty Check");
+    }
+}

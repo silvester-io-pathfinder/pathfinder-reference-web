@@ -1,0 +1,15 @@
+﻿fragment DiseasesPage on Disease
+{
+	id,
+	name,
+	difficultyCheck,
+	onset,
+	description,
+	savingThrowStat {
+		... DiseasesPage_SavingThrowStat
+	}
+}
+
+fragment DiseasesPage_SavingThrowStat on SavingThrowStat {
+	name
+}

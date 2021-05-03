@@ -7,6 +7,30 @@
   <Import Project="../Properties.proj" />
 
   <ItemGroup>
+    <GraphQL Remove="Queries\Diseases\DiseasesPage.graphql" />
+    <GraphQL Remove="Queries\Diseases\GetDiseaseById.graphql" />
+    <GraphQL Remove="Queries\Diseases\GetDiseasesPage.graphql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Queries\Diseases\DiseasesPage.graphql" />
+    <None Remove="Queries\Diseases\GetDiseaseById.graphql" />
+    <None Remove="Queries\Diseases\GetDiseasesPage.graphql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="Queries\Diseases\DiseasesPage.graphql">
+      <GraphQL>true</GraphQL>
+    </AdditionalFiles>
+    <AdditionalFiles Include="Queries\Diseases\GetDiseaseById.graphql">
+      <GraphQL>true</GraphQL>
+    </AdditionalFiles>
+    <AdditionalFiles Include="Queries\Diseases\GetDiseasesPage.graphql">
+      <GraphQL>true</GraphQL>
+    </AdditionalFiles>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="StrawberryShake.CodeGeneration.CSharp.Analyzers" Version="11.2.2" />
     <PackageReference Include="StrawberryShake.Transport.Http" Version="11.2.2" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />

@@ -30,7 +30,6 @@
                     </Chips>
                 </PreferenceItemChips>
                 <PreferenceItemText Title="Name" Text="@context.Name" />
-                <PreferenceItemText Title="Effect" Text="@context.Effect" />
             </PreferenceCategory>
             <MudDivider />
             <PreferenceCategory>
@@ -41,6 +40,10 @@
             <PreferenceCategory Title="Description">
                 <PreferenceItemTextBlocks TextBlocks="@context.Details" />
             </PreferenceCategory>
+            <PreferenceCategory Title="Effects">
+                <PreferenceItemText Text="@context.Effect" />
+            </PreferenceCategory>
+
         </RightContent>
     </ComponentDetailsCard>
 }

@@ -1,0 +1,44 @@
+﻿query GetDiseaseById($id: Uuid!) {
+	diseases(where: {id: {eq: $id}}) {
+		items {
+			... DiseaseById
+		}
+	}
+}
+
+
+fragment DiseaseById on Disease
+{
+	id,
+	name,
+	description,
+	onset,
+	difficultyCheck,
+	savingThrowStat {
+		... DiseaseById_SavingThrowStat
+	},
+	sourcePage {
+		... SourcePage
+	},
+	traits {
+		... DiseaseById_Trait
+	},
+	stages(order: {stage: ASC})  {
+		... DiseaseById_Stage
+	}
+}
+
+fragment DiseaseById_Stage on DiseaseStage {
+	stage,
+	duration
+}
+
+fragment DiseaseById_Trait on Trait {
+	id,
+	name
+}
+
+fragment DiseaseById_SavingThrowStat on SavingThrowStat {
+	id,
+	name
+}
