@@ -1,0 +1,10 @@
+﻿fragment ItemCursesPage on ItemCurse
+{
+	id,
+	name,
+	level,
+	usage,
+	details (where: {order: {eq: 0}}) {
+		... TextBlock
+	}
+}

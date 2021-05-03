@@ -1,0 +1,30 @@
+﻿query GetItemCurseById($id: Uuid!) {
+	itemCurses(where: {id: {eq: $id}}) {
+		items {
+			... ItemCurseById
+		}
+	}
+}
+
+
+fragment ItemCurseById on ItemCurse
+{
+	id,
+	name,
+	usage,
+	level,
+	details {
+		... TextBlock
+	},
+	sourcePage {
+		... SourcePage
+	},
+	traits {
+		... ItemCurseById_Trait
+	}
+}
+
+fragment ItemCurseById_Trait on Trait {
+	id,
+	name
+}

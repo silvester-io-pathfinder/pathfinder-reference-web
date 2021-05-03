@@ -1,0 +1,20 @@
+﻿query GetConditionsPageWithCategory($skip: Int!, $take: Int!, $conditionCategoryId: Uuid!, $searchTerm: String! = "", $order: [ConditionSortInput!] = [{name: ASC}]) {
+	conditions(
+		skip: $skip, 
+		take: $take, 
+		order: $order,
+		where: {
+			or: [
+				{name: {contains: $searchTerm}}
+			]
+			conditionCategory: {
+				id: {eq: $conditionCategoryId}
+			}
+		}) 
+	{
+		totalCount,
+		items {
+			... ConditionsPage
+		}
+	}
+}

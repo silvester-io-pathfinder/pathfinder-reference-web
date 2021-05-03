@@ -1,0 +1,17 @@
+﻿query GetItemCursesPage($skip: Int!, $take: Int!, $searchTerm: String! = "", $order: [ItemCurseSortInput!] = [{name: ASC}]) {
+	itemCurses(
+		skip: $skip, 
+		take: $take, 
+		order: $order,
+		where: {
+			or: [
+				{name: {contains: $searchTerm}}
+			]
+		}) 
+	{
+		totalCount,
+		items {
+			... ItemCursesPage
+		}
+	}
+}

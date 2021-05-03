@@ -1,0 +1,14 @@
+﻿query GetConditionCategoryById($id: Uuid!) {
+	conditionCategories(where: {id: {eq: $id}}) {
+		items {
+			... ConditionCategoryById
+		}
+	}
+}
+
+
+fragment ConditionCategoryById on ConditionCategory
+{
+	id,
+	name,
+}

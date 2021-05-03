@@ -1,0 +1,5 @@
+﻿fragment ConditionCategoriesPage on ConditionCategory
+{
+	id,
+	name
+}
