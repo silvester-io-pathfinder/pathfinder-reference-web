@@ -1,0 +1,22 @@
+﻿fragment ConditionsPage on Condition
+{
+	id,
+	name,
+	conditionCategory {
+		... ConditionsPage_Category
+	},
+	overridesCondition {
+		... ConditionsPage_OverrideCondition
+	},
+	details(where: {order: {eq: 0}}) {
+		... TextBlock
+	}
+}
+
+fragment ConditionsPage_Category on ConditionCategory {
+	name
+}
+
+fragment ConditionsPage_OverrideCondition on Condition {
+	name
+}

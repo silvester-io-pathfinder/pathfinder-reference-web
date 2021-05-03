@@ -1562,7 +1562,7 @@ input BenefitTypeFilterInput {
 input ConditionSortInput {
   name: SortEnumType
   sourcePageId: SortEnumType
-  sourcePage: SourceSortInput
+  sourcePage: SourcePageSortInput
   conditionCategoryId: SortEnumType
   conditionCategory: ConditionCategorySortInput
   overridesConditionId: SortEnumType
@@ -1575,7 +1575,7 @@ input ConditionFilterInput {
   or: [ConditionFilterInput!]
   name: StringOperationFilterInput
   sourcePageId: ComparableNullableOfGuidOperationFilterInput
-  sourcePage: SourceFilterInput
+  sourcePage: SourcePageFilterInput
   conditionCategoryId: ComparableNullableOfGuidOperationFilterInput
   conditionCategory: ConditionCategoryFilterInput
   overridesConditionId: ComparableNullableOfGuidOperationFilterInput
@@ -3541,7 +3541,7 @@ type ConditionCategory {
 type Condition {
   name: String!
   sourcePageId: Uuid
-  sourcePage: Source
+  sourcePage: SourcePage
   conditionCategoryId: Uuid
   conditionCategory: ConditionCategory
   overridesConditionId: Uuid

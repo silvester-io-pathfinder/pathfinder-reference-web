@@ -1,0 +1,36 @@
+﻿query GetConditionById($id: Uuid!) {
+	conditions(where: {id: {eq: $id}}) {
+		items {
+			... ConditionById
+		}
+	}
+}
+
+
+fragment ConditionById on Condition
+{
+	id,
+	name,
+	sourcePage {
+		... SourcePage
+	},
+	conditionCategory {
+		... ConditionById_Category 
+	},
+	overridesCondition {
+		... ConditionById_OverrideCondition
+	}, 
+	details (order: {order: ASC}){
+		... TextBlock
+	}
+}
+
+fragment ConditionById_OverrideCondition on Condition {
+	id,
+	name
+}
+
+fragment ConditionById_Category on ConditionCategory {	
+	id,
+	name
+}
