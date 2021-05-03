@@ -1,0 +1,17 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+@using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
+@using Silvester.Pathfinder.Official.Web.Graphql
+@using Silvester.Pathfinder.Official.Web.Services
+
+@inherits AbstractTable<IConditionCategoriesPage, ConditionCategorySortInput>
+
+@Table
+
+@code {
+    protected override void CreateModel(TableBuilder<IConditionCategoriesPage> builder)
+    {
+        builder
+            .AddTextColumn(e => e.Name, "Name", nameof(IConditionCategoriesPage.Name), true)
+            .AddInspectColumn(NavigationManager, e => $"condition-categories/{e.Id}");
+    }
+}

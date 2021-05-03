@@ -1,0 +1,50 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Planes;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Planes.Providers;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Deities;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Deities.Providers;
+@using Silvester.Pathfinder.Official.Web.Components.Cards;
+
+@inherits BaseDetailPage
+@page "/conditions/{conditionId:guid}"
+@implements IDisposable
+
+<div>
+    <PageLayout>
+        @if (Condition != null)
+        {
+            <MudPaper Style="margin: 20px">
+                <ConditionDetailsCard Condition="@Condition" />
+            </MudPaper>
+        }
+    </PageLayout>
+</div>
+
+@code {
+    protected override string Title => "Condition";
+    protected override string? Subtitle => Condition?.Name;
+
+    [Parameter]
+    public Guid ConditionId { get; set; }
+
+    private IConditionById? Condition { get; set; }
+
+    private IDisposable? StoreSession { get; set; }
+
+    protected override void OnInitialized()
+    {
+        StoreSession = PathfinderOfficialApi.GetConditionById
+            .Watch(ConditionId)
+            .Select(e => e.Data?.Conditions?.Items?.FirstOrDefault())
+            .Subscribe(curse =>
+            {
+                Condition = curse;
+                StateHasChanged();
+            });
+    }
+
+    public void Dispose()
+    {
+        StoreSession?.Dispose();
+    }
+}

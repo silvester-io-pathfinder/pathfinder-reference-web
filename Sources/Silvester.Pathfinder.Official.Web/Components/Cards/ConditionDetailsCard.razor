@@ -1,0 +1,74 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Preferences;
+@using Silvester.Pathfinder.Official.Web.Shared.Cards;
+@using Silvester.Pathfinder.Official.Web.Shared.Tables;
+@using Silvester.Pathfinder.Official.Web.Services;
+@using Silvester.Pathfinder.Official.Web.Shared.Chips;
+@using Silvester.Pathfinder.Official.Web.Shared.Footers;
+@using Silvester.Pathfinder.Official.Web.Components.Footers;
+
+@if (Condition != null)
+{
+    <ComponentDetailsCard TEntity="IConditionById" Entity="@Condition">
+        <Title>
+            <MudText Typo="Typo.h6">Condition</MudText>
+        </Title>
+        <Actions>
+        </Actions>
+        <LeftContent>
+            <PreferenceCategory Title="Details">
+                <PreferenceItemText Title="Name" Text="@context.Name" />
+                @if (context.ConditionCategory != null)
+                { 
+                    <PreferenceItemChips Title="Category">
+                        <Chips>
+                            <TraitChip Text="@context.ConditionCategory.Name" OnClick="@(() => OnCategoryClick(context.ConditionCategory.Id))" />
+                        </Chips>
+                    </PreferenceItemChips>
+                }
+                @if (context.OverridesCondition != null)
+                {
+                    <PreferenceItemChips Title="Overrides">
+                        <Chips>
+                            <TraitChip Text="@context.OverridesCondition.Name" OnClick="@(() => OnOverridesConditionClick(context.OverridesCondition.Id))" />
+                        </Chips>
+                    </PreferenceItemChips>
+                }
+            </PreferenceCategory>
+            <MudDivider />
+            <PreferenceCategory>
+                <PreferenceItemFooter Items="@(GetFooterItems())" />
+            </PreferenceCategory>
+        </LeftContent>
+        <RightContent>
+            <PreferenceCategory Title="Description">
+                <PreferenceItemTextBlocks TextBlocks="@context.Details" />
+            </PreferenceCategory>
+        </RightContent>
+    </ComponentDetailsCard>
+}
+
+@code {
+    [Parameter]
+    public IConditionById Condition { get; set; } = default!;
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; } = default!;
+
+    public void OnOverridesConditionClick(Guid id)
+    {
+        NavigationManager.NavigateTo($"conditions/{id}");
+    }
+
+    public void OnCategoryClick(Guid id)
+    {
+        NavigationManager.NavigateTo($"condition-categories/{id}");
+    }
+
+    public IEnumerable<IconFooterBar.Item> GetFooterItems()
+    {
+        foreach (IconFooterBar.Item item in new SourceFooterBarItems(Condition.SourcePage))
+        {
+            yield return item;
+        }
+    }
+}

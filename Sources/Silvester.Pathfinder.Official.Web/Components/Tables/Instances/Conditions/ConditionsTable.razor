@@ -1,0 +1,20 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+@using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
+@using Silvester.Pathfinder.Official.Web.Graphql
+@using Silvester.Pathfinder.Official.Web.Services
+
+@inherits AbstractTable<IConditionsPage, ConditionSortInput>
+
+@Table
+
+@code {
+    protected override void CreateModel(TableBuilder<IConditionsPage> builder)
+    {
+        builder
+            .AddTextColumn(e => e.Name, "Name", nameof(IConditionsPage.Name), true)
+            .AddTextColumn(e => e.ConditionCategory?.Name, "Category", nameof(IConditionsPage.ConditionCategory) + "." + nameof(IConditionsPage_Category.Name), hideBelow: Breakpoint.Xs)
+            .AddTextColumn(e => e.OverridesCondition?.Name, "Overrides", nameof(IConditionsPage.OverridesCondition) + "." + nameof(IConditionsPage_OverrideCondition.Name), hideBelow: Breakpoint.Xs)
+            .AddTextColumn(e => e.Details.First().Text, "Description", nameof(IConditionsPage.Details) + "." + nameof(ITextBlock.Text), hideBelow: Breakpoint.MdAndDown)
+            .AddInspectColumn(NavigationManager, e => $"conditions/{e.Id}");
+    }
+}

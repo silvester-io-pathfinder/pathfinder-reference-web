@@ -1,0 +1,20 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+@using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
+@using Silvester.Pathfinder.Official.Web.Graphql
+@using Silvester.Pathfinder.Official.Web.Services
+
+@inherits AbstractTable<IItemCursesPage, ItemCurseSortInput>
+
+@Table
+
+@code {
+    protected override void CreateModel(TableBuilder<IItemCursesPage> builder)
+    {
+        builder
+            .AddTextColumn(e => e.Name, "Name", nameof(IItemCursesPage.Name), true, hasDenseRightPadding: true)
+            .AddTextColumn(e => e.Usage, "Usage", nameof(IItemCursesPage.Usage), hideBelow: Breakpoint.Xs)
+            .AddTextColumn(e => e.Level.ToString(), "Level", nameof(IItemCursesPage.Level), hasDenseRightPadding: true)
+            .AddTextColumn(e => e.Details.First().Text, "Description", nameof(IItemCursesPage.Details) + "." + nameof(ITextBlock.Text), hideBelow: Breakpoint.MdAndDown)
+            .AddInspectColumn(NavigationManager, e => $"item-curses/{e.Id}");
+    }
+}
