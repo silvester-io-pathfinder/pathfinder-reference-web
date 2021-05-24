@@ -10,16 +10,16 @@
 
 <div>
     <PageLayout>
-        @if (MagicComponent != null)
+        @if(MagicComponent != null)
         {
             <MudPaper Style="margin: 20px">
                 <MagicComponentCard MagicComponent="@MagicComponent" />
             </MudPaper>
-
-            <MudPaper Style="margin: 20px">
-                <SpellsTable IsSearchEnabled="false" PageProvider="@(new SpellPageWithComponentProvider(PathfinderOfficialApi, MagicComponentId))" />
-            </MudPaper>
         }
+
+        <MudPaper Style="margin: 20px">
+            <SpellsTable IsSearchEnabled="false" PageProvider="@(new SpellPageWithComponentProvider(PathfinderOfficialApi, MagicComponentId))" />
+        </MudPaper>
     </PageLayout>
 </div>
 

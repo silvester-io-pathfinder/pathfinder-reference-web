@@ -1,0 +1,32 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Cards.Builder;
+@using Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details;
+
+@inherits AbstractDetailsCard<IPreciousMaterialShieldById>
+
+@Card
+
+@code {
+    protected override DetailsCardModel CreateModel(IPreciousMaterialShieldById model)
+    {
+        return new DetailsCardBuilder("Precious Material Shield", true) 
+            .AddCategoryLeft("Details", category =>
+            {
+                category
+                    .AddText(new TextModel("Name", model.Name))
+                    .AddTraitChips(model.Traits, NavigationManager)
+                    .AddFooter(footer =>
+                    {
+                        footer.AddSourcePage(model.SourcePage);
+                    });
+            })
+            .AddCategoryRight("Description", category =>
+            {
+                category
+                    .AddTextBlock(new TextBlockModel(model.Details));
+            })
+            .Build();
+    }
+
+}
+

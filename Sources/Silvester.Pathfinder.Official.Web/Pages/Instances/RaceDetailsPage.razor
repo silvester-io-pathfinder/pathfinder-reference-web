@@ -2,6 +2,7 @@
 @using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Heritages;
 @using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Heritages.Providers;
 @using Silvester.Pathfinder.Official.Web.Components.Cards;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
 
 @inherits BaseDetailPage
 @page "/races/{raceId:guid}"
@@ -9,12 +10,9 @@
 
 <div>
     <PageLayout>
-        @if (Race != null)
-        {
         <MudPaper Style="margin: 20px">
-            <RaceDetailsCard Race="@Race" />
+            <RaceDetailsCard Entity="@Race" />
         </MudPaper>
-
 
         <MudPaper Style="margin: 20px">
             <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
@@ -23,7 +21,6 @@
                 </MudTabPanel>
             </MudTabs>
         </MudPaper>
-        }
     </PageLayout>
 </div>
 

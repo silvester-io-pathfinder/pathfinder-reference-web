@@ -10,16 +10,11 @@
 <div>
     <PageLayout>
         <MudPaper Style="margin: 20px">
-
-            @if (Language != null)
-            {
-                <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
-                    <MudTabPanel Text="Races">
-                        <RacesTable PageProvider="@(new RacePageWithLanguageProvider(PathfinderOfficialApi, LanguageId))" />
-                    </MudTabPanel>
-                </MudTabs>
-            }
-
+            <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
+                <MudTabPanel Text="Races">
+                    <RacesTable PageProvider="@(new RacePageWithLanguageProvider(PathfinderOfficialApi, LanguageId))" />
+                </MudTabPanel>
+            </MudTabs>
         </MudPaper>
     </PageLayout>
 </div>

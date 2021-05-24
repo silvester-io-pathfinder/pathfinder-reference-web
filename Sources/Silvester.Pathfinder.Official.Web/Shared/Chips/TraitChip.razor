@@ -1,5 +1,15 @@
 ﻿
-<MudChip Variant="@Variant.Outlined" Size="Size.Small" Color="Color.Tertiary" Style="margin: 0px; margin-right: 8px; margin-bottom: 8px;" OnClick="@(() => OnClick?.Invoke())">@Text</MudChip>
+@if (string.IsNullOrWhiteSpace(Tooltip) == false)
+{
+    <MudTooltip Text="@Tooltip">
+        <MudChip Variant="@Variant.Outlined" Size="Size.Small" Color="Color.Tertiary" Style="margin: 0px; margin-right: 8px; margin-top: 8px;" OnClick="@(() => OnClick?.Invoke())">@Text</MudChip>
+    </MudTooltip>
+}
+else
+{
+    <MudChip Variant="@Variant.Outlined" Size="Size.Small" Color="Color.Tertiary" Style="margin: 0px; margin-right: 8px; margin-top: 8px;" OnClick="@(() => OnClick?.Invoke())">@Text</MudChip>
+}
+
 
 @code {
     [Parameter]
@@ -7,4 +17,7 @@
 
     [Parameter]
     public string Text { get; set; } = default!;
+
+    [Parameter]
+    public string? Tooltip { get; set; } = default!;
 }

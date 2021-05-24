@@ -1,16 +1,44 @@
 ﻿@using Silvester.Pathfinder.Official.Web.Shared.Preferences;
 @using Silvester.Pathfinder.Official.Web.Services;
-
+@using Silvester.Pathfinder.Official.Web.Shared.Loading;
+ 
 @typeparam TEntity
 
 <div>
     @{
-        if (Entity != null)
+        if (Entity == null)
+        {
+            <CardToolbar>
+                <MudSkeleton SkeletonType="SkeletonType.Circle" Animation="Animation.Wave" Height="40px" Width="40px" />
+                <MudSkeleton Animation="Animation.Wave" Width="120px" Style="margin-left: 20px;"/>
+                <MudToolBarSpacer />
+                @if (Shareable)
+                {
+                    <MudTooltip Text="Share">
+                        <MudIconButton Size="Size.Medium" OnClick="@(async () => await OnShareClickAsync())" Icon="@Icons.Material.Filled.Share"></MudIconButton>
+                    </MudTooltip>
+                }
+            </CardToolbar>
+
+            <MudDivider />
+
+            <div style="padding: 20px;">
+                <MudSkeleton Animation="Animation.Wave" Width="30%" Height="42px;" />
+                <MudSkeleton Animation="Animation.Wave" Width="80%" />
+                <MudSkeleton Animation="Animation.Wave" Width="100%" />
+                
+                <div style="display:flex; flex-direction:row; margin-top: 30px;">
+                    <MudSkeleton Animation="Animation.Wave" Width="64px" Height="40px" />
+                    <MudSkeleton Animation="Animation.Wave" Width="105px" Height="40px" Style="margin-left: 20px;" />
+                </div>
+            </div>
+        }
+        else
         {
             <CardToolbar>
                 @Title(Entity)
                 <MudToolBarSpacer />
-                @if(Actions != null)
+                @if (Actions != null)
                 {
                     @Actions(Entity)
                 }
@@ -41,6 +69,9 @@
     [Parameter]
     public bool Shareable { get; set; } = true;
 
+    [Parameter]
+    public RenderFragment<TEntity> Title { get; set; } = default!;
+
     [Inject]
     public IClipboardService ClipboardService { get; set; } = default!;
 
@@ -62,8 +93,6 @@
     [Parameter]
     public RenderFragment<TEntity> RightContent { get; set; } = default!;
 
-    [Parameter]
-    public RenderFragment<TEntity> Title { get; set; } = default!;
 
     public async Task OnShareClickAsync()
     {

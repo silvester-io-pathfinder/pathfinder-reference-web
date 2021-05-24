@@ -1,0 +1,22 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+@using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
+@using Silvester.Pathfinder.Official.Web.Graphql
+@using Silvester.Pathfinder.Official.Web.Services
+
+@inherits AbstractTable<IHazardsPage, HazardSortInput>
+
+@Table
+
+@code {
+	protected override void CreateModel(TableBuilder<IHazardsPage> builder)
+	{
+		builder
+			.AddTextColumn(e => e.Name, "Name", nameof(IHazardsPage.Name), true)
+			.AddTextColumn(e => e.Level.ToString(), "Level", nameof(IHazardsPage.Level), hasDenseRightPadding: true, hideBelow: Breakpoint.Xs)
+			.AddTextColumn(e => e.ArmorClass.ToString(), "AC", nameof(IHazardsPage.ArmorClass), hasDenseRightPadding: true, hideBelow: Breakpoint.Xs)
+			.AddTextColumn(e => e.Complexity.Name, "Complexity", nameof(IHazardsPage.Complexity) + "." + nameof(IHazardsPage_Complexity.Name), hideBelow: Breakpoint.Xs)
+			.AddTextColumn(e => e.Type.Name, "Type", nameof(IHazardsPage.Type) + "." + nameof(IHazardsPage_Type.Name), hideBelow: Breakpoint.SmAndDown)
+			.AddTextColumn(e => e.Description, "Description", nameof(IHazardsPage.Description), hideBelow: Breakpoint.MdAndDown)
+			.AddInspectColumn(NavigationManager, e => $"hazards/{e.Id}");
+	}
+}

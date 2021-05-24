@@ -1,45 +1,55 @@
 ﻿<div>
-
-    @foreach (ITextBlock block in TextBlocks.OrderBy(e => e.Order))
-    {
-        @switch (block.Type)
+    <div class="wrapper preference-item">
+        @if (string.IsNullOrWhiteSpace(Title) == false)
         {
-            case TextBlockType.Heading:
-                <div class="wrapper preference-item">
-                    <p style="font-weight: bold">@block.Text</p>
-                </div>
-                break;
-
-            case TextBlockType.Text:
-                <div class="wrapper preference-item">
-                    <p>@block.Text</p>
-                </div>
-                break;
-
-            case TextBlockType.Enumeration:
-                <div class="wrapper preference-item">
-                    <p style="margin-left: 10px">- @block.Text</p>
-                </div>
-                break;
-
-            case TextBlockType.Footnote:
-                <div class="wrapper preference-item">
-                    <p style="font-style: italic; font-size: 8px">* @block.Text</p>
-                </div>
-                break;
-
-            case TextBlockType.Example:
-                <div class="wrapper preference-item">
-                    <p style="display: flex; justify-self: center;">@block.Text</p>
-                </div>
-                break;
-            }
+            <p class="preference-item-title">@Title</p>
         }
 
+        @foreach (ITextBlock block in TextBlocks.OrderBy(e => e.Order))
+        {
+            <div style="margin-top: 12px">
+                @switch (block.Type)
+                {
+                    case TextBlockType.Heading:
+                        <p style="font-weight: bold">@block.Text</p>
+                        break;
+
+                    case TextBlockType.Text:
+                        <p>@block.Text</p>
+                        break;
+
+                    case TextBlockType.Enumeration:
+                        <p style="margin-left: 10px">- @block.Text</p>
+                        break;
+
+                    case TextBlockType.Footnote:
+                        <p style="font-style: italic; font-size: 8px">* @block.Text</p>
+                        break;
+
+                    case TextBlockType.Example:
+                        <p style="display: flex; justify-self: center;">@block.Text</p>
+                        break;
+                }
+            </div>
+        }
+    </div>
 </div>
 
 
 @code {
     [Parameter]
     public IEnumerable<ITextBlock> TextBlocks { get; set; } = default!;
+
+    [Parameter]
+    public string? Title { get; set; }
+
+    public RenderFragment? RenderTitle()
+    {
+        if (string.IsNullOrWhiteSpace(Title))
+        {
+            return null;
+        }
+
+        return @<p class="preference-item-title">@Title</p>;
+    }
 }

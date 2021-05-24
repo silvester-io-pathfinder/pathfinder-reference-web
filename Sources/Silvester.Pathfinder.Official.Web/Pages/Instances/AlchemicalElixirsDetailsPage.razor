@@ -1,5 +1,6 @@
 ﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
 @using Silvester.Pathfinder.Official.Web.Components.Cards;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
 
 @inherits BaseDetailPage
 @page "/alchemical-elixirs/{alchemicalElixirId:guid}"
@@ -7,14 +8,11 @@
 
 <div>
     <PageLayout>
-        @if (Elixir != null)
-        {
-            <MudPaper Style="margin: 20px">
-                <AlchemicalElixirDetailsCard AlchemicalElixir="@Elixir" />
-            </MudPaper>
+        <MudPaper Style="margin: 20px">
+            <AlchemicalElixirDetailsCard Entity="@Elixir" />
+        </MudPaper>
 
-            <AlchemicalElixirPotenciesCard AlchemicalElixir="@Elixir" />
-        }
+        <AlchemicalElixirPotenciesCard AlchemicalElixir="@Elixir" />
     </PageLayout>
 </div>
 

@@ -4,6 +4,7 @@
 @using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Deities;
 @using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Deities.Providers;
 @using Silvester.Pathfinder.Official.Web.Components.Cards;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
 
 @inherits BaseDetailPage
 @page "/item-curses/{itemCurseId:guid}"
@@ -11,12 +12,9 @@
 
 <div>
     <PageLayout>
-        @if (ItemCurse != null)
-        {
-            <MudPaper Style="margin: 20px">
-                <ItemCurseDetailsCard ItemCurse="@ItemCurse" />
-            </MudPaper>
-        }
+        <MudPaper Style="margin: 20px">
+            <ItemCurseDetailsCard Entity="@ItemCurse" />
+        </MudPaper>
     </PageLayout>
 </div>
 

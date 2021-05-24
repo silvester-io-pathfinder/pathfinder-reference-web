@@ -1,0 +1,30 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Cards.Builder;
+@using Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details;
+
+@inherits AbstractDetailsCard<IConditionById>
+
+@Card
+
+@code {
+    protected override DetailsCardModel CreateModel(IConditionById model)
+    {
+        return new DetailsCardBuilder("Condition", true)
+            .AddCategoryLeft("Characteristics", category =>
+            {
+                category
+                    .AddText("Name", model.Name)
+                    .AddSingularChip("Category", model.ConditionCategory?.Name, () => NavigationManager.NavigateTo($"condition-categories/{model.ConditionCategory?.Id}"))
+                    .AddSingularChip("Overrides Condition", model.OverridesCondition?.Name, () => NavigationManager.NavigateTo($"conditions/{model.OverridesCondition?.Id}"))
+                    .AddFooter(footer =>
+                    {
+                        footer.AddSourcePage(model.SourcePage);
+                    });
+            })
+            .AddCategoryRight("Description", category =>
+            {
+                category.AddTextBlock(new TextBlockModel(model.Details));
+            })
+            .Build();
+    }
+}

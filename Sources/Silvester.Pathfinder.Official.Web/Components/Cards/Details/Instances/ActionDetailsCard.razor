@@ -1,0 +1,41 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Cards.Builder;
+@using Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details;
+
+@inherits AbstractDetailsCard<IGetActionById_Actions_Items>
+
+@Card
+
+@code {
+    protected override DetailsCardModel CreateModel(IGetActionById_Actions_Items model)
+    {
+        return new DetailsCardBuilder("Action", true)
+            .AddCategoryLeft("Traits", category =>
+            {
+                category.AddTraitChips(model.Traits, NavigationManager);
+            })
+            .AddCategoryLeft("Characteristics", category =>
+            {
+                category.AddText("Name", model.Name);
+            })
+            .AddCategoryRight("Description", category =>
+            {
+                category.AddTextBlock(new TextBlockModel(model.Details));
+            })
+            .AddCategoryRight("Rollable Effect", category =>
+            {
+                category.AddRollableEffect(model.RollableEffect);
+            })
+            .Build();
+    }
+
+    public void OnMaterialClick(Guid id)
+    {
+        NavigationManager.NavigateTo($"precious-materials/{id}");
+    }
+
+    public void OnTraitClick(Guid id)
+    {
+        NavigationManager.NavigateTo($"traits/{id}");
+    }
+}

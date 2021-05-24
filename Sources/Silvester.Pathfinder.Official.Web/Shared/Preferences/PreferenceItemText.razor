@@ -1,16 +1,29 @@
-﻿
-<div class="preference-item preference-item-text" style="margin-right: 20px;">
-    @{
-        if (string.IsNullOrWhiteSpace(Title) == false)
-        {
-            <p class="preference-item-title">@Title</p>
-        } 
-    }
-    <div style="display: flex; flex-direction: row; ">
-        @if(string.IsNullOrWhiteSpace(Icon) == false)
-        {
-            <MudIcon Size="Size.Small" Icon="@Icon" Style="margin-right: 15px;"/>
+﻿@if (string.IsNullOrWhiteSpace(Text) == false)
+{
+    <div class="preference-item preference-item-text" style="margin-right: 20px;">
+        @{
+            if (string.IsNullOrWhiteSpace(Title) == false)
+            {
+                <p class="preference-item-title">@Title</p>
+            }
         }
-        <p class="preference-item-text">@Text</p>
+        <div style="display: flex; flex-direction: row; ">
+            @if (string.IsNullOrWhiteSpace(Icon) == false)
+            {
+                <MudIcon Size="Size.Small" Icon="@Icon" Style="margin-right: 15px;" />
+            }
+            <p class="preference-item-text">@Text</p>
+        </div>
     </div>
-</div>
+}
+
+@code {
+    [Parameter]
+    public string? Title { get; set; } = default!;
+    
+    [Parameter]
+    public string? Text { get; set; } = default!;
+    
+    [Parameter]
+    public string? Icon { get; set; } = default!;
+}

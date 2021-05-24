@@ -1,0 +1,24 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+@using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
+@using Silvester.Pathfinder.Official.Web.Graphql
+@using Silvester.Pathfinder.Official.Web.Services
+
+@inherits AbstractTable<IShieldsPage, ShieldSortInput>
+
+@Table
+
+@code {
+    protected override void CreateModel(TableBuilder<IShieldsPage> builder)
+    {
+        builder
+            .AddTextColumn(e => e.Name, "Name", nameof(IShieldsPage.Name), true)
+            .AddPriceColumn(e => e.Price, "Price", nameof(IShieldsPage.Price))
+            .AddTextColumn(e => e.ArmorClassBonus.ToString(), "AC Bonus", nameof(IShieldsPage.ArmorClassBonus), hasDenseRightPadding: true, hideBelow: Breakpoint.Xs)
+            .AddTextColumn(e => e.SpeedPenalty.ToString(), "Speed Penalty", nameof(IShieldsPage.SpeedPenalty), hasDenseRightPadding: true, hideBelow: Breakpoint.Xs)
+            .AddTextColumn(e => e.Hardness.ToString(), "Hardness", nameof(IShieldsPage.Hardness), hasDenseRightPadding: true, hideBelow: Breakpoint.SmAndDown)
+            .AddTextColumn(e => e.HitPoints.ToString(), "Hit Points", nameof(IShieldsPage.HitPoints), hasDenseRightPadding: true, hideBelow: Breakpoint.MdAndDown)
+            .AddTextColumn(e => e.Bulk.Name, "Bulk", nameof(IShieldsPage.Bulk) + "." + nameof(IBulk.Name), hasDenseRightPadding: true, hideBelow: Breakpoint.MdAndDown)
+            .AddTextColumn(e => e.Details.First().Text, "Desciption", nameof(IShieldsPage.Details) + "." + nameof(ITextBlock.Text), hideBelow: Breakpoint.MdAndDown)
+            .AddInspectColumn(NavigationManager, e => $"shields/{e.Id}");
+    }
+}

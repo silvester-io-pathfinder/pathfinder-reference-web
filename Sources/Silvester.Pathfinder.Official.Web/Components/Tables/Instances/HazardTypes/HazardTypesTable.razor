@@ -1,0 +1,18 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+@using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
+@using Silvester.Pathfinder.Official.Web.Graphql
+@using Silvester.Pathfinder.Official.Web.Services
+
+@inherits AbstractTable<IHazardTypesPage, HazardTypeSortInput>
+
+@Table
+
+@code {
+	protected override void CreateModel(TableBuilder<IHazardTypesPage> builder)
+	{
+		builder
+			.AddTextColumn(e => e.Name, "Name", nameof(IHazardTypesPage.Name), true)
+			.AddTextColumn(e => e.Description, "Description", nameof(IHazardTypesPage.Description), hideBelow: Breakpoint.SmAndDown)
+			.AddInspectColumn(NavigationManager, e => $"hazard-types/{e.Id}");
+	}
+}

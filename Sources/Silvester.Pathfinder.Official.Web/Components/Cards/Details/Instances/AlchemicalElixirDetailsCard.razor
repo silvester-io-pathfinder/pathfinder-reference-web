@@ -1,0 +1,38 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Cards.Builder;
+@using Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details;
+
+@inherits AbstractDetailsCard<IAlchemicalElixirById>
+
+@Card
+
+@code {
+    protected override DetailsCardModel CreateModel(IAlchemicalElixirById model)
+    {
+        return new DetailsCardBuilder("Alchemical Elixir", true)
+            .AddCategoryLeft("Traits", category =>
+            {
+                category
+                    .AddTraitChips(model.Traits, NavigationManager);
+            })
+            .AddCategoryLeft("Characteristics", category =>
+            {
+                category
+                    .AddText("Name", model.Name)
+                    .AddAction("Action", model.Action.Name, ActionTypeService)
+                    .AddText("Usage", model.Usage)
+                    .AddText("Item Bonus", model.ItemBonus.ToString())
+                    .AddFooter(footer =>
+                    {
+                        footer
+                            .AddSourcePage(model.SourcePage)
+                            .AddBulk(model.Bulk);
+                    });
+            })
+            .AddCategoryRight("Description", category =>
+            {
+                category.AddTextBlock(new TextBlockModel(model.Details));
+            })
+            .Build();
+    }
+}

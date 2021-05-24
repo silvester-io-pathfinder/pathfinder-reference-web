@@ -6,6 +6,7 @@
 @using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Spells;
 @using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Spells.Providers;
 @using Silvester.Pathfinder.Official.Web.Components.Cards;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
 
 @inherits BaseDetailPage
 @implements IDisposable
@@ -13,23 +14,20 @@
 @page "/traits/{traitId:guid}"
 <div>
     <PageLayout>
-        @if (Trait != null)
-        {
-            <MudPaper Style="margin: 20px">
-                <TraitDetailsCard Trait="@Trait" />
-            </MudPaper>
+        <MudPaper Style="margin: 20px">
+            <TraitDetailsCard Entity="@Trait" />
+        </MudPaper>
 
-            <MudPaper Style="margin: 20px; margin-top:40px;">
-                <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
-                    <MudTabPanel Text="Feats">
-                        <FeatsTable PageProvider="@(new FeatPageWithTraitProvider(PathfinderOfficialApi, TraitId))" />
-                    </MudTabPanel>
-                    <MudTabPanel Text="Spells">
-                        <SpellsTable PageProvider="@(new SpellPageWithTraitProvider(PathfinderOfficialApi, TraitId))" />
-                    </MudTabPanel>
-                </MudTabs>
-            </MudPaper>
-        }
+        <MudPaper Style="margin: 20px; margin-top:40px;">
+            <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
+                <MudTabPanel Text="Feats">
+                    <FeatsTable PageProvider="@(new FeatPageWithTraitProvider(PathfinderOfficialApi, TraitId))" />
+                </MudTabPanel>
+                <MudTabPanel Text="Spells">
+                    <SpellsTable PageProvider="@(new SpellPageWithTraitProvider(PathfinderOfficialApi, TraitId))" />
+                </MudTabPanel>
+            </MudTabs>
+        </MudPaper>
     </PageLayout>
 </div>
 

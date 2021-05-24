@@ -2,6 +2,7 @@
 @using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Planes;
 @using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Planes.Providers;
 @using Silvester.Pathfinder.Official.Web.Components.Cards;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
 
 @inherits BaseDetailPage
 @page "/plane-categories/{planeCategoryId:guid}"
@@ -12,7 +13,7 @@
         @if (PlaneCategory != null)
         {
             <MudPaper Style="margin: 20px">
-                <PlaneCategoryDetailsCard PlaneCategory="@PlaneCategory" />
+                <PlaneCategoryDetailsCard Entity="@PlaneCategory" />
             </MudPaper>
 
             <MudPaper Style="margin: 20px">

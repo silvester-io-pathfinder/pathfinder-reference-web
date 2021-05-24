@@ -1,5 +1,6 @@
 ﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
 @using Silvester.Pathfinder.Official.Web.Components.Cards;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
 
 @inherits BaseDetailPage
 @implements IDisposable
@@ -9,16 +10,7 @@
 <div>
     <PageLayout>
         <MudPaper Style="margin: 20px">
-
-            @if (Feat == null)
-            {
-
-            }
-            else
-            {
-                <FeatDetailsCard Feat="@Feat" />
-            }
-
+            <FeatDetailsCard Entity="@Feat" />
         </MudPaper>
     </PageLayout>
 </div>

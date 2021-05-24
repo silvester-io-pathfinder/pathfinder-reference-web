@@ -1,0 +1,23 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Cards.Builder;
+@using Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details;
+
+@inherits AbstractDetailsCard<IGetDeityCategoryById_DeityCategories_Items>
+
+@Card
+
+@code {
+    protected override DetailsCardModel CreateModel(IGetDeityCategoryById_DeityCategories_Items model)
+    {
+        return new DetailsCardBuilder("Deity Category", true)
+            .AddCategoryLeft("Characteristics", category =>
+            {
+                category.AddText("Name", model.Name);
+            })
+            .AddCategoryRight("Description", category =>
+            {
+                category.AddText(model.Description);
+            })
+            .Build();
+    }
+}

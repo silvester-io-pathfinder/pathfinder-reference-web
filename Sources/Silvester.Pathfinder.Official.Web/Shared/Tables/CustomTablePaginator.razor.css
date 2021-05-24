@@ -3,3 +3,7 @@
     padding-left: 10px;
     padding-right: 10px;
 }
+
+::deep .mud-input-control {
+    margin-right: 0px !important;
+}

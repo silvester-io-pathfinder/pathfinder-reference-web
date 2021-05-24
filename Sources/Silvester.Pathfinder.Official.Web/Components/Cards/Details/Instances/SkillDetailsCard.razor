@@ -1,0 +1,33 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Cards.Builder;
+@using Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details;
+
+@inherits AbstractDetailsCard<ISkillById>
+
+@Card
+
+@code {
+    protected override DetailsCardModel CreateModel(ISkillById model)
+    {
+        return new DetailsCardBuilder("Skill", true)
+            .AddCategoryLeft("Details", category =>
+            {
+                category
+                    .AddText("Name", model.Name)
+                    .AddText("Armor Class Penalty", model.HasArmorCheckPenalty.ToString())
+                    .AddText("Recall Knowledge", model.HasRecallKnowledgeAction.ToString());
+            })
+            .AddCategoryLeft("Modifiers", category =>
+            {
+                category
+                    .AddSingularChip("Stat", model.StatModifier.Name, () => NavigationManager.NavigateTo($"stats/{model.StatModifier.Id}"));
+            })
+            .AddCategoryRight("Description", category =>
+            {
+                category
+                    .AddText(null, model.Description);
+            })
+            .Build();
+    }
+}
+

@@ -1,0 +1,47 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Preferences;
+@using Silvester.Pathfinder.Official.Web.Services;
+@using Silvester.Pathfinder.Official.Web.Shared.Loading;
+@using Silvester.Pathfinder.Official.Web.Shared.Cards.Builder;
+@using Silvester.Pathfinder.Official.Web.Shared.Chips;
+@using Silvester.Pathfinder.Official.Web.Shared.Preferences
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
+
+@typeparam TEntity
+
+<ComponentDetailsCard TEntity="TEntity" Entity="@Entity" Shareable="@(Model?.IsSharable ?? false)">
+    <Title>
+        @if(Model != null)
+        {
+            <MudText Typo="Typo.h6">@Model.Title</MudText>
+        }
+    </Title>
+    <Actions>
+    </Actions>
+    <LeftContent>
+        @if(Model != null)
+        {
+            @foreach (var category in Model.CategoriesLeft)
+            {
+                <PreferenceCategoryModelAdapter Category="@category" />
+            }
+        }
+    </LeftContent>
+    <RightContent>
+        @if(Model != null)
+        {
+            @foreach (var category in Model.CategoriesRight)
+            {
+                <PreferenceCategoryModelAdapter Category="@category" />
+            }
+        }
+    </RightContent>
+</ComponentDetailsCard>
+
+@code
+{
+    [Parameter]
+    public DetailsCardModel? Model { get; set; } = default!;
+
+    [Parameter]
+    public TEntity? Entity { get; set; } = default!;
+}

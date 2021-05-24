@@ -1,0 +1,20 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Cards.Builder;
+@using Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details;
+
+@inherits AbstractDetailsCard<IConditionCategoryById>
+
+@Card
+
+@code {
+    protected override DetailsCardModel CreateModel(IConditionCategoryById model)
+    {
+        return new DetailsCardBuilder("Condition Category", true)
+            .AddCategoryLeft("Characteristics", category =>
+            {
+                category
+                    .AddText("Name", model.Name);
+            })
+            .Build();
+    }
+}

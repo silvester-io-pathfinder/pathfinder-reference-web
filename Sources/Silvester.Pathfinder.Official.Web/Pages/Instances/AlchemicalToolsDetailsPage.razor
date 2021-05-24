@@ -1,5 +1,6 @@
 ﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
 @using Silvester.Pathfinder.Official.Web.Components.Cards;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
 
 @inherits BaseDetailPage
 @page "/alchemical-tools/{alchemicalToolId:guid}"
@@ -7,14 +8,11 @@
 
 <div>
     <PageLayout>
-        @if (Tool != null)
-        {
-            <MudPaper Style="margin: 20px">
-                <AlchemicalToolDetailsCard AlchemicalTool="@Tool" />
-            </MudPaper>
+        <MudPaper Style="margin: 20px">
+            <AlchemicalToolDetailsCard Entity="@Tool" />
+        </MudPaper>
 
-            <AlchemicalToolPotenciesCard AlchemicalTool="@Tool" />
-        }
+        <AlchemicalToolPotenciesCard AlchemicalTool="@Tool" />
     </PageLayout>
 </div>
 

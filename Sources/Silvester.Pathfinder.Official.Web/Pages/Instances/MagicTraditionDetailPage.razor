@@ -11,16 +11,13 @@
 
 <div>
     <PageLayout>
-        @if (MagicTradition != null)
-        {
-            <MudPaper Style="margin: 20px">
-                <MagicTraditionCard MagicTradition="@MagicTradition" />
-            </MudPaper>
+        <MudPaper Style="margin: 20px">
+            <MagicTraditionCard MagicTradition="@MagicTradition" />
+        </MudPaper>
 
-            <MudPaper Style="margin: 20px">
-                <SpellsTable IsSearchEnabled="false" PageProvider="@(new SpellPageWithTraditionProvider(PathfinderOfficialApi, MagicTraditionId))" />
-            </MudPaper>
-        }
+        <MudPaper Style="margin: 20px">
+            <SpellsTable IsSearchEnabled="false" PageProvider="@(new SpellPageWithTraditionProvider(PathfinderOfficialApi, MagicTraditionId))" />
+        </MudPaper>
     </PageLayout>
 </div>
 

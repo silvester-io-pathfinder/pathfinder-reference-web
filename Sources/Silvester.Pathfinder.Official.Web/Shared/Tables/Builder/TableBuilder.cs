@@ -123,15 +123,11 @@ namespace Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
 
         public TextColumn<TEntity>? GetLastVisibleTextColumn(Breakpoint currentBreakpoint, IBreakpointService breakpointService)
         {
-            Console.WriteLine("Current breakpoint: " + currentBreakpoint);
-
             for(int i = Columns.Count - 1; i >= 0; i --)
             {
                 ITableColumn<TEntity> current = Columns.ElementAt(i);
-                Console.WriteLine("Processing column: " + current.Name);
                 if (current is TextColumn<TEntity> textColumn && (textColumn.HideBelow == null || breakpointService.IsMatch(currentBreakpoint, textColumn.HideBelow.Value) == false))
                 {
-                    Console.WriteLine("Last Visible Text Column: " + textColumn.Name);
                     return textColumn;
                 }
             }

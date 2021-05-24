@@ -1,0 +1,46 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Heritages;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Heritages.Providers;
+@using Silvester.Pathfinder.Official.Web.Components.Cards;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
+
+@inherits BaseDetailPage
+@page "/shields/{shieldId:guid}"
+@implements IDisposable
+
+<div>
+    <PageLayout>
+        <MudPaper Style="margin: 20px">
+            <ShieldDetailsCard Entity="@Shield" />
+        </MudPaper>
+    </PageLayout>
+</div>
+
+@code {
+    protected override string Title => "Shields";
+    protected override string? Subtitle => Shield?.Name;
+
+    [Parameter]
+    public Guid ShieldId { get; set; }
+
+    private IGetShieldById_Shields_Items? Shield { get; set; }
+
+    private IDisposable? StoreSession { get; set; }
+
+    protected override void OnInitialized()
+    {
+        StoreSession = PathfinderOfficialApi.GetShieldById
+        .Watch(ShieldId, StrawberryShake.ExecutionStrategy.NetworkOnly)
+        .Select(e => e.Data?.Shields?.Items?.FirstOrDefault())
+        .Subscribe(shield =>
+        {
+            Shield = shield;
+            StateHasChanged();
+        });
+    }
+
+    public void Dispose()
+    {
+        StoreSession?.Dispose();
+    }
+}

@@ -1,0 +1,54 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Cards.Builder;
+@using Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details;
+
+@inherits AbstractDetailsCard<IGetDeityById_Deities_Items>
+
+@Card
+
+@code {
+    protected override DetailsCardModel CreateModel(IGetDeityById_Deities_Items model)
+    {
+        return new DetailsCardBuilder("Deity", true)
+            .AddCategoryLeft("Characteristics", category =>
+            {
+                category.AddText("Name", model.Name);
+            })
+            .AddCategoryLeft("Dominion", category =>
+            {
+                category
+                    .AddSingularChip("Category", model.Category?.Name, () => NavigationManager.NavigateTo($"deity-categories/{model.Category?.Id}"))
+                    .AddChips("Domains", c =>
+                    {
+                        foreach (IGetDeityById_Deities_Items_Domains domain in model.Domains)
+                        {
+                            c.AddChip(domain.Name, onClick: () => NavigationManager.NavigateTo($"domains/{domain.Id}"));
+                        }
+                    })
+                    .AddChips("Domains", c =>
+                    {
+                        foreach (IGetDeityById_Deities_Items_DivineFonts font in model.DivineFonts)
+                        {
+                            c.AddChip(font.Name, onClick: () => NavigationManager.NavigateTo("divine-fonts"));
+                        }
+                    });
+            })
+            .AddCategoryRight("Description", category =>
+            {
+                category.AddText(null, model.Description);
+            })
+            .AddCategoryRight("Morality", category =>
+            {
+                category
+                    .AddSingularChip("Alignment", model.Alignment.Name, () => NavigationManager.NavigateTo($"alignments/{model.Alignment.Id}"))
+                    .AddChips("Follower Alignments", c =>
+                    {
+                        foreach (IGetDeityById_Deities_Items_FollowerAlignments alignment in model.FollowerAlignments)
+                        {
+                            c.AddChip(alignment.Name, onClick: () => NavigationManager.NavigateTo($"alignments/{alignment.Id}"));
+                        }
+                    });
+            })
+            .Build();
+    }
+}

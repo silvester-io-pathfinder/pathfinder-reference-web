@@ -1,0 +1,38 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Cards.Builder;
+@using Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details;
+
+@inherits AbstractDetailsCard<IAlchemicalToolById>
+
+@Card
+
+@code {
+    protected override DetailsCardModel CreateModel(IAlchemicalToolById model)
+    {
+        return new DetailsCardBuilder("Alchemical Tool", true)
+            .AddCategoryLeft("Traits", category =>
+            {
+                category
+                    .AddText("Name", model.Name)
+                    .AddTraitChips(model.Traits, NavigationManager);
+            })
+            .AddCategoryLeft("Characteristics", category =>
+            {
+                category
+                    .AddAction("Action", model.Action.Name, ActionTypeService)
+                    .AddText("Usage", model.Usage)
+                    .AddText("Level", model.ItemLevel.ToString())
+                    .AddFooter(footer =>
+                    {
+                        footer
+                            .AddSourcePage(model.SourcePage)
+                            .AddBulk(model.Bulk);
+                    });
+            })
+            .AddCategoryRight("Description", category =>
+            {
+                category.AddTextBlock(new TextBlockModel(model.Details));
+            })
+            .Build();
+    }
+}

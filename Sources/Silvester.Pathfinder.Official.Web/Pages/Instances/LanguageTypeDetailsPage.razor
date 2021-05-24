@@ -9,13 +9,11 @@
 <div>
     <PageLayout>
         <MudPaper Style="margin: 20px">
-
             <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
                 <MudTabPanel Text="Languages">
                     <LanguagesTable PageProvider="@(new LanguagePageWithTypeProvider(PathfinderOfficialApi, LanguageTypeId))" />
                 </MudTabPanel>
             </MudTabs>
-
         </MudPaper>
     </PageLayout>
 </div>

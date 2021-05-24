@@ -1,5 +1,6 @@
 ﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
 @using Silvester.Pathfinder.Official.Web.Components.Cards;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
 
 @inherits BaseDetailPage
 @page "/spells/{spellId:guid}"
@@ -7,16 +8,13 @@
 
 <div>
     <PageLayout>
-        @if (Spell != null)
-        {
-            <MudPaper Style="margin: 20px">
-                <SpellDetailsCard Spell="@Spell" />
-            </MudPaper>
+        <MudPaper Style="margin: 20px">
+            <SpellDetailsCard Entity="@Spell" />
+        </MudPaper>
 
-            <MudPaper Style="margin: 20px; margin-top: 40px;">
-                <SpellHeighteningsCard Spell="@Spell" />
-            </MudPaper>
-        }
+        <MudPaper Style="margin: 20px; margin-top: 40px;">
+            <SpellHeighteningsCard Spell="@Spell" />
+        </MudPaper>
     </PageLayout>
 </div>
 
@@ -27,7 +25,7 @@
     [Parameter]
     public Guid SpellId { get; set; }
 
-    private IGetSpellById_Spells_Items? Spell{ get; set; }
+    private IGetSpellById_Spells_Items? Spell { get; set; }
 
     private IDisposable? StoreSession { get; set; }
 

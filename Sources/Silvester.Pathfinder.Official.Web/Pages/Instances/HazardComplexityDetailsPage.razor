@@ -1,0 +1,58 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Hazards;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Hazards.Providers;
+@using Silvester.Pathfinder.Official.Web.Components.Cards;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Hazards.Providers;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
+
+@inherits BaseDetailPage
+@page "/hazard-complexities/{hazardComplexityId:guid}"
+@implements IDisposable
+
+<div>
+    <PageLayout>
+        @if (HazardComplexity != null)
+        {
+            <MudPaper Style="margin: 20px">
+                <HazardComplexityDetailsCard Entity="@HazardComplexity" />
+            </MudPaper>
+
+            <MudPaper Style="margin: 20px">
+                <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
+                    <MudTabPanel Text="Hazards">
+                        <HazardsTable PageProvider="@(new HazardPageWithComplexityProvider(PathfinderOfficialApi, HazardComplexityId))" />
+                    </MudTabPanel>
+                </MudTabs>
+            </MudPaper>
+        }
+    </PageLayout>
+</div>
+
+@code {
+    protected override string Title => "Hazard Complexity";
+    protected override string? Subtitle => HazardComplexity?.Name;
+
+    [Parameter]
+    public Guid HazardComplexityId { get; set; }
+
+    private IHazardComplexityById? HazardComplexity { get; set; }
+
+    private IDisposable? StoreSession { get; set; }
+
+    protected override void OnInitialized()
+    {
+        StoreSession = PathfinderOfficialApi.GetHazardComplexityById
+            .Watch(HazardComplexityId)
+            .Select(e => e.Data?.HazardComplexities?.Items?.FirstOrDefault())
+            .Subscribe(curse =>
+            {
+                HazardComplexity = curse;
+                StateHasChanged();
+            });
+    }
+
+    public void Dispose()
+    {
+        StoreSession?.Dispose();
+    }
+}

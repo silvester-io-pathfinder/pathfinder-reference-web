@@ -1,0 +1,85 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Cards.Builder;
+@using Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details;
+@using Silvester.Pathfinder.Official.Web.Utilities;
+ 
+@inherits AbstractDetailsCard<IGetClassById_Classes_Items>
+
+@Card
+
+@code {
+    protected override DetailsCardModel CreateModel(IGetClassById_Classes_Items model)
+    {
+        return new DetailsCardBuilder("Class", true)
+            .AddCategoryLeft("Characteristics", category =>
+            {
+                category
+                    .AddText("Name", model.Name)
+                    .AddText("Base Health", model.BaseHealth.ToString())
+                    .AddChips("Key Abilities", c =>
+                    {
+                        foreach (IGetClassById_Classes_Items_KeyAbilities ability in model.KeyAbilities)
+                        {
+                            c.AddChip(ability.Name, onClick: () => NavigationManager.NavigateTo($"stats/{ability.Id}"));
+                        }
+                    });
+            })
+            .AddCategoryLeft("Class Difficulty Check", category =>
+            {
+                category.AddSingularChip(null, new ChipsModel.ChipModel(model.ClassDcProficiency?.Name));
+            })
+            .AddCategoryLeft("Weapon Proficiencies", category =>
+            {
+                category
+                    .AddSingularChip("Unarmed", new ChipsModel.ChipModel(model.UnarmedWeaponProficiency.Name))
+                    .AddSingularChip("Simple", new ChipsModel.ChipModel(model.SimpleWeaponProficiency.Name))
+                    .AddSingularChip("Martial", new ChipsModel.ChipModel(model.MartialWeaponProficiency.Name))
+                    .AddSingularChip("Advanced", new ChipsModel.ChipModel(model.AdvancedWeaponProficiency.Name));
+            })
+            .AddCategoryLeft("Armor Proficiencies", category =>
+            {
+                category
+                    .AddSingularChip("Unarmored", new ChipsModel.ChipModel(model.UnarmoredProficiency.Name))
+                    .AddSingularChip("Light", new ChipsModel.ChipModel(model.LightArmorProficiency.Name))
+                    .AddSingularChip("Medium", new ChipsModel.ChipModel(model.MediumArmorProficiency.Name))
+                    .AddSingularChip("Heavy", new ChipsModel.ChipModel(model.HeavyArmorProficiency.Name));
+            })
+            .AddCategoryLeft("Saving Throw Proficiencies", category =>
+            {
+                category
+                    .AddSingularChip("Fortitude", new ChipsModel.ChipModel(model.FortitudeProficiency.Name))
+                    .AddSingularChip("Reflex", new ChipsModel.ChipModel(model.ReflexProficiency.Name))
+                    .AddSingularChip("Will", new ChipsModel.ChipModel(model.WillProficiency.Name));
+            })
+            .AddCategoryLeft("Perception", category =>
+            {
+                category
+                    .AddSingularChip(null, new ChipsModel.ChipModel(model.PerceptionProficiency.Name));
+            })
+            .AddCategoryLeft("Magic", category =>
+            {
+                if (model.SpellAttackProficiency != null && model.SpellAttackProficiency.Name != "Untrained")
+                {
+                    category.AddSingularChip("Spell Attack", new ChipsModel.ChipModel(model.SpellAttackProficiency.Name));
+                }
+
+                if (model.SpellDcProficiency != null && model.SpellDcProficiency.Name != "Untrained")
+                {
+                    category.AddSingularChip("Spell Difficulty Check", new ChipsModel.ChipModel(model.SpellDcProficiency.Name));
+                }
+
+                category.AddSingularChip("Predefined Magic Tradition", new ChipsModel.ChipModel(model.PredefinedMagicTradition?.Name));
+            })
+            .AddCategoryRight("Description", category =>
+            {
+                category.AddText(text: model.Description);
+            })
+            .AddCategoryRight("Characteristics", category =>
+            {
+                category
+                    .AddTextBlock(new TextBlockModel(model.Mannerisms.Select((e, i) => new TextBlockAdapter(i, TextBlockType.Enumeration, e.Text)).ToList().AsReadOnly(), "You might.."))
+                    .AddTextBlock(new TextBlockModel(model.Characteristics.Select((e, i) => new TextBlockAdapter(i, TextBlockType.Enumeration, e.Text)).ToList().AsReadOnly(), "Others probably.."));
+            })
+            .Build();
+    }
+}

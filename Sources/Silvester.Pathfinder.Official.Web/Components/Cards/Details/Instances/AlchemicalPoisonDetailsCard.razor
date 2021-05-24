@@ -1,0 +1,38 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Cards.Builder;
+@using Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details;
+
+@inherits AbstractDetailsCard<IAlchemicalPoisonById>
+
+@Card
+
+@code {
+    protected override DetailsCardModel CreateModel(IAlchemicalPoisonById model)
+    {
+        return new DetailsCardBuilder("Alchemical Poison", true)
+            .AddCategoryLeft("Traits", category =>
+            {
+                category
+                    .AddTraitChips(model.Traits, NavigationManager);
+            })
+            .AddCategoryLeft("Characteristics", category =>
+            {
+                category
+                    .AddText("Name", model.Name)
+                    .AddAction("Action", model.Action.Name, ActionTypeService)
+                    .AddText("Usage", model.Usage)
+                    .AddText("Level", model.ItemLevel.ToString())
+                    .AddFooter(footer =>
+                    {
+                        footer
+                            .AddSourcePage(model.SourcePage)
+                            .AddBulk(model.Bulk);
+                    });
+            })
+            .AddCategoryRight("Description", category =>
+            {
+                category.AddTextBlock(new TextBlockModel(model.Details));
+            })
+            .Build();
+    }
+}

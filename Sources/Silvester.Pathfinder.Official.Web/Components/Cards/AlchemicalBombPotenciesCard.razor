@@ -27,23 +27,6 @@
     </MudPaper>
     }
 </div>
-
-    <!--
-    <MudExpansionPanels>
-        @foreach (IAlchemicalBombById_Potency potency in AlchemicalBomb.Potencies.OrderBy(e => e.PotionPotency.Order))
-        {
-            <MudExpansionPanel Dense="true" DisableGutters="true" Text="@potency.PotionPotency.Name">
-                <PreferenceCategory Title="Description">
-                    <PreferenceItemText Text="@potency.Benefits" />
-                </PreferenceCategory>
-                <PreferenceCategory Title="Details">
-                    <PreferenceItemText Title="Price" Text="@CurrencyService.Denormalize(potency.Price, Coin.Types.Gold).ToString()" />
-                    <PreferenceItemText Title="Level" Text="@potency.Level.ToString()" />
-                </PreferenceCategory>
-            </MudExpansionPanel>
-        }
-    </MudExpansionPanels>
-        -->
 }
 
 @code {

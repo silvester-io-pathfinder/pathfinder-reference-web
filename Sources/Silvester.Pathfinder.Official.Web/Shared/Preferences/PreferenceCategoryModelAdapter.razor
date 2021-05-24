@@ -1,0 +1,49 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Preferences;
+@using Silvester.Pathfinder.Official.Web.Services;
+@using Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models;
+@using Silvester.Pathfinder.Official.Web.Shared.Chips;
+
+<PreferenceCategory Title="@Category.Title">
+    @for (int i = 0; i < Category.Preferences.Count; i++)
+    {
+        @if (Category.Preferences[i].HasContent())
+        {
+            @switch (Category.Preferences[i])
+            {
+                case TextModel text:
+                    <PreferenceItemText Title="@text.Title" Text="@text.Text" Icon="@text.Icon" />
+                    break;
+
+                case ChipsModel chips:
+                    <PreferenceItemChips Title="@chips.Title">
+                        <Chips>
+                            @foreach (ChipsModel.ChipModel chip in chips.Chips)
+                            {
+                                <TraitChip Tooltip="@chip.Tooltip" Text="@chip.Text" OnClick="@(() => chip?.OnClick?.Invoke())" />
+                            }
+                        </Chips>
+                    </PreferenceItemChips>
+                    break;
+
+                case TextBlockModel blocks:
+                    <PreferenceItemTextBlocks Title="@blocks.Title" TextBlocks="@blocks.TextBlocks" />
+                    break;
+
+                case FooterModel footer:
+                    <PreferenceItemFooter Items="@footer.Items" />
+                    break;
+            }
+         
+            @if(i != Category.Preferences.Count - 1 && Category.Preferences[i].HasBottomDivider)
+            {
+                <MudDivider />
+            }
+        }
+    }
+</PreferenceCategory>
+
+@code
+{
+    [Parameter]
+    public CategoryModel Category { get; set; } = default!;
+}

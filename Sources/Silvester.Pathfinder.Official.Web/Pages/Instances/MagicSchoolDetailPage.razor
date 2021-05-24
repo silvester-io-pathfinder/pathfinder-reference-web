@@ -9,16 +9,13 @@
 
 <div>
     <PageLayout>
-        @if (MagicSchool != null)
-        {
-            <MudPaper Style="margin: 20px">
-                <MagicSchoolCard MagicSchool="@MagicSchool" />
-            </MudPaper>
+        <MudPaper Style="margin: 20px">
+            <MagicSchoolCard MagicSchool="@MagicSchool" />
+        </MudPaper>
 
-            <MudPaper Style="margin: 20px">
-                <SpellsTable IsSearchEnabled="false" PageProvider="@(new SpellPageWithSchoolProvider(PathfinderOfficialApi, MagicSchoolId))" />
-            </MudPaper>
-        }
+        <MudPaper Style="margin: 20px">
+            <SpellsTable IsSearchEnabled="false" PageProvider="@(new SpellPageWithSchoolProvider(PathfinderOfficialApi, MagicSchoolId))" />
+        </MudPaper>
     </PageLayout>
 </div>
 

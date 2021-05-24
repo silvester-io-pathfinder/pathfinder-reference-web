@@ -1,0 +1,87 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Cards.Builder;
+@using Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details;
+
+@inherits AbstractDetailsCard<IHazardById>
+
+@Card
+
+@code {
+    protected override DetailsCardModel CreateModel(IHazardById model)
+    {
+        return new DetailsCardBuilder("Hazard", true)
+            .AddCategoryLeft("Traits", category =>
+            {
+                category
+                    .AddTraitChips(model.Traits, NavigationManager);
+            })
+            .AddCategoryLeft("Characteristics", category =>
+            {
+                category
+                    .AddText("Name", model.Name)
+                    .AddText("Reset", model.Reset)
+                    .AddText("Can be detected magically", model.CanBeDetectedMagically.ToString())
+                    .AddSingularChip("Complexity", model.Complexity.Name, () => NavigationManager.NavigateTo($"hazard-complexities/{model.Complexity.Id}"))
+                    .AddSingularChip("Type", model.Type.Name, () => NavigationManager.NavigateTo($"hazard-types/{model.Type.Id}"))
+                    .AddChips("Immunities", c =>
+                    {
+                        foreach (var immunity in model.Immunities)
+                        {
+                            c.AddChip(immunity.Name);
+                        }
+                    });
+            })
+            .AddCategoryLeft("Stats", category =>
+            {
+                category
+                .AddText("Speed", model.Speed.HasValue ? model.Speed.Value.ToString() : null)
+                .AddText("Fortitude", model.Fortitude.HasValue ? model.Fortitude.Value.ToString() : null)
+                .AddText("Reflex", model.Reflex.HasValue ? model.Reflex.Value.ToString() : null)
+                .AddFooter(footer =>
+                {
+                    footer
+                        .AddSourcePage(model.SourcePage)
+                        .AddLevel(model.Level)
+                        .AddArmorClass(model.ArmorClass);
+                });
+            })
+            .AddCategoryRight("Description", category =>
+            {
+                category.AddText(text: model.Description);
+            })
+            .AddCategoryRight("Routine", category =>
+            {
+                category
+                    .AddText("Actions", model.RoutineActions?.ToString())
+                    .AddTextBlock(model.RoutineDetails, "Details");
+            })
+            .AddCategoryRight("Disable", category =>
+            {
+                foreach (var requirement in model.DisableRequirements)
+                {
+                    category
+                        .AddChips(null, c =>
+                        {
+                            c.AddChip(requirement.DifficultyCheck.ToString(), "Difficulty Check");
+                            c.AddChip(requirement.Skill.Name, "Required Skill");
+                            c.AddChip(requirement.RequiredProficiency.Name, "Required Proficiency");
+                        }, hasBottomDivider: false)
+                        .AddText(null, requirement.Description);
+                }
+            })
+            .AddCategoryRight("Dispell", category =>
+            {
+                foreach (var requirement in model.DispellRequirements)
+                {
+                    category
+                        .AddChips(null, c =>
+                        {
+                            c.AddChip(requirement.CounteractDifficultyCheck.ToString(), "Difficulty Check");
+                            c.AddChip(requirement.Level.ToString(), "Level");
+                        }, hasBottomDivider: false)
+                        .AddText(null, requirement.Description);
+                }
+            })
+            .Build();
+    }
+}

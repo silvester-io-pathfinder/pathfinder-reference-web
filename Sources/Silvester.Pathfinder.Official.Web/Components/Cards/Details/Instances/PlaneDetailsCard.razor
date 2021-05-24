@@ -1,0 +1,31 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Cards.Builder;
+@using Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details;
+
+@inherits AbstractDetailsCard<IGetPlaneById_Planes_Items>
+
+@Card
+
+@code {
+    protected override DetailsCardModel CreateModel(IGetPlaneById_Planes_Items model)
+    {
+        return new DetailsCardBuilder("Plane", true)
+            .AddCategoryLeft("Traits", category =>
+            {
+                category
+                    .AddTraitChips(model.Traits, NavigationManager);
+            })
+            .AddCategoryLeft("Characteristics", category =>
+            {
+                category
+                    .AddText("Name", model.Name)
+                    .AddSingularChip("Category", model.Category.Name, () => NavigationManager.NavigateTo($"plane-categories/{model.Category.Id}"))
+                    .AddSingularChip("Alignment", model.Alignment.Name, () => NavigationManager.NavigateTo($"alignments/{model.Alignment.Id}"));
+            })
+            .AddCategoryRight("Description", category =>
+            {
+                category.AddTextBlock(model.Details);
+            })
+            .Build();
+    }
+}

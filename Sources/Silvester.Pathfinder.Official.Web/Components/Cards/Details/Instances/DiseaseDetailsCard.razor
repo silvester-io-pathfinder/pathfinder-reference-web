@@ -1,0 +1,36 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Cards.Builder;
+@using Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details;
+
+@inherits AbstractDetailsCard<IDiseaseById>
+
+@Card
+
+@code {
+    protected override DetailsCardModel CreateModel(IDiseaseById model)
+    {
+        return new DetailsCardBuilder("Disease", true)
+            .AddCategoryLeft("Traits", category =>
+            {
+                category.AddTraitChips(model.Traits, NavigationManager);
+            })
+            .AddCategoryLeft("Characteristics", category =>
+            {
+                category
+                    .AddText("Name", model.Name)
+                    .AddText("Onset", model.Onset)
+                    .AddSingularChip("Saving Throw Stat", model.SavingThrowStat.Name, () => NavigationManager.NavigateTo($"stats/{model.SavingThrowStat.Id}"))
+                    .AddFooter(footer =>
+                    {
+                        footer
+                            .AddSourcePage(model.SourcePage)
+                            .AddDifficultyCheck(model.DifficultyCheck);
+                    });
+            })
+            .AddCategoryRight("Description", category =>
+            {
+                category.AddText(null, model.Description);
+            })
+            .Build();
+    }
+}

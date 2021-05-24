@@ -1,0 +1,56 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Planes;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Planes.Providers;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Hazards;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Hazards.Providers;
+@using Silvester.Pathfinder.Official.Web.Components.Cards;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
+
+@inherits BaseDetailPage
+@page "/hazard-types/{hazardTypeId:guid}"
+@implements IDisposable
+
+<div>
+    <PageLayout>
+        <MudPaper Style="margin: 20px">
+            <HazardTypeDetailsCard Entity="@HazardType" />
+        </MudPaper>
+
+        <MudPaper Style="margin: 20px">
+            <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
+                <MudTabPanel Text="Hazards">
+                    <HazardsTable PageProvider="@(new HazardPageWithTypeProvider(PathfinderOfficialApi, HazardTypeId))" />
+                </MudTabPanel>
+            </MudTabs>
+        </MudPaper>
+    </PageLayout>
+</div>
+
+@code {
+    protected override string Title => "Hazard Type";
+    protected override string? Subtitle => HazardType?.Name;
+
+    [Parameter]
+    public Guid HazardTypeId { get; set; }
+
+    private IHazardTypeById? HazardType { get; set; }
+
+    private IDisposable? StoreSession { get; set; }
+
+    protected override void OnInitialized()
+    {
+        StoreSession = PathfinderOfficialApi.GetHazardTypeById
+            .Watch(HazardTypeId)
+            .Select(e => e.Data?.HazardTypes?.Items?.FirstOrDefault())
+            .Subscribe(type =>
+            {
+                HazardType = type;
+                StateHasChanged();
+            });
+    }
+
+    public void Dispose()
+    {
+        StoreSession?.Dispose();
+    }
+}

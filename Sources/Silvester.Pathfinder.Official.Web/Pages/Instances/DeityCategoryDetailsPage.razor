@@ -2,6 +2,7 @@
 @using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Deities;
 @using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Deities.Providers;
 @using Silvester.Pathfinder.Official.Web.Components.Cards;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
 
 @inherits BaseDetailPage
 @page "/deity-categories/{deityCategoryId:guid}"
@@ -11,17 +12,17 @@
     <PageLayout>
         @if (DeityCategory != null)
         {
-        <MudPaper Style="margin: 20px">
-            <DeityCategoryDetailsCard DeityCategory="@DeityCategory" />
-        </MudPaper>
+            <MudPaper Style="margin: 20px">
+                <DeityCategoryDetailsCard Entity="@DeityCategory" />
+            </MudPaper>
 
-        <MudPaper Style="margin: 20px">
-            <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
-                <MudTabPanel Text="Deities">
-                    <DeitiesTable PageProvider="@(new DeityPageWithCategoryProvider(PathfinderOfficialApi, DeityCategoryId))" />
-                </MudTabPanel>
-            </MudTabs>
-        </MudPaper>
+            <MudPaper Style="margin: 20px">
+                <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
+                    <MudTabPanel Text="Deities">
+                        <DeitiesTable PageProvider="@(new DeityPageWithCategoryProvider(PathfinderOfficialApi, DeityCategoryId))" />
+                    </MudTabPanel>
+                </MudTabs>
+            </MudPaper>
         }
     </PageLayout>
 </div>

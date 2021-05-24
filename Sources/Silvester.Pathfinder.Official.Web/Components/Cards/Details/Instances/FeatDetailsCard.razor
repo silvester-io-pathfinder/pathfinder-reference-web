@@ -1,0 +1,45 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Cards.Builder;
+@using Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details;
+@using Silvester.Pathfinder.Official.Web.Utilities;
+ 
+@inherits AbstractDetailsCard<IFeatById>
+
+@Card
+
+@code {
+    protected override DetailsCardModel CreateModel(IFeatById model)
+    {
+        return new DetailsCardBuilder("Feat", true)
+            .AddCategoryLeft("Traits", category =>
+            {
+                category.AddTraitChips(model.Traits, NavigationManager);
+            })
+            .AddCategoryLeft("Characteristics", category =>
+            {
+                category
+                    .AddText("Name", model.Name)
+                    .AddText("Special", model.Special)
+                    .AddText("Trigger", model.Trigger)
+                    .AddText("Frequency", model.Frequency?.Name)
+                    .AddAction("Action", model.ActionType.Name, ActionTypeService)
+                    .AddSingularChip("Type", model.FeatType.Name, null)
+                    .AddFooter(footer =>
+                    {
+                        footer
+                            .AddLevel(model.Level);
+                    });
+            })
+            .AddCategoryRight("Description", category =>
+            {
+                category
+                    .AddTextBlock(model.Details)
+                    .AddRollableEffect(model.RollableEffect);
+            })
+            .AddCategoryRight("Requirements", category =>
+            {
+                category.AddTextBlock(model.Requirements.Select((e, i) => new TextBlockAdapter(i, TextBlockType.Enumeration, e.Text)).ToList().AsReadOnly());
+            })
+            .Build();
+    }
+}

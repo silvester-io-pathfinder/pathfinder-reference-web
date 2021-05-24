@@ -1,0 +1,97 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Cards.Builder;
+@using Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details;
+
+@inherits AbstractDetailsCard<ISpellById>
+
+@Card
+
+@code {
+    protected override DetailsCardModel CreateModel(ISpellById model)
+    {
+        DetailsCardBuilder builder = new DetailsCardBuilder("Spell", true)
+            .AddCategoryLeft("Traits", category =>
+            {
+                category
+                    .AddTraitChips(model.Traits, NavigationManager);
+            })
+            .AddCategoryLeft("Details", category =>
+            {
+                category
+                    .AddText("Name", model.Name)
+                    .AddText("Addendum", model.Addendum)
+                    .AddText("Range", model.Range)
+                    .AddText("Are", model.Area)
+                    .AddText("Cost", model.Cost)
+                    .AddText("Targets", model.Targets)
+                    .AddText("Cast Time", model.CastTime)
+                    .AddText("Trigger", model.Trigger)
+                    .AddText("Duration", model.Duration)
+                    .AddText("Requirements", model.Requirements);
+
+            })
+            .AddCategoryLeft("Exclusive Class", category =>
+            {
+                if (model.SavingThrowStat != null)
+                {
+                    category
+                        .AddSingularChip("Exclusive Class", model.Class?.Name, () => NavigationManager.NavigateTo($"classes/{model.Class?.Id}"))
+                        .AddSingularChip("Domain", model.Domain?.Name, onClick: () => NavigationManager.NavigateTo($"domains/{model.Domain?.Id}"));
+                }
+            })
+            .AddCategoryLeft("Saving Throw", category =>
+            {
+                if (model.SavingThrowStat != null)
+                {
+                    category
+                        .AddText("Is Basic", model.IsSavingThrowBasic.ToString())
+                        .AddSingularChip("Stat", model.SavingThrowStat.Name, () => NavigationManager.NavigateTo($"stats/{model.SavingThrowStat.Id}"));
+                }
+            })
+            .AddCategoryLeft("Mysteries", category =>
+            {
+                category
+                    .AddSingularChip("Granted By", model.GrantedBy?.Name, () => NavigationManager.NavigateTo($"mysteries/{model.GrantedBy?.Id}"))
+                    .AddSingularChip("Initial Revelation", model.InitialRevelationOf?.Name, () => NavigationManager.NavigateTo($"mysteries/{model.InitialRevelationOf?.Id}"))
+                    .AddSingularChip("Advanced Revelation", model.AdvancedRevelationOf?.Name, () => NavigationManager.NavigateTo($"mysteries/{model.AdvancedRevelationOf?.Id}"))
+                    .AddSingularChip("Greater Revelation", model.GreaterRevelationOf?.Name, () => NavigationManager.NavigateTo($"mysteries/{model.GreaterRevelationOf?.Id}"));
+            })
+            .AddCategoryLeft("Composition", category =>
+            {
+                category
+                    .AddSingularChip("Exclusive Class", model.Class?.Name, () => NavigationManager.NavigateTo($"classes/{model.Class?.Id}"))
+                    .AddSingularChip("Magic School", model.MagicSchool?.Name, () => NavigationManager.NavigateTo($"magic-schools/{model.MagicSchool?.Id}"))
+                    .AddChips("Components", c =>
+                    {
+                        foreach (IGetSpellById_Spells_Items_Components_SpellComponent component in model.Components)
+                        {
+                            c.AddChip(component?.Name ?? "", onClick: () => NavigationManager.NavigateTo($"magic-components/{component?.Id}"));
+                        }
+                    })
+                    .AddFooter(footer =>
+                    {
+                        footer
+                            .AddSourcePage(model.SourcePage)
+                            .AddLevel(model.Level);
+                    });
+            })
+            .AddCategoryRight("Description", category =>
+            {
+                category
+                    .AddTextBlock(model.Details);
+            });
+
+
+        foreach(var rollableEffect in model.RollableEffects)
+        {
+            builder.AddCategoryRight(rollableEffect.Name ?? "Rollable Effect", category =>
+            {
+                category
+                    .AddRollableEffect(rollableEffect, hasBottomDividers: false);
+            });
+        }
+
+        return builder.Build();
+    }
+}
+

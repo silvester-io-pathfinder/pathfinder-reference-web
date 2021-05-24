@@ -1,5 +1,6 @@
 ﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
 @using Silvester.Pathfinder.Official.Web.Components.Cards;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
 
 @inherits BaseDetailPage
 @page "/skills/{skillId:guid}"
@@ -7,12 +8,9 @@
 
 <div>
     <PageLayout>
-        @if (Skill != null)
-        {
         <MudPaper Style="margin: 20px">
-            <SkillDetailsCard Skill="@Skill" />
+            <SkillDetailsCard Entity="@Skill" />
         </MudPaper>
-        }
     </PageLayout>
 </div>
 

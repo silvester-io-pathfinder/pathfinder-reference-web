@@ -1,0 +1,36 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Cards.Builder;
+@using Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details;
+
+@inherits AbstractDetailsCard<IShieldById>
+
+@Card
+
+@code {
+    protected override DetailsCardModel CreateModel(IShieldById model)
+    {
+        return new DetailsCardBuilder("Shield", true)
+            .AddCategoryLeft("Details", category =>
+            {
+                category
+                    .AddText("Name", model.Name)
+                    .AddText("Speed Penalty", model.SpeedPenalty.ToString())
+                    .AddFooter(footer =>
+                    {
+                        footer
+                            .AddSourcePage(model.SourcePage)
+                            .AddBulk(model.Bulk)
+                            .AddPrice(model.Price, CurrencyService)
+                            .AddArmorClass(model.ArmorClassBonus)
+                            .AddHardware(model.Hardness, model.HitPoints, model.BrokenThreshold);
+                    });
+            })
+            .AddCategoryRight("Description", category =>
+            {
+                category
+                    .AddTextBlock(model.Details);
+            })
+            .Build();
+    }
+}
+
