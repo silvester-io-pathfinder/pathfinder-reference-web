@@ -1,0 +1,19 @@
+﻿query GetHazardTypeById($id: Uuid!) {
+	hazardTypes(where: {id: {eq: $id}}) {
+		items {
+			... HazardTypeById
+		}
+	}
+}
+
+fragment HazardTypeById on HazardType
+{
+	name,
+	description,
+	sourcePage {
+		... SourcePage
+	},
+	hazards {
+		... HazardsPage
+	}
+}

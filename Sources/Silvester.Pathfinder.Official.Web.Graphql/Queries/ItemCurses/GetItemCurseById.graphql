@@ -20,11 +20,6 @@ fragment ItemCurseById on ItemCurse
 		... SourcePage
 	},
 	traits {
-		... ItemCurseById_Trait
+		... TraitChip
 	}
-}
-
-fragment ItemCurseById_Trait on Trait {
-	id,
-	name
 }

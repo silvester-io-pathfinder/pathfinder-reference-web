@@ -1,0 +1,12 @@
+﻿query GetHazardComplexityById($id: Uuid!) {
+	hazardComplexities(where: {id: {eq: $id}}) {
+		items {
+			... HazardComplexityById
+		}
+	}
+}
+
+fragment HazardComplexityById on HazardComplexity
+{
+	name
+}

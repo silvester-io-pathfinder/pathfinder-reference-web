@@ -1,0 +1,6 @@
+﻿fragment HazardTypesPage on HazardType
+{
+	id,
+	name,
+	description
+}

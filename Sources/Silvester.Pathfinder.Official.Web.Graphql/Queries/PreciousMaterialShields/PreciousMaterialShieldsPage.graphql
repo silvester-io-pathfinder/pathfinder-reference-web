@@ -1,0 +1,11 @@
+﻿fragment PreciousMaterialShieldsPage on PreciousMaterialShield
+{
+	id,
+	name,
+	material {
+		name
+	}
+	details (where: {order: {eq: 0}}){
+		... TextBlock
+	}
+}

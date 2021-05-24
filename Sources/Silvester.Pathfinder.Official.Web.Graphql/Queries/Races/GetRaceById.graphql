@@ -1,14 +1,6 @@
 ﻿query GetRaceById($id: Uuid!) {
 	races(where: {id: {eq: $id}}) {
 		items {
-			raceSize: size {
-				id,
-				name
-			},
-			raceRarity: rarity {
-				id,
-				name
-			},
 			... RaceById
 		}
 	}
@@ -18,13 +10,22 @@
 fragment RaceById on Race {
 	id,
 	name,
+	description,
 	baseSpeed,
 	baseHealth,
+	size {
+		id,
+		name
+	},
+	rarity {
+		id,
+		name
+	},
 	languages {
 		... RaceById_Language
 	},
 	raceTraits {
-		... RaceById_Trait
+		... TraitChip
 	},
 	heritages {
 		... RaceById_Heritage
@@ -40,11 +41,6 @@ fragment RaceById_Language on Language {
 }
 
 fragment RaceById_Language_Type on LanguageType {
-	id,
-	name
-}
-
-fragment RaceById_Trait on Trait {
 	id,
 	name
 }

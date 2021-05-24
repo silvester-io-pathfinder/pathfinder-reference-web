@@ -21,7 +21,7 @@ fragment DiseaseById on Disease
 		... SourcePage
 	},
 	traits {
-		... DiseaseById_Trait
+		... TraitChip
 	},
 	stages(order: {stage: ASC})  {
 		... DiseaseById_Stage
@@ -31,11 +31,6 @@ fragment DiseaseById on Disease
 fragment DiseaseById_Stage on DiseaseStage {
 	stage,
 	duration
-}
-
-fragment DiseaseById_Trait on Trait {
-	id,
-	name
 }
 
 fragment DiseaseById_SavingThrowStat on SavingThrowStat {

@@ -1,0 +1,4 @@
+﻿fragment TraitChip on Trait  {
+    id,
+    name
+}

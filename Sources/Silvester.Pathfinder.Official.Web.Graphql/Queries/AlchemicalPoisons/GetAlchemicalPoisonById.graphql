@@ -24,14 +24,9 @@ fragment AlchemicalPoisonById on AlchemicalPoison{
 		... SourcePage
 	},
 	traits {
-		... AlchemicalPoisonById_Trait
+		... TraitChip
 	},
 	details {
 		... TextBlock
 	}
-}
-
-fragment AlchemicalPoisonById_Trait on Trait {
-	id,
-	name
 }

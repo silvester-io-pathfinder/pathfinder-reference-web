@@ -1,0 +1,17 @@
+﻿fragment ShieldsPage on Shield
+{
+	id,
+	name,
+	price,
+	armorClassBonus,
+	speedPenalty,
+	hardness,
+	hitPoints,
+	brokenThreshold,
+	bulk {
+		... Bulk
+	},
+	details (where: {order: {eq: 0}}){
+		... TextBlock
+	}
+}

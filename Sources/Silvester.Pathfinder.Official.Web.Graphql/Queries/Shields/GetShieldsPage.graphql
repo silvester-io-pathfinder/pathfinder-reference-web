@@ -1,0 +1,17 @@
+﻿query GetShieldsPage($skip: Int!, $take: Int!, $searchTerm: String! = "", $order: [ShieldSortInput!] = [{name: ASC}]) {
+	shields(
+		skip: $skip, 
+		take: $take, 
+		order: $order,
+		where: {
+			or: [
+				{name: {contains: $searchTerm}}
+			]
+		}) 
+	{
+		totalCount,
+		items {
+			... ShieldsPage
+		}
+	}
+}

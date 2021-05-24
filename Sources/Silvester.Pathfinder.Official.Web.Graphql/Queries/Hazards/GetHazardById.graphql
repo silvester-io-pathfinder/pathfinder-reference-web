@@ -1,0 +1,91 @@
+﻿query GetHazardById($id: Uuid!) {
+	hazards(where: {id: {eq: $id}}) {
+		items {
+			... HazardById
+		}
+	}
+}
+
+fragment HazardById on Hazard
+{
+	name,
+	level,
+	description,
+	armorClass,
+	reset,
+	speed,
+	fortitude,
+	reflex,
+	routineActions,
+	canBeDetectedMagically,
+	complexity {
+		id,
+		name
+	},
+	sourcePage {
+		... SourcePage
+	},
+	type {
+		id,
+		name
+	},
+	traits {
+		... TraitChip
+	},
+	hazardComponents {
+		name,
+		hitPoints,
+		hardness,
+		brokenThreshold,
+		addendum
+	},
+	immunities {
+		... HazardById_Immunity
+	},
+	disableRequirements {
+		... HazardById_DisableRequirement
+	},
+	dispellRequirements {
+		... HazardById_DispellRequirement
+	},
+	actions {
+		name,
+		trigger,
+		actionType {
+			name
+		},
+		traits {
+			id,
+			name
+		},
+		details {
+			... TextBlock
+		}
+	},
+	routineDetails {
+		... TextBlock
+	}
+}
+
+fragment HazardById_Immunity on Immunity {
+	id, 
+	name
+}
+
+fragment HazardById_DisableRequirement on HazardDisableRequirement {
+	difficultyCheck,
+	description,
+	skill {
+		id,
+		name
+	},
+	requiredProficiency {
+		name
+	}
+}
+
+fragment HazardById_DispellRequirement on HazardDispellRequirement {
+	level,
+	counteractDifficultyCheck,
+	description
+}

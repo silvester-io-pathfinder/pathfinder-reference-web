@@ -1,0 +1,5 @@
+﻿fragment HazardComplexitiesPage on HazardComplexity
+{
+	id,
+	name
+}

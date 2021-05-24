@@ -1,0 +1,3 @@
+﻿fragment ItemGrade on ItemGrade {
+	name
+}

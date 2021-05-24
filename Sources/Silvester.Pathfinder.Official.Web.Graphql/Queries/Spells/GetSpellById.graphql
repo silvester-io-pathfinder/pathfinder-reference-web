@@ -1,45 +1,6 @@
 ﻿query GetSpellById($id: Uuid!) {
 	spells(where: {id: {eq: $id}}) {
 		items {
-			rollableEffect {
-				criticalSuccess,
-				success,
-				failure,
-				criticalFailure
-			},
-			traditions {
-				id,
-				name,
-				description
-			},
-			details {
-				... TextBlock
-			},
-			components {
-				id,
-				name,
-				description
-			},
-			traits {
-				id,
-				name
-			},
-			heightenings(order: {level: ASC})
-			{
-				id,
-				level,
-				details {
-					... TextBlock
-				}
-			},
-			triggers {
-				id,
-				text
-			},
-			requirements {
-				id,
-				text
-			}
 			... SpellById
 		}
 	}
@@ -49,11 +10,98 @@
 fragment SpellById on Spell {
 	id,
 	name,
-	range,
-	castTime,
 	level,
-	targets,
-	isDismissable,
+	addendum,
+	range,
 	area,
-	duration
+	cost,
+	targets,
+	castTime,
+	trigger,
+	duration,
+	requirements,
+	isSavingThrowBasic,
+	isDismissable,
+	actionType {
+		name
+	},
+	spellType {
+		id,
+		name
+	},
+	savingThrowStat {
+		id,
+		name
+	},
+	sourcePage {
+		... SourcePage
+	},
+	table {
+		description,
+		columns {
+			order,
+			name
+		},
+		rows {
+			order,
+			cells {
+				order,
+				value
+			}
+		}
+	},
+	magicSchool {
+		id, 
+		name
+	},
+	class {
+		id,
+		name
+	},
+	initialRevelationOf {
+		... SpellById_Mystery
+	}
+	advancedRevelationOf {
+		... SpellById_Mystery
+	}
+	greaterRevelationOf {
+		... SpellById_Mystery
+	},
+	grantedBy{
+		... SpellById_Mystery
+	},
+	domain {
+		id,
+		name
+	},
+	rollableEffects {
+		... RollableEffect,
+	},
+	details {
+		... TextBlock
+	},
+	components{ 
+		id,
+		name
+	},
+	traits {
+		... TraitChip
+	},
+	heightenings(order: {level: ASC})
+	{
+		id,
+		level,
+		details {
+			... TextBlock
+		}
+	},
+	traditions {
+		id,
+		name
+	}
+}
+
+fragment SpellById_Mystery on Mystery {
+	id,
+	name
 }

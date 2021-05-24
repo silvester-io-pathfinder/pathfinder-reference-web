@@ -23,7 +23,7 @@ fragment AlchemicalBombById on AlchemicalBomb {
 		... SourcePage
 	},
 	traits {
-		... AlchemicalBombById_Trait
+		... TraitChip
 	},
 	details {
 		... TextBlock
@@ -41,9 +41,4 @@ fragment AlchemicalBombById_Potency on AlchemicalBombPotencyBinding {
 		name,
 		order
 	}
-}
-
-fragment AlchemicalBombById_Trait on Trait {
-	id,
-	name
 }

@@ -7,17 +7,13 @@
 				name	
 			}
 			details {
-				text
+				... TextBlock
 			},
 			rollableEffect {
-				criticalSuccess,
-				success,
-				failure,
-				criticalFailure
+				... RollableEffect
 			},
 			traits {
-				id,
-				name
+				... TraitChip
 			}
 		}
 	}

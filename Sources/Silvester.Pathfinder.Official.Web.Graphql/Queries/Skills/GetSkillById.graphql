@@ -2,10 +2,7 @@
 	skills(where: {id: {eq: $id}}) {
 		items {
 			... SkillById
-			statModifier {
-				name,
-				abbreviation
-			}
+			
 		}
 	}
 }
@@ -16,5 +13,10 @@ fragment SkillById on Skill
 	name,
 	description,
 	hasArmorCheckPenalty,
-	hasRecallKnowledgeAction
+	hasRecallKnowledgeAction,
+	statModifier {
+		id,
+		name,
+		abbreviation
+	}
 }

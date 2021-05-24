@@ -24,13 +24,8 @@ fragment CurseById on Curse
 		... SourcePage
 	},
 	traits {
-		... CurseById_Trait
+		... TraitChip
 	}
-}
-
-fragment CurseById_Trait on Trait {
-	id,
-	name
 }
 
 fragment CurseById_SavingThrowStat on SavingThrowStat {

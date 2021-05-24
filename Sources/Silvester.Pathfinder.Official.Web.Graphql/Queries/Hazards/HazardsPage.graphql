@@ -1,0 +1,22 @@
+﻿fragment HazardsPage on Hazard
+{
+	id,
+	name,
+	level,
+	description,
+	armorClass,
+	complexity {
+		... HazardsPage_Complexity
+	},
+	type {
+		... HazardsPage_Type
+	}
+}
+
+fragment HazardsPage_Type on HazardType {
+	name
+}
+
+fragment HazardsPage_Complexity on HazardComplexity{
+	name
+}

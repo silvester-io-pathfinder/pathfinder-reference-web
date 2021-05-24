@@ -25,7 +25,7 @@ fragment AlchemicalToolById on AlchemicalTool{
 		... SourcePage
 	},
 	traits {
-		... AlchemicalToolById_Trait
+		... TraitChip
 	},
 	details {
 		... TextBlock
@@ -43,9 +43,4 @@ fragment AlchemicalToolById_Potency on AlchemicalToolPotencyBinding {
 		name,
 		order
 	}
-}
-
-fragment AlchemicalToolById_Trait on Trait {
-	id,
-	name
 }

@@ -1,0 +1,20 @@
+﻿query GetHazardsWithComplexityPage($skip: Int!, $take: Int!, $hazardComplexityId: Uuid!, $searchTerm: String! = "", $order: [HazardSortInput!] = [{name: ASC}]) {
+	hazards(
+		skip: $skip, 
+		take: $take, 
+		order: $order,
+		where: {
+			or: [
+				{name: {contains: $searchTerm}}
+			],
+			complexity: {
+				id: {eq: $hazardComplexityId}
+			}
+		}) 
+	{
+		totalCount,
+		items {
+			... HazardsPage
+		}
+	}
+}

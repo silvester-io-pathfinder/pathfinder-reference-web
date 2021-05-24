@@ -16,11 +16,7 @@
 				name
 			},
 			traits {
-				id
-				name,
-				details {
-					... TextBlock
-				}
+				... TraitChip
 			}
 		}
 	}

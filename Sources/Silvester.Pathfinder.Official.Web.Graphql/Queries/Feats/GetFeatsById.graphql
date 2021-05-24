@@ -13,28 +13,25 @@ fragment FeatById on Feat {
 	level,
 	special,
 	trigger,
+	featType {
+		name
+	},
+	actionType {
+		name
+	},
 	frequency {
 		name
 	},
 	traits {
-	    ... FeatById_Trait
+	    ... TraitChip
 	},
 	rollableEffect {
-		... FeatById_RollableEffect
+		... RollableEffect
 	}
-}
-
-fragment FeatById_RollableEffect on RollableEffect {
-	criticalSuccess,
-	success,
-	failure,
-	criticalFailure
-}
-
-fragment FeatById_Trait on Trait {
-	id,
-	name, 
 	details {
 		... TextBlock
+	},
+	requirements {
+		text
 	}
 }

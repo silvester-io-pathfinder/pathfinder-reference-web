@@ -1,0 +1,20 @@
+﻿query GetHazardsWithTypePage($skip: Int!, $take: Int!, $hazardTypeId: Uuid!, $searchTerm: String! = "", $order: [HazardSortInput!] = [{name: ASC}]) {
+	hazards(
+		skip: $skip, 
+		take: $take, 
+		order: $order,
+		where: {
+			or: [
+				{name: {contains: $searchTerm}}
+			],
+			type: {
+				id: {eq: $hazardTypeId}
+			}
+		}) 
+	{
+		totalCount,
+		items {
+			... HazardsPage
+		}
+	}
+}

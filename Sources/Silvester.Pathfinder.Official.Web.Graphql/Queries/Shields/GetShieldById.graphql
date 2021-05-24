@@ -1,0 +1,27 @@
+﻿query GetShieldById($id: Uuid!) {
+	shields(where: {id: {eq: $id}}) {
+		items {
+			... ShieldById
+		}
+	}
+}
+
+fragment ShieldById on Shield
+{
+	name,
+	price,
+	armorClassBonus,
+	speedPenalty,
+	hardness,
+	hitPoints,
+	brokenThreshold,
+	bulk {
+		... Bulk
+	},
+	sourcePage {
+		... SourcePage
+	},
+	details {
+		... TextBlock
+	}
+}

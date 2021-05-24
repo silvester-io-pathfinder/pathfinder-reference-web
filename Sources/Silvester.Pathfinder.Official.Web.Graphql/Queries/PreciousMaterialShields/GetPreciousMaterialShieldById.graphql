@@ -1,0 +1,60 @@
+﻿query GetPreciousMaterialShieldById($id: Uuid!) {
+	preciousMaterialShields(where: {id: {eq: $id}}) {
+		items {
+			... PreciousMaterialShieldById
+		}
+	}
+}
+
+fragment PreciousMaterialShieldById on PreciousMaterialShield
+{
+	name,
+	material {
+		... PreciousMaterialShieldById_Material
+	},
+	variants {
+		... PreciousMaterialShieldById_Variant 
+	},
+	sourcePage {
+		... SourcePage
+	},
+	traits {
+		... TraitChip
+	}
+	details {
+		... TextBlock
+	},
+}
+
+
+fragment PreciousMaterialShieldById_Material on PreciousMaterial 
+{
+	id,
+	name,
+	traits {
+		... TraitChip
+	}
+	details {
+		... TextBlock
+	},
+	sourcePage {
+		... SourcePage
+	}
+}
+
+fragment PreciousMaterialShieldById_Variant on PreciousMaterialShieldVariant 
+{
+	name,
+	craftRequirements,
+	itemLevel,
+	price,
+	hardness,
+	hitPoints,
+	brokenThreshold,
+	bulk {
+		... Bulk
+	},
+	grade {
+		... ItemGrade
+	}
+}

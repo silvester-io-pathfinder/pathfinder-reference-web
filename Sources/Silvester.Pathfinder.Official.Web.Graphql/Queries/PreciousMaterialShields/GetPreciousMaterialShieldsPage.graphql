@@ -1,0 +1,17 @@
+﻿query GetPreciousMaterialShieldsPage($skip: Int!, $take: Int!, $searchTerm: String! = "", $order: [PreciousMaterialShieldSortInput!] = [{name: ASC}]) {
+	preciousMaterialShields(
+		skip: $skip, 
+		take: $take, 
+		order: $order,
+		where: {
+			or: [
+				{name: {contains: $searchTerm}}
+			]
+		}) 
+	{
+		totalCount,
+		items {
+			... PreciousMaterialShieldsPage
+		}
+	}
+}

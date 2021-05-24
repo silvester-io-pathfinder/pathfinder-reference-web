@@ -7,6 +7,20 @@
   <Import Project="../Properties.proj" />
 
   <ItemGroup>
+    <GraphQL Remove="Queries\RollableEffect\RollableEffect.graphql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Queries\RollableEffect\RollableEffect.graphql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="Queries\RollableEffect\RollableEffect.graphql">
+      <GraphQL>true</GraphQL>
+    </AdditionalFiles>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="StrawberryShake.CodeGeneration.CSharp.Analyzers" Version="11.2.2" />
     <PackageReference Include="StrawberryShake.Transport.Http" Version="11.2.2" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
