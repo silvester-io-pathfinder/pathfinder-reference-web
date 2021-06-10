@@ -2298,6 +2298,7 @@ input WeaponPropertyRuneActionFilterInput {
 
 input ArtifactSortInput {
   name: SortEnumType
+  destruction: SortEnumType
   usage: SortEnumType
   itemLevel: SortEnumType
   sourcePageId: SortEnumType
@@ -2313,6 +2314,7 @@ input ArtifactFilterInput {
   and: [ArtifactFilterInput!]
   or: [ArtifactFilterInput!]
   name: StringOperationFilterInput
+  destruction: StringOperationFilterInput
   usage: StringOperationFilterInput
   itemLevel: ComparableInt32OperationFilterInput
   sourcePageId: ComparableGuidOperationFilterInput
@@ -2323,7 +2325,6 @@ input ArtifactFilterInput {
   alignment: AlignmentFilterInput
   details: ListFilterInputTypeOfTextBlockFilterInput
   traits: ListFilterInputTypeOfTraitFilterInput
-  destructionDetails: ListFilterInputTypeOfTextBlockFilterInput
   destructionEffects: ListFilterInputTypeOfArtifactDestructionEffectFilterInput
   actions: ListFilterInputTypeOfArtifactActionFilterInput
   id: ComparableGuidOperationFilterInput
@@ -5324,6 +5325,7 @@ type Armor {
 
 type Artifact {
   name: String!
+  destruction: String
   usage: String
   itemLevel: Int!
   sourcePageId: Uuid!
@@ -5334,7 +5336,6 @@ type Artifact {
   alignment: Alignment
   details(order: [TextBlockSortInput!] where: TextBlockFilterInput): [TextBlock!]!
   traits(order: [TraitSortInput!] where: TraitFilterInput): [Trait!]!
-  destructionDetails(order: [TextBlockSortInput!] where: TextBlockFilterInput): [TextBlock!]!
   destructionEffects(order: [ArtifactDestructionEffectSortInput!] where: ArtifactDestructionEffectFilterInput): [ArtifactDestructionEffect!]!
   actions(order: [ArtifactActionSortInput!] where: ArtifactActionFilterInput): [ArtifactAction!]!
   id: Uuid!
