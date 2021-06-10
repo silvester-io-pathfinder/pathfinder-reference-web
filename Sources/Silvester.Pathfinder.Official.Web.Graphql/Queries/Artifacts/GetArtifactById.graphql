@@ -1,0 +1,52 @@
+﻿query GetArtifactById($id: Uuid!) {
+	artifacts(where: {id: {eq: $id}}) {
+		items {
+			... ArtifactById
+		}
+	}
+}
+
+
+fragment ArtifactById on Artifact
+{
+	id,
+	name,
+	usage,
+	itemLevel,
+	destruction,
+	sourcePage {
+		... SourcePage
+	},
+	bulk {
+		... Bulk
+	},
+	alignment {
+		id,
+		name
+	},
+	details {
+		... TextBlock
+	},
+	traits {
+		... TraitChip
+	},
+	destructionEffects {
+		... ArtifactById_DestructionEffect
+	}
+}
+
+fragment ArtifactById_DestructionEffect on ArtifactDestructionEffect
+{
+	name,
+	savingThrowStat {
+		id,
+		name
+	},
+	difficultyCheck,
+	traits {
+		... TraitChip
+	},
+	effects {
+		... TextBlock
+	}
+}

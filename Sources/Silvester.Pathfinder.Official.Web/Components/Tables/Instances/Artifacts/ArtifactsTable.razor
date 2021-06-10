@@ -1,0 +1,21 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+@using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
+@using Silvester.Pathfinder.Official.Web.Graphql
+@using Silvester.Pathfinder.Official.Web.Services
+
+@inherits AbstractTable<IArtifactsPage, ArtifactSortInput>
+
+@Table
+
+@code {
+    protected override void CreateModel(TableBuilder<IArtifactsPage> builder)
+    {
+        builder
+            .AddTextColumn(e => e.Name, "Name", nameof(IArtifactsPage.Name), true)
+            .AddTextColumn(e => e.ItemLevel.ToString(), "Level", nameof(IArtifactsPage.ItemLevel), hideBelow: Breakpoint.Xs)
+            .AddTextColumn(e => e.Bulk?.Name, "Bulk", nameof(IArtifactsPage.Bulk) + "." + nameof(IBulk.Name), hideBelow: Breakpoint.Xs, hasDenseRightPadding: true)
+            .AddTextColumn(e => e.Usage, "Usage", nameof(IArtifactsPage.Usage), hideBelow: Breakpoint.SmAndDown, hasDenseRightPadding: true)
+            .AddTextColumn(e => e.Details.First().Text, "Description", nameof(IArtifactsPage.Details) + "." + nameof(ITextBlock.Text), hideBelow: Breakpoint.MdAndDown)
+            .AddInspectColumn(NavigationManager, e => $"artifacts/{e.Id}");
+    }
+}

@@ -1,0 +1,16 @@
+﻿fragment ArtifactsPage on Artifact
+{
+	id,
+	name,
+	usage,
+	itemLevel,
+	bulk {
+		... Bulk
+	},
+	alignment {
+		name
+	},
+	details(where: {order: {eq: 0}}) {
+		text
+	}
+}
