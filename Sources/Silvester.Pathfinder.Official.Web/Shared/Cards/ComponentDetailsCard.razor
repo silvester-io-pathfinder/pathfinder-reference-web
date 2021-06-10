@@ -19,8 +19,9 @@
                     </MudTooltip>
                 }
             </CardToolbar>
-
+                
             <MudDivider />
+            
 
             <div style="padding: 20px;">
                 <MudSkeleton Animation="Animation.Wave" Width="30%" Height="42px;" />
@@ -35,22 +36,25 @@
         }
         else
         {
-            <CardToolbar>
-                @Title(Entity)
-                <MudToolBarSpacer />
-                @if (Actions != null)
-                {
-                    @Actions(Entity)
-                }
-                @if (Shareable)
-                {
-                    <MudTooltip Text="Share">
-                        <MudIconButton Size="Size.Medium" OnClick="@(async () => await OnShareClickAsync())" Icon="@Icons.Material.Filled.Share"></MudIconButton>
-                    </MudTooltip>
-                }
-            </CardToolbar>
+            @if(HasToolbar)
+            {
+                <CardToolbar>
+                    @Title(Entity)
+                    <MudToolBarSpacer />
+                    @if (Actions != null)
+                    {
+                        @Actions(Entity)
+                    }
+                    @if (Shareable)
+                    {
+                        <MudTooltip Text="Share">
+                            <MudIconButton Size="Size.Medium" OnClick="@(async () => await OnShareClickAsync())" Icon="@Icons.Material.Filled.Share"></MudIconButton>
+                        </MudTooltip>
+                    }
+                </CardToolbar>
 
-            <MudDivider />
+                <MudDivider />
+            }
 
             <MudGrid xs="12" Style="margin: 0px;" Spacing="0">
                 <MudItem xs="12" md="6" lg="4" Style="padding: 0px">
@@ -68,6 +72,9 @@
 {
     [Parameter]
     public bool Shareable { get; set; } = true;
+    
+    [Parameter]
+    public bool HasToolbar { get; set; } = true;
 
     [Parameter]
     public RenderFragment<TEntity> Title { get; set; } = default!;

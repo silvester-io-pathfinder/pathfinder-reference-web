@@ -1,0 +1,17 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+@using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
+@using Silvester.Pathfinder.Official.Web.Graphql
+@using Silvester.Pathfinder.Official.Web.Services
+
+@inherits AbstractTable<IArmorCategoriesPage, ArmorCategorySortInput>
+
+@Table
+
+@code {
+    protected override void CreateModel(TableBuilder<IArmorCategoriesPage> builder)
+    {
+        builder
+            .AddTextColumn(e => e.Name, "Name", nameof(IDeitiesPage.Name), true)
+            .AddInspectColumn(NavigationManager, e => $"armor-categories/{e.Id}");
+    }
+}

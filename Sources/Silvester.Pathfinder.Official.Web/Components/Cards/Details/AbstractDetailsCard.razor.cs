@@ -21,6 +21,12 @@ namespace Silvester.Pathfinder.Official.Web.Components.Cards.Details
         [Parameter]
         public TEntity? Entity { get; set; }
 
+        [Parameter]
+        public bool Shareable { get; set; } = true;
+
+        [Parameter]
+        public string? InspectionUrl { get; set; } 
+
         [Inject]
         public PathfinderOfficialApi PathfinderOfficialApi { get; set; } = default!;
 

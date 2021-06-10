@@ -1,0 +1,19 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Cards.Builder;
+@using Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details;
+
+@inherits AbstractDetailsCard<IGetWeaponCategoryById_WeaponCategories_Items>
+
+@Card
+
+@code {
+    protected override DetailsCardModel CreateModel(IGetWeaponCategoryById_WeaponCategories_Items model)
+    {
+        return new DetailsCardBuilder("Weapon Category", true)
+            .AddCategoryLeft("Characteristics", category =>
+            {
+                category.AddText("Name", model.Name);
+            })
+            .Build();
+    }
+}

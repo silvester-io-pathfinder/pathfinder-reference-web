@@ -3,6 +3,8 @@
 @using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Heritages.Providers;
 @using Silvester.Pathfinder.Official.Web.Components.Cards;
 @using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
+@using Silvester.Pathfinder.Official.Web.Shared.Cards;
+@using Silvester.Pathfinder.Official.Web.Services.Currencies;
 
 @inherits BaseDetailPage
 @page "/precious-material-shields/{shieldId:guid}"
@@ -13,12 +15,43 @@
         <MudPaper Style="margin: 20px">
             <PreciousMaterialShieldDetailsCard Entity="@Shield" />
         </MudPaper>
+
+        @if (Shield != null)
+        {
+            <MudPaper Style="margin: 20px;">
+                <CardToolbar>
+                    <MudText Typo="Typo.h6">Variants</MudText>
+                </CardToolbar>
+                <MudDivider />
+                <MudTable Style="overflow-x: scroll;" Breakpoint="Breakpoint.None" Items="@Shield.Variants.OrderBy(e => e.Name).OrderBy(e => e.Grade.Order)" Dense="true" Hover="true" Striped="true" SortLabel="Sort By">
+                    <HeaderContent>
+                        <MudTh><MudTableSortLabel SortBy="new Func<IGetPreciousMaterialShieldById_PreciousMaterialShields_Items_Variants, object>(e => e.Name)" InitialDirection="SortDirection.Ascending">Name</MudTableSortLabel></MudTh>
+                        <MudTh><MudTableSortLabel SortBy="new Func<IGetPreciousMaterialShieldById_PreciousMaterialShields_Items_Variants, object?>(e => e.Grade.Name)">Grade</MudTableSortLabel></MudTh>
+                        <MudTh><MudTableSortLabel SortBy="new Func<IGetPreciousMaterialShieldById_PreciousMaterialShields_Items_Variants, object>(e => e.Price)">Price</MudTableSortLabel></MudTh>
+                        <MudTh><MudTableSortLabel SortBy="new Func<IGetPreciousMaterialShieldById_PreciousMaterialShields_Items_Variants, object>(e => e.Bulk.Name)">Bulk</MudTableSortLabel></MudTh>
+                        <MudTh><MudTableSortLabel SortBy="new Func<IGetPreciousMaterialShieldById_PreciousMaterialShields_Items_Variants, object>(e => e.ItemLevel)">Item Level</MudTableSortLabel></MudTh>
+                        <MudTh><MudTableSortLabel SortBy="new Func<IGetPreciousMaterialShieldById_PreciousMaterialShields_Items_Variants, object>(e => e.CraftRequirements)">Crafting Requirements</MudTableSortLabel></MudTh>
+                    </HeaderContent>
+                    <RowTemplate>
+                        <MudTd DataLabel="Name">@context.Name</MudTd>
+                        <MudTd DataLabel="Addendum">@context.Grade.Name</MudTd>
+                        <MudTd DataLabel="Price">@(CurrencyService.Denormalize(context.Price).ToString())</MudTd>
+                        <MudTd DataLabel="Bulk">@context.Bulk.Name</MudTd>
+                        <MudTd DataLabel="Item Level">@context.ItemLevel.ToString()</MudTd>
+                        <MudTd DataLabel="Crafting Requirements">@context.CraftRequirements</MudTd>
+                    </RowTemplate>
+                </MudTable>
+            </MudPaper>
+        }
     </PageLayout>
 </div>
 
 @code {
     protected override string Title => "Precious Material Shields";
     protected override string? Subtitle => Shield?.Name;
+
+    [Inject]
+    public ICurrencyService CurrencyService { get; set; } = default!;
 
     [Parameter]
     public Guid ShieldId { get; set; }

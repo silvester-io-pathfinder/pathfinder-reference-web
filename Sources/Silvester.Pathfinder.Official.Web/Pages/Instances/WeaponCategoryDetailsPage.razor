@@ -1,0 +1,62 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.RangedWeapons;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.RangedWeapons.Providers;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.MeleeWeapons;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.MeleeWeapons.Providers;
+@using Silvester.Pathfinder.Official.Web.Components.Cards;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
+
+@inherits BaseDetailPage
+@page "/weapon-categories/{weaponCategoryId:guid}"
+@implements IDisposable
+
+<div>
+    <PageLayout>
+        @if (WeaponCategory != null)
+        {
+            <MudPaper Style="margin: 20px">
+                <WeaponCategoryDetailsCard Entity="@WeaponCategory" />
+            </MudPaper>
+
+            <MudPaper Style="margin: 20px">
+                <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
+                    <MudTabPanel Text="Melee">
+                        <MeleeWeaponsTable PageProvider="@(new MeleeWeaponPageWithCategoryProvider(PathfinderOfficialApi, WeaponCategoryId))" />
+                    </MudTabPanel>
+                    <MudTabPanel Text="Ranged">
+                        <RangedWeaponsTable PageProvider="@(new RangedWeaponPageWithCategoryProvider(PathfinderOfficialApi, WeaponCategoryId))" />
+                    </MudTabPanel>
+                </MudTabs>
+            </MudPaper>
+        }
+    </PageLayout>
+</div>
+
+@code {
+    protected override string Title => "Weapon Categories";
+    protected override string? Subtitle => WeaponCategory?.Name;
+
+    [Parameter]
+    public Guid WeaponCategoryId { get; set; }
+
+    private IGetWeaponCategoryById_WeaponCategories_Items? WeaponCategory { get; set; }
+
+    private IDisposable? StoreSession { get; set; }
+
+    protected override void OnInitialized()
+    {
+        StoreSession = PathfinderOfficialApi.GetWeaponCategoryById
+            .Watch(WeaponCategoryId, StrawberryShake.ExecutionStrategy.NetworkOnly)
+            .Select(e => e.Data?.WeaponCategories?.Items?.FirstOrDefault())
+            .Subscribe(deityCategory =>
+            {
+                WeaponCategory = deityCategory;
+                StateHasChanged();
+            });
+    }
+
+    public void Dispose()
+    {
+        StoreSession?.Dispose();
+    }
+}

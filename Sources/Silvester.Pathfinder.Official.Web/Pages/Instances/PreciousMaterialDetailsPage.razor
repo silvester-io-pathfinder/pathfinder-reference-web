@@ -1,0 +1,128 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
+@using Silvester.Pathfinder.Official.Web.Components.Cards;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
+@using Silvester.Pathfinder.Official.Web.Services.Currencies;
+@using Silvester.Pathfinder.Official.Web.Shared.Cards;
+
+@inherits BaseDetailPage
+@page "/precious-materials/{preciousMaterialId:guid}"
+@implements IDisposable
+
+<div>
+    <PageLayout>
+        <MudPaper Style="margin: 20px">
+            <PreciousMaterialDetailsCard Entity="@PreciousMaterial" />
+        </MudPaper>
+
+        @if (PreciousMaterial != null)
+        {
+            @if(PreciousMaterial.Items.Count != 0)
+            {
+                <MudPaper Style="margin: 20px;">
+                    <CardToolbar>
+                        <MudText Typo="Typo.h6">Items</MudText>
+                    </CardToolbar>
+                    <MudDivider />
+                    <MudTable Style="overflow-x: scroll;" Breakpoint="Breakpoint.None" Items="@PreciousMaterial.Items.OrderBy(e => e.Category.Name).OrderBy(e => e.Grade.Order)" Dense="true" Hover="true" Striped="true" SortLabel="Sort By">
+                        <HeaderContent>
+                            <MudTh><MudTableSortLabel SortBy="new Func<IGetPreciousMaterialById_PreciousMaterials_Items_Items, object>(e => e.Category.Name)" InitialDirection="SortDirection.Ascending">Category</MudTableSortLabel></MudTh>
+                            <MudTh><MudTableSortLabel SortBy="new Func<IGetPreciousMaterialById_PreciousMaterials_Items_Items, object>(e => e.Grade.Order)">Grade</MudTableSortLabel></MudTh>
+                            <MudTh><MudTableSortLabel SortBy="new Func<IGetPreciousMaterialById_PreciousMaterials_Items_Items, object>(e => e.Hardness)">Hardness</MudTableSortLabel></MudTh>
+                            <MudTh><MudTableSortLabel SortBy="new Func<IGetPreciousMaterialById_PreciousMaterials_Items_Items, object>(e => e.HitPoints)">Hit Points</MudTableSortLabel></MudTh>
+                            <MudTh><MudTableSortLabel SortBy="new Func<IGetPreciousMaterialById_PreciousMaterials_Items_Items, object>(e => e.BrokenThreshold)">Broken Threshold</MudTableSortLabel></MudTh>
+                        </HeaderContent>
+                        <RowTemplate>
+                            <MudTd DataLabel="Category">@context.Category.Name</MudTd>
+                            <MudTd DataLabel="Grade">@context.Grade.Name</MudTd>
+                            <MudTd DataLabel="Hardness">@context.Hardness.ToString()</MudTd>
+                            <MudTd DataLabel="Hit Points">@context.HitPoints.ToString()</MudTd>
+                            <MudTd DataLabel="Broken Threshold">@context.BrokenThreshold.ToString()</MudTd>
+                        </RowTemplate>
+                    </MudTable>
+                </MudPaper>
+            }
+
+            <MudPaper Style="margin: 20px;">
+                <CardToolbar>
+                    <MudText Typo="Typo.h6">Variants</MudText>
+                </CardToolbar>
+                <MudDivider />
+                <MudTable Style="overflow-x: scroll;" Breakpoint="Breakpoint.None" Items="@PreciousMaterial.Variants.OrderBy(e => e.Name).OrderBy(e => e.NameAddendum)" Dense="true" Hover="true" Striped="true" SortLabel="Sort By">
+                    <HeaderContent>
+                        <MudTh><MudTableSortLabel SortBy="new Func<IGetPreciousMaterialById_PreciousMaterials_Items_Variants, object>(e => e.Name)" InitialDirection="SortDirection.Ascending">Name</MudTableSortLabel></MudTh>
+                        <MudTh><MudTableSortLabel SortBy="new Func<IGetPreciousMaterialById_PreciousMaterials_Items_Variants, object?>(e => e.NameAddendum)">Addendum</MudTableSortLabel></MudTh>
+                        <MudTh><MudTableSortLabel SortBy="new Func<IGetPreciousMaterialById_PreciousMaterials_Items_Variants, object>(e => e.Price)">Price</MudTableSortLabel></MudTh>
+                        <MudTh><MudTableSortLabel SortBy="new Func<IGetPreciousMaterialById_PreciousMaterials_Items_Variants, object>(e => e.Bulk.Name)">Bulk</MudTableSortLabel></MudTh>
+                        <MudTh><MudTableSortLabel SortBy="new Func<IGetPreciousMaterialById_PreciousMaterials_Items_Variants, object>(e => e.ItemLevel)">Item Level</MudTableSortLabel></MudTh>
+                    </HeaderContent>
+                    <RowTemplate>
+                        <MudTd DataLabel="Name">@context.Name</MudTd>
+                        <MudTd DataLabel="Addendum">@context.NameAddendum</MudTd>
+                        <MudTd DataLabel="Price">@(CurrencyService.Denormalize(context.Price).ToString())</MudTd>
+                        <MudTd DataLabel="Bulk">@context.Bulk.Name</MudTd>
+                        <MudTd DataLabel="Item Level">@context.ItemLevel.ToString()</MudTd>
+                    </RowTemplate>
+                </MudTable>
+            </MudPaper>
+        }
+
+        @if (PreciousMaterial != null && (PreciousMaterial.Shield != null || PreciousMaterial.Armor != null || PreciousMaterial.Weapon != null))
+        {
+            <MudPaper Style="margin: 20px;">
+                <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
+                    @if (PreciousMaterial.Shield != null)
+                    {
+                        <MudTabPanel Text="Shield">
+                            <PreciousMaterialShieldDetailsCard Title="@null" Shareable="false" InspectionUrl="@($"precious-material-shields/{PreciousMaterial.Shield.Id}")" Entity="@(PreciousMaterial.Shield)" />
+                        </MudTabPanel>
+                    }
+                    @if (PreciousMaterial.Weapon != null)
+                    {
+                        <MudTabPanel Text="Weapon">
+                            <PreciousMaterialWeaponDetailsCard Title="@null" Shareable="false" InspectionUrl="@($"precious-material-weapons/{PreciousMaterial.Weapon.Id}")" Entity="@(PreciousMaterial.Weapon)" />
+                        </MudTabPanel>
+                    }
+                    @if (PreciousMaterial.Armor != null)
+                    {
+                        <MudTabPanel Text="Armor">
+                            <PreciousMaterialArmorDetailsCard Title="@null" Shareable="false" InspectionUrl="@($"precious-material-armors/{PreciousMaterial.Armor.Id}")" Entity="@(PreciousMaterial.Armor)" />
+                        </MudTabPanel>
+                    }
+                </MudTabs>
+            </MudPaper>
+        }
+
+    </PageLayout>
+</div>
+
+@code {
+    protected override string Title => "Precious Materials";
+    protected override string? Subtitle => PreciousMaterial?.Name;
+
+    [Inject]
+    public ICurrencyService CurrencyService { get; set; } = default!;
+
+    [Parameter]
+    public Guid PreciousMaterialId { get; set; }
+
+    private IGetPreciousMaterialById_PreciousMaterials_Items? PreciousMaterial { get; set; }
+
+    private IDisposable? StoreSession { get; set; }
+
+    protected override void OnInitialized()
+    {
+        StoreSession = PathfinderOfficialApi.GetPreciousMaterialById
+            .Watch(PreciousMaterialId)
+            .Select(e => e.Data?.PreciousMaterials?.Items?.FirstOrDefault())
+            .Subscribe(plane =>
+            {
+                PreciousMaterial = plane;
+                StateHasChanged();
+            });
+    }
+
+    public void Dispose()
+    {
+        StoreSession?.Dispose();
+    }
+}

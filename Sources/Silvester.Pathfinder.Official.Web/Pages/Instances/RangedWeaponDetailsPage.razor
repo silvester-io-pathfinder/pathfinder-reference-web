@@ -1,0 +1,46 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Heritages;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Heritages.Providers;
+@using Silvester.Pathfinder.Official.Web.Components.Cards;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
+
+@inherits BaseDetailPage
+@page "/ranged-weapons/{rangedWeaponId:guid}"
+@implements IDisposable
+
+<div>
+    <PageLayout>
+        <MudPaper Style="margin: 20px">
+            <RangedWeaponDetailsCard Entity="@RangedWeapon" />
+        </MudPaper>
+    </PageLayout>
+</div>
+
+@code {
+    protected override string Title => "Ranged Weapons";
+    protected override string? Subtitle => RangedWeapon?.Name;
+
+    [Parameter]
+    public Guid RangedWeaponId { get; set; }
+
+    private IGetRangedWeaponById_RangedWeapons_Items? RangedWeapon { get; set; }
+
+    private IDisposable? StoreSession { get; set; }
+
+    protected override void OnInitialized()
+    {
+        StoreSession = PathfinderOfficialApi.GetRangedWeaponById
+        .Watch(RangedWeaponId, StrawberryShake.ExecutionStrategy.NetworkOnly)
+        .Select(e => e.Data?.RangedWeapons?.Items?.FirstOrDefault())
+        .Subscribe(shield =>
+        {
+            RangedWeapon = shield;
+            StateHasChanged();
+        });
+    }
+
+    public void Dispose()
+    {
+        StoreSession?.Dispose();
+    }
+}

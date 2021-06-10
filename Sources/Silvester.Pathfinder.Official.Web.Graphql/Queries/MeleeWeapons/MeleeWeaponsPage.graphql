@@ -1,0 +1,30 @@
+﻿fragment MeleeWeaponsPage on MeleeWeapon
+{
+	id,
+	name,
+	description, 
+	price,
+	level,
+	damage,
+	hands,
+	damageType {
+		name
+	},
+	bulk {
+		... Bulk
+	},
+	weaponCategory {
+		... MeleeWeaponsPage_Category
+	},
+	weaponGroup {
+		... MeleeWeaponsPage_Group
+	}
+}
+
+fragment MeleeWeaponsPage_Group on WeaponGroup {
+	name
+}
+
+fragment MeleeWeaponsPage_Category on WeaponCategory {
+	name
+}

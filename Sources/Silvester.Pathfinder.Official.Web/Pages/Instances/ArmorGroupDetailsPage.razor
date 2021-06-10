@@ -1,0 +1,53 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Armors;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Armors.Providers;
+@using Silvester.Pathfinder.Official.Web.Components.Cards;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
+
+@inherits BaseDetailPage
+@page "/armor-groups/{armorGroupId:guid}"
+@implements IDisposable
+
+<div>
+    <PageLayout>
+        @if (ArmorGroup != null)
+        {
+            <MudPaper Style="margin: 20px">
+                <ArmorGroupDetailsCard Entity="@ArmorGroup" />
+            </MudPaper>
+
+            <MudPaper Style="margin: 20px">
+                <ArmorsTable PageProvider="@(new ArmorPageWithGroupProvider(PathfinderOfficialApi, ArmorGroupId))" />
+            </MudPaper>
+        }
+    </PageLayout>
+</div>
+
+@code {
+    protected override string Title => "Armor Groups";
+    protected override string? Subtitle => ArmorGroup?.Name;
+
+    [Parameter]
+    public Guid ArmorGroupId { get; set; }
+
+    private IGetArmorGroupById_ArmorGroups_Items? ArmorGroup { get; set; }
+
+    private IDisposable? StoreSession { get; set; }
+
+    protected override void OnInitialized()
+    {
+        StoreSession = PathfinderOfficialApi.GetArmorGroupById
+            .Watch(ArmorGroupId, StrawberryShake.ExecutionStrategy.NetworkOnly)
+            .Select(e => e.Data?.ArmorGroups?.Items?.FirstOrDefault())
+            .Subscribe(deityGroup =>
+            {
+                ArmorGroup = deityGroup;
+                StateHasChanged();
+            });
+    }
+
+    public void Dispose()
+    {
+        StoreSession?.Dispose();
+    }
+}

@@ -12,6 +12,8 @@
 
 ::deep .mud-table-container {
     position: relative;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 ::deep .graphql-table-row:hover {

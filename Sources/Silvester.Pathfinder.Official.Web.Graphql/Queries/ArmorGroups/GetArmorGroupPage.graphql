@@ -1,0 +1,17 @@
+﻿query GetArmorGroupPage($skip: Int!, $take: Int!, $searchTerm: String! = "", $order: [ArmorGroupSortInput!] = [{name: ASC}]) {
+	armorGroups(
+		skip: $skip, 
+		take: $take, 
+		order: $order,
+		where: {
+			or: [
+				{name: {contains: $searchTerm}}
+			]
+		}) 
+	{
+		totalCount,
+		items {
+			... ArmorGroupsPage
+		}
+	}
+}

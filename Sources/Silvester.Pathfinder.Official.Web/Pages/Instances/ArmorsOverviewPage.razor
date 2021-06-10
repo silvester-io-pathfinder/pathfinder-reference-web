@@ -1,0 +1,47 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Armors;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Armors.Providers;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.ArmorGroups;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.ArmorGroups.Providers;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.ArmorCategories;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.ArmorCategories.Providers;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.PreciousMaterialArmors;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.PreciousMaterialArmors.Providers;
+@using Silvester.Pathfinder.Official.Web.Components.Cards;
+
+@page "/armors"
+@inherits BaseOverviewPage
+
+<div>
+    <PageLayout>
+
+        <MudPaper Style="margin: 20px;">
+            <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
+                <MudTabPanel Text="Categories">
+                    <ArmorCategoriesTable PageProvider="@(new ArmorCategoryPageProvider(PathfinderOfficialApi))" />
+                </MudTabPanel>
+                <MudTabPanel Text="Groups">
+                    <ArmorGroupsTable PageProvider="@(new ArmorGroupPageProvider(PathfinderOfficialApi))" />
+                </MudTabPanel>
+            </MudTabs>
+        </MudPaper>
+
+        <MudPaper Style="margin: 20px;">
+            <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
+                <MudTabPanel Text="Armors">
+                    <ArmorsTable Title="Armors" PageProvider="@(new ArmorPageProvider(PathfinderOfficialApi))" />
+                </MudTabPanel>
+                <MudTabPanel Text="Precious Material Armors">
+                    <PreciousMaterialArmorsTable PageProvider="@(new PreciousMaterialArmorPageProvider(PathfinderOfficialApi))" />
+                </MudTabPanel>
+            </MudTabs>
+        </MudPaper>
+
+    </PageLayout>
+
+</div>
+
+@code
+{
+    protected override string Title => "Armors";
+}

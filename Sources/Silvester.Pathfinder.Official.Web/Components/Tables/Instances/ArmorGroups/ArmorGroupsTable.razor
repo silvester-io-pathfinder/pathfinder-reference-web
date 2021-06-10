@@ -1,0 +1,18 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+@using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
+@using Silvester.Pathfinder.Official.Web.Graphql
+@using Silvester.Pathfinder.Official.Web.Services
+
+@inherits AbstractTable<IArmorGroupsPage, ArmorGroupSortInput>
+
+@Table
+
+@code {
+    protected override void CreateModel(TableBuilder<IArmorGroupsPage> builder)
+    {
+        builder
+            .AddTextColumn(e => e.Name, "Name", nameof(IArmorGroupsPage.Name), true)
+            .AddTextColumn(e => e.ArmorSpecializationEffect, "Specialization Effect", nameof(IArmorGroupsPage.ArmorSpecializationEffect), hideBelow: Breakpoint.Xs)
+            .AddInspectColumn(NavigationManager, e => $"armor-groups/{e.Id}");
+    }
+}

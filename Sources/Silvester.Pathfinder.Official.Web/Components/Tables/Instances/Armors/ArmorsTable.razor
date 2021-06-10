@@ -1,0 +1,24 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+@using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
+@using Silvester.Pathfinder.Official.Web.Graphql
+@using Silvester.Pathfinder.Official.Web.Services
+
+@inherits AbstractTable<IArmorsPage, ArmorSortInput>
+
+@Table
+
+@code {
+    protected override void CreateModel(TableBuilder<IArmorsPage> builder)
+    {
+        builder
+            .AddTextColumn(e => e.Name, "Name", nameof(IArmorsPage.Name), true)
+            .AddTextColumn(e => e.ArmorGroup.Name, "Group", nameof(IArmorsPage.ArmorGroup) + "." + nameof(IArmorsPage_Group.Name), hideBelow: Breakpoint.Xs)
+            .AddTextColumn(e => e.ArmorCategory.Name, "Category", nameof(IArmorsPage.ArmorCategory) + "." + nameof(IArmorsPage_Category.Name), hideBelow: Breakpoint.Xs)
+            .AddPriceColumn(e => e.Price, "Price", nameof(IArmorsPage.Price), hideBelow: Breakpoint.SmAndDown)
+            .AddTextColumn(e => e.Bulk.Name, "Bulk", nameof(IArmorsPage.Bulk) + "." + nameof(IBulk.Name), hideBelow: Breakpoint.SmAndDown)
+            .AddTextColumn(e => e.ArmorClassBonus.ToString(), "AC Bonus", nameof(IArmorsPage.ArmorClassBonus), hasDenseRightPadding: true, hideBelow: Breakpoint.MdAndDown)
+            .AddTextColumn(e => e.Level.ToString(), "Level", nameof(IArmorsPage.Level), hideBelow: Breakpoint.LgAndDown)
+            .AddTextColumn(e => e.Details.First().Text, "Desciption", nameof(IArmorsPage.Details) + "." + nameof(ITextBlock.Text), hideBelow: Breakpoint.MdAndDown)
+            .AddInspectColumn(NavigationManager, e => $"armors/{e.Id}");
+    }
+}

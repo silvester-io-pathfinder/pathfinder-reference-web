@@ -1,0 +1,17 @@
+﻿query GetPreciousMaterialWeaponsPage($skip: Int!, $take: Int!, $searchTerm: String! = "", $order: [PreciousMaterialWeaponSortInput!] = [{name: ASC}]) {
+	preciousMaterialWeapons(
+		skip: $skip, 
+		take: $take, 
+		order: $order,
+		where: {
+			or: [
+				{name: {contains: $searchTerm}}
+			]
+		}) 
+	{
+		totalCount,
+		items {
+			... PreciousMaterialWeaponsPage
+		}
+	}
+}

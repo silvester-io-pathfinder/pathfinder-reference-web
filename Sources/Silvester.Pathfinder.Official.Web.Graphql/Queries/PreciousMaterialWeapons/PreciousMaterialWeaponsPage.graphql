@@ -1,0 +1,11 @@
+﻿fragment PreciousMaterialWeaponsPage on PreciousMaterialWeapon
+{
+	id,
+	name,
+	material {
+		name
+	}
+	details (where: {order: {eq: 0}}){
+		... TextBlock
+	}
+}

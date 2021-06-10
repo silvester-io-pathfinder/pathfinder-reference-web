@@ -1,0 +1,17 @@
+﻿query GetMeleeWeaponsPage($skip: Int!, $take: Int!, $searchTerm: String! = "", $order: [MeleeWeaponSortInput!] = [{name: ASC}]) {
+	meleeWeapons(
+		skip: $skip, 
+		take: $take, 
+		order: $order,
+		where: {
+			or: [
+				{name: {contains: $searchTerm}}
+			]
+		}) 
+	{
+		totalCount,
+		items {
+			... MeleeWeaponsPage
+		}
+	}
+}

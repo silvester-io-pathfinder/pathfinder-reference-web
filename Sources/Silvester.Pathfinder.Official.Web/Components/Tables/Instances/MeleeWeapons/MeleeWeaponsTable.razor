@@ -1,0 +1,23 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+@using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
+@using Silvester.Pathfinder.Official.Web.Graphql
+@using Silvester.Pathfinder.Official.Web.Services
+
+@inherits AbstractTable<IMeleeWeaponsPage, MeleeWeaponSortInput>
+
+@Table
+
+@code {
+    protected override void CreateModel(TableBuilder<IMeleeWeaponsPage> builder)
+    {
+        builder
+            .AddTextColumn(e => e.Name, "Name", nameof(IMeleeWeaponsPage.Name), true)
+            .AddTextColumn(e => e.WeaponGroup.Name, "Group", nameof(IMeleeWeaponsPage.WeaponGroup) + "." + nameof(IMeleeWeaponsPage_Group.Name), hideBelow: Breakpoint.Xs)
+            .AddTextColumn(e => e.WeaponCategory.Name, "Category", nameof(IMeleeWeaponsPage.WeaponCategory) + "." + nameof(IMeleeWeaponsPage_Category.Name), hideBelow: Breakpoint.Xs)
+            .AddPriceColumn(e => e.Price, "Price", nameof(IMeleeWeaponsPage.Price), hideBelow: Breakpoint.SmAndDown)
+            .AddTextColumn(e => e.Bulk?.Name, "Bulk", nameof(IMeleeWeaponsPage.Bulk) + "." + nameof(IBulk.Name), hideBelow: Breakpoint.SmAndDown)
+            .AddTextColumn(e => e.Level.ToString(), "Level", nameof(IMeleeWeaponsPage.Level), hideBelow: Breakpoint.LgAndDown)
+            .AddTextColumn(e => e.Description, "Desciption", nameof(IMeleeWeaponsPage.Description), hideBelow: Breakpoint.MdAndDown)
+            .AddInspectColumn(NavigationManager, e => $"melee-weapons/{e.Id}");
+    }
+}

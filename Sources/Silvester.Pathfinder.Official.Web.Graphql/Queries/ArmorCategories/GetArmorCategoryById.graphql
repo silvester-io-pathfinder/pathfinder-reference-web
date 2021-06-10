@@ -1,0 +1,9 @@
+﻿query GetArmorCategoryById($id: Uuid!) {
+	armorCategories(where: {id: {eq: $id}}) {
+		items {
+			id,
+			name
+		}
+	}
+}
+

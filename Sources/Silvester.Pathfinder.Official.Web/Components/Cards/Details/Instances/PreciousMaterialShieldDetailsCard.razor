@@ -7,17 +7,26 @@
 @Card
 
 @code {
+    [Parameter]
+    public string? Title { get; set; } = "Precious Material Shield";
+
     protected override DetailsCardModel CreateModel(IPreciousMaterialShieldById model)
     {
-        return new DetailsCardBuilder("Precious Material Shield", true) 
+        return new DetailsCardBuilder(Title, Shareable)
+            .AddCategoryLeft("Traits", category =>
+            {
+                category.AddTraitChips(model.Traits, NavigationManager);
+            })
             .AddCategoryLeft("Details", category =>
             {
                 category
                     .AddText(new TextModel("Name", model.Name))
-                    .AddTraitChips(model.Traits, NavigationManager)
+                    .AddSingularChip("Material", model.Material.Name, () => NavigationManager.NavigateTo($"precious-materials/{model.Material.Id}"))
                     .AddFooter(footer =>
                     {
-                        footer.AddSourcePage(model.SourcePage);
+                        footer
+                            .AddSourcePage(model.SourcePage)
+                            .AddInspectionUrl(InspectionUrl);
                     });
             })
             .AddCategoryRight("Description", category =>
@@ -27,6 +36,5 @@
             })
             .Build();
     }
-
 }
 

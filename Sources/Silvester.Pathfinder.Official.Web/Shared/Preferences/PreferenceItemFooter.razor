@@ -2,11 +2,14 @@
 
 <div>
     <div class="preference-item preference-item-footer" style="margin-right: 20px;">
-        <IconFooterBar Items="@Items" />
+        <IconFooterBar Items="@Items" InspectionUrl="@InspectionUrl" />
     </div>
 </div>
 
 @code {
     [Parameter]
     public IEnumerable<IconFooterBar.Item> Items { get; set; } = default!;
+
+    [Parameter]
+    public string? InspectionUrl {get;set;}
 }

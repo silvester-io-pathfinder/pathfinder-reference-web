@@ -8,7 +8,7 @@
 
 @typeparam TEntity
 
-<ComponentDetailsCard TEntity="TEntity" Entity="@Entity" Shareable="@(Model?.IsSharable ?? false)">
+<ComponentDetailsCard HasToolbar="@(string.IsNullOrWhiteSpace(Model?.Title) == false || (Model?.IsSharable ?? false))" TEntity="TEntity" Entity="@Entity" Shareable="@(Model?.IsSharable ?? false)">
     <Title>
         @if(Model != null)
         {

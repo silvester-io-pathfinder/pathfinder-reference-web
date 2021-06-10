@@ -1,0 +1,25 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+@using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
+@using Silvester.Pathfinder.Official.Web.Graphql
+@using Silvester.Pathfinder.Official.Web.Services
+
+@inherits AbstractTable<IRangedWeaponsPage, RangedWeaponSortInput>
+
+@Table
+
+@code {
+    protected override void CreateModel(TableBuilder<IRangedWeaponsPage> builder)
+    {
+        builder
+            .AddTextColumn(e => e.Name, "Name", nameof(IRangedWeaponsPage.Name), true)
+            .AddTextColumn(e => e.WeaponGroup.Name, "Group", nameof(IRangedWeaponsPage.WeaponGroup) + "." + nameof(IRangedWeaponsPage_Group.Name), hideBelow: Breakpoint.Xs)
+            .AddTextColumn(e => e.WeaponCategory.Name, "Category", nameof(IRangedWeaponsPage.WeaponCategory) + "." + nameof(IRangedWeaponsPage_Category.Name), hideBelow: Breakpoint.Xs)
+            .AddPriceColumn(e => e.Price, "Price", nameof(IRangedWeaponsPage.Price), hideBelow: Breakpoint.SmAndDown)
+            .AddTextColumn(e => e.Bulk?.Name, "Bulk", nameof(IRangedWeaponsPage.Bulk) + "." + nameof(IBulk.Name), hideBelow: Breakpoint.SmAndDown)
+            .AddTextColumn(e => e.Level.ToString(), "Level", nameof(IRangedWeaponsPage.Level), hideBelow: Breakpoint.MdAndDown)
+            .AddTextColumn(e => e.Range.ToString(), "Range", nameof(IRangedWeaponsPage.Range), hideBelow: Breakpoint.MdAndDown)
+            .AddTextColumn(e => e.Reload.ToString(), "Reload", nameof(IRangedWeaponsPage.Reload), hideBelow: Breakpoint.MdAndDown)
+            .AddTextColumn(e => e.Description, "Desciption", nameof(IRangedWeaponsPage.Description), hideBelow: Breakpoint.LgAndDown)
+            .AddInspectColumn(NavigationManager, e => $"ranged-weapons/{e.Id}");
+    }
+}

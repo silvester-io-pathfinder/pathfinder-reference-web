@@ -1,0 +1,8 @@
+﻿fragment PreciousMaterialsPage on PreciousMaterial
+{
+id,
+	name,
+	details (where: {order: {eq: 0}}){
+		... TextBlock
+	}
+}

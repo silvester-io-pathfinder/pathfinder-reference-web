@@ -1,0 +1,20 @@
+﻿query GetArmorPageWithCategory($skip: Int!, $take: Int!, $armorCategoryId: Uuid!, $searchTerm: String! = "", $order: [ArmorSortInput!] = [{name: ASC}]) {
+	armors(
+		skip: $skip, 
+		take: $take, 
+		order: $order,
+		where: {
+			or: [
+				{name: {contains: $searchTerm}}
+			]
+			armorCategory: {
+				id: {eq: $armorCategoryId}
+			}
+		}) 
+	{
+		totalCount,
+		items {
+			... ArmorsPage
+		}
+	}
+}

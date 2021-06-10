@@ -1,0 +1,62 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.RangedWeapons;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.RangedWeapons.Providers;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.MeleeWeapons;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.MeleeWeapons.Providers;
+@using Silvester.Pathfinder.Official.Web.Components.Cards;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
+
+@inherits BaseDetailPage
+@page "/weapon-groups/{weaponGroupId:guid}"
+@implements IDisposable
+
+<div>
+    <PageLayout>
+        @if (WeaponGroup != null)
+        {
+            <MudPaper Style="margin: 20px">
+                <WeaponGroupDetailsCard Entity="@WeaponGroup" />
+            </MudPaper>
+
+            <MudPaper Style="margin: 20px">
+                <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
+                    <MudTabPanel Text="Melee">
+                        <MeleeWeaponsTable PageProvider="@(new MeleeWeaponPageWithGroupProvider(PathfinderOfficialApi, WeaponGroupId))" />
+                    </MudTabPanel>
+                    <MudTabPanel Text="Ranged">
+                        <RangedWeaponsTable PageProvider="@(new RangedWeaponPageWithGroupProvider(PathfinderOfficialApi, WeaponGroupId))" />
+                    </MudTabPanel>
+                </MudTabs>
+            </MudPaper>
+        }
+    </PageLayout>
+</div>
+
+@code {
+    protected override string Title => "Weapon Groups";
+    protected override string? Subtitle => WeaponGroup?.Name;
+
+    [Parameter]
+    public Guid WeaponGroupId { get; set; }
+
+    private IGetWeaponGroupById_WeaponGroups_Items? WeaponGroup { get; set; }
+
+    private IDisposable? StoreSession { get; set; }
+
+    protected override void OnInitialized()
+    {
+        StoreSession = PathfinderOfficialApi.GetWeaponGroupById
+            .Watch(WeaponGroupId, StrawberryShake.ExecutionStrategy.NetworkOnly)
+            .Select(e => e.Data?.WeaponGroups?.Items?.FirstOrDefault())
+            .Subscribe(deityGroup =>
+            {
+                WeaponGroup = deityGroup;
+                StateHasChanged();
+            });
+    }
+
+    public void Dispose()
+    {
+        StoreSession?.Dispose();
+    }
+}

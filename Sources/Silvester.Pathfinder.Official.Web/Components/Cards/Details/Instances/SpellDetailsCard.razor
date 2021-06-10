@@ -61,6 +61,7 @@
                 category
                     .AddSingularChip("Exclusive Class", model.Class?.Name, () => NavigationManager.NavigateTo($"classes/{model.Class?.Id}"))
                     .AddSingularChip("Magic School", model.MagicSchool?.Name, () => NavigationManager.NavigateTo($"magic-schools/{model.MagicSchool?.Id}"))
+                    .AddSingularChip("Type", model.SpellType?.Name, () => NavigationManager.NavigateTo($"spell-types/{model.SpellType?.Id}"))
                     .AddChips("Components", c =>
                     {
                         foreach (IGetSpellById_Spells_Items_Components_SpellComponent component in model.Components)
@@ -82,7 +83,7 @@
             });
 
 
-        foreach(var rollableEffect in model.RollableEffects)
+        foreach (var rollableEffect in model.RollableEffects)
         {
             builder.AddCategoryRight(rollableEffect.Name ?? "Rollable Effect", category =>
             {

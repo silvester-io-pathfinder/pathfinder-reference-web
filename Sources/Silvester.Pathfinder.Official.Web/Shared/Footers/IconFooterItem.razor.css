@@ -1,3 +1,7 @@
 ﻿::deep .spacer :hover {
     cursor: pointer
 }
+
+::deep .mud-tooltip-root.mud-tooltip-inline {
+    display: flex;
+}

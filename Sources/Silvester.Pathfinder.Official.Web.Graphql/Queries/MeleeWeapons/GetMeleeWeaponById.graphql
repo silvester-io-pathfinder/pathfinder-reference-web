@@ -1,0 +1,39 @@
+﻿query GetMeleeWeaponById($id: Uuid!) {
+	meleeWeapons(where: {id: {eq: $id}}) {
+		items {
+			... MeleeWeaponById
+		}
+	}
+}
+
+
+fragment MeleeWeaponById on MeleeWeapon {
+	name,
+	description,
+	price,
+	level,
+	damage,
+	hands,
+	damageType {
+		id, 
+		name
+	},
+	bulk {
+		... Bulk
+	},
+	weaponCategory {
+		id,
+		name
+	},
+	weaponGroup {
+		id,
+		name,
+		criticalEffect
+	},
+	sourcePage {
+		... SourcePage
+	},
+	traits {
+		... TraitChip
+	}
+}

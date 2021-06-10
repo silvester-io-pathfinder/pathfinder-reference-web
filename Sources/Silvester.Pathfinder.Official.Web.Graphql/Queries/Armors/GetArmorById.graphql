@@ -1,0 +1,39 @@
+﻿query GetArmorById($id: Uuid!) {
+	armors(where: {id: {eq: $id}}) {
+		items {
+			... ArmorById
+		}
+	}
+}
+
+
+fragment ArmorById on Armor {
+	id,
+	name,
+	level, price,
+	armorClassBonus, dexterityCap,
+	checkPenalty,
+	speedPenalty,
+	strength,
+	bulk {
+		... Bulk
+	},
+	armorCategory {
+		id,
+		name
+	},
+	armorGroup {
+		id,
+		name,
+		armorSpecializationEffect
+	},
+	sourcePage {
+		... SourcePage
+	},
+	traits {
+		... TraitChip
+	},
+	details {
+		... TextBlock
+	}
+}

@@ -1,0 +1,5 @@
+﻿fragment WeaponGroupsPage on WeaponGroup {
+	id,
+	name,
+	criticalEffect
+}

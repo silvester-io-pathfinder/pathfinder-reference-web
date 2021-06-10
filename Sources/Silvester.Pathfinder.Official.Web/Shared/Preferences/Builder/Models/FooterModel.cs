@@ -11,10 +11,12 @@ namespace Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models
     {
         public IList<IconFooterBar.Item> Items { get; set; } = default!;
         public bool HasBottomDivider => false;
+        public string? InspectionUrl { get; }
 
-        public FooterModel(IList<IconFooterBar.Item> items)
+        public FooterModel(IList<IconFooterBar.Item> items, string? inspectionUrl)
         {
             Items = items;
+            InspectionUrl = inspectionUrl;
         }
 
         public bool HasContent()
@@ -25,14 +27,20 @@ namespace Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models
         public class Builder
         {
             private IList<IconFooterBar.Item> Items { get; set; }
+            private string? InspectionUrl { get; set; }
 
             public Builder()
             {
                 Items = new List<IconFooterBar.Item>();
             }
 
-            public Builder AddBulk(IBulk bulk)
+            public Builder AddBulk(IBulk? bulk)
             {
+                if(bulk == null)
+                {
+                    return this;
+                }
+
                 return AddItem(new IconFooterBar.Item((MarkupString)Generated.Weight, bulk.Name, "Bulk"));
             }
 
@@ -66,6 +74,12 @@ namespace Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models
                 return AddItem(new IconFooterBar.Item((MarkupString)Generated.Slider, level.ToString(), "Level"));
             }
 
+            public Builder AddInspectionUrl(string? inspectionUrl)
+            {
+                InspectionUrl = inspectionUrl;
+                return this;
+            }
+
             public Builder AddSourcePage(ISourcePage? sourcePage)
             {
                 if(sourcePage == null)
@@ -80,7 +94,7 @@ namespace Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models
 
             public Builder AddPrice(int price, ICurrencyService currencyService)
             {
-                return AddItem(new IconFooterBar.Item((MarkupString)Generated.Coins, currencyService.Denormalize(price, Coin.Types.Gold).ToString(), "Source"));
+                return AddItem(new IconFooterBar.Item((MarkupString)Generated.Coins, currencyService.Denormalize(price, Coin.Types.Gold).ToString(), "Price"));
             }
 
             public Builder AddHardware(int hardness, int hitPoints, int brokenThreshold)
@@ -99,7 +113,7 @@ namespace Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models
 
             public FooterModel Build()
             {
-                return new FooterModel(Items);
+                return new FooterModel(Items, InspectionUrl);
             }
         }
     }

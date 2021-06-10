@@ -1,0 +1,17 @@
+﻿query GetWeaponCategoriesPage($skip: Int!, $take: Int!, $searchTerm: String! = "", $order: [WeaponCategorySortInput!] = [{name: ASC}]) {
+	weaponCategories(
+		skip: $skip, 
+		take: $take, 
+		order: $order,
+		where: {
+			or: [
+				{name: {contains: $searchTerm}}
+			]
+		}) 
+	{
+		totalCount,
+		items {
+			... WeaponCategoriesPage
+		}
+	}
+}

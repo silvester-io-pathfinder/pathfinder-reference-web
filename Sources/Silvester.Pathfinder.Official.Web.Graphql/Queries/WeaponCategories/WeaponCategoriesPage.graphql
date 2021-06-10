@@ -1,0 +1,4 @@
+﻿fragment WeaponCategoriesPage on WeaponCategory {
+	id,
+	name
+}

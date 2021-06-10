@@ -1,0 +1,16 @@
+﻿query GetWeaponGroupById($id: Uuid!) {
+	weaponGroups(where: {id: {eq: $id}}) {
+		items {
+			... WeaponGroupById
+		}
+	}
+}
+
+fragment WeaponGroupById on WeaponGroup {
+	id,
+	name,
+	criticalEffect,
+	sourcePage {
+		... SourcePage
+	}
+}

@@ -28,7 +28,6 @@ namespace Silvester.Pathfinder.Official.Web.Services
 
         public bool IsMatch(Breakpoint breakpoint, Breakpoint target)
         {
-            Console.WriteLine("Determining match between " + breakpoint + " and " + target);
             return target switch
             {
                 Breakpoint.Always => true,

@@ -1,0 +1,23 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Artifacts;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Artifacts.Providers;
+@using Silvester.Pathfinder.Official.Web.Components.Cards;
+
+@page "/artifacts"
+@inherits BaseOverviewPage
+
+<div>
+    <PageLayout>
+
+        <MudPaper Style="margin: 20px;">
+            <ArtifactsTable Title="Artifacts" PageProvider="@(new ArtifactPageProvider(PathfinderOfficialApi))" />
+        </MudPaper>
+
+    </PageLayout>
+
+</div>
+
+@code
+{
+    protected override string Title => "Artifacts";
+}

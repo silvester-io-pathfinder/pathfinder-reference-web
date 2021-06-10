@@ -1,13 +1,26 @@
-﻿<div style="display:inline-block; flex-direction:row;">
+﻿<div style="display:flex; flex-direction:row; flex-wrap: wrap;">
     @foreach (Item item in Items)
     {
         <IconFooterItem Icon="@item.Icon" Text="@item.Text" Tooltip="@item.Tooltip" />
+    }
+    @if(string.IsNullOrWhiteSpace(InspectionUrl) == false)
+    {
+        <MudToolBarSpacer />
+        <MudTooltip Text="Inspect">
+            <MudIconButton Icon="@MudBlazor.Icons.Material.Outlined.ArrowForward" Size="@Size.Small" OnClick="@(() => NavigationManager.NavigateTo(InspectionUrl))" />
+        </MudTooltip>
     }
 </div>
 
 @code {
     [Parameter]
     public IEnumerable<Item> Items { get; set; } = default!;
+
+    [Parameter]
+    public string? InspectionUrl { get; set; }
+
+    [Inject]
+    public NavigationManager NavigationManager {get;set;} = default!;
 
     public class Item
     {

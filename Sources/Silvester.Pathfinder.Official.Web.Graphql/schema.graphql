@@ -1753,19 +1753,7 @@ input WeaponGroupFilterInput {
   sourcePageId: ComparableGuidOperationFilterInput
   sourcePage: SourcePageFilterInput
   meleeWeapons: ListFilterInputTypeOfMeleeWeaponFilterInput
-  id: ComparableGuidOperationFilterInput
-}
-
-input WeaponCategorySortInput {
-  name: SortEnumType
-  id: SortEnumType
-}
-
-input WeaponCategoryFilterInput {
-  and: [WeaponCategoryFilterInput!]
-  or: [WeaponCategoryFilterInput!]
-  name: StringOperationFilterInput
-  meleeWeapons: ListFilterInputTypeOfMeleeWeaponFilterInput
+  rangedWeapons: ListFilterInputTypeOfRangedWeaponFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -1820,6 +1808,20 @@ input RangedWeaponFilterInput {
   id: ComparableGuidOperationFilterInput
 }
 
+input WeaponCategorySortInput {
+  name: SortEnumType
+  id: SortEnumType
+}
+
+input WeaponCategoryFilterInput {
+  and: [WeaponCategoryFilterInput!]
+  or: [WeaponCategoryFilterInput!]
+  name: StringOperationFilterInput
+  meleeWeapons: ListFilterInputTypeOfMeleeWeaponFilterInput
+  rangedWeapons: ListFilterInputTypeOfRangedWeaponFilterInput
+  id: ComparableGuidOperationFilterInput
+}
+
 input AmmunitionSortInput {
   name: SortEnumType
   description: SortEnumType
@@ -1855,6 +1857,12 @@ input PreciousMaterialSortInput {
   name: SortEnumType
   sourcePageId: SortEnumType
   sourcePage: SourcePageSortInput
+  weaponId: SortEnumType
+  weapon: PreciousMaterialWeaponSortInput
+  armorId: SortEnumType
+  armor: PreciousMaterialArmorSortInput
+  shieldId: SortEnumType
+  shield: PreciousMaterialShieldSortInput
   id: SortEnumType
 }
 
@@ -1868,9 +1876,12 @@ input PreciousMaterialFilterInput {
   variants: ListFilterInputTypeOfPreciousMaterialVariantFilterInput
   traits: ListFilterInputTypeOfTraitFilterInput
   items: ListFilterInputTypeOfPreciousMaterialItemFilterInput
-  weapons: ListFilterInputTypeOfPreciousMaterialWeaponFilterInput
-  armors: ListFilterInputTypeOfPreciousMaterialArmorFilterInput
-  shields: ListFilterInputTypeOfPreciousMaterialShieldFilterInput
+  weaponId: ComparableNullableOfGuidOperationFilterInput
+  weapon: PreciousMaterialWeaponFilterInput
+  armorId: ComparableNullableOfGuidOperationFilterInput
+  armor: PreciousMaterialArmorFilterInput
+  shieldId: ComparableNullableOfGuidOperationFilterInput
+  shield: PreciousMaterialShieldFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -1930,6 +1941,7 @@ input PreciousMaterialItemFilterInput {
 
 input ItemGradeSortInput {
   name: SortEnumType
+  order: SortEnumType
   id: SortEnumType
 }
 
@@ -1937,6 +1949,7 @@ input ItemGradeFilterInput {
   and: [ItemGradeFilterInput!]
   or: [ItemGradeFilterInput!]
   name: StringOperationFilterInput
+  order: ComparableInt32OperationFilterInput
   armorVariants: ListFilterInputTypeOfPreciousMaterialArmorVariantFilterInput
   id: ComparableGuidOperationFilterInput
 }
@@ -2312,6 +2325,7 @@ input ArtifactFilterInput {
   traits: ListFilterInputTypeOfTraitFilterInput
   destructionDetails: ListFilterInputTypeOfTextBlockFilterInput
   destructionEffects: ListFilterInputTypeOfArtifactDestructionEffectFilterInput
+  actions: ListFilterInputTypeOfArtifactActionFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -3847,7 +3861,8 @@ type Query {
   armors(skip: Int take: Int where: ArmorFilterInput order: [ArmorSortInput!]): ArmorCollectionSegment
   artifacts(skip: Int take: Int where: ArtifactFilterInput order: [ArtifactSortInput!]): ArtifactCollectionSegment
   armorPropertyRunes(skip: Int take: Int where: ArmorPropertyRuneFilterInput order: [ArmorPropertyRuneSortInput!]): ArmorPropertyRuneCollectionSegment
-  armorGroups(skip: Int take: Int where: ArmorCategoryFilterInput order: [ArmorCategorySortInput!]): ArmorCategoryCollectionSegment
+  armorCategories(skip: Int take: Int where: ArmorCategoryFilterInput order: [ArmorCategorySortInput!]): ArmorCategoryCollectionSegment
+  armorGroups(skip: Int take: Int where: ArmorGroupFilterInput order: [ArmorGroupSortInput!]): ArmorGroupCollectionSegment
   attackTypes(skip: Int take: Int where: AttackTypeFilterInput order: [AttackTypeSortInput!]): AttackTypeCollectionSegment
   benefitTypes(skip: Int take: Int where: BenefitTypeFilterInput order: [BenefitTypeSortInput!]): BenefitTypeCollectionSegment
   bulks(skip: Int take: Int where: BulkFilterInput order: [BulkSortInput!]): BulkCollectionSegment
@@ -3894,7 +3909,7 @@ type Query {
   proficiencies(skip: Int take: Int where: ProficiencyFilterInput order: [ProficiencySortInput!]): ProficiencyCollectionSegment
   races(skip: Int take: Int where: RaceFilterInput order: [RaceSortInput!]): RaceCollectionSegment
   raceSizes(skip: Int take: Int where: RaceSizeFilterInput order: [RaceSizeSortInput!]): RaceSizeCollectionSegment
-  rangedWeapons(skip: Int take: Int where: MeleeWeaponFilterInput order: [MeleeWeaponSortInput!]): MeleeWeaponCollectionSegment
+  rangedWeapons(skip: Int take: Int where: RangedWeaponFilterInput order: [RangedWeaponSortInput!]): RangedWeaponCollectionSegment
   rarities(skip: Int take: Int where: RarityFilterInput order: [RaritySortInput!]): RarityCollectionSegment
   savingThrowStats(skip: Int take: Int where: SavingThrowStatFilterInput order: [SavingThrowStatSortInput!]): SavingThrowStatCollectionSegment
   shields(skip: Int take: Int where: ShieldFilterInput order: [ShieldSortInput!]): ShieldCollectionSegment
@@ -4719,6 +4734,13 @@ type ArmorCategoryCollectionSegment {
   totalCount: Int!
 }
 
+type ArmorGroupCollectionSegment {
+  items: [ArmorGroup]
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  totalCount: Int!
+}
+
 type AttackTypeCollectionSegment {
   items: [AttackType]
   "Information to aid in pagination."
@@ -5041,8 +5063,8 @@ type RaceSizeCollectionSegment {
   totalCount: Int!
 }
 
-type MeleeWeaponCollectionSegment {
-  items: [MeleeWeapon]
+type RangedWeaponCollectionSegment {
+  items: [RangedWeapon]
   "Information to aid in pagination."
   pageInfo: CollectionSegmentInfo!
   totalCount: Int!
@@ -5106,6 +5128,13 @@ type StatCollectionSegment {
 
 type TraitCollectionSegment {
   items: [Trait]
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  totalCount: Int!
+}
+
+type MeleeWeaponCollectionSegment {
+  items: [MeleeWeapon]
   "Information to aid in pagination."
   pageInfo: CollectionSegmentInfo!
   totalCount: Int!
@@ -5307,6 +5336,7 @@ type Artifact {
   traits(order: [TraitSortInput!] where: TraitFilterInput): [Trait!]!
   destructionDetails(order: [TextBlockSortInput!] where: TextBlockFilterInput): [TextBlock!]!
   destructionEffects(order: [ArtifactDestructionEffectSortInput!] where: ArtifactDestructionEffectFilterInput): [ArtifactDestructionEffect!]!
+  actions(order: [ArtifactActionSortInput!] where: ArtifactActionFilterInput): [ArtifactAction!]!
   id: Uuid!
 }
 
@@ -5326,6 +5356,15 @@ type ArmorPropertyRune {
 
 type ArmorCategory {
   name: String!
+  armors(order: [ArmorSortInput!] where: ArmorFilterInput): [Armor!]!
+  id: Uuid!
+}
+
+type ArmorGroup {
+  name: String!
+  armorSpecializationEffect: String!
+  sourcePageId: Uuid!
+  sourcePage: SourcePage!
   armors(order: [ArmorSortInput!] where: ArmorFilterInput): [Armor!]!
   id: Uuid!
 }
@@ -5728,9 +5767,12 @@ type PreciousMaterial {
   variants(order: [PreciousMaterialVariantSortInput!] where: PreciousMaterialVariantFilterInput): [PreciousMaterialVariant!]!
   traits(order: [TraitSortInput!] where: TraitFilterInput): [Trait!]!
   items(order: [PreciousMaterialItemSortInput!] where: PreciousMaterialItemFilterInput): [PreciousMaterialItem!]!
-  weapons(order: [PreciousMaterialWeaponSortInput!] where: PreciousMaterialWeaponFilterInput): [PreciousMaterialWeapon!]!
-  armors(order: [PreciousMaterialArmorSortInput!] where: PreciousMaterialArmorFilterInput): [PreciousMaterialArmor!]!
-  shields(order: [PreciousMaterialShieldSortInput!] where: PreciousMaterialShieldFilterInput): [PreciousMaterialShield!]!
+  weaponId: Uuid
+  weapon: PreciousMaterialWeapon
+  armorId: Uuid
+  armor: PreciousMaterialArmor
+  shieldId: Uuid
+  shield: PreciousMaterialShield
   id: Uuid!
 }
 
@@ -5812,13 +5854,15 @@ type RaceSize {
   id: Uuid!
 }
 
-type MeleeWeapon {
+type RangedWeapon {
   name: String!
   description: String!
   price: Int!
   level: Int
   damage: String!
   hands: String!
+  range: Int!
+  reload: Int
   damageTypeId: Uuid!
   damageType: DamageType!
   bulkId: Uuid
@@ -5830,6 +5874,8 @@ type MeleeWeapon {
   sourcePageId: Uuid!
   sourcePage: SourcePage!
   traits(order: [TraitSortInput!] where: TraitFilterInput): [Trait!]!
+  ammunitionId: Uuid
+  ammunition: Ammunition
   id: Uuid!
 }
 
@@ -5985,6 +6031,27 @@ type Trait {
   id: Uuid!
 }
 
+type MeleeWeapon {
+  name: String!
+  description: String!
+  price: Int!
+  level: Int
+  damage: String!
+  hands: String!
+  damageTypeId: Uuid!
+  damageType: DamageType!
+  bulkId: Uuid
+  bulk: Bulk
+  weaponGroupId: Uuid!
+  weaponGroup: WeaponGroup!
+  weaponCategoryId: Uuid!
+  weaponCategory: WeaponCategory!
+  sourcePageId: Uuid!
+  sourcePage: SourcePage!
+  traits(order: [TraitSortInput!] where: TraitFilterInput): [Trait!]!
+  id: Uuid!
+}
+
 type WeaponPropertyRune {
   name: String!
   craftingRequirements: String
@@ -6004,12 +6071,14 @@ type WeaponGroup {
   sourcePageId: Uuid!
   sourcePage: SourcePage!
   meleeWeapons(order: [MeleeWeaponSortInput!] where: MeleeWeaponFilterInput): [MeleeWeapon!]!
+  rangedWeapons(order: [RangedWeaponSortInput!] where: RangedWeaponFilterInput): [RangedWeapon!]!
   id: Uuid!
 }
 
 type WeaponCategory {
   name: String!
   meleeWeapons(order: [MeleeWeaponSortInput!] where: MeleeWeaponFilterInput): [MeleeWeapon!]!
+  rangedWeapons(order: [RangedWeaponSortInput!] where: RangedWeaponFilterInput): [RangedWeapon!]!
   id: Uuid!
 }
 
@@ -6290,42 +6359,8 @@ type StaggeredEffectStageEffect {
   id: Uuid!
 }
 
-type ArmorGroup {
-  name: String!
-  armorSpecializationEffect: String!
-  sourcePageId: Uuid!
-  sourcePage: SourcePage!
-  armors(order: [ArmorSortInput!] where: ArmorFilterInput): [Armor!]!
-  id: Uuid!
-}
-
 "The `TimeSpan` scalar represents an ISO-8601 compliant duration type."
 scalar TimeSpan
-
-type RangedWeapon {
-  name: String!
-  description: String!
-  price: Int!
-  level: Int
-  damage: String!
-  hands: String!
-  range: Int!
-  reload: Int
-  damageTypeId: Uuid!
-  damageType: DamageType!
-  bulkId: Uuid
-  bulk: Bulk
-  weaponGroupId: Uuid!
-  weaponGroup: WeaponGroup!
-  weaponCategoryId: Uuid!
-  weaponCategory: WeaponCategory!
-  sourcePageId: Uuid!
-  sourcePage: SourcePage!
-  traits(order: [TraitSortInput!] where: TraitFilterInput): [Trait!]!
-  ammunitionId: Uuid
-  ammunition: Ammunition
-  id: Uuid!
-}
 
 type PreciousMaterialVariant {
   name: String!
@@ -6354,6 +6389,7 @@ type PreciousMaterialItem {
 
 type ItemGrade {
   name: String!
+  order: Int!
   armorVariants(order: [PreciousMaterialArmorVariantSortInput!] where: PreciousMaterialArmorVariantFilterInput): [PreciousMaterialArmorVariant!]!
   id: Uuid!
 }

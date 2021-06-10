@@ -1,0 +1,9 @@
+﻿query GetWeaponCategoryById($id: Uuid!) {
+	weaponCategories(where: {id: {eq: $id}}) {
+		items {
+			id,
+			name
+		}
+	}
+}
+

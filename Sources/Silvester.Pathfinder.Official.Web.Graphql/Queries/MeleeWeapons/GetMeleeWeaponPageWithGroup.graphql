@@ -1,0 +1,20 @@
+﻿query GetMeleeWeaponPageWithGroup($skip: Int!, $take: Int!, $weaponGroupId: Uuid!, $searchTerm: String! = "", $order: [MeleeWeaponSortInput!] = [{name: ASC}]) {
+	meleeWeapons(
+		skip: $skip, 
+		take: $take, 
+		order: $order,
+		where: {
+			or: [
+				{name: {contains: $searchTerm}}
+			]
+			weaponGroup: {
+				id: {eq: $weaponGroupId}
+			}
+		}) 
+	{
+		totalCount,
+		items {
+			... MeleeWeaponsPage
+		}
+	}
+}

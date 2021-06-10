@@ -1,0 +1,4 @@
+﻿fragment ArmorCategoriesPage on ArmorCategory {
+	id,
+	name
+}

@@ -1,0 +1,28 @@
+﻿fragment ArmorsPage on Armor
+{
+	id,
+	name,
+	level,
+	price,
+	armorClassBonus,
+	bulk {
+		... Bulk
+	},
+	armorCategory {
+		... ArmorsPage_Category
+	},
+	armorGroup {
+		... ArmorsPage_Group
+	},
+	details (where: {order: {eq: 0}}){
+		... TextBlock
+	}
+}
+
+fragment ArmorsPage_Group on ArmorGroup {
+	name
+}
+
+fragment ArmorsPage_Category on ArmorCategory {
+	name
+}

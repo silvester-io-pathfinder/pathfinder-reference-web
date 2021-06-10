@@ -1,0 +1,19 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+@using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
+@using Silvester.Pathfinder.Official.Web.Graphql
+@using Silvester.Pathfinder.Official.Web.Services
+
+@inherits AbstractTable<IPreciousMaterialWeaponsPage, PreciousMaterialWeaponSortInput>
+
+@Table
+
+@code {
+    protected override void CreateModel(TableBuilder<IPreciousMaterialWeaponsPage> builder)
+    {
+        builder
+            .AddTextColumn(e => e.Name, "Name", nameof(IPreciousMaterialWeaponsPage.Name), true)
+            .AddTextColumn(e => e.Material.Name, "Material", nameof(IPreciousMaterialWeaponsPage.Material) + "." + nameof(IPreciousMaterialWeaponById_Material), hideBelow: Breakpoint.Xs)
+            .AddTextColumn(e => e.Details.First().Text, "Desciption", nameof(IPreciousMaterialWeaponsPage.Details) + "." + nameof(ITextBlock.Text), hideBelow: Breakpoint.MdAndDown)
+            .AddInspectColumn(NavigationManager, e => $"precious-material-weapons/{e.Id}");
+    }
+}

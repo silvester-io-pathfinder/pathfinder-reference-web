@@ -8,6 +8,7 @@
 
 fragment PreciousMaterialShieldById on PreciousMaterialShield
 {
+	id,
 	name,
 	material {
 		... PreciousMaterialShieldById_Material

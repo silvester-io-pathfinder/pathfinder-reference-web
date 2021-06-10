@@ -1,0 +1,56 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Cards.Builder;
+@using Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details;
+
+@inherits AbstractDetailsCard<IRangedWeaponById>
+
+@Card
+
+@code {
+    protected override DetailsCardModel CreateModel(IRangedWeaponById model)
+    {
+        return new DetailsCardBuilder("Ranged Weapon", true)
+            .AddCategoryLeft("Traits", category =>
+            {
+                category
+                    .AddTraitChips(model.Traits, NavigationManager);
+            })
+            .AddCategoryLeft("Characteristics", category =>
+            {
+                category
+                    .AddText("Name", model.Name)
+                    .AddSingularChip("Category", model.WeaponCategory.Name, () => NavigationManager.NavigateTo($"weapon-categories/{model.WeaponCategory.Id}"))
+                    .AddSingularChip("Group", model.WeaponGroup.Name, () => NavigationManager.NavigateTo($"weapon-groups/{model.WeaponGroup.Id}"));
+            })
+            .AddCategoryLeft("Usage", category =>
+            {
+                category
+                    .AddText("Damage", model.Damage.ToString())
+                    .AddSingularChip("Damage Type", model.DamageType.Name, () => NavigationManager.NavigateTo($"damage-types/{model.DamageType.Id}"))
+                    .AddSingularChip("Ammunition", model.Ammunition?.Name, () => NavigationManager.NavigateTo($"ammunitions/{model.Ammunition?.Id}"))
+                    .AddText("Hands", model.Hands.ToString())
+                    .AddText("Range", model.Range.ToString())
+                    .AddText("Reload", model.Reload.ToString())
+                    .AddFooter(footer =>
+                    {
+                        footer
+                            .AddSourcePage(model.SourcePage)
+                            .AddLevel(model.Level)
+                            .AddBulk(model.Bulk)
+                            .AddPrice(model.Price, CurrencyService);
+                    });
+            })
+            .AddCategoryRight("Description", category =>
+            {
+                category
+                    .AddText(null, model.Description);
+            })
+            .AddCategoryRight("Critical Effect", category =>
+            {
+                category
+                    .AddText(null, model.WeaponGroup.CriticalEffect);
+            })
+            .Build();
+    }
+}
+

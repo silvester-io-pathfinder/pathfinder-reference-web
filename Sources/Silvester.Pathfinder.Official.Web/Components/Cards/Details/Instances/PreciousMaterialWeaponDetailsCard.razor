@@ -1,0 +1,40 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Cards.Builder;
+@using Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details;
+
+@inherits AbstractDetailsCard<IPreciousMaterialWeaponById>
+
+@Card
+
+@code {
+    [Parameter]
+    public string? Title { get; set; } = "Precious Material Weapon";
+
+    protected override DetailsCardModel CreateModel(IPreciousMaterialWeaponById model)
+    {
+        return new DetailsCardBuilder(Title, Shareable)
+            .AddCategoryLeft("Traits", category =>
+            {
+                category.AddTraitChips(model.Traits, NavigationManager);
+            })
+            .AddCategoryLeft("Details", category =>
+            {
+                category
+                    .AddText(new TextModel("Name", model.Name))
+                    .AddSingularChip("Material", model.Material.Name, () => NavigationManager.NavigateTo($"precious-materials/{model.Material.Id}"))
+                    .AddFooter(footer =>
+                    {
+                        footer
+                            .AddSourcePage(model.SourcePage)
+                            .AddInspectionUrl(InspectionUrl);
+                    });
+            })
+            .AddCategoryRight("Description", category =>
+            {
+                category
+                    .AddTextBlock(new TextBlockModel(model.Details));
+            })
+            .Build();
+    }
+}
+

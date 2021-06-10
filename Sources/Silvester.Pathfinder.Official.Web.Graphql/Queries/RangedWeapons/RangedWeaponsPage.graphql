@@ -1,0 +1,32 @@
+﻿fragment RangedWeaponsPage on RangedWeapon
+{
+	id,
+	name,
+	description, 
+	price,
+	level,
+	damage,
+	hands,
+	reload,
+	range
+	damageType {
+		name
+	},
+	bulk {
+		... Bulk
+	},
+	weaponCategory {
+		... RangedWeaponsPage_Category
+	},
+	weaponGroup {
+		... RangedWeaponsPage_Group
+	}
+}
+
+fragment RangedWeaponsPage_Group on WeaponGroup {
+	name
+}
+
+fragment RangedWeaponsPage_Category on WeaponCategory {
+	name
+}

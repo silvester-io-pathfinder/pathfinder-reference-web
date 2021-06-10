@@ -76,7 +76,7 @@ namespace Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models
 
             public Builder AddTraitChips(IReadOnlyList<ITraitChip> chips, NavigationManager navigationManager, bool hasBottomDivider = true)
             {
-                return AddChips("Traits", builder =>
+                return AddChips(null, builder =>
                 {
                     builder.AddChips(chips.Select(e => new ChipsModel.ChipModel(e.Name, onClick: () => navigationManager.NavigateTo($"traits/{e.Id}"))));
                 }, hasBottomDivider: hasBottomDivider);

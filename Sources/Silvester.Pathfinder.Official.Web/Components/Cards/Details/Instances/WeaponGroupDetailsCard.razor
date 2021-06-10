@@ -1,0 +1,28 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Cards.Builder;
+@using Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details;
+
+@inherits AbstractDetailsCard<IWeaponGroupById>
+
+@Card
+
+@code {
+    protected override DetailsCardModel CreateModel(IWeaponGroupById model)
+    {
+        return new DetailsCardBuilder("Weapon Group", true)
+            .AddCategoryLeft("Characteristics", category =>
+            {
+                category
+                    .AddText("Name", model.Name)
+                    .AddFooter(footer => 
+                    {
+                        footer.AddSourcePage(model.SourcePage);
+                    });
+            })
+            .AddCategoryRight("Critical Effect", category =>
+            {
+                category.AddText(null, model.CriticalEffect);
+            })
+            .Build();
+    }
+}

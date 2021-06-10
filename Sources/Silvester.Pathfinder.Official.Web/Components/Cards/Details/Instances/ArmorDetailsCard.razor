@@ -1,0 +1,55 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Cards.Builder;
+@using Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details;
+
+@inherits AbstractDetailsCard<IArmorById>
+
+@Card
+
+@code {
+    protected override DetailsCardModel CreateModel(IArmorById model)
+    {
+        return new DetailsCardBuilder("Armor", true)
+            .AddCategoryLeft("Traits", category =>
+            {
+                category
+                    .AddTraitChips(model.Traits, NavigationManager);
+            })
+            .AddCategoryLeft("Characteristics", category =>
+            {
+                category
+                    .AddText("Name", model.Name)
+                    .AddSingularChip("Category", model.ArmorCategory.Name, () => NavigationManager.NavigateTo($"armor-categories/{model.ArmorCategory.Id}"))
+                    .AddSingularChip("Group", model.ArmorGroup.Name, () => NavigationManager.NavigateTo($"armor-groups/{model.ArmorGroup.Id}"));
+            })
+            .AddCategoryLeft("Characteristics", category =>
+            {
+                category
+                    .AddText("Speed Penalty", model.SpeedPenalty.ToString())
+                    .AddText("Check Penalty", model.CheckPenalty.ToString())
+                    .AddText("Strength", model.Strength.ToString())
+                    .AddText("Dexterity Cap", model.DexterityCap.ToString())
+                    .AddFooter(footer =>
+                    {
+                        footer
+                            .AddSourcePage(model.SourcePage)
+                            .AddLevel(model.Level)
+                            .AddBulk(model.Bulk)
+                            .AddPrice(model.Price, CurrencyService)
+                            .AddArmorClass(model.ArmorClassBonus);
+                    });
+            })
+            .AddCategoryRight("Description", category =>
+            {
+                category
+                    .AddTextBlock(model.Details);
+            })
+            .AddCategoryRight("Specialiation Effect", category =>
+            {
+                category
+                    .AddText(null, model.ArmorGroup.ArmorSpecializationEffect);
+            })
+            .Build();
+    }
+}
+

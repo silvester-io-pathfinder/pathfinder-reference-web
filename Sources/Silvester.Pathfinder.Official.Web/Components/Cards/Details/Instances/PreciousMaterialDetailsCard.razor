@@ -1,0 +1,41 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Cards.Builder;
+@using Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details;
+
+@inherits AbstractDetailsCard<IGetPreciousMaterialById_PreciousMaterials_Items>
+
+@Card
+
+@code {
+    protected override DetailsCardModel CreateModel(IGetPreciousMaterialById_PreciousMaterials_Items model)
+    {
+        DetailsCardBuilder builder = new DetailsCardBuilder("Precious Material", true)
+            .AddCategoryLeft("Traits", category =>
+            {
+                category
+                    .AddTraitChips(model.Traits, NavigationManager)
+                    .AddFooter(footer =>
+                    {
+                        footer.AddSourcePage(model.SourcePage);
+                    });
+            });
+
+        builder
+            .AddCategoryRight("Description", category =>
+            {
+                category.AddTextBlock(model.Details);
+            });
+
+        return builder.Build();
+    }
+
+    private string GetVariantTitle(IPreciousMaterialById_Variant variant)
+    {
+        string title = variant.Name;
+        if (string.IsNullOrEmpty(variant.NameAddendum) == false)
+        {
+            title += $" ({variant.NameAddendum})";
+        }
+        return title;
+    }
+}

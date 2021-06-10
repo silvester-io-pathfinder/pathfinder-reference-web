@@ -1,0 +1,16 @@
+﻿query GetArmorGroupById($id: Uuid!) {
+	armorGroups(where: {id: {eq: $id}}) {
+		items {
+			... ArmorGroupById
+		}
+	}
+}
+
+fragment ArmorGroupById on ArmorGroup {
+	id,
+	name,
+	armorSpecializationEffect,
+	sourcePage {
+		... SourcePage
+	}
+}

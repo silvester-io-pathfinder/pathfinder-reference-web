@@ -1,0 +1,20 @@
+﻿query GetRangedWeaponPageWithCategory($skip: Int!, $take: Int!, $weaponCategoryId: Uuid!, $searchTerm: String! = "", $order: [RangedWeaponSortInput!] = [{name: ASC}]) {
+	rangedWeapons(
+		skip: $skip, 
+		take: $take, 
+		order: $order,
+		where: {
+			or: [
+				{name: {contains: $searchTerm}}
+			]
+			weaponCategory: {
+				id: {eq: $weaponCategoryId}
+			}
+		}) 
+	{
+		totalCount,
+		items {
+			... RangedWeaponsPage
+		}
+	}
+}

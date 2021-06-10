@@ -1,0 +1,45 @@
+﻿query GetRangedWeaponById($id: Uuid!) {
+	rangedWeapons(where: {id: {eq: $id}}) {
+		items {
+			... RangedWeaponById
+		}
+	}
+}
+
+
+fragment RangedWeaponById on RangedWeapon {
+	name,
+	description,
+	price,
+	level,
+	damage,
+	hands,
+	range,
+	reload,
+	damageType {
+		id, 
+		name
+	},
+	bulk {
+		... Bulk
+	},
+	weaponCategory {
+		id,
+		name
+	},
+	weaponGroup {
+		id,
+		name,
+		criticalEffect
+	},
+	sourcePage {
+		... SourcePage
+	},
+	traits {
+		... TraitChip
+	},
+	ammunition {
+		id,
+		name
+	}
+}
