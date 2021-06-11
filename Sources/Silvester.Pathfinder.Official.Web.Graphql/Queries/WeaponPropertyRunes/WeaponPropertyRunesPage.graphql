@@ -1,0 +1,8 @@
+﻿fragment WeaponPropertyRunesPage on WeaponPropertyRune
+{
+	id,
+	name,
+	usage,
+	craftingRequirements,
+	accessRequirements,
+}

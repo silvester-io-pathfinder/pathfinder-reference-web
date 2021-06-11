@@ -1,0 +1,22 @@
+﻿query GetFundamentalWeaponRuneById($id: Uuid!) {
+	fundamentalWeaponRunes(where: {id: {eq: $id}}) {
+		items {
+			... FundamentalWeaponRuneById
+		}
+	}
+}
+
+
+fragment FundamentalWeaponRuneById on FundamentalWeaponRune {
+	id,
+	name,
+	sourcePage {
+		... SourcePage
+	},
+	traits {
+		... TraitChip
+	},
+	details {
+		... TextBlock
+	}
+}

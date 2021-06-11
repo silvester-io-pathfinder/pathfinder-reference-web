@@ -1,0 +1,54 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.ArmorPropertyRunes;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.ArmorPropertyRunes.Providers;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.WeaponPropertyRunes;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.WeaponPropertyRunes.Providers;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.FundamentalArmorRunes;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.FundamentalArmorRunes.Providers;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.FundamentalWeaponRunes;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.FundamentalWeaponRunes.Providers;
+@using Silvester.Pathfinder.Official.Web.Components.Cards;
+@using Silvester.Pathfinder.Official.Web.Shared.Cards;
+
+@page "/runes"
+@inherits BaseOverviewPage
+
+<div>
+    <PageLayout>
+
+        <MudPaper Style="margin: 20px;">
+            <CardToolbar>
+                <MudText Typo="@Typo.h6">Armor Runes</MudText>
+            </CardToolbar>
+            <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
+                <MudTabPanel Text="Property Runes">
+                    <ArmorPropertyRunesTable PageProvider="@(new ArmorPropertyRunePageProvider(PathfinderOfficialApi))" />
+                </MudTabPanel>
+                <MudTabPanel Text="Fundamental Runes">
+                    <FundamentalArmorRunesTable PageProvider="@(new FundamentalArmorRunePageProvider(PathfinderOfficialApi))" />
+                </MudTabPanel>
+            </MudTabs>
+        </MudPaper>
+
+        <MudPaper Style="margin: 20px;">
+            <CardToolbar>
+                <MudText Typo="@Typo.h6">Weapon Runes</MudText>
+            </CardToolbar>
+            <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
+                <MudTabPanel Text="Property Runes">
+                    <WeaponPropertyRunesTable PageProvider="@(new WeaponPropertyRunePageProvider(PathfinderOfficialApi))" />
+                </MudTabPanel>
+                <MudTabPanel Text="Fundamental Runes">
+                    <FundamentalWeaponRunesTable PageProvider="@(new FundamentalWeaponRunePageProvider(PathfinderOfficialApi))" />
+                </MudTabPanel>
+            </MudTabs>
+        </MudPaper>
+
+    </PageLayout>
+
+</div>
+
+@code
+{
+    protected override string Title => "Runes";
+}

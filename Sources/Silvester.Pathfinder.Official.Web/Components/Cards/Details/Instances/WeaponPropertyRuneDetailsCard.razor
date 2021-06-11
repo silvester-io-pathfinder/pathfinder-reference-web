@@ -1,0 +1,38 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Cards.Builder;
+@using Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details;
+
+@inherits AbstractDetailsCard<IWeaponPropertyRuneById>
+
+@Card
+
+@code {
+    protected override DetailsCardModel CreateModel(IWeaponPropertyRuneById model)
+    {
+        DetailsCardBuilder builder = new DetailsCardBuilder("Weapon Property Rune", true)
+            .AddCategoryLeft("Traits", category =>
+            {
+                category
+                    .AddTraitChips(model.Traits, NavigationManager);
+            })
+            .AddCategoryLeft("Characteristics", category =>
+            {
+                category
+                    .AddText("Name", model.Name)
+                    .AddText("Usage", model.Usage);
+            })
+            .AddCategoryRight("Requirements", category =>
+            {
+                category
+                    .AddText("Crafting", model.CraftingRequirements)
+                    .AddText("Access", model.CraftingRequirements)
+                    .AddFooter(footer =>
+                    {
+                        footer.AddSourcePage(model.SourcePage);
+                    });
+            });
+
+        return builder.Build();
+    }
+}
+

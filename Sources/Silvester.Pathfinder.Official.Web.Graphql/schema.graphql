@@ -2261,7 +2261,7 @@ input WeaponPropertyRuneFilterInput {
   usage: StringOperationFilterInput
   sourcePageId: ComparableGuidOperationFilterInput
   sourcePage: SourcePageFilterInput
-  actions: ListFilterInputTypeOfArmorPropertyRuneActionFilterInput
+  actions: ListFilterInputTypeOfWeaponPropertyRuneActionFilterInput
   traits: ListFilterInputTypeOfTraitFilterInput
   potencies: ListFilterInputTypeOfWeaponPropertyRunePotencyBindingFilterInput
   id: ComparableGuidOperationFilterInput
@@ -3853,6 +3853,7 @@ type Query {
   abilities(skip: Int take: Int where: AbilityFilterInput order: [AbilitySortInput!]): AbilityCollectionSegment
   actions(skip: Int take: Int where: ActionFilterInput order: [ActionSortInput!]): ActionCollectionSegment
   actionTypes(skip: Int take: Int where: ActionTypeFilterInput order: [ActionTypeSortInput!]): ActionTypeCollectionSegment
+  adventuringGears(skip: Int take: Int where: AdventuringGearFilterInput order: [AdventuringGearSortInput!]): AdventuringGearCollectionSegment
   alchemicalBombs(skip: Int take: Int where: AlchemicalBombFilterInput order: [AlchemicalBombSortInput!]): AlchemicalBombCollectionSegment
   alchemicalElixirs(skip: Int take: Int where: AlchemicalElixirFilterInput order: [AlchemicalElixirSortInput!]): AlchemicalElixirCollectionSegment
   alchemicalPoisons(skip: Int take: Int where: AlchemicalPoisonFilterInput order: [AlchemicalPoisonSortInput!]): AlchemicalPoisonCollectionSegment
@@ -3920,6 +3921,7 @@ type Query {
   spells(skip: Int take: Int where: SpellFilterInput order: [SpellSortInput!]): SpellCollectionSegment
   spellTypes(skip: Int take: Int where: SpellTypeFilterInput order: [SpellTypeSortInput!]): SpellTypeCollectionSegment
   stats(skip: Int take: Int where: StatFilterInput order: [StatSortInput!]): StatCollectionSegment
+  staves(skip: Int take: Int where: StaveFilterInput order: [StaveSortInput!]): StaveCollectionSegment
   traits(skip: Int take: Int where: TraitFilterInput order: [TraitSortInput!]): TraitCollectionSegment
   meleeWeapons(skip: Int take: Int where: MeleeWeaponFilterInput order: [MeleeWeaponSortInput!]): MeleeWeaponCollectionSegment
   weaponPropertyRunes(skip: Int take: Int where: WeaponPropertyRuneFilterInput order: [WeaponPropertyRuneSortInput!]): WeaponPropertyRuneCollectionSegment
@@ -4581,13 +4583,6 @@ input ListFilterInputTypeOfPreciousMaterialShieldVariantFilterInput {
   any: Boolean
 }
 
-input ListFilterInputTypeOfArmorPropertyRuneActionFilterInput {
-  all: ArmorPropertyRuneActionFilterInput
-  none: ArmorPropertyRuneActionFilterInput
-  some: ArmorPropertyRuneActionFilterInput
-  any: Boolean
-}
-
 input ListFilterInputTypeOfStavePotencyBindingFilterInput {
   all: StavePotencyBindingFilterInput
   none: StavePotencyBindingFilterInput
@@ -4660,6 +4655,13 @@ type ActionCollectionSegment {
 
 type ActionTypeCollectionSegment {
   items: [ActionType]
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  totalCount: Int!
+}
+
+type AdventuringGearCollectionSegment {
+  items: [AdventuringGear]
   "Information to aid in pagination."
   pageInfo: CollectionSegmentInfo!
   totalCount: Int!
@@ -5127,6 +5129,13 @@ type StatCollectionSegment {
   totalCount: Int!
 }
 
+type StaveCollectionSegment {
+  items: [Stave]
+  "Information to aid in pagination."
+  pageInfo: CollectionSegmentInfo!
+  totalCount: Int!
+}
+
 type TraitCollectionSegment {
   items: [Trait]
   "Information to aid in pagination."
@@ -5198,6 +5207,22 @@ type ActionType {
   spells(order: [SpellSortInput!] where: SpellFilterInput): [Spell!]!
   feats(order: [FeatSortInput!] where: FeatFilterInput): [Feat!]!
   actions(order: [ActionSortInput!] where: ActionFilterInput): [Action!]!
+  id: Uuid!
+}
+
+type AdventuringGear {
+  name: String!
+  hands: String!
+  itemLevel: String!
+  price: Int!
+  bulkId: Uuid!
+  bulk: Bulk!
+  sourcePageId: Uuid!
+  sourcePage: SourcePage!
+  rarityId: Uuid!
+  rarity: Rarity!
+  details(order: [TextBlockSortInput!] where: TextBlockFilterInput): [TextBlock!]!
+  variants(order: [AdventuringGearVariantSortInput!] where: AdventuringGearVariantFilterInput): [AdventuringGearVariant!]!
   id: Uuid!
 }
 
@@ -5991,6 +6016,20 @@ type Stat {
   id: Uuid!
 }
 
+type Stave {
+  name: String!
+  usage: String!
+  craftingRequirements: String!
+  activate: String!
+  sourcePageId: Uuid!
+  sourcePage: SourcePage!
+  potencies(order: [StavePotencyBindingSortInput!] where: StavePotencyBindingFilterInput): [StavePotencyBinding!]!
+  traits(order: [TraitSortInput!] where: TraitFilterInput): [Trait!]!
+  details(order: [TextBlockSortInput!] where: TextBlockFilterInput): [TextBlock!]!
+  effects(order: [ActionEffectSortInput!] where: ActionEffectFilterInput): [ActionEffect!]!
+  id: Uuid!
+}
+
 type Trait {
   name: String!
   sourcePageId: Uuid!
@@ -6060,7 +6099,7 @@ type WeaponPropertyRune {
   usage: String!
   sourcePageId: Uuid!
   sourcePage: SourcePage!
-  actions(order: [ArmorPropertyRuneActionSortInput!] where: ArmorPropertyRuneActionFilterInput): [ArmorPropertyRuneAction!]!
+  actions(order: [WeaponPropertyRuneActionSortInput!] where: WeaponPropertyRuneActionFilterInput): [WeaponPropertyRuneAction!]!
   traits(order: [TraitSortInput!] where: TraitFilterInput): [Trait!]!
   potencies(order: [WeaponPropertyRunePotencyBindingSortInput!] where: WeaponPropertyRunePotencyBindingFilterInput): [WeaponPropertyRunePotencyBinding!]!
   id: Uuid!
@@ -6505,20 +6544,6 @@ type ArtifactAction {
   id: Uuid!
 }
 
-type Stave {
-  name: String!
-  usage: String!
-  craftingRequirements: String!
-  activate: String!
-  sourcePageId: Uuid!
-  sourcePage: SourcePage!
-  potencies(order: [StavePotencyBindingSortInput!] where: StavePotencyBindingFilterInput): [StavePotencyBinding!]!
-  traits(order: [TraitSortInput!] where: TraitFilterInput): [Trait!]!
-  details(order: [TextBlockSortInput!] where: TextBlockFilterInput): [TextBlock!]!
-  effects(order: [ActionEffectSortInput!] where: ActionEffectFilterInput): [ActionEffect!]!
-  id: Uuid!
-}
-
 type StavePotencyBinding {
   price: Int!
   addendum: String
@@ -6621,22 +6646,6 @@ type CreatureSkill {
   skill: Skill!
   creatureId: Uuid!
   creature: Creature!
-  id: Uuid!
-}
-
-type AdventuringGear {
-  name: String!
-  hands: String!
-  itemLevel: String!
-  price: Int!
-  bulkId: Uuid!
-  bulk: Bulk!
-  sourcePageId: Uuid!
-  sourcePage: SourcePage!
-  rarityId: Uuid!
-  rarity: Rarity!
-  details(order: [TextBlockSortInput!] where: TextBlockFilterInput): [TextBlock!]!
-  variants(order: [AdventuringGearVariantSortInput!] where: AdventuringGearVariantFilterInput): [AdventuringGearVariant!]!
   id: Uuid!
 }
 

@@ -1,0 +1,42 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Cards.Builder;
+@using Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details;
+
+@inherits AbstractDetailsCard<IArmorPropertyRuneById>
+
+@Card
+
+@code {
+    protected override DetailsCardModel CreateModel(IArmorPropertyRuneById model)
+    {
+        DetailsCardBuilder builder = new DetailsCardBuilder("Armor Property Rune", true)
+            .AddCategoryLeft("Traits", category =>
+            {
+                category
+                    .AddTraitChips(model.Traits, NavigationManager);
+            })
+            .AddCategoryLeft("Characteristics", category =>
+            {
+                category
+                    .AddText("Name", model.Name)
+                    .AddSingularChip("Rarity", model.Rarity.Name, () => NavigationManager.NavigateTo($"rarities/{model.Rarity.Id}"));
+            })
+            .AddCategoryLeft("Requirements", category =>
+            {
+                category
+                    .AddText("Crafting", model.CraftingRequirements)
+                    .AddFooter(footer =>
+                    {
+                        footer.AddSourcePage(model.SourcePage);
+                    });
+            })
+            .AddCategoryRight("Description", category =>
+            {
+                category
+                    .AddTextBlock(model.Details);
+            });
+
+        return builder.Build();
+    }
+}
+

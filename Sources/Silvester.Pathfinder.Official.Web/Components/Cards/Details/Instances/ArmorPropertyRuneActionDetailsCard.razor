@@ -1,0 +1,31 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Cards.Builder;
+@using Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details;
+
+@inherits AbstractDetailsCard<IArmorPropertyRuneById_Action?>
+
+@Card
+
+@code {
+    protected override DetailsCardModel CreateModel(IArmorPropertyRuneById_Action? model)
+    {
+        DetailsCardBuilder builder = new DetailsCardBuilder("Action", false);
+
+        if (model != null)
+        {
+            builder
+                .AddCategoryLeft("Action", category =>
+                {
+                    category
+                        .AddText("Name", model.Name)
+                        .AddText("Effect", model.Effect)
+                        .AddText("Frequency", model.Frequency)
+                        .AddText("Trigger", model.Trigger)
+                        .AddAction("Action", model.ActionType.Name, ActionTypeService);
+                });
+        }
+
+        return builder.Build();
+    }
+}
+

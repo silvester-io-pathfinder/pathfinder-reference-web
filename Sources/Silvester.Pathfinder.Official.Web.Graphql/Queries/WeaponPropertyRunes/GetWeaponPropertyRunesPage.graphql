@@ -1,0 +1,17 @@
+﻿query GetWeaponPropertyRunesPage($skip: Int!, $take: Int!, $searchTerm: String! = "", $order: [WeaponPropertyRuneSortInput!] = [{name: ASC}]) {
+	weaponPropertyRunes(
+		skip: $skip, 
+		take: $take, 
+		order: $order,
+		where: {
+			or: [
+				{name: {contains: $searchTerm}}
+			]
+		}) 
+	{
+		totalCount,
+		items {
+			... WeaponPropertyRunesPage
+		}
+	}
+}

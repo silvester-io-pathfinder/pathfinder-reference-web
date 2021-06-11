@@ -1,0 +1,9 @@
+﻿fragment FundamentalArmorRunesPage on FundamentalArmorRune
+{
+	id,
+	name,
+	
+	details (where: {order: {eq: 0}}){
+		... TextBlock
+	}
+}

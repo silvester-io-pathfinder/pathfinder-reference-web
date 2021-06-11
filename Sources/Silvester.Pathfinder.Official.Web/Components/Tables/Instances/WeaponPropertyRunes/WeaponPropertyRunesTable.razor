@@ -1,0 +1,19 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+@using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
+@using Silvester.Pathfinder.Official.Web.Graphql
+@using Silvester.Pathfinder.Official.Web.Services
+
+@inherits AbstractTable<IWeaponPropertyRunesPage, WeaponPropertyRuneSortInput>
+
+@Table
+
+@code {
+    protected override void CreateModel(TableBuilder<IWeaponPropertyRunesPage> builder)
+    {
+        builder
+            .AddTextColumn(e => e.Name, "Name", nameof(IWeaponPropertyRunesPage.Name), true)
+            .AddTextColumn(e => e.CraftingRequirements, "Crafting Requirements", nameof(IWeaponPropertyRunesPage.CraftingRequirements), hideBelow: Breakpoint.Sm)
+            .AddTextColumn(e => e.CraftingRequirements, "Access Requirements", nameof(IWeaponPropertyRunesPage.AccessRequirements), hideBelow: Breakpoint.Sm)
+            .AddInspectColumn(NavigationManager, e => $"weapon-property-runes/{e.Id}");
+    }
+}

@@ -1,0 +1,15 @@
+﻿fragment ArmorPropertyRunesPage on ArmorPropertyRune
+{
+	id,
+	name,
+	rarity {
+		... ArmorPropertyRunesPage_Rarity
+	},
+	details (where: {order: {eq: 0}}) {
+		... TextBlock
+	}
+}
+
+fragment ArmorPropertyRunesPage_Rarity on Rarity {
+	name
+}

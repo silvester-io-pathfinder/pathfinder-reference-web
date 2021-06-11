@@ -1,0 +1,44 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
+@using Silvester.Pathfinder.Official.Web.Components.Cards;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
+
+@inherits BaseDetailPage
+@page "/fundamental-armor-runes/{fundamentalArmorRuneId:guid}"
+@implements IDisposable
+
+<div>
+    <PageLayout>
+        <MudPaper Style="margin: 20px">
+            <FundamentalArmorRuneDetailsCard Entity="@FundamentalArmorRune" />
+        </MudPaper>
+    </PageLayout>
+</div>
+
+@code {
+    protected override string Title => "Fundamental Armor Rune";
+    protected override string? Subtitle => FundamentalArmorRune?.Name;
+
+    [Parameter]
+    public Guid FundamentalArmorRuneId { get; set; }
+
+    private IFundamentalArmorRuneById? FundamentalArmorRune { get; set; }
+
+    private IDisposable? StoreSession { get; set; }
+
+    protected override void OnInitialized()
+    {
+        StoreSession = PathfinderOfficialApi.GetFundamentalArmorRuneById
+            .Watch(FundamentalArmorRuneId, StrawberryShake.ExecutionStrategy.NetworkOnly)
+            .Select(e => e.Data?.FundamentalArmorRunes?.Items?.FirstOrDefault())
+            .Subscribe(fundamentalArmorRune =>
+            {
+                FundamentalArmorRune = fundamentalArmorRune;
+                StateHasChanged();
+            });
+    }
+
+    public void Dispose()
+    {
+        StoreSession?.Dispose();
+    }
+}

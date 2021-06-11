@@ -1,0 +1,18 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+@using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
+@using Silvester.Pathfinder.Official.Web.Graphql
+@using Silvester.Pathfinder.Official.Web.Services
+
+@inherits AbstractTable<IFundamentalWeaponRunesPage, FundamentalWeaponRuneSortInput>
+
+@Table
+
+@code {
+    protected override void CreateModel(TableBuilder<IFundamentalWeaponRunesPage> builder)
+    {
+        builder
+            .AddTextColumn(e => e.Name, "Name", nameof(IFundamentalWeaponRunesPage.Name), true)
+            .AddTextColumn(e => e.Details.First().Text, "Desciption", nameof(IFundamentalWeaponRunesPage.Details) + "." + nameof(ITextBlock.Text), hideBelow: Breakpoint.MdAndDown)
+            .AddInspectColumn(NavigationManager, e => $"fundamental-weapon-runes/{e.Id}");
+    }
+}

@@ -1,0 +1,54 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
+@using Silvester.Pathfinder.Official.Web.Components.Cards;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
+
+@inherits BaseDetailPage
+@page "/armor-property-runes/{armorPropertyRuneId:guid}"
+@implements IDisposable
+
+<div>
+    <PageLayout>
+        <MudPaper Style="margin: 20px">
+            <ArmorPropertyRuneDetailsCard Entity="@ArmorPropertyRune" />
+        </MudPaper>
+
+        @if (ArmorPropertyRune != null)
+        {
+            @if(ArmorPropertyRune.Action != null)
+            {
+                <MudPaper Style="margin: 20px">
+                    <ArmorPropertyRuneActionDetailsCard Entity="@ArmorPropertyRune.Action" />
+                </MudPaper>
+            }
+        }
+    </PageLayout>
+</div>
+
+@code {
+    protected override string Title => "Armor Property Rune";
+    protected override string? Subtitle => ArmorPropertyRune?.Name;
+
+    [Parameter]
+    public Guid ArmorPropertyRuneId { get; set; }
+
+    private IArmorPropertyRuneById? ArmorPropertyRune { get; set; }
+
+    private IDisposable? StoreSession { get; set; }
+
+    protected override void OnInitialized()
+    {
+        StoreSession = PathfinderOfficialApi.GetArmorPropertyRuneById
+            .Watch(ArmorPropertyRuneId, StrawberryShake.ExecutionStrategy.NetworkOnly)
+            .Select(e => e.Data?.ArmorPropertyRunes?.Items?.FirstOrDefault())
+            .Subscribe(weaponPropertyRune =>
+            {
+                ArmorPropertyRune = weaponPropertyRune;
+                StateHasChanged();
+            });
+    }
+
+    public void Dispose()
+    {
+        StoreSession?.Dispose();
+    }
+}

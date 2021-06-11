@@ -1,0 +1,65 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.RangedWeapons;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.RangedWeapons.Providers;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.MeleeWeapons;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.MeleeWeapons.Providers;
+@using Silvester.Pathfinder.Official.Web.Components.Cards;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
+
+@inherits BaseDetailPage
+@page "/weapon-property-runes/{weaponPropertyRuneId:guid}"
+@implements IDisposable
+
+<div>
+    <PageLayout>
+        <MudPaper Style="margin: 20px">
+            <WeaponPropertyRuneDetailsCard Entity="@WeaponPropertyRune" />
+        </MudPaper>
+
+        @if (WeaponPropertyRune != null)
+        {
+            @foreach (IWeaponPropertyRuneById_Action action in WeaponPropertyRune.Actions)
+            {
+                <MudPaper Style="margin: 20px">
+                    <WeaponPropertyRuneActionDetailsCard Entity="@action" />
+                </MudPaper>
+            }
+
+            @foreach (IWeaponPropertyRuneById_Potency potency in WeaponPropertyRune.Potencies)
+            {
+                <MudPaper Style="margin: 20px">
+                    <WeaponPropertyRunePotencyDetailsCard Entity="@potency" />
+                </MudPaper>
+            }
+        }
+    </PageLayout>
+</div>
+
+@code {
+    protected override string Title => "Weapon Property Rune";
+    protected override string? Subtitle => WeaponPropertyRune?.Name;
+
+    [Parameter]
+    public Guid WeaponPropertyRuneId { get; set; }
+
+    private IWeaponPropertyRuneById? WeaponPropertyRune { get; set; }
+
+    private IDisposable? StoreSession { get; set; }
+
+    protected override void OnInitialized()
+    {
+        StoreSession = PathfinderOfficialApi.GetWeaponPropertyRuneById
+            .Watch(WeaponPropertyRuneId, StrawberryShake.ExecutionStrategy.NetworkOnly)
+            .Select(e => e.Data?.WeaponPropertyRunes?.Items?.FirstOrDefault())
+            .Subscribe(weaponPropertyRune =>
+            {
+                WeaponPropertyRune = weaponPropertyRune;
+                StateHasChanged();
+            });
+    }
+
+    public void Dispose()
+    {
+        StoreSession?.Dispose();
+    }
+}

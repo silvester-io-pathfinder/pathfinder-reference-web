@@ -1,0 +1,36 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Cards.Builder;
+@using Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details;
+
+@inherits AbstractDetailsCard<IFundamentalArmorRuneById>
+
+@Card
+
+@code {
+    protected override DetailsCardModel CreateModel(IFundamentalArmorRuneById model)
+    {
+        DetailsCardBuilder builder = new DetailsCardBuilder("Fundamental Armor Rune", true)
+            .AddCategoryLeft("Traits", category =>
+            {
+                category
+                    .AddTraitChips(model.Traits, NavigationManager);
+            })
+            .AddCategoryLeft("Characteristics", category =>
+            {
+                category
+                    .AddText("Name", model.Name)
+                    .AddFooter(footer =>
+                    {
+                        footer.AddSourcePage(model.SourcePage);
+                    });
+            })
+            .AddCategoryRight("Description", category =>
+            {
+                category
+                    .AddTextBlock(model.Details);
+            });
+
+        return builder.Build();
+    }
+}
+

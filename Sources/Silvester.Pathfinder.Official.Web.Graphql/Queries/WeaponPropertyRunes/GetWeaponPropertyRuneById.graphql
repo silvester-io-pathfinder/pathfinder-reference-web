@@ -1,0 +1,62 @@
+﻿query GetWeaponPropertyRuneById($id: Uuid!) {
+	weaponPropertyRunes(where: {id: {eq: $id}}) {
+		items {
+			... WeaponPropertyRuneById
+		}
+	}
+}
+
+
+fragment WeaponPropertyRuneById on WeaponPropertyRune
+{
+	id,
+	name,
+	craftingRequirements,
+	accessRequirements,
+	usage,
+	sourcePage {
+		... SourcePage
+	},
+	actions {
+		... WeaponPropertyRuneById_Action
+	},
+	traits {
+		... TraitChip
+	}
+	potencies {
+		... WeaponPropertyRuneById_Potency
+	},
+}
+
+fragment WeaponPropertyRuneById_Action on WeaponPropertyRuneAction {
+	name,
+	effect,
+	frequency,
+	requirements,
+	trigger,
+	actionType {
+		name
+	},
+	traits {
+		... TraitChip
+	}
+
+}
+
+fragment WeaponPropertyRuneById_Potency on WeaponPropertyRunePotencyBinding {
+	price,
+	itemLevel,
+	rollableEffect {
+		... RollableEffect
+	},
+	potency {
+		id,
+		name
+	},
+	benefits {
+		... TextBlock
+	},
+	traits {
+		... TraitChip
+	}
+}

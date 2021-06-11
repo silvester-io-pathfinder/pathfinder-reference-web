@@ -1,0 +1,19 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+@using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
+@using Silvester.Pathfinder.Official.Web.Graphql
+@using Silvester.Pathfinder.Official.Web.Services
+
+@inherits AbstractTable<IArmorPropertyRunesPage, ArmorPropertyRuneSortInput>
+
+@Table
+
+@code {
+    protected override void CreateModel(TableBuilder<IArmorPropertyRunesPage> builder)
+    {
+        builder
+            .AddTextColumn(e => e.Name, "Name", nameof(IArmorPropertyRunesPage.Name), true)
+            .AddTextColumn(e => e.Rarity.Name, "Rarity", nameof(IArmorPropertyRunesPage.Rarity) + "." + nameof(IArmorPropertyRunesPage_Rarity.Name), hideBelow: Breakpoint.Xs)
+            .AddTextColumn(e => e.Details.First().Text, "Desciption", nameof(IArmorPropertyRunesPage.Details) + "." + nameof(ITextBlock.Text), hideBelow: Breakpoint.MdAndDown)
+            .AddInspectColumn(NavigationManager, e => $"armor-property-runes/{e.Id}");
+    }
+}

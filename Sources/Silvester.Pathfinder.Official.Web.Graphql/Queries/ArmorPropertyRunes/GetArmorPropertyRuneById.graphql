@@ -1,0 +1,41 @@
+﻿query GetArmorPropertyRuneById($id: Uuid!) {
+	armorPropertyRunes(where: {id: {eq: $id}}) {
+		items {
+			... ArmorPropertyRuneById
+		}
+	}
+}
+
+
+fragment ArmorPropertyRuneById on ArmorPropertyRune
+{
+	id,
+	name,
+	craftingRequirements,
+	rarity {
+		name,
+		id
+	},
+	sourcePage {
+		... SourcePage
+	},
+	action {
+		... ArmorPropertyRuneById_Action
+	},
+	traits {
+		... TraitChip
+	}
+	details {
+		... TextBlock
+	},
+}
+
+fragment ArmorPropertyRuneById_Action on ArmorPropertyRuneAction {
+	name,
+	effect,
+	frequency,
+	trigger,
+	actionType {
+		name
+	}
+}

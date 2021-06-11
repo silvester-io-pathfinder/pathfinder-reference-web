@@ -7,25 +7,6 @@
   <Import Project="../Properties.proj" />
 
   <ItemGroup>
-    <GraphQL Remove="Queries\Armors\GetArmorPageWithCategory.graphql" />
-    <GraphQL Remove="Queries\Armors\GetArmorPageWithGroup.graphql" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="Queries\Armors\GetArmorPageWithCategory.graphql" />
-    <None Remove="Queries\Armors\GetArmorPageWithGroup.graphql" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <AdditionalFiles Include="Queries\Armors\GetArmorPageWithCategory.graphql">
-      <GraphQL>true</GraphQL>
-    </AdditionalFiles>
-    <AdditionalFiles Include="Queries\Armors\GetArmorPageWithGroup.graphql">
-      <GraphQL>true</GraphQL>
-    </AdditionalFiles>
-  </ItemGroup>
-  
-  <ItemGroup>
     <PackageReference Include="StrawberryShake.CodeGeneration.CSharp.Analyzers" Version="11.2.2" />
     <PackageReference Include="StrawberryShake.Transport.Http" Version="11.2.2" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />

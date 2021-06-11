@@ -1,0 +1,22 @@
+﻿query GetFundamentalArmorRuneById($id: Uuid!) {
+	fundamentalArmorRunes(where: {id: {eq: $id}}) {
+		items {
+			... FundamentalArmorRuneById
+		}
+	}
+}
+
+
+fragment FundamentalArmorRuneById on FundamentalArmorRune {
+	id,
+	name,
+	sourcePage {
+		... SourcePage
+	},
+	traits {
+		... TraitChip
+	},
+	details {
+		... TextBlock
+	}
+}

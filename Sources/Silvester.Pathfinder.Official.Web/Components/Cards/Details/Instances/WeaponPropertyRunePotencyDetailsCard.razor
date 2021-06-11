@@ -1,0 +1,42 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Cards.Builder;
+@using Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details;
+
+@inherits AbstractDetailsCard<IWeaponPropertyRuneById_Potency>
+
+@Card
+
+@code {
+    protected override DetailsCardModel CreateModel(IWeaponPropertyRuneById_Potency model)
+    {
+        DetailsCardBuilder builder = new DetailsCardBuilder("Potency", false);
+
+        builder
+            .AddCategoryLeft("Traits", category =>
+            {
+                category.AddTraitChips(model.Traits, NavigationManager);
+            })
+            .AddCategoryLeft("Characteristics", category =>
+            {
+                category
+                    .AddSingularChip("Potency", model.Potency.Name, () => NavigationManager.NavigateTo($"potencies/{model.Potency.Id}"), false)
+                    .AddFooter(footer =>
+                    {
+                        footer
+                            .AddPrice(model.Price, CurrencyService)
+                            .AddLevel(model.ItemLevel);
+                    });
+            })
+            .AddCategoryRight("Benefits", category =>
+            {
+                category.AddTextBlock(model.Benefits);
+            })
+            .AddCategoryRight("Rollable Effect", category =>
+            {
+                category.AddRollableEffect(model.RollableEffect, false);
+            });
+
+        return builder.Build();
+    }
+}
+

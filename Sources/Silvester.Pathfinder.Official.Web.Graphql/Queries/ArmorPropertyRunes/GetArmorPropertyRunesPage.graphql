@@ -1,0 +1,17 @@
+﻿query GetArmorPropertyRunesPage($skip: Int!, $take: Int!, $searchTerm: String! = "", $order: [ArmorPropertyRuneSortInput!] = [{name: ASC}]) {
+	armorPropertyRunes(
+		skip: $skip, 
+		take: $take, 
+		order: $order,
+		where: {
+			or: [
+				{name: {contains: $searchTerm}}
+			]
+		}) 
+	{
+		totalCount,
+		items {
+			... ArmorPropertyRunesPage
+		}
+	}
+}

@@ -1,0 +1,48 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.RangedWeapons;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.RangedWeapons.Providers;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.MeleeWeapons;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.MeleeWeapons.Providers;
+@using Silvester.Pathfinder.Official.Web.Components.Cards;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
+
+@inherits BaseDetailPage
+@page "/fundamental-weapon-runes/{fundamentalWeaponRuneId:guid}"
+@implements IDisposable
+
+<div>
+    <PageLayout>
+        <MudPaper Style="margin: 20px">
+            <FundamentalWeaponRuneDetailsCard Entity="@FundamentalWeaponRune" />
+        </MudPaper>
+    </PageLayout>
+</div>
+
+@code {
+    protected override string Title => "Fundamental Weapon Rune";
+    protected override string? Subtitle => FundamentalWeaponRune?.Name;
+
+    [Parameter]
+    public Guid FundamentalWeaponRuneId { get; set; }
+
+    private IFundamentalWeaponRuneById? FundamentalWeaponRune { get; set; }
+
+    private IDisposable? StoreSession { get; set; }
+
+    protected override void OnInitialized()
+    {
+        StoreSession = PathfinderOfficialApi.GetFundamentalWeaponRuneById
+            .Watch(FundamentalWeaponRuneId, StrawberryShake.ExecutionStrategy.NetworkOnly)
+            .Select(e => e.Data?.FundamentalWeaponRunes?.Items?.FirstOrDefault())
+            .Subscribe(fundamentalWeaponRune =>
+            {
+                FundamentalWeaponRune = fundamentalWeaponRune;
+                StateHasChanged();
+            });
+    }
+
+    public void Dispose()
+    {
+        StoreSession?.Dispose();
+    }
+}

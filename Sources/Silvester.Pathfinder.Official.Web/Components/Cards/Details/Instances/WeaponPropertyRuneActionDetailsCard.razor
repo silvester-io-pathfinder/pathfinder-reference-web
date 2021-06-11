@@ -1,0 +1,33 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Cards.Builder;
+@using Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details;
+
+@inherits AbstractDetailsCard<IWeaponPropertyRuneById_Action>
+
+@Card
+
+@code {
+    protected override DetailsCardModel CreateModel(IWeaponPropertyRuneById_Action model)
+    {
+        DetailsCardBuilder builder = new DetailsCardBuilder("Action", false);
+
+        builder
+            .AddCategoryLeft("Traits", category =>
+            {
+                category.AddTraitChips(model.Traits, NavigationManager);
+            })
+            .AddCategoryLeft("Characteristics", category =>
+             {
+                 category
+                     .AddText("Name", model.Name)
+                     .AddText("Effect", model.Effect)
+                     .AddText("Frequency", model.Frequency)
+                     .AddText("Requirements", model.Requirements)
+                     .AddText("Trigger", model.Trigger)
+                     .AddAction("Action", model.ActionType.Name, ActionTypeService);
+             });
+
+        return builder.Build();
+    }
+}
+
