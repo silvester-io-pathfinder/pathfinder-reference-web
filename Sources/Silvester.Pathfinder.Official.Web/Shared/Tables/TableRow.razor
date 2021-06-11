@@ -3,19 +3,20 @@
 @using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder.Columns
 @using Microsoft.AspNetCore.Components.Web;
 @using Silvester.Pathfinder.Official.Web.Shared.Hidden;
+@using Silvester.Pathfinder.Official.Web.Shared.Graphics;
 @using MudBlazor.Services
 @using Silvester.Pathfinder.Official.Web.Services;
 
 @typeparam TEntity;
 @implements IDisposable;
 
-@if(WindowWidth != null)
+@if (WindowWidth != null)
 {
     <PotentiallyHiddenCell Column="@Column">
         <MudTd DataLabel="@Column.Name" Style="@GetStyle()">
             @switch (Column)
-                {
-                    case TextColumn<TEntity> text:
+            {
+                case TextColumn<TEntity> text:
                     if (Model.IsLastVisibleTextColumn(text, WindowWidth.Value, BreakpointService))
                     {
                         <div style="text-overflow: ellipsis; white-space: nowrap; position: absolute; overflow: hidden; width: 100%; transform: translateY(-50%); padding-right: 36px;">
@@ -29,7 +30,7 @@
                     break;
 
                 case IconColumn<TEntity> icon:
-                    <div style="@($"vertical-align: middle; height: {icon.Height}px; width: {icon.WidthFunc(Entity)}px;")">@((MarkupString) icon.SvgFunc(Entity))</div>
+                    <IconModelAdapter Model="@icon.GetModel(Entity)" />
                     break;
 
                 case ActionColumn<TEntity> action:
@@ -38,81 +39,81 @@
                     </MudTooltip>
                     break;
             }
-        </MudTd>
-    </PotentiallyHiddenCell>
-}
-
-@code {
-    [Parameter]
-    public ITableColumn<TEntity> Column { get; set; } = default!;
-
-    [Parameter]
-    public TableModel<TEntity> Model { get; set; } = default!;
-
-    [Parameter]
-    public TEntity Entity { get; set; } = default!;
-
-    [Inject]
-    public IResizeListenerService ResizeListener { get; set; } = default!;
-
-    [Inject]
-    public IBreakpointService BreakpointService { get; set; } = default!;
-
-    int? WindowWidth;
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            ResizeListener.OnResized += OnResized;
-
-            BrowserWindowSize size = await ResizeListener.GetBrowserWindowSize();
-            WindowWidth = size.Width;
-            StateHasChanged();
-        }
-
-        await base.OnAfterRenderAsync(firstRender);
+                </MudTd>
+            </PotentiallyHiddenCell>
     }
 
-    protected override async Task OnInitializedAsync()
-    {
-        await base.OnInitializedAsync();
-    }
+            @code {
+                [Parameter]
+                public ITableColumn<TEntity> Column { get; set; } = default!;
 
-    private void OnResized(object? sender, BrowserWindowSize size)
-    {
-        WindowWidth = size.Width;
-        base.StateHasChanged();
-    }
+                [Parameter]
+                public TableModel<TEntity> Model { get; set; } = default!;
 
-    public void Dispose()
-    {
-        ResizeListener.OnResized -= OnResized;
-    }
+                [Parameter]
+                public TEntity Entity { get; set; } = default!;
 
-    private string GetStyle()
-    {
-        return string.Join(" ", GetStyleComponents());
-    }
+                [Inject]
+                public IResizeListenerService ResizeListener { get; set; } = default!;
 
-    public IEnumerable<string> GetStyleComponents()
-    {
-        if(Column.HasDenseRightPadding)
-        {
-            yield return "padding-right: 0px;";
-        }
+                [Inject]
+                public IBreakpointService BreakpointService { get; set; } = default!;
 
-        if (Column is TextColumn<TEntity> text)
-        {
-            if(text.IsBold)
+                int? WindowWidth;
+
+            protected override async Task OnAfterRenderAsync(bool firstRender)
             {
-                yield return "font-weight: 500";
+                if (firstRender)
+                {
+                    ResizeListener.OnResized += OnResized;
+
+                    BrowserWindowSize size = await ResizeListener.GetBrowserWindowSize();
+                    WindowWidth = size.Width;
+                    StateHasChanged();
+                }
+
+                await base.OnAfterRenderAsync(firstRender);
             }
 
-            if(Model.IsLastVisibleTextColumn(text, WindowWidth!.Value, BreakpointService))
+            protected override async Task OnInitializedAsync()
             {
-                yield return "position: relative; width: 100vw;";
+                await base.OnInitializedAsync();
             }
-        }
-    }
-}
+
+            private void OnResized(object? sender, BrowserWindowSize size)
+            {
+                WindowWidth = size.Width;
+                base.StateHasChanged();
+            }
+
+            public void Dispose()
+            {
+                ResizeListener.OnResized -= OnResized;
+            }
+
+            private string GetStyle()
+            {
+                return string.Join(" ", GetStyleComponents());
+            }
+
+            public IEnumerable<string> GetStyleComponents()
+            {
+                if (Column.HasDenseRightPadding)
+                {
+                    yield return "padding-right: 0px;";
+                }
+
+                if (Column is TextColumn<TEntity> text)
+                {
+                    if (text.IsBold)
+                    {
+                        yield return "font-weight: 500";
+                    }
+
+                    if (Model.IsLastVisibleTextColumn(text, WindowWidth!.Value, BreakpointService))
+                    {
+                        yield return "position: relative; width: 100vw;";
+                    }
+                }
+            }
+            }

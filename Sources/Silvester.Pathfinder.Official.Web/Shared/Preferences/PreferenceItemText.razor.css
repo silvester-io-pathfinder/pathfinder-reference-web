@@ -1,3 +1,7 @@
 ﻿::deep .preference-item-title {
     font-weight: bold;
 }
+
+::deep .preference-item-text {
+    align-self:center;
+}

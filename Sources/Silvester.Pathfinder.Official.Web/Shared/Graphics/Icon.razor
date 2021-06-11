@@ -1,0 +1,13 @@
+﻿
+<div style="@($"vertical-align: middle; height: {Height}px; width: {Width}px;")">@((MarkupString) Svg)</div>
+
+@code {
+    [Parameter]
+    public double Height { get; set; }
+
+    [Parameter]
+    public double Width { get; set; }
+
+    [Parameter]
+    public string Svg { get; set; } = default!;
+}

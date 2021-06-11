@@ -1,0 +1,41 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Cards.Builder;
+@using Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details;
+
+@inherits AbstractDetailsCard<IArtifactById>
+
+@Card
+
+@code {
+    protected override DetailsCardModel CreateModel(IArtifactById model)
+    {
+        DetailsCardBuilder builder = new DetailsCardBuilder("Destruction", false)
+            .AddCategoryLeft("Characteristics", category =>
+            {
+                category.AddText(null, model.Destruction);
+            });
+
+
+        foreach(IArtifactById_DestructionEffect effect in model.DestructionEffects)
+        {
+            builder
+                .AddCategoryRight(effect.Name, category =>
+                {
+                    category
+                        .AddTextBlock(effect.Effects)
+                        .AddChips("Traits", (chips) => 
+                        {
+                            chips.AddChips(effect.Traits.Select(e => new ChipsModel.ChipModel(e.Name, null, () => NavigationManager.NavigateTo($"traits/{e.Id}"))));
+                        })
+                        .AddSingularChip("Saving Throw Stat", effect.SavingThrowStat.Name, () => NavigationManager.NavigateTo($"saving-throw-stats/{effect.SavingThrowStat.Id}"))
+                        .AddFooter(footer => 
+                        {
+                            footer.AddDifficultyCheck(effect.DifficultyCheck);
+                        });
+                });
+        }
+
+
+        return builder.Build();
+    }
+}

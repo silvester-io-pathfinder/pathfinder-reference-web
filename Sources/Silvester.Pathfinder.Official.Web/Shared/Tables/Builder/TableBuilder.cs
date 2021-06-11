@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Components;
 using MudBlazor.Services;
 using Silvester.Pathfinder.Official.Web.Services;
 using Silvester.Pathfinder.Official.Web.Services.Currencies;
+using Silvester.Pathfinder.Official.Web.Shared.Graphics.ActionTypeIcons;
+using Silvester.Pathfinder.Official.Web.Shared.Graphics;
 
 namespace Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
 {
@@ -36,13 +38,12 @@ namespace Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
 
         public TableBuilder<TEntity> AddActionIconColumn(Func<TEntity, string> actionTypeNameSelector, string sortLabel)
         {
-            int height = 24;
-            return AddIconColumn((e) => ActionTypeService.GetActionTypeIcon(actionTypeNameSelector(e)), "Action", sortLabel, height, (e) => ActionTypeService.GetActionTypeIconWidth(actionTypeNameSelector(e), height), hasDenseRightPadding: true);
+            return AddIconColumn("Action", sortLabel, (e) => new ActionTypeIconBuilder(ActionTypeService).Build(actionTypeNameSelector(e), 24), hasDenseRightPadding: true);
         }
 
-        public TableBuilder<TEntity> AddIconColumn(Func<TEntity, string> svgFunc, string name, string sortLabel, int height, Func<TEntity, double> widthFunc, bool hasDenseRightPadding = false)
+        public TableBuilder<TEntity> AddIconColumn(string name, string sortLabel, Func<TEntity, IconModel> getModel, bool hasDenseRightPadding = false)
         {
-            return Add(new IconColumn<TEntity>(name, sortLabel, height, svgFunc, widthFunc, hasDenseRightPadding));
+            return Add(new IconColumn<TEntity>(name, sortLabel, getModel, hasDenseRightPadding));
         }
 
         public TableBuilder<TEntity> AddPriceColumn(Func<TEntity, int?> valueFunc, string name, string sortLabel, bool isBold = false, Breakpoint? hideBelow = null)

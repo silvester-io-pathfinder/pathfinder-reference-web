@@ -1,4 +1,7 @@
-﻿@if (string.IsNullOrWhiteSpace(Text) == false)
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Graphics;
+@using Silvester.Pathfinder.Official.Web.Shared.Graphics.ActionTypeIcons;
+
+@if (string.IsNullOrWhiteSpace(Text) == false)
 {
     <div class="preference-item preference-item-text" style="margin-right: 20px;">
         @{
@@ -8,9 +11,11 @@
             }
         }
         <div style="display: flex; flex-direction: row; ">
-            @if (string.IsNullOrWhiteSpace(Icon) == false)
+            @if (Icon != null)
             {
-                <MudIcon Size="Size.Small" Icon="@Icon" Style="margin-right: 15px;" />
+                <div style="padding-right: 12px;">
+                    <IconModelAdapter Model="@Icon" />
+                </div>
             }
             <p class="preference-item-text">@Text</p>
         </div>
@@ -20,10 +25,10 @@
 @code {
     [Parameter]
     public string? Title { get; set; } = default!;
-    
+
     [Parameter]
     public string? Text { get; set; } = default!;
-    
+
     [Parameter]
-    public string? Icon { get; set; } = default!;
+    public IconModel? Icon { get; set; }
 }

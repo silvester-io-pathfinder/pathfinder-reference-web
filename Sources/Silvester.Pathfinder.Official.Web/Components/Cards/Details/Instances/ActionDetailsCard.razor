@@ -16,7 +16,9 @@
             })
             .AddCategoryLeft("Characteristics", category =>
             {
-                category.AddText("Name", model.Name);
+                category
+                    .AddText("Name", model.Name)
+                    .AddAction("Action", model.ActionType.Name, ActionTypeService);
             })
             .AddCategoryRight("Description", category =>
             {

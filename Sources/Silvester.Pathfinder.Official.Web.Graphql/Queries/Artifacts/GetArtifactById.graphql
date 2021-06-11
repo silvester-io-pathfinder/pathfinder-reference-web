@@ -32,6 +32,9 @@ fragment ArtifactById on Artifact
 	},
 	destructionEffects {
 		... ArtifactById_DestructionEffect
+	},
+	actions {
+		... ArtifactById_Action
 	}
 }
 
@@ -43,6 +46,27 @@ fragment ArtifactById_DestructionEffect on ArtifactDestructionEffect
 		name
 	},
 	difficultyCheck,
+	traits {
+		... TraitChip
+	},
+	effects {
+		... TextBlock
+	}
+}
+
+fragment ArtifactById_Action on ArtifactAction
+{
+	name, 
+	trigger,
+	frequency,
+	requiredTime,
+	requirements,
+	actionType {
+		name,
+	},
+	rollableEffect {
+		... RollableEffect
+	},
 	traits {
 		... TraitChip
 	},

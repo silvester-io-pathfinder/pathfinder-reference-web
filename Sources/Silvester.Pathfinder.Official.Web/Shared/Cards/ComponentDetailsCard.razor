@@ -57,12 +57,15 @@
             }
 
             <MudGrid xs="12" Style="margin: 0px;" Spacing="0">
-                <MudItem xs="12" md="6" lg="4" Style="padding: 0px">
+                <MudItem xs="@GetLeftContentSize(Breakpoint.Xs)" md="@GetLeftContentSize(Breakpoint.Md)" lg="@GetLeftContentSize(Breakpoint.Lg)" Style="padding: 0px">
                     @LeftContent(Entity)
                 </MudItem>
-                <MudItem xs="12" md="6" lg="8" Style="border-left: 1px solid var(--mud-palette-divider); padding: 0px 12px 0px 0px; ">
-                    @RightContent(Entity)
-                </MudItem>
+                @if(HasRightContent)
+                {
+                    <MudItem xs="@GetRightContentSize(Breakpoint.Xs)" md="@GetRightContentSize(Breakpoint.Md)" lg="@GetRightContentSize(Breakpoint.Lg)"  Style="border-left: 1px solid var(--mud-palette-divider); padding: 0px 12px 0px 0px; ">
+                        @RightContent(Entity)
+                    </MudItem>
+                }
             </MudGrid>
         }
     }
@@ -72,9 +75,12 @@
 {
     [Parameter]
     public bool Shareable { get; set; } = true;
-    
+
     [Parameter]
     public bool HasToolbar { get; set; } = true;
+
+    [Parameter]
+    public bool HasRightContent { get; set; }
 
     [Parameter]
     public RenderFragment<TEntity> Title { get; set; } = default!;
@@ -100,6 +106,28 @@
     [Parameter]
     public RenderFragment<TEntity> RightContent { get; set; } = default!;
 
+
+    public int GetLeftContentSize(Breakpoint breakpoint)
+    {
+        if (HasRightContent)
+        {
+            return breakpoint switch
+            {
+                Breakpoint.Xs => 12,
+                Breakpoint.Md => 6,
+                _ => 4
+            };
+        }
+        else
+        {
+            return 12;
+        }
+    }
+
+    public int GetRightContentSize(Breakpoint breakpoint)
+    {
+        return 12 - GetLeftContentSize(breakpoint);
+    }
 
     public async Task OnShareClickAsync()
     {

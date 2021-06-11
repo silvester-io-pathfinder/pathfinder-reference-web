@@ -1,0 +1,34 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Cards.Builder;
+@using Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details;
+
+@inherits AbstractDetailsCard<IArtifactById_Action>
+
+@Card
+
+@code {
+    protected override DetailsCardModel CreateModel(IArtifactById_Action model)
+    {
+        return new DetailsCardBuilder($"Action - {model.Name}", false)
+            .AddCategoryLeft("Traits", category =>
+            {
+                category.AddTraitChips(model.Traits, NavigationManager);
+            })
+               .AddCategoryLeft("Details", category =>
+               {
+                   category
+                           .AddAction("Action", model.ActionType.Name, ActionTypeService)
+                           .AddText("Trigger", model.Trigger)
+                           .AddText("Frequency", model.Frequency)
+                           .AddText("Required Time", model.RequiredTime)
+                           .AddText("Requirements", model.Requirements);
+               })
+            .AddCategoryRight("Description", category =>
+            {
+                category
+                    .AddTextBlock(model.Effects)
+                    .AddRollableEffect(model.RollableEffect);
+            })
+            .Build();
+    }
+}

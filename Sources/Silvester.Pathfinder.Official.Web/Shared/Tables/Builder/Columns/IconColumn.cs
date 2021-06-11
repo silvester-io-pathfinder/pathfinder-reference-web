@@ -1,12 +1,12 @@
 ﻿using MudBlazor;
+using Silvester.Pathfinder.Official.Web.Shared.Graphics;
 using System;
 
 namespace Silvester.Pathfinder.Official.Web.Shared.Tables.Builder.Columns
 {
     public class IconColumn<TEntity> : ITableColumn<TEntity>, ISortable<TEntity>
     {
-        public Func<TEntity, string> SvgFunc { get; }
-        public Func<TEntity, double> WidthFunc { get; }
+        public Func<TEntity, IconModel> GetModel { get; }
 
         public string Name { get; }
 
@@ -16,15 +16,11 @@ namespace Silvester.Pathfinder.Official.Web.Shared.Tables.Builder.Columns
 
         public bool HasDenseRightPadding { get; set; }
 
-        public int Height { get; set; }
-
-        public IconColumn(string name, string sortLabel, int height, Func<TEntity, string> svgFunc, Func<TEntity, double> widthFunc, bool hasDenseRightPadding)
+        public IconColumn(string name, string sortLabel, Func<TEntity, IconModel> getModel, bool hasDenseRightPadding)
         {
             Name = name;
             SortLabel = sortLabel;
-            Height = height;
-            SvgFunc = svgFunc;
-            WidthFunc = widthFunc;
+            GetModel = getModel;
             HasDenseRightPadding = hasDenseRightPadding;
         }
     }

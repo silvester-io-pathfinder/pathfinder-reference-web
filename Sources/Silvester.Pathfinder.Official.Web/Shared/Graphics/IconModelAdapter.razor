@@ -1,0 +1,8 @@
+﻿@using Silvester.Pathfinder.Official.Web.Utilities.Extensions;
+
+<Icon @attributes="@Model.Splat()"/>
+
+@code {
+    [Parameter]
+    public IconModel Model { get; set; } = default!;
+}

@@ -15,6 +15,24 @@
         <MudPaper Style="margin: 20px">
             <ArtifactDetailsCard Entity="@Artifact" />
         </MudPaper>
+
+        @if (Artifact != null && (string.IsNullOrEmpty(Artifact.Destruction) == false || Artifact.DestructionEffects.Any()))
+        {
+            <MudPaper Style="margin: 20px">
+                <ArtifactDestructionDetailsCard Entity="@Artifact" />
+            </MudPaper>
+        }
+
+        @if (Artifact != null && Artifact.Actions.Any())
+        {
+            @foreach (IArtifactById_Action action in Artifact.Actions)
+            {
+                <MudPaper Style="margin: 20px">
+                    <ArtifactActionDetailsCard Entity="@action" />
+                </MudPaper>
+            }
+        }
+
     </PageLayout>
 </div>
 

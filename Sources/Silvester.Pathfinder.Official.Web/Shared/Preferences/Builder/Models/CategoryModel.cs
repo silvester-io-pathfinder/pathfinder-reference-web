@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Silvester.Pathfinder.Official.Web.Graphql.Generated;
 using Silvester.Pathfinder.Official.Web.Services;
+using Silvester.Pathfinder.Official.Web.Shared.Graphics;
+using Silvester.Pathfinder.Official.Web.Shared.Graphics.ActionTypeIcons;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,10 +39,10 @@ namespace Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models
 
             public Builder AddAction(string? title, string actionTypeName, IActionTypeService actionTypeService, bool hasBottomDivider = true)
             {
-                return AddText(title, actionTypeName, actionTypeService.GetActionTypeIcon(actionTypeName), hasBottomDivider);
+                return AddText(title, actionTypeName, new ActionTypeIconBuilder(actionTypeService).Build(actionTypeName, 24), hasBottomDivider);
             }
 
-            public Builder AddText(string? title = null, string? text = null, string? icon = null, bool hasBottomDivider = true)
+            public Builder AddText(string? title = null, string? text = null, IconModel? icon = null, bool hasBottomDivider = true)
             {
                 return AddPreference(new TextModel(title, text, icon, hasBottomDivider));
             }
