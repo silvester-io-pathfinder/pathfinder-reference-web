@@ -11,9 +11,11 @@ namespace Silvester.Pathfinder.Official.Web.Shared.Graphics.ActionTypeIcons
             ActionTypeService = actionTypeService;
         }
 
-        public IconModel Build(string name, int height)
+        public IconModel? Build(string? name, int height)
         {
-            return new IconModel(height, ActionTypeService.GetActionTypeIconWidth(name, height), ActionTypeService.GetActionTypeIcon(name));
+            return string.IsNullOrEmpty(name)
+                ? null
+                : new IconModel(height, ActionTypeService.GetActionTypeIconWidth(name, height), ActionTypeService.GetActionTypeIcon(name));
         }
     }
 }

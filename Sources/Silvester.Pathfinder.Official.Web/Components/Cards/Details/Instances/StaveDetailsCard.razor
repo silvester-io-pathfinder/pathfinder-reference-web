@@ -1,0 +1,41 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Cards.Builder;
+@using Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details;
+
+@inherits AbstractDetailsCard<IStaveById>
+
+@Card
+
+@code {
+    protected override DetailsCardModel CreateModel(IStaveById model)
+    {
+        return new DetailsCardBuilder("Stave", true)
+            .AddCategoryLeft("Traits", category =>
+            {
+                category
+                    .AddTraitChips(model.Traits, NavigationManager);
+            })
+            .AddCategoryLeft("Characteristics", category =>
+            {
+                category
+                    .AddText("Name", model.Name)
+                    .AddText("Usage", model.Usage)
+                    .AddText("Activate", model.Usage)
+                    .AddFooter(footer =>
+                    {
+                        footer
+                            .AddSourcePage(model.SourcePage);
+                    });
+            })
+            .AddCategoryRight("Description", category =>
+            {
+                category.AddTextBlock(model.Details);
+            })
+            .AddCategoryRight("Requirements", category =>
+            {
+                category.AddText("Crafting", model.CraftingRequirements);
+            })
+            .Build();
+    }
+}
+

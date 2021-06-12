@@ -7,10 +7,12 @@
   <Import Project="../Properties.proj" />
 
   <ItemGroup>
+    <None Remove="Pages\Instances\StaveDetailsPage.razor.css" />
     <None Remove="Shared\Footers\IconFooterItem.razor.css" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Pages\Instances\StaveDetailsPage.razor.css" />
     <Content Include="Shared\Footers\IconFooterItem.razor.css" />
   </ItemGroup>
 

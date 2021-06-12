@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Silvester.Pathfinder.Official.Icons;
 using Silvester.Pathfinder.Official.Web.Graphql.Generated;
+using Silvester.Pathfinder.Official.Web.Services;
 using Silvester.Pathfinder.Official.Web.Services.Currencies;
 using Silvester.Pathfinder.Official.Web.Shared.Footers;
 using Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models;
+using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +17,7 @@ namespace Silvester.Pathfinder.Official.Web.Shared.Cards.Builder
     {
         private IList<CategoryModel.Builder> CategoriesLeft { get; }
         private IList<CategoryModel.Builder> CategoriesRight { get; }
+
         private string? Title { get; }
         private bool IsSharable { get; }
 

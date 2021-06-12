@@ -19,9 +19,7 @@
                 case TextColumn<TEntity> text:
                     if (Model.IsLastVisibleTextColumn(text, WindowWidth.Value, BreakpointService))
                     {
-                        <div style="text-overflow: ellipsis; white-space: nowrap; position: absolute; overflow: hidden; width: 100%; transform: translateY(-50%); padding-right: 36px;">
-                            @text.ValueFunc(Entity)
-                        </div>
+                        <EllipsizedCell Text="@text.ValueFunc(Entity)" />
                     }
                     else
                     {

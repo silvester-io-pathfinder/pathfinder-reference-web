@@ -13,7 +13,7 @@ using Silvester.Pathfinder.Official.Web.Shared.Graphics;
 
 namespace Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
 {
-    public class TableBuilder<TEntity>
+    public class TableBuilder<TEntity> 
     {
         private IActionTypeService ActionTypeService { get; }
 

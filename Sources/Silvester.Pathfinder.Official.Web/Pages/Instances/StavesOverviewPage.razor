@@ -1,0 +1,23 @@
+﻿@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Staves.Providers;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Staves;
+@using Silvester.Pathfinder.Official.Web.Shared.Layout;
+@using Silvester.Pathfinder.Official.Web.Components.Cards;
+
+@page "/staves"
+@inherits BaseOverviewPage
+
+<div>
+    <PageLayout>
+
+        <MudPaper Style="margin: 20px;">
+            <StavesTable Title="Staves" PageProvider="@(new StavePageProvider(PathfinderOfficialApi))" />
+        </MudPaper>
+
+    </PageLayout>
+
+</div>
+
+@code
+{
+    protected override string Title => "Staves";
+}

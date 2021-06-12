@@ -1,0 +1,108 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Cards;
+@using Silvester.Pathfinder.Official.Web.Shared.Layout;
+@using Silvester.Pathfinder.Official.Web.Services;
+@using Silvester.Pathfinder.Official.Web.Shared.Graphics;
+@using Silvester.Pathfinder.Official.Web.Shared.Graphics.ActionTypeIcons;
+@using Silvester.Pathfinder.Official.Web.Components.Cards;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
+@using Silvester.Pathfinder.Official.Web.Shared.Tables;
+
+@inherits BaseDetailPage
+@page "/staves/{staveId:guid}"
+@implements IDisposable
+
+<div>
+    <PageLayout>
+        <MudPaper Style="margin: 20px">
+            <StaveDetailsCard Entity="@Stave" />
+        </MudPaper>
+
+        @if (Stave != null)
+        {
+            foreach (IStaveById_Effect effect in Stave.Effects)
+            {
+                <MudPaper Style="margin: 20px">
+                    <StaveEffectDetailsCard Entity="@effect" />
+                </MudPaper>
+            }
+
+            <MudPaper Style="margin: 20px">
+                <CardToolbar>
+                    <MudText Typo="@Typo.h6">Potencies</MudText>
+                </CardToolbar>
+                <MudDivider />
+                <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
+                    @foreach (IStaveById_Potency potency in Stave.Potencies.OrderBy(e => e.Potency.Order))
+                    {
+                        <MudTabPanel Text="@potency.Potency.Name">
+                            <MudGrid xs="12" Spacing="0">
+                                <MudItem xs="12" sm="5" md="4" Style="padding-right: 0px; border-right: 1px solid var(--mud-palette-divider);">
+                                    <StavePotencyDetailsCard Entity="@potency" />
+                                </MudItem>
+                                <MudItem xs="12" sm="7" md="8" Style="padding-left: 0px; overflow-y: hidden;">
+                                    <MudHidden Breakpoint="Breakpoint.SmAndUp">
+                                        <MudDivider />
+                                    </MudHidden>
+                                    <MudTable Style="overflow-x: scroll; overflow-y: hidden; border-left: 1px solid var(--mud-palette-divider);" Elevation=0 Breakpoint="Breakpoint.None" Items="@potency.Spells" Dense="true" Hover="true" Striped="true" SortLabel="Sort By">
+                                        <HeaderContent>
+                                            <MudTh><MudTableSortLabel SortBy="new Func<IStaveById_Potency_Spell, object?>(e => e.Spell.ActionType?.Name)">Action</MudTableSortLabel></MudTh>
+                                            <MudTh><MudTableSortLabel SortBy="new Func<IStaveById_Potency_Spell, object>(e => e.Spell.Level)" InitialDirection="SortDirection.Ascending">Level</MudTableSortLabel></MudTh>
+                                            <MudTh><MudTableSortLabel SortBy="new Func<IStaveById_Potency_Spell, object?>(e => e.Spell.Name)">Name</MudTableSortLabel></MudTh>
+                                            <MudTh><MudTableSortLabel SortBy="new Func<IStaveById_Potency_Spell, object>(e => e.Spell.SpellType.Name)">Type</MudTableSortLabel></MudTh>
+                                            <MudTh><MudTableSortLabel SortBy="new Func<IStaveById_Potency_Spell, object>(e => e.Spell.MagicSchool.Name)">School</MudTableSortLabel></MudTh>
+                                            <MudTh></MudTh>
+                                        </HeaderContent>
+                                        <RowTemplate>
+                                            <MudTd DataLabel="Action"><IconModelAdapter Model="@(new ActionTypeIconBuilder(ActionTypeService).Build(context.Spell.ActionType?.Name, 24))" /></MudTd>
+                                            <MudTd DataLabel="Level">@(context.Level ?? 0)</MudTd>
+                                            <MudTd DataLabel="Name">@(context.Spell.Name)</MudTd>
+                                            <MudTd DataLabel="Type">@context.Spell.SpellType.Name</MudTd>
+                                            <MudTd DataLabel="School" Style="width: 100vw;">@context.Spell.MagicSchool.Name</MudTd>
+                                            <MudTd>
+                                                <MudTooltip Text="Inspect">
+                                                    <MudIconButton Size="Size.Small" OnClick="@((e) => NavigationManager.NavigateTo($"spells/{context.Spell.Id}"))" Icon="@Icons.Material.Outlined.ArrowForward" />
+                                                </MudTooltip>
+                                            </MudTd>
+                                        </RowTemplate>
+                                    </MudTable>
+                                </MudItem>
+                            </MudGrid>
+                        </MudTabPanel>
+                    }
+                </MudTabs>
+            </MudPaper>
+        }
+    </PageLayout>
+</div>
+
+@code {
+    protected override string Title => "Staves";
+    protected override string? Subtitle => Stave?.Name;
+
+    [Inject]
+    public IActionTypeService ActionTypeService { get; set; } = default!;
+
+    [Parameter]
+    public Guid StaveId { get; set; }
+
+    private IGetStaveById_Staves_Items? Stave { get; set; }
+
+    private IDisposable? StoreSession { get; set; }
+
+    protected override void OnInitialized()
+    {
+        StoreSession = PathfinderOfficialApi.GetStaveById
+            .Watch(StaveId, StrawberryShake.ExecutionStrategy.NetworkOnly)
+            .Select(e => e.Data?.Staves?.Items?.FirstOrDefault())
+            .Subscribe(spell =>
+            {
+                Stave = spell;
+                StateHasChanged();
+            });
+    }
+
+    public void Dispose()
+    {
+        StoreSession?.Dispose();
+    }
+}

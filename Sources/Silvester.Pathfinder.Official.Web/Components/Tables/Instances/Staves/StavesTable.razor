@@ -1,0 +1,20 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+@using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
+@using Silvester.Pathfinder.Official.Web.Graphql
+@using Silvester.Pathfinder.Official.Web.Services
+
+@inherits AbstractTable<IStavesPage, StaveSortInput>
+
+@Table
+
+@code {
+    protected override void CreateModel(TableBuilder<IStavesPage> builder)
+    {
+        builder
+            .AddTextColumn(e => e.Name, "Name", nameof(IStavesPage.Name), true)
+            .AddTextColumn(e => e.Usage, "Usage", nameof(IStavesPage.Usage), hideBelow: Breakpoint.SmAndDown)
+            .AddTextColumn(e => e.Activate, "Activate", nameof(IStavesPage.Activate), hideBelow: Breakpoint.Xs)
+            .AddTextColumn(e => e.Details.First(e => e.Order == 0).Text, "Description", nameof(IStavesPage.Details) + "." + nameof(ITextBlock.Text), hideBelow: Breakpoint.MdAndDown)
+            .AddInspectColumn(NavigationManager, e => $"staves/{e.Id}");
+    }
+}

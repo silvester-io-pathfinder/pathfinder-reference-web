@@ -1,0 +1,33 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Cards.Builder;
+@using Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details;
+
+@inherits AbstractDetailsCard<IStaveById_Potency>
+
+@Card
+
+@code {
+    protected override DetailsCardModel CreateModel(IStaveById_Potency model)
+    {
+        return new DetailsCardBuilder(null, false)
+            .AddCategoryLeft("Traits", category =>
+            {
+                category.AddTraitChips(model.Traits, NavigationManager);
+            })
+            .AddCategoryLeft("Characteristics", category =>
+            {
+                category
+                    .AddText("Addendum", model.Addendum)
+                    .AddSingularChip("Potency", model.Potency.Name, () => NavigationManager.NavigateTo($"potencies/{model.Potency.Id}"))
+                    .AddFooter(footer =>
+                    {
+                        footer
+                            .AddPrice(model.Price, CurrencyService)
+                            .AddLevel(model.ItemLevel)
+                            .AddBulk(model.Bulk);
+                    });
+            })
+            .Build();
+    }
+}
+

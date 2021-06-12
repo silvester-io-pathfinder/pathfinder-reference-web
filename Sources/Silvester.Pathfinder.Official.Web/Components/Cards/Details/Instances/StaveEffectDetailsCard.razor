@@ -1,0 +1,27 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Cards.Builder;
+@using Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details;
+
+@inherits AbstractDetailsCard<IStaveById_Effect>
+
+@Card
+
+@code {
+    protected override DetailsCardModel CreateModel(IStaveById_Effect model)
+    {
+        return new DetailsCardBuilder("Effect", false)
+            .AddCategoryLeft("Characteristics", category =>
+            {
+                category
+                    .AddText("Name", model.Name)
+                    .AddText("Usage", model.Trigger)
+                    .AddAction("Action", model.ActionType.Name, ActionTypeService);
+            })
+            .AddCategoryRight("Description", category =>
+            {
+                category.AddTextBlock(model.Effects);
+            })
+            .Build();
+    }
+}
+

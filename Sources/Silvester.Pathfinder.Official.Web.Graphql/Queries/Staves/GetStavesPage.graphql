@@ -1,0 +1,17 @@
+﻿query GetStavesPage($skip: Int!, $take: Int!, $searchTerm: String! = "", $order: [StaveSortInput!] = [{name: ASC}]) {
+	staves(
+		skip: $skip, 
+		take: $take, 
+		order: $order,
+		where: {
+			or: [
+				{name: {contains: $searchTerm}}
+			]
+		}) 
+	{
+		totalCount,
+		items {
+			... StavesPage
+		}
+	}
+}

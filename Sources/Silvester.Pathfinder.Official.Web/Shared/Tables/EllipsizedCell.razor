@@ -1,12 +1,9 @@
 ﻿
+<div style="text-overflow: ellipsis; white-space: nowrap; position: absolute; overflow: hidden; width: 100%; transform: translateY(-50%); padding-right: 36px;">
+    @Text
+</div>
+
 @code {
     [Parameter]
-    public string? Style { get; set; }
-
-    [Parameter]
-    public string DataLabel { get; set; } = default!;
-
-    [Parameter]
     public string Text { get; set; } = default!;
-
 }

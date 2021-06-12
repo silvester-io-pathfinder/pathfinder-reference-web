@@ -1,0 +1,70 @@
+﻿query GetStaveById($id: Uuid!) {
+	staves(where: {id: {eq: $id}}) {
+		items {
+			... StaveById
+		}
+	}
+}
+
+fragment StaveById on Stave
+{
+	id,
+	name,
+	usage,
+	craftingRequirements,
+	activate,
+	sourcePage {
+		... SourcePage
+	},
+	potencies {
+		... StaveById_Potency
+	},
+	traits {
+		... TraitChip
+	},
+	details {
+		... TextBlock
+	},
+	effects {
+		... StaveById_Effect
+	}
+}
+
+fragment StaveById_Potency on StavePotencyBinding
+{
+	price,
+	addendum,
+	itemLevel,
+	bulk {
+		... Bulk
+	},
+	potency {
+		id,
+		name,
+		order
+	},
+	spells {
+		... StaveById_Potency_Spell
+	},
+	traits {
+		... TraitChip
+	}
+}
+
+fragment StaveById_Potency_Spell on StaveSpell {
+	level,
+	spell {
+		... SpellsPage
+	}
+}
+
+fragment StaveById_Effect on ActionEffect {
+	name,
+	trigger,
+	effects {
+		... TextBlock
+	}
+	actionType {
+		name
+	}
+}

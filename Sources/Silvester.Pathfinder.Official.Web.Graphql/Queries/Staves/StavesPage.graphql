@@ -1,0 +1,10 @@
+﻿fragment StavesPage on Stave
+{
+	id,
+	name,
+	usage,
+	activate
+	details(where: {order: {eq: 0}})  {
+		... TextBlock
+	}
+}
