@@ -20,7 +20,7 @@ namespace Silvester.Pathfinder.Official.Web
 
                 LayoutProperties = new LayoutProperties()
                 {
-                    DrawerWidth = "260px"
+                    DrawerWidthLeft = "260px"
                 }
             };
         }

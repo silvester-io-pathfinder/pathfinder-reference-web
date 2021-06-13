@@ -11,7 +11,7 @@
             }
         }
         <div style="display: flex; flex-direction: row; ">
-            @if (Icon != null)
+            @if (Icon != null && string.IsNullOrWhiteSpace(Icon.Svg) == false)
             {
                 <div style="padding-right: 12px;">
                     <IconModelAdapter Model="@Icon" />

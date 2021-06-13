@@ -6,7 +6,7 @@ namespace Silvester.Pathfinder.Official.Web.Pages
     {
         protected abstract string? Subtitle { get; }
 
-        protected override IReadOnlyList<string> GetTitleComponents()
+        protected override IReadOnlyList<string?> GetTitleComponents()
         {
             return new[] { Title, Subtitle };
         }

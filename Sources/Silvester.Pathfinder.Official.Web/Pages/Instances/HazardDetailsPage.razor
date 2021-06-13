@@ -2,7 +2,6 @@
 @using Silvester.Pathfinder.Official.Web.Components.Cards;
 @using Silvester.Pathfinder.Official.Web.Shared.Loading;
 @using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
-@using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
 
 @inherits BaseDetailPage
 @page "/hazards/{hazardId:guid}"
@@ -12,10 +11,6 @@
     <PageLayout>
         <MudPaper Style="margin: 20px">
             <HazardDetailsCard Entity="@Hazard" />
-        </MudPaper>
-
-        <MudPaper Style="margin: 20px">
-            <HazardDisableRequirementsCard Hazard="@Hazard" />
         </MudPaper>
     </PageLayout>
 </div>

@@ -51,7 +51,7 @@ namespace Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models
                     return this;
                 }
 
-                return AddItem(new IconFooterBar.Item((MarkupString)Generated.Check, difficultyCheck.ToString(), "Difficulty Check"));
+                return AddItem(new IconFooterBar.Item((MarkupString)Generated.Check, difficultyCheck.ToString()!, "Difficulty Check"));
             }
 
             public Builder AddArmorClass(int? armorClass)
@@ -61,7 +61,7 @@ namespace Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models
                     return this;
                 }
 
-                return AddItem(new IconFooterBar.Item((MarkupString)Generated.Armor, armorClass.ToString(), "Armor Class"));
+                return AddItem(new IconFooterBar.Item((MarkupString)Generated.Armor, armorClass.ToString()!, "Armor Class"));
             }
 
             public Builder AddLevel(int? level)
@@ -71,7 +71,7 @@ namespace Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models
                     return this;
                 }
 
-                return AddItem(new IconFooterBar.Item((MarkupString)Generated.Slider, level.ToString(), "Level"));
+                return AddItem(new IconFooterBar.Item((MarkupString)Generated.Slider, level.ToString()!, "Level"));
             }
 
             public Builder AddInspectionUrl(string? inspectionUrl)

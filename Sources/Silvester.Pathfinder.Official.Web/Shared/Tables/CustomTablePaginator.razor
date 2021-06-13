@@ -25,17 +25,17 @@
             <div class="mud-table-pagination-actions">
                 @if (RightToLeft)
                 {
-                    <MudIconButton Icon="@Icons.Material.Filled.LastPage" @onclick="@(() => Table.NavigateTo(Page.Last))" />
-                    <MudIconButton Icon="@Icons.Material.Filled.NavigateNext" @onclick="@(() => Table.NavigateTo(Page.Next))" />
-                    <MudIconButton Icon="@Icons.Material.Filled.NavigateBefore" @onclick="@(() => Table.NavigateTo(Page.Previous))" />
-                    <MudIconButton Icon="@Icons.Material.Filled.FirstPage" @onclick="@(() => Table.NavigateTo(Page.First))" />
+                    <MudIconButton Icon="@Icons.Material.Filled.LastPage" @onclick="@(() => Table?.NavigateTo(Page.Last))" />
+                    <MudIconButton Icon="@Icons.Material.Filled.NavigateNext" @onclick="@(() => Table?.NavigateTo(Page.Next))" />
+                    <MudIconButton Icon="@Icons.Material.Filled.NavigateBefore" @onclick="@(() => Table?.NavigateTo(Page.Previous))" />
+                    <MudIconButton Icon="@Icons.Material.Filled.FirstPage" @onclick="@(() => Table?.NavigateTo(Page.First))" />
                 }
                 else
                 {
-                    <MudIconButton Icon="@Icons.Material.Filled.FirstPage" @onclick="@(() => Table.NavigateTo(Page.First))" />
-                    <MudIconButton Icon="@Icons.Material.Filled.NavigateBefore" @onclick="@(() => Table.NavigateTo(Page.Previous))" />
-                    <MudIconButton Icon="@Icons.Material.Filled.NavigateNext" @onclick="@(() => Table.NavigateTo(Page.Next))" />
-                    <MudIconButton Icon="@Icons.Material.Filled.LastPage" @onclick="@(() => Table.NavigateTo(Page.Last))" />
+                    <MudIconButton Icon="@Icons.Material.Filled.FirstPage" @onclick="@(() => Table?.NavigateTo(Page.First))" />
+                    <MudIconButton Icon="@Icons.Material.Filled.NavigateBefore" @onclick="@(() => Table?.NavigateTo(Page.Previous))" />
+                    <MudIconButton Icon="@Icons.Material.Filled.NavigateNext" @onclick="@(() => Table?.NavigateTo(Page.Next))" />
+                    <MudIconButton Icon="@Icons.Material.Filled.LastPage" @onclick="@(() => Table?.NavigateTo(Page.Last))" />
                 }
             </div>
         </MudToolBar>
@@ -65,17 +65,17 @@
             <MudItem xs="12" Style="align-self: center;">
                 @if (RightToLeft)
                 {
-                    <MudIconButton Icon="@Icons.Material.Filled.LastPage" @onclick="@(() => Table.NavigateTo(Page.Last))" />
-                    <MudIconButton Icon="@Icons.Material.Filled.NavigateNext" @onclick="@(() => Table.NavigateTo(Page.Next))" />
-                    <MudIconButton Icon="@Icons.Material.Filled.NavigateBefore" @onclick="@(() => Table.NavigateTo(Page.Previous))" />
-                    <MudIconButton Icon="@Icons.Material.Filled.FirstPage" @onclick="@(() => Table.NavigateTo(Page.First))" />
+                    <MudIconButton Icon="@Icons.Material.Filled.LastPage" @onclick="@(() => Table?.NavigateTo(Page.Last))" />
+                    <MudIconButton Icon="@Icons.Material.Filled.NavigateNext" @onclick="@(() => Table?.NavigateTo(Page.Next))" />
+                    <MudIconButton Icon="@Icons.Material.Filled.NavigateBefore" @onclick="@(() => Table?.NavigateTo(Page.Previous))" />
+                    <MudIconButton Icon="@Icons.Material.Filled.FirstPage" @onclick="@(() => Table?.NavigateTo(Page.First))" />
                 }
                 else
                 {
-                    <MudIconButton Icon="@Icons.Material.Filled.FirstPage" @onclick="@(() => Table.NavigateTo(Page.First))" />
-                    <MudIconButton Icon="@Icons.Material.Filled.NavigateBefore" @onclick="@(() => Table.NavigateTo(Page.Previous))" />
-                    <MudIconButton Icon="@Icons.Material.Filled.NavigateNext" @onclick="@(() => Table.NavigateTo(Page.Next))" />
-                    <MudIconButton Icon="@Icons.Material.Filled.LastPage" @onclick="@(() => Table.NavigateTo(Page.Last))" />
+                    <MudIconButton Icon="@Icons.Material.Filled.FirstPage" @onclick="@(() => Table?.NavigateTo(Page.First))" />
+                    <MudIconButton Icon="@Icons.Material.Filled.NavigateBefore" @onclick="@(() => Table?.NavigateTo(Page.Previous))" />
+                    <MudIconButton Icon="@Icons.Material.Filled.NavigateNext" @onclick="@(() => Table?.NavigateTo(Page.Next))" />
+                    <MudIconButton Icon="@Icons.Material.Filled.LastPage" @onclick="@(() => Table?.NavigateTo(Page.Last))" />
                 }
             </MudItem>
         </MudContainer>
@@ -88,7 +88,7 @@
           .Build();
 
     [CascadingParameter]
-    public TableContext Context { get; set; }
+    public TableContext Context { get; set; } = default!;
 
     [CascadingParameter]
     public bool RightToLeft { get; set; }
@@ -103,9 +103,9 @@
     public string InfoFormat { get; set; } = "{first_item}-{last_item} of {all_items}";
 
     private string Info => Table == null ? "Table==null" : InfoFormat
-        .Replace("{first_item}", $"{Table?.CurrentPage * Table.RowsPerPage + 1}")
-        .Replace("{last_item}", $"{Math.Min((Table.CurrentPage + 1) * Table.RowsPerPage, Table.GetFilteredItemsCount())}")
-        .Replace("{all_items}", $"{Table.GetFilteredItemsCount()}");
+        .Replace("{first_item}", $"{Table?.CurrentPage * Table?.RowsPerPage + 1}")
+        .Replace("{last_item}", $"{Math.Min(((Table?.CurrentPage + 1) * Table?.RowsPerPage) ?? 1, (Table?.GetFilteredItemsCount() ?? 1))}")
+        .Replace("{all_items}", $"{Table?.GetFilteredItemsCount()}");
 
     [Parameter]
     public string RowsPerPageString { get; set; } = "Rows per page:";
@@ -115,7 +115,7 @@
         Table?.SetRowsPerPage(int.Parse(size));
     }
 
-    public MudTableBase Table => Context?.Table;
+    public MudTableBase? Table => Context?.Table;
 
     protected override void OnInitialized()
     {

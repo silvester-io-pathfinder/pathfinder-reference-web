@@ -20,7 +20,7 @@ namespace Silvester.Pathfinder.Official.Web.Pages
         [Inject]
         protected IPathfinderOfficialApi PathfinderOfficialApi { get; set; } = default!;
 
-        protected virtual IReadOnlyList<string> GetTitleComponents()
+        protected virtual IReadOnlyList<string?> GetTitleComponents()
         {
             return Array.Empty<string>();
         }

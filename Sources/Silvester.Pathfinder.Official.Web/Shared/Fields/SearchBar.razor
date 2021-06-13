@@ -4,7 +4,7 @@
 
 @code {
     [Parameter]
-    public Action<string?> OnSearch { get; set; }
+    public Action<string?> OnSearch { get; set; } = default!;
 
     [Parameter]
     public string Placeholder { get; set; } = "Search";

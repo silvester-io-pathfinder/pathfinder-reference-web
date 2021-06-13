@@ -1,0 +1,50 @@
+﻿query GetAdventuringGearById($id: Uuid!) {
+	adventuringGears(where: {id: {eq: $id}}) {
+		items {
+			... AdventuringGearById
+		}
+	}
+}
+
+fragment AdventuringGearById on AdventuringGear
+{
+	id,
+	name,
+	hands,
+	price,
+	bulk {
+		... Bulk
+	},
+	sourcePage {
+		... SourcePage
+	},
+	rarity {
+		id,
+		name
+	},
+	details {
+		... TextBlock
+	},
+	variants {
+		... AdventuringGearById_Variant
+	}
+}
+
+fragment AdventuringGearById_Variant on AdventuringGearVariant {
+	nameAddendum,
+	descriptionAddendum,
+	hands,
+	itemLevel,
+	price,
+	bulk {
+		... Bulk
+	},
+	rarity {
+		... AdventuringGearById_Variant_Rarity
+	}
+}
+
+fragment AdventuringGearById_Variant_Rarity on Rarity {
+	id,
+	name
+}

@@ -6,7 +6,6 @@ using Silvester.Pathfinder.Official.Web.Services.Currencies;
 using Silvester.Pathfinder.Official.Web.Shared.Tables;
 using Silvester.Pathfinder.Official.Web.Shared.Cards;
 using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder;
-using Silvester.Pathfinder.Official.Web.Shared.Cards;
 using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
 using System;
 using System.Collections.Generic;

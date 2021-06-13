@@ -1,0 +1,23 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+@using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
+@using Silvester.Pathfinder.Official.Web.Graphql
+@using Silvester.Pathfinder.Official.Web.Services
+
+@inherits AbstractTable<IAdventuringGearsPage, AdventuringGearSortInput>
+
+@Table
+
+@code {
+    protected override void CreateModel(TableBuilder<IAdventuringGearsPage> builder)
+    {
+        builder
+            .AddTextColumn(e => e.Name, "Name", nameof(IAdventuringGearsPage.Name), true)
+            .AddTextColumn(e => e.Hands, "Hands", nameof(IAdventuringGearsPage.Hands), hideBelow: Breakpoint.Xs, hasDenseRightPadding: true)
+            .AddTextColumn(e => e.ItemLevel, "Level", nameof(IAdventuringGearsPage.ItemLevel), hideBelow: Breakpoint.Xs, hasDenseRightPadding: true)
+            .AddPriceColumn(e => e.Price, "Price", nameof(IAdventuringGearsPage.Price), hideBelow: Breakpoint.SmAndDown)
+            .AddTextColumn(e => e.Bulk.Name, "Bulk", nameof(IAdventuringGearsPage.Bulk) + "." + nameof(IBulk.Name), hideBelow: Breakpoint.SmAndDown, hasDenseRightPadding: true)
+            .AddTextColumn(e => e.Rarity.Name, "Rarity", nameof(IAdventuringGearsPage.Rarity) + "." + nameof(IAdventuringGearsPage_Rarity.Name), hideBelow: Breakpoint.SmAndDown)
+            .AddTextColumn(e => e.Details.First().Text, "Desciption", nameof(IAdventuringGearsPage.Details) + "." + nameof(ITextBlock.Text), hideBelow: Breakpoint.MdAndDown)
+            .AddInspectColumn(NavigationManager, e => $"adventuring-gears/{e.Id}");
+    }
+}

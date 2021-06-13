@@ -38,7 +38,7 @@ namespace Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
 
         public TableBuilder<TEntity> AddActionIconColumn(Func<TEntity, string> actionTypeNameSelector, string sortLabel)
         {
-            return AddIconColumn("Action", sortLabel, (e) => new ActionTypeIconBuilder(ActionTypeService).Build(actionTypeNameSelector(e), 24), hasDenseRightPadding: true);
+            return AddIconColumn("Action", sortLabel, (e) => new ActionTypeIconBuilder(ActionTypeService).Build(actionTypeNameSelector(e), 24)!, hasDenseRightPadding: true);
         }
 
         public TableBuilder<TEntity> AddIconColumn(string name, string sortLabel, Func<TEntity, IconModel> getModel, bool hasDenseRightPadding = false)

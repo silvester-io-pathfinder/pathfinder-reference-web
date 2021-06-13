@@ -1,0 +1,34 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Cards.Builder;
+@using Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details;
+
+@inherits AbstractDetailsCard<IAdventuringGearById_Variant>
+
+@Card
+
+@code {
+    protected override DetailsCardModel CreateModel(IAdventuringGearById_Variant model)
+    {
+        return new DetailsCardBuilder(null, false)
+            .AddCategoryLeft("Characteristics", category =>
+            {
+                category
+                    .AddText("Name", model.NameAddendum)
+                    .AddSingularChip("Rarity", model.Rarity.Name, () => NavigationManager.NavigateTo($"rarities/{model.Rarity.Id}"))
+                    .AddFooter(footer =>
+                    {
+                        footer
+                            .AddLevel(model.ItemLevel)
+                            .AddBulk(model.Bulk)
+                            .AddPrice(model.Price, CurrencyService);
+                    });
+            })
+            .AddCategoryRight("Description", category =>
+            {
+                category
+                    .AddText(null, model.DescriptionAddendum);
+            })
+            .Build();
+    }
+}
+

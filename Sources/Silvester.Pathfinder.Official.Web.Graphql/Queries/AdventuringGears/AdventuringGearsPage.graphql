@@ -1,0 +1,21 @@
+﻿fragment AdventuringGearsPage on AdventuringGear
+{
+	id,
+	name,
+	hands,
+	itemLevel,
+	price,
+	bulk {
+		... Bulk
+	},
+	rarity {
+		... AdventuringGearsPage_Rarity
+	},
+	details(where: {order: {eq: 0}})  {
+		... TextBlock
+	}
+}
+
+fragment AdventuringGearsPage_Rarity on Rarity {
+	name
+}
