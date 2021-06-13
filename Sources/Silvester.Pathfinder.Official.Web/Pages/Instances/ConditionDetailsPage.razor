@@ -7,7 +7,7 @@
 @using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
 
 @inherits BaseDetailPage
-@page "/conditions/{conditionId:guid}"
+@page "/conditions/{resourceId:guid}"
 @implements IDisposable
 
 <div>
@@ -22,11 +22,8 @@
 </div>
 
 @code {
-    protected override string Title => "Condition";
-    protected override string? Subtitle => Condition?.Name;
-
-    [Parameter]
-    public Guid ConditionId { get; set; }
+    protected override string CollectionName => "conditions";
+    protected override string? ResourceName => Condition?.Name;
 
     private IConditionById? Condition { get; set; }
 
@@ -34,13 +31,14 @@
 
     protected override void OnInitialized()
     {
+        base.OnInitialized();
         StoreSession = PathfinderOfficialApi.GetConditionById
-            .Watch(ConditionId)
+            .Watch(ResourceId)
             .Select(e => e.Data?.Conditions?.Items?.FirstOrDefault())
             .Subscribe(curse =>
             {
                 Condition = curse;
-                StateHasChanged();
+                OnResourceLoaded();
             });
     }
 

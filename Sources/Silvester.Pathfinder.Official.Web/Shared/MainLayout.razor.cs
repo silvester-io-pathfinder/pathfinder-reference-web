@@ -1,8 +1,9 @@
 ﻿using Fluxor;
 using Microsoft.AspNetCore.Components;
+using MudBlazor;
 using Silvester.Pathfinder.Official.Web.Store.States;
 using System;
-using System.Text.Json;
+using System.Collections.Generic;
 
 namespace Silvester.Pathfinder.Official.Web.Shared
 {
@@ -14,7 +15,22 @@ namespace Silvester.Pathfinder.Official.Web.Shared
         [Inject]
         private IState<DrawerState>? DrawerState { get; set; }
 
+        [Inject]
+        private IState<BreadcrumbState>? BreadcrumbState { get; set; }
+
         private bool DrawerOpen { get; set; }
+
+        public IEnumerable<BreadcrumbItem> GetBreadcrumbItems()
+        {
+            if (BreadcrumbState != null)
+            {
+                yield return new BreadcrumbItem(BreadcrumbState.Value.Collection, BreadcrumbState.Value.Collection.ToLower());
+                if(BreadcrumbState.Value.ResourceName != null)
+                {
+                    yield return new BreadcrumbItem(BreadcrumbState.Value.ResourceName.ToLower(), $"{BreadcrumbState.Value.Collection.ToLower()}/{BreadcrumbState.Value.ResourceId}" );
+                }
+            }
+        }
 
         public MainLayout()
         {
@@ -28,18 +44,19 @@ namespace Silvester.Pathfinder.Official.Web.Shared
             {
                 AppBarState.StateChanged += OnStateChanged;
             }
-            if(DrawerState != null)
+
+            if (DrawerState != null)
             {
                 DrawerState.StateChanged += OnStateChanged;
             }
+
+            if (BreadcrumbState != null)
+            {
+                BreadcrumbState.StateChanged += OnStateChanged;
+            }
         }
 
-        private void OnStateChanged(object? sender, AppBarState state)
-        {
-            InvokeAsync(StateHasChanged);
-        }
-
-        private void OnStateChanged(object? sender, DrawerState state)
+        private void OnStateChanged(object? sender, object state)
         {
             InvokeAsync(StateHasChanged);
         }
@@ -59,6 +76,11 @@ namespace Silvester.Pathfinder.Official.Web.Shared
             if (DrawerState != null)
             {
                 DrawerState.StateChanged -= OnStateChanged;
+            }
+
+            if (BreadcrumbState != null)
+            {
+                BreadcrumbState.StateChanged -= OnStateChanged;
             }
         }
     }

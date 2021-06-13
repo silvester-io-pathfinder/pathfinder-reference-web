@@ -5,7 +5,7 @@
 @using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
 
 @inherits BaseDetailPage
-@page "/melee-weapons/{meleeWeaponId:guid}"
+@page "/melee-weapons/{resourceId:guid}"
 @implements IDisposable
 
 <div>
@@ -17,11 +17,8 @@
 </div>
 
 @code {
-    protected override string Title => "Melee Weapons";
-    protected override string? Subtitle => MeleeWeapon?.Name;
-
-    [Parameter]
-    public Guid MeleeWeaponId { get; set; }
+    protected override string CollectionName => "melee-weapons";
+    protected override string? ResourceName => MeleeWeapon?.Name;
 
     private IGetMeleeWeaponById_MeleeWeapons_Items? MeleeWeapon { get; set; }
 
@@ -29,14 +26,15 @@
 
     protected override void OnInitialized()
     {
+        base.OnInitialized();
         StoreSession = PathfinderOfficialApi.GetMeleeWeaponById
-        .Watch(MeleeWeaponId, StrawberryShake.ExecutionStrategy.NetworkOnly)
-        .Select(e => e.Data?.MeleeWeapons?.Items?.FirstOrDefault())
-        .Subscribe(shield =>
-        {
-            MeleeWeapon = shield;
-            StateHasChanged();
-        });
+            .Watch(ResourceId, StrawberryShake.ExecutionStrategy.NetworkOnly)
+            .Select(e => e.Data?.MeleeWeapons?.Items?.FirstOrDefault())
+            .Subscribe(shield =>
+            {
+                MeleeWeapon = shield;
+                OnResourceLoaded();
+            });
     }
 
     public void Dispose()

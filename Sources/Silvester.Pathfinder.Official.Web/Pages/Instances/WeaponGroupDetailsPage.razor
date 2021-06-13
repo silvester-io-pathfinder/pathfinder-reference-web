@@ -7,7 +7,7 @@
 @using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
 
 @inherits BaseDetailPage
-@page "/weapon-groups/{weaponGroupId:guid}"
+@page "/weapon-groups/{resourceId:guid}"
 @implements IDisposable
 
 <div>
@@ -21,10 +21,10 @@
             <MudPaper Style="margin: 20px">
                 <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
                     <MudTabPanel Text="Melee">
-                        <MeleeWeaponsTable PageProvider="@(new MeleeWeaponPageWithGroupProvider(PathfinderOfficialApi, WeaponGroupId))" />
+                        <MeleeWeaponsTable PageProvider="@(new MeleeWeaponPageWithGroupProvider(PathfinderOfficialApi, ResourceId))" />
                     </MudTabPanel>
                     <MudTabPanel Text="Ranged">
-                        <RangedWeaponsTable PageProvider="@(new RangedWeaponPageWithGroupProvider(PathfinderOfficialApi, WeaponGroupId))" />
+                        <RangedWeaponsTable PageProvider="@(new RangedWeaponPageWithGroupProvider(PathfinderOfficialApi, ResourceId))" />
                     </MudTabPanel>
                 </MudTabs>
             </MudPaper>
@@ -33,11 +33,8 @@
 </div>
 
 @code {
-    protected override string Title => "Weapon Groups";
-    protected override string? Subtitle => WeaponGroup?.Name;
-
-    [Parameter]
-    public Guid WeaponGroupId { get; set; }
+    protected override string CollectionName => "weapon-groups";
+    protected override string? ResourceName => WeaponGroup?.Name;
 
     private IGetWeaponGroupById_WeaponGroups_Items? WeaponGroup { get; set; }
 
@@ -45,13 +42,14 @@
 
     protected override void OnInitialized()
     {
+        base.OnInitialized();
         StoreSession = PathfinderOfficialApi.GetWeaponGroupById
-            .Watch(WeaponGroupId, StrawberryShake.ExecutionStrategy.NetworkOnly)
+            .Watch(ResourceId, StrawberryShake.ExecutionStrategy.NetworkOnly)
             .Select(e => e.Data?.WeaponGroups?.Items?.FirstOrDefault())
             .Subscribe(deityGroup =>
             {
                 WeaponGroup = deityGroup;
-                StateHasChanged();
+                OnResourceLoaded();
             });
     }
 

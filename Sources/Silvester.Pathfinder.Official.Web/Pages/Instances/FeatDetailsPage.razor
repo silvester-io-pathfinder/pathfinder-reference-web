@@ -5,7 +5,7 @@
 @inherits BaseDetailPage
 @implements IDisposable
 
-@page "/feats/{featId:guid}"
+@page "/feats/{resourceId:guid}"
 
 <div>
     <PageLayout>
@@ -16,11 +16,8 @@
 </div>
 
 @code {
-    protected override string Title => "Feats";
-    protected override string? Subtitle => Feat?.Name;
-
-    [Parameter]
-    public Guid FeatId { get; set; }
+    protected override string CollectionName => "feats";
+    protected override string? ResourceName => Feat?.Name;
 
     private IGetFeatById_Feats_Items? Feat { get; set; }
 
@@ -28,13 +25,14 @@
 
     protected override void OnInitialized()
     {
+        base.OnInitialized();
         StoreSession = PathfinderOfficialApi.GetFeatById
-            .Watch(FeatId, StrawberryShake.ExecutionStrategy.NetworkOnly)
+            .Watch(ResourceId, StrawberryShake.ExecutionStrategy.NetworkOnly)
             .Select(e => e.Data?.Feats?.Items?.FirstOrDefault())
             .Subscribe(feat =>
             {
                 Feat = feat;
-                StateHasChanged();
+                OnResourceLoaded();
             });
     }
 

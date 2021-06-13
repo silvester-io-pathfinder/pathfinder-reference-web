@@ -7,7 +7,7 @@
 @using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
 
 @inherits BaseDetailPage
-@page "/weapon-property-runes/{weaponPropertyRuneId:guid}"
+@page "/weapon-property-runes/{resourceId:guid}"
 @implements IDisposable
 
 <div>
@@ -36,11 +36,8 @@
 </div>
 
 @code {
-    protected override string Title => "Weapon Property Rune";
-    protected override string? Subtitle => WeaponPropertyRune?.Name;
-
-    [Parameter]
-    public Guid WeaponPropertyRuneId { get; set; }
+    protected override string CollectionName => "weapon-property-runes";
+    protected override string? ResourceName => WeaponPropertyRune?.Name;
 
     private IWeaponPropertyRuneById? WeaponPropertyRune { get; set; }
 
@@ -48,13 +45,14 @@
 
     protected override void OnInitialized()
     {
+        base.OnInitialized();
         StoreSession = PathfinderOfficialApi.GetWeaponPropertyRuneById
-            .Watch(WeaponPropertyRuneId, StrawberryShake.ExecutionStrategy.NetworkOnly)
+            .Watch(ResourceId, StrawberryShake.ExecutionStrategy.NetworkOnly)
             .Select(e => e.Data?.WeaponPropertyRunes?.Items?.FirstOrDefault())
             .Subscribe(weaponPropertyRune =>
             {
                 WeaponPropertyRune = weaponPropertyRune;
-                StateHasChanged();
+                OnResourceLoaded();
             });
     }
 

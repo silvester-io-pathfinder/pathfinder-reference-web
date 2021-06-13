@@ -3,7 +3,7 @@
 @using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
 
 @inherits BaseDetailPage
-@page "/alchemical-elixirs/{alchemicalElixirId:guid}"
+@page "/alchemical-elixirs/{resourceId:guid}"
 @implements IDisposable
 
 <div>
@@ -17,11 +17,8 @@
 </div>
 
 @code {
-    protected override string Title => "Alchemical Elixirs";
-    protected override string? Subtitle => Elixir?.Name;
-
-    [Parameter]
-    public Guid AlchemicalElixirId { get; set; }
+    protected override string CollectionName => "alchemical-elixirs";
+    protected override string? ResourceName => Elixir?.Name;
 
     private IAlchemicalElixirById? Elixir { get; set; }
 
@@ -29,13 +26,14 @@
 
     protected override void OnInitialized()
     {
+        base.OnInitialized();
         StoreSession = PathfinderOfficialApi.GetAlchemicalElixirById
-            .Watch(AlchemicalElixirId)
+            .Watch(ResourceId)
             .Select(e => e.Data?.AlchemicalElixirs?.Items?.FirstOrDefault())
             .Subscribe(elixir =>
             {
                 Elixir = elixir;
-                StateHasChanged();
+                OnResourceLoaded();
             });
     }
 

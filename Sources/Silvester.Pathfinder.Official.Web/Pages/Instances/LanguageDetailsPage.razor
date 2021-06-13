@@ -5,14 +5,14 @@
 
 @inherits BaseDetailPage
 @implements IDisposable
-@page "/languages/{languageId:guid}"
+@page "/languages/{resourceId:guid}"
 
 <div>
     <PageLayout>
         <MudPaper Style="margin: 20px">
             <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
                 <MudTabPanel Text="Races">
-                    <RacesTable PageProvider="@(new RacePageWithLanguageProvider(PathfinderOfficialApi, LanguageId))" />
+                    <RacesTable PageProvider="@(new RacePageWithLanguageProvider(PathfinderOfficialApi, ResourceId))" />
                 </MudTabPanel>
             </MudTabs>
         </MudPaper>
@@ -20,11 +20,8 @@
 </div>
 
 @code {
-    protected override string Title => "Languages";
-    protected override string? Subtitle => Language?.Name;
-
-    [Parameter]
-    public Guid LanguageId { get; set; }
+    protected override string CollectionName => "languages";
+    protected override string? ResourceName => Language?.Name;
 
     private IGetLanguageById_Languages_Items? Language { get; set; }
 
@@ -32,13 +29,14 @@
 
     protected override void OnInitialized()
     {
+        base.OnInitialized();
         StoreSession = PathfinderOfficialApi.GetLanguageById
-            .Watch(LanguageId)
+            .Watch(ResourceId)
             .Select(e => e.Data?.Languages?.Items?.FirstOrDefault())
             .Subscribe(language =>
             {
                 Language = language;
-                StateHasChanged();
+                OnResourceLoaded();
             });
     }
 

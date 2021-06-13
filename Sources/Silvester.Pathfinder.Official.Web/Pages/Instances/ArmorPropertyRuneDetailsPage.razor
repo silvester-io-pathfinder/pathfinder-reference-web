@@ -3,7 +3,7 @@
 @using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
 
 @inherits BaseDetailPage
-@page "/armor-property-runes/{armorPropertyRuneId:guid}"
+@page "/armor-property-runes/{resourceId:guid}"
 @implements IDisposable
 
 <div>
@@ -14,7 +14,7 @@
 
         @if (ArmorPropertyRune != null)
         {
-            @if(ArmorPropertyRune.Action != null)
+            @if (ArmorPropertyRune.Action != null)
             {
                 <MudPaper Style="margin: 20px">
                     <ArmorPropertyRuneActionDetailsCard Entity="@ArmorPropertyRune.Action" />
@@ -25,11 +25,8 @@
 </div>
 
 @code {
-    protected override string Title => "Armor Property Rune";
-    protected override string? Subtitle => ArmorPropertyRune?.Name;
-
-    [Parameter]
-    public Guid ArmorPropertyRuneId { get; set; }
+    protected override string CollectionName => "armor-property-runes";
+    protected override string? ResourceName => ArmorPropertyRune?.Name;
 
     private IArmorPropertyRuneById? ArmorPropertyRune { get; set; }
 
@@ -37,13 +34,14 @@
 
     protected override void OnInitialized()
     {
+        base.OnInitialized();
         StoreSession = PathfinderOfficialApi.GetArmorPropertyRuneById
-            .Watch(ArmorPropertyRuneId, StrawberryShake.ExecutionStrategy.NetworkOnly)
+            .Watch(ResourceId, StrawberryShake.ExecutionStrategy.NetworkOnly)
             .Select(e => e.Data?.ArmorPropertyRunes?.Items?.FirstOrDefault())
             .Subscribe(weaponPropertyRune =>
             {
                 ArmorPropertyRune = weaponPropertyRune;
-                StateHasChanged();
+                OnResourceLoaded();
             });
     }
 

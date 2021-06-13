@@ -16,7 +16,6 @@ using System.Threading.Tasks;
 
 namespace Silvester.Pathfinder.Official.Web.Store.Middlewares
 {
-
     public class StatePersistingMiddleware : Middleware
     {
         private IOptions<LocalStorageOptions> Options { get; }

@@ -7,7 +7,7 @@
 @using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
 
 @inherits BaseDetailPage
-@page "/condition-categories/{conditionCategoryId:guid}"
+@page "/condition-categories/{resourceId:guid}"
 @implements IDisposable
 
 <div>
@@ -21,7 +21,7 @@
             <MudPaper Style="margin: 20px">
                 <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
                     <MudTabPanel Text="Conditions">
-                        <ConditionsTable PageProvider="@(new ConditionsPageWithCategoryProvider(PathfinderOfficialApi, ConditionCategoryId))" />
+                        <ConditionsTable PageProvider="@(new ConditionsPageWithCategoryProvider(PathfinderOfficialApi, ResourceId))" />
                     </MudTabPanel>
                 </MudTabs>
             </MudPaper>
@@ -30,11 +30,8 @@
 </div>
 
 @code {
-    protected override string Title => "Condition Category";
-    protected override string? Subtitle => ConditionCategory?.Name;
-
-    [Parameter]
-    public Guid ConditionCategoryId { get; set; }
+    protected override string CollectionName => "condition-categories";
+    protected override string? ResourceName => ConditionCategory?.Name;
 
     private IConditionCategoryById? ConditionCategory { get; set; }
 
@@ -42,13 +39,14 @@
 
     protected override void OnInitialized()
     {
+        base.OnInitialized();
         StoreSession = PathfinderOfficialApi.GetConditionCategoryById
-            .Watch(ConditionCategoryId)
+            .Watch(ResourceId)
             .Select(e => e.Data?.ConditionCategories?.Items?.FirstOrDefault())
             .Subscribe(curse =>
             {
                 ConditionCategory = curse;
-                StateHasChanged();
+                OnResourceLoaded();
             });
     }
 

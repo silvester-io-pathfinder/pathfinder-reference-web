@@ -5,7 +5,7 @@
 @using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
 
 @inherits BaseDetailPage
-@page "/races/{raceId:guid}"
+@page "/races/{resourceId:guid}"
 @implements IDisposable
 
 <div>
@@ -17,7 +17,7 @@
         <MudPaper Style="margin: 20px">
             <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
                 <MudTabPanel Text="Heritages">
-                    <HeritagesTable PageProvider="@(new HeritagePageWithRaceProvider(PathfinderOfficialApi, RaceId))" />
+                    <HeritagesTable PageProvider="@(new HeritagePageWithRaceProvider(PathfinderOfficialApi, ResourceId))" />
                 </MudTabPanel>
             </MudTabs>
         </MudPaper>
@@ -25,11 +25,8 @@
 </div>
 
 @code {
-    protected override string Title => "Races";
-    protected override string? Subtitle => Race?.Name;
-
-    [Parameter]
-    public Guid RaceId { get; set; }
+    protected override string CollectionName => "races";
+    protected override string? ResourceName => Race?.Name;
 
     private IGetRaceById_Races_Items? Race { get; set; }
 
@@ -38,12 +35,12 @@
     protected override void OnInitialized()
     {
         StoreSession = PathfinderOfficialApi.GetRaceById
-        .Watch(RaceId, StrawberryShake.ExecutionStrategy.NetworkOnly)
+        .Watch(ResourceId, StrawberryShake.ExecutionStrategy.NetworkOnly)
         .Select(e => e.Data?.Races?.Items?.FirstOrDefault())
         .Subscribe(race =>
         {
             Race = race;
-            StateHasChanged();
+            OnResourceLoaded();
         });
     }
 

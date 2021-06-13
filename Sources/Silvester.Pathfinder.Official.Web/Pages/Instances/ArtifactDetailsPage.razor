@@ -7,7 +7,7 @@
 @using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
 
 @inherits BaseDetailPage
-@page "/artifacts/{artifactId:guid}"
+@page "/artifacts/{resourceId:guid}"
 @implements IDisposable
 
 <div>
@@ -37,11 +37,8 @@
 </div>
 
 @code {
-    protected override string Title => "Artifact";
-    protected override string? Subtitle => Artifact?.Name;
-
-    [Parameter]
-    public Guid ArtifactId { get; set; }
+    protected override string CollectionName => "artifacts";
+    protected override string? ResourceName => Artifact?.Name;
 
     private IArtifactById? Artifact { get; set; }
 
@@ -49,13 +46,14 @@
 
     protected override void OnInitialized()
     {
+        base.OnInitialized();
         StoreSession = PathfinderOfficialApi.GetArtifactById
-            .Watch(ArtifactId)
+            .Watch(ResourceId)
             .Select(e => e.Data?.Artifacts?.Items?.FirstOrDefault())
             .Subscribe(alignment =>
             {
                 Artifact = alignment;
-                StateHasChanged();
+                OnResourceLoaded();
             });
     }
 

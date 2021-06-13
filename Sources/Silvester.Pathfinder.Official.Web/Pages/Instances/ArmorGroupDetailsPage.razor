@@ -5,7 +5,7 @@
 @using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
 
 @inherits BaseDetailPage
-@page "/armor-groups/{armorGroupId:guid}"
+@page "/armor-groups/{resourceId:guid}"
 @implements IDisposable
 
 <div>
@@ -17,18 +17,15 @@
             </MudPaper>
 
             <MudPaper Style="margin: 20px">
-                <ArmorsTable PageProvider="@(new ArmorPageWithGroupProvider(PathfinderOfficialApi, ArmorGroupId))" />
+                <ArmorsTable PageProvider="@(new ArmorPageWithGroupProvider(PathfinderOfficialApi, ResourceId))" />
             </MudPaper>
         }
     </PageLayout>
 </div>
 
 @code {
-    protected override string Title => "Armor Groups";
-    protected override string? Subtitle => ArmorGroup?.Name;
-
-    [Parameter]
-    public Guid ArmorGroupId { get; set; }
+    protected override string CollectionName => "armor-groups";
+    protected override string? ResourceName => ArmorGroup?.Name;
 
     private IGetArmorGroupById_ArmorGroups_Items? ArmorGroup { get; set; }
 
@@ -36,13 +33,14 @@
 
     protected override void OnInitialized()
     {
+        base.OnInitialized();
         StoreSession = PathfinderOfficialApi.GetArmorGroupById
-            .Watch(ArmorGroupId, StrawberryShake.ExecutionStrategy.NetworkOnly)
+            .Watch(ResourceId, StrawberryShake.ExecutionStrategy.NetworkOnly)
             .Select(e => e.Data?.ArmorGroups?.Items?.FirstOrDefault())
             .Subscribe(deityGroup =>
             {
                 ArmorGroup = deityGroup;
-                StateHasChanged();
+                OnResourceLoaded();
             });
     }
 

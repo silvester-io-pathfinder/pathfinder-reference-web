@@ -45,8 +45,6 @@ namespace Silvester.Pathfinder.Official.Web.Store.States
         [ReducerMethod]
         public static DrawerState SetExpanded(DrawerState state, SetCategoryExpandedAction action)
         {
-            Console.WriteLine("Reducing SetCategoryExpandedAction");
-
             if(state.Categories.TryGetValue(action.Identifier, out DrawerCategoryState? existing))
             {
                 return state with

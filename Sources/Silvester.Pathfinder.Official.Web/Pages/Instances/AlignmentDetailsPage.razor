@@ -7,7 +7,7 @@
 @using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
 
 @inherits BaseDetailPage
-@page "/alignments/{alignmentId:guid}"
+@page "/alignments/{resourceId:guid}"
 @implements IDisposable
 
 <div>
@@ -19,10 +19,10 @@
         <MudPaper Style="margin: 20px">
             <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
                 <MudTabPanel Text="Deities">
-                    <DeitiesTable PageProvider="@(new DeityPageWithAlignmentProvider(PathfinderOfficialApi, AlignmentId))" />
+                    <DeitiesTable PageProvider="@(new DeityPageWithAlignmentProvider(PathfinderOfficialApi, ResourceId))" />
                 </MudTabPanel>
                 <MudTabPanel Text="Planes">
-                    <PlanesTable PageProvider="@(new PlanePageWithAlignmentProvider(PathfinderOfficialApi, AlignmentId))" />
+                    <PlanesTable PageProvider="@(new PlanePageWithAlignmentProvider(PathfinderOfficialApi, ResourceId))" />
                 </MudTabPanel>
             </MudTabs>
         </MudPaper>
@@ -30,11 +30,8 @@
 </div>
 
 @code {
-    protected override string Title => "Alignment";
-    protected override string? Subtitle => Alignment?.Name;
-
-    [Parameter]
-    public Guid AlignmentId { get; set; }
+    protected override string CollectionName => "alignments";
+    protected override string? ResourceName => Alignment?.Name;
 
     private IAlignmentById? Alignment { get; set; }
 
@@ -42,13 +39,14 @@
 
     protected override void OnInitialized()
     {
+        base.OnInitialized();
         StoreSession = PathfinderOfficialApi.GetAlignmentById
-            .Watch(AlignmentId)
+            .Watch(ResourceId)
             .Select(e => e.Data?.Alignments?.Items?.FirstOrDefault())
             .Subscribe(alignment =>
             {
                 Alignment = alignment;
-                StateHasChanged();
+                OnResourceLoaded();
             });
     }
 

@@ -3,7 +3,7 @@
 @using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
 
 @inherits BaseDetailPage
-@page "/deities/{deityId:guid}"
+@page "/deities/{resourceId:guid}"
 @implements IDisposable
 
 <div>
@@ -15,11 +15,8 @@
 </div>
 
 @code {
-    protected override string Title => "Deities";
-    protected override string? Subtitle => Deity?.Name;
-
-    [Parameter]
-    public Guid DeityId { get; set; }
+    protected override string CollectionName => "deities";
+    protected override string? ResourceName => Deity?.Name;
 
     private IGetDeityById_Deities_Items? Deity { get; set; }
 
@@ -27,13 +24,14 @@
 
     protected override void OnInitialized()
     {
+        base.OnInitialized();
         StoreSession = PathfinderOfficialApi.GetDeityById
-            .Watch(DeityId, StrawberryShake.ExecutionStrategy.NetworkOnly)
+            .Watch(ResourceId, StrawberryShake.ExecutionStrategy.NetworkOnly)
             .Select(e => e.Data?.Deities?.Items?.FirstOrDefault())
             .Subscribe(deity =>
             {
                 Deity = deity;
-                StateHasChanged();
+                OnResourceLoaded();
             });
     }
 

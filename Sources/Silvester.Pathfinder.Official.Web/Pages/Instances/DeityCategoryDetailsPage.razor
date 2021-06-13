@@ -5,7 +5,7 @@
 @using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
 
 @inherits BaseDetailPage
-@page "/deity-categories/{deityCategoryId:guid}"
+@page "/deity-categories/{resourceId:guid}"
 @implements IDisposable
 
 <div>
@@ -19,7 +19,7 @@
             <MudPaper Style="margin: 20px">
                 <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
                     <MudTabPanel Text="Deities">
-                        <DeitiesTable PageProvider="@(new DeityPageWithCategoryProvider(PathfinderOfficialApi, DeityCategoryId))" />
+                        <DeitiesTable PageProvider="@(new DeityPageWithCategoryProvider(PathfinderOfficialApi, ResourceId))" />
                     </MudTabPanel>
                 </MudTabs>
             </MudPaper>
@@ -28,11 +28,8 @@
 </div>
 
 @code {
-    protected override string Title => "Deity Categories";
-    protected override string? Subtitle => DeityCategory?.Name;
-
-    [Parameter]
-    public Guid DeityCategoryId { get; set; }
+    protected override string CollectionName => "deity-categories";
+    protected override string? ResourceName => DeityCategory?.Name;
 
     private IGetDeityCategoryById_DeityCategories_Items? DeityCategory { get; set; }
 
@@ -40,13 +37,14 @@
 
     protected override void OnInitialized()
     {
+        base.OnInitialized();
         StoreSession = PathfinderOfficialApi.GetDeityCategoryById
-            .Watch(DeityCategoryId, StrawberryShake.ExecutionStrategy.NetworkOnly)
+            .Watch(ResourceId, StrawberryShake.ExecutionStrategy.NetworkOnly)
             .Select(e => e.Data?.DeityCategories?.Items?.FirstOrDefault())
             .Subscribe(deityCategory =>
             {
                 DeityCategory = deityCategory;
-                StateHasChanged();
+                OnResourceLoaded();
             });
     }
 

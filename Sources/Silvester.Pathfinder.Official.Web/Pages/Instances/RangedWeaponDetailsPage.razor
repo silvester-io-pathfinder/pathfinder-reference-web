@@ -5,7 +5,7 @@
 @using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
 
 @inherits BaseDetailPage
-@page "/ranged-weapons/{rangedWeaponId:guid}"
+@page "/ranged-weapons/{resourceId:guid}"
 @implements IDisposable
 
 <div>
@@ -17,11 +17,8 @@
 </div>
 
 @code {
-    protected override string Title => "Ranged Weapons";
-    protected override string? Subtitle => RangedWeapon?.Name;
-
-    [Parameter]
-    public Guid RangedWeaponId { get; set; }
+    protected override string CollectionName => "ranged-weapons";
+    protected override string? ResourceName => RangedWeapon?.Name;
 
     private IGetRangedWeaponById_RangedWeapons_Items? RangedWeapon { get; set; }
 
@@ -29,14 +26,15 @@
 
     protected override void OnInitialized()
     {
+        base.OnInitialized();
         StoreSession = PathfinderOfficialApi.GetRangedWeaponById
-        .Watch(RangedWeaponId, StrawberryShake.ExecutionStrategy.NetworkOnly)
-        .Select(e => e.Data?.RangedWeapons?.Items?.FirstOrDefault())
-        .Subscribe(shield =>
-        {
-            RangedWeapon = shield;
-            StateHasChanged();
-        });
+            .Watch(ResourceId, StrawberryShake.ExecutionStrategy.NetworkOnly)
+            .Select(e => e.Data?.RangedWeapons?.Items?.FirstOrDefault())
+            .Subscribe(shield =>
+            {
+                RangedWeapon = shield;
+                OnResourceLoaded();
+            });
     }
 
     public void Dispose()

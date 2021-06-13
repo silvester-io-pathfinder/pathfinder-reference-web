@@ -8,7 +8,7 @@
 @using Silvester.Pathfinder.Official.Web.Shared.Tables;
 
 @inherits BaseDetailPage
-@page "/staves/{staveId:guid}"
+@page "/staves/{resourceId:guid}"
 @implements IDisposable
 
 <div>
@@ -76,14 +76,11 @@
 </div>
 
 @code {
-    protected override string Title => "Staves";
-    protected override string? Subtitle => Stave?.Name;
+    protected override string CollectionName => "staves";
+    protected override string? ResourceName => Stave?.Name;
 
     [Inject]
     public IActionTypeService ActionTypeService { get; set; } = default!;
-
-    [Parameter]
-    public Guid StaveId { get; set; }
 
     private IGetStaveById_Staves_Items? Stave { get; set; }
 
@@ -91,13 +88,14 @@
 
     protected override void OnInitialized()
     {
+        base.OnInitialized();
         StoreSession = PathfinderOfficialApi.GetStaveById
-            .Watch(StaveId, StrawberryShake.ExecutionStrategy.NetworkOnly)
+            .Watch(ResourceId, StrawberryShake.ExecutionStrategy.NetworkOnly)
             .Select(e => e.Data?.Staves?.Items?.FirstOrDefault())
             .Subscribe(spell =>
             {
                 Stave = spell;
-                StateHasChanged();
+                OnResourceLoaded();
             });
     }
 

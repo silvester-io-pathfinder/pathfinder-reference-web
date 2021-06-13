@@ -5,7 +5,7 @@
 
 @inherits BaseDetailPage
 @implements IDisposable
-@page "/magic-schools/{magicSchoolId:guid}"
+@page "/magic-schools/{resourceId:guid}"
 
 <div>
     <PageLayout>
@@ -14,17 +14,14 @@
         </MudPaper>
 
         <MudPaper Style="margin: 20px">
-            <SpellsTable IsSearchEnabled="false" PageProvider="@(new SpellPageWithSchoolProvider(PathfinderOfficialApi, MagicSchoolId))" />
+            <SpellsTable IsSearchEnabled="false" PageProvider="@(new SpellPageWithSchoolProvider(PathfinderOfficialApi, ResourceId))" />
         </MudPaper>
     </PageLayout>
 </div>
 
 @code {
-    protected override string Title => "Magic Schools";
-    protected override string? Subtitle => MagicSchool?.Name;
-
-    [Parameter]
-    public Guid MagicSchoolId { get; set; }
+    protected override string CollectionName => "magic-schools";
+    protected override string? ResourceName => MagicSchool?.Name;
 
     private IMagicSchool? MagicSchool { get; set; }
 
@@ -32,13 +29,14 @@
 
     protected override void OnInitialized()
     {
+        base.OnInitialized();
         StoreSession = PathfinderOfficialApi.GetMagicSchoolById
-            .Watch(MagicSchoolId)
+            .Watch(ResourceId)
             .Select(e => e.Data?.MagicSchools?.Items?.FirstOrDefault())
             .Subscribe(magicSchool =>
             {
                 MagicSchool = magicSchool;
-                StateHasChanged();
+                OnResourceLoaded();
             });
     }
 

@@ -5,7 +5,7 @@
 @using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
 
 @inherits BaseDetailPage
-@page "/armors/{armorId:guid}"
+@page "/armors/{resourceId:guid}"
 @implements IDisposable
 
 <div>
@@ -17,11 +17,8 @@
 </div>
 
 @code {
-    protected override string Title => "Armors";
-    protected override string? Subtitle => Armor?.Name;
-
-    [Parameter]
-    public Guid ArmorId { get; set; }
+    protected override string CollectionName => "Armors";
+    protected override string? ResourceName => Armor?.Name;
 
     private IGetArmorById_Armors_Items? Armor { get; set; }
 
@@ -30,13 +27,13 @@
     protected override void OnInitialized()
     {
         StoreSession = PathfinderOfficialApi.GetArmorById
-        .Watch(ArmorId, StrawberryShake.ExecutionStrategy.NetworkOnly)
-        .Select(e => e.Data?.Armors?.Items?.FirstOrDefault())
-        .Subscribe(shield =>
-        {
-            Armor = shield;
-            StateHasChanged();
-        });
+            .Watch(ResourceId, StrawberryShake.ExecutionStrategy.NetworkOnly)
+            .Select(e => e.Data?.Armors?.Items?.FirstOrDefault())
+            .Subscribe(shield =>
+            {
+                Armor = shield;
+                OnResourceLoaded();
+            });
     }
 
     public void Dispose()

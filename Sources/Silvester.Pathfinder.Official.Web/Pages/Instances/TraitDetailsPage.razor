@@ -11,7 +11,7 @@
 @inherits BaseDetailPage
 @implements IDisposable
 
-@page "/traits/{traitId:guid}"
+@page "/traits/{resourceId:guid}"
 <div>
     <PageLayout>
         <MudPaper Style="margin: 20px">
@@ -21,10 +21,10 @@
         <MudPaper Style="margin: 20px; margin-top:40px;">
             <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
                 <MudTabPanel Text="Feats">
-                    <FeatsTable PageProvider="@(new FeatPageWithTraitProvider(PathfinderOfficialApi, TraitId))" />
+                    <FeatsTable PageProvider="@(new FeatPageWithTraitProvider(PathfinderOfficialApi, ResourceId))" />
                 </MudTabPanel>
                 <MudTabPanel Text="Spells">
-                    <SpellsTable PageProvider="@(new SpellPageWithTraitProvider(PathfinderOfficialApi, TraitId))" />
+                    <SpellsTable PageProvider="@(new SpellPageWithTraitProvider(PathfinderOfficialApi, ResourceId))" />
                 </MudTabPanel>
             </MudTabs>
         </MudPaper>
@@ -32,11 +32,8 @@
 </div>
 
 @code {
-    protected override string Title => "Traits";
-    protected override string? Subtitle => Trait?.Name;
-
-    [Parameter]
-    public Guid TraitId { get; set; }
+    protected override string CollectionName => "traits";
+    protected override string? ResourceName => Trait?.Name;
 
     public ITraitById? Trait { get; set; }
 
@@ -44,13 +41,14 @@
 
     protected override void OnInitialized()
     {
+        base.OnInitialized();
         StoreSession = PathfinderOfficialApi.GetTraitById
-            .Watch(TraitId, StrawberryShake.ExecutionStrategy.CacheFirst)
+            .Watch(ResourceId, StrawberryShake.ExecutionStrategy.CacheFirst)
             .Select(e => e.Data?.Traits?.Items?.FirstOrDefault())
             .Subscribe(trait =>
             {
                 Trait = trait;
-                StateHasChanged();
+                OnResourceLoaded();
             });
     }
 

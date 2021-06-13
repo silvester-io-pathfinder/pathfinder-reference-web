@@ -3,7 +3,7 @@
 @using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
 
 @inherits BaseDetailPage
-@page "/planes/{planeId:guid}"
+@page "/planes/{resourceId:guid}"
 @implements IDisposable
 
 <div>
@@ -15,11 +15,8 @@
 </div>
 
 @code {
-    protected override string Title => "Planes";
-    protected override string? Subtitle => Plane?.Name;
-
-    [Parameter]
-    public Guid PlaneId { get; set; }
+    protected override string CollectionName => "planes";
+    protected override string? ResourceName => Plane?.Name;
 
     private IGetPlaneById_Planes_Items? Plane { get; set; }
 
@@ -27,13 +24,14 @@
 
     protected override void OnInitialized()
     {
+        base.OnInitialized();
         StoreSession = PathfinderOfficialApi.GetPlaneById
-            .Watch(PlaneId)
+            .Watch(ResourceId)
             .Select(e => e.Data?.Planes?.Items?.FirstOrDefault())
             .Subscribe(plane =>
             {
                 Plane = plane;
-                StateHasChanged();
+                OnResourceLoaded();
             });
     }
 

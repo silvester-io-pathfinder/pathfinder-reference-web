@@ -6,11 +6,11 @@
 @inherits BaseDetailPage
 @implements IDisposable
 
-@page "/magic-components/{magicComponentId:guid}"
+@page "/magic-components/{resourceId:guid}"
 
 <div>
     <PageLayout>
-        @if(MagicComponent != null)
+        @if (MagicComponent != null)
         {
             <MudPaper Style="margin: 20px">
                 <MagicComponentCard MagicComponent="@MagicComponent" />
@@ -18,17 +18,14 @@
         }
 
         <MudPaper Style="margin: 20px">
-            <SpellsTable IsSearchEnabled="false" PageProvider="@(new SpellPageWithComponentProvider(PathfinderOfficialApi, MagicComponentId))" />
+            <SpellsTable IsSearchEnabled="false" PageProvider="@(new SpellPageWithComponentProvider(PathfinderOfficialApi, ResourceId))" />
         </MudPaper>
     </PageLayout>
 </div>
 
 @code {
-    protected override string Title => "Magic Schools";
-    protected override string? Subtitle => MagicComponent?.Name;
-
-    [Parameter]
-    public Guid MagicComponentId { get; set; }
+    protected override string CollectionName => "magic-schools";
+    protected override string? ResourceName => MagicComponent?.Name;
 
     private IMagicComponentById? MagicComponent { get; set; }
 
@@ -36,13 +33,14 @@
 
     protected override void OnInitialized()
     {
+        base.OnInitialized();
         StoreSession = PathfinderOfficialApi.GetMagicComponentById
-            .Watch(MagicComponentId)
+            .Watch(ResourceId)
             .Select(e => e.Data?.SpellComponents?.Items?.FirstOrDefault())
             .Subscribe(magicComponent =>
             {
                 MagicComponent = magicComponent;
-                StateHasChanged();
+                OnResourceLoaded();
             });
     }
 

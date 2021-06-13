@@ -7,7 +7,7 @@
 @using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
 
 @inherits BaseDetailPage
-@page "/hazard-types/{hazardTypeId:guid}"
+@page "/hazard-types/{ResourceId:guid}"
 @implements IDisposable
 
 <div>
@@ -19,7 +19,7 @@
         <MudPaper Style="margin: 20px">
             <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
                 <MudTabPanel Text="Hazards">
-                    <HazardsTable PageProvider="@(new HazardPageWithTypeProvider(PathfinderOfficialApi, HazardTypeId))" />
+                    <HazardsTable PageProvider="@(new HazardPageWithTypeProvider(PathfinderOfficialApi, ResourceId))" />
                 </MudTabPanel>
             </MudTabs>
         </MudPaper>
@@ -27,11 +27,8 @@
 </div>
 
 @code {
-    protected override string Title => "Hazard Type";
-    protected override string? Subtitle => HazardType?.Name;
-
-    [Parameter]
-    public Guid HazardTypeId { get; set; }
+    protected override string CollectionName => "hazard-types";
+    protected override string? ResourceName => HazardType?.Name;
 
     private IHazardTypeById? HazardType { get; set; }
 
@@ -39,13 +36,14 @@
 
     protected override void OnInitialized()
     {
+        base.OnInitialized();
         StoreSession = PathfinderOfficialApi.GetHazardTypeById
-            .Watch(HazardTypeId)
+            .Watch(ResourceId)
             .Select(e => e.Data?.HazardTypes?.Items?.FirstOrDefault())
             .Subscribe(type =>
             {
                 HazardType = type;
-                StateHasChanged();
+                OnResourceLoaded();
             });
     }
 

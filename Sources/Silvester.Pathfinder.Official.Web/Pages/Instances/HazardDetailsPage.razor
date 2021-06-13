@@ -4,7 +4,7 @@
 @using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
 
 @inherits BaseDetailPage
-@page "/hazards/{hazardId:guid}"
+@page "/hazards/{resourceId:guid}"
 @implements IDisposable
 
 <div>
@@ -16,11 +16,8 @@
 </div>
 
 @code {
-    protected override string Title => "Hazard";
-    protected override string? Subtitle => Hazard?.Name;
-
-    [Parameter]
-    public Guid HazardId { get; set; }
+    protected override string CollectionName => "hazards";
+    protected override string? ResourceName => Hazard?.Name;
 
     private IHazardById? Hazard { get; set; }
 
@@ -28,13 +25,14 @@
 
     protected override void OnInitialized()
     {
+        base.OnInitialized();
         StoreSession = PathfinderOfficialApi.GetHazardById
-            .Watch(HazardId)
+            .Watch(ResourceId)
             .Select(e => e.Data?.Hazards?.Items?.FirstOrDefault())
             .Subscribe(type =>
             {
                 Hazard = type;
-                StateHasChanged();
+                OnResourceLoaded();
             });
     }
 

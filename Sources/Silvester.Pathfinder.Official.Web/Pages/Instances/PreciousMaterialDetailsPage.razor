@@ -5,7 +5,7 @@
 @using Silvester.Pathfinder.Official.Web.Shared.Cards;
 
 @inherits BaseDetailPage
-@page "/precious-materials/{preciousMaterialId:guid}"
+@page "/precious-materials/{resourceId:guid}"
 @implements IDisposable
 
 <div>
@@ -16,7 +16,7 @@
 
         @if (PreciousMaterial != null)
         {
-            @if(PreciousMaterial.Items.Count != 0)
+            @if (PreciousMaterial.Items.Count != 0)
             {
                 <MudPaper Style="margin: 20px;">
                     <CardToolbar>
@@ -96,14 +96,11 @@
 </div>
 
 @code {
-    protected override string Title => "Precious Materials";
-    protected override string? Subtitle => PreciousMaterial?.Name;
+    protected override string CollectionName => "precious-materials";
+    protected override string? ResourceName => PreciousMaterial?.Name;
 
     [Inject]
     public ICurrencyService CurrencyService { get; set; } = default!;
-
-    [Parameter]
-    public Guid PreciousMaterialId { get; set; }
 
     private IGetPreciousMaterialById_PreciousMaterials_Items? PreciousMaterial { get; set; }
 
@@ -111,13 +108,14 @@
 
     protected override void OnInitialized()
     {
+        base.OnInitialized();
         StoreSession = PathfinderOfficialApi.GetPreciousMaterialById
-            .Watch(PreciousMaterialId)
+            .Watch(ResourceId)
             .Select(e => e.Data?.PreciousMaterials?.Items?.FirstOrDefault())
             .Subscribe(plane =>
             {
                 PreciousMaterial = plane;
-                StateHasChanged();
+                OnResourceLoaded();
             });
     }
 

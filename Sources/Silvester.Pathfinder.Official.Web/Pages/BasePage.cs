@@ -25,20 +25,5 @@ namespace Silvester.Pathfinder.Official.Web.Pages
         {
             return Array.Empty<string>();
         }
-
-        protected override async Task OnInitializedAsync()
-        {
-            await base.OnInitializedAsync();
-
-            OnTitleChanged();
-        }
-
-        protected virtual void OnTitleChanged()
-        {
-            List<string> components = new List<string>();
-            components.AddRange(GetTitleComponents().Where(e => e != null).Select(e => e!));
-
-            Dispatcher.Dispatch(new SetPageTitleAction(components.Where(e => e != null).ToList()));
-        }
     }
 }

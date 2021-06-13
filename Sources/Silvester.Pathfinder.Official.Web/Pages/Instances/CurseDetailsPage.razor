@@ -7,7 +7,7 @@
 @using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
 
 @inherits BaseDetailPage
-@page "/curses/{curseId:guid}"
+@page "/curses/{ResourceId:guid}"
 @implements IDisposable
 
 <div>
@@ -19,11 +19,8 @@
 </div>
 
 @code {
-    protected override string Title => "Curse";
-    protected override string? Subtitle => Curse?.Name;
-
-    [Parameter]
-    public Guid CurseId { get; set; }
+    protected override string CollectionName => "Curse";
+    protected override string? ResourceName => Curse?.Name;
 
     private ICurseById? Curse { get; set; }
 
@@ -31,13 +28,15 @@
 
     protected override void OnInitialized()
     {
+        base.OnInitialized();
         StoreSession = PathfinderOfficialApi.GetCurseById
-            .Watch(CurseId)
+            .Watch(ResourceId)
             .Select(e => e.Data?.Curses?.Items?.FirstOrDefault())
             .Subscribe(curse =>
             {
+                Console.WriteLine("Curse loaded: " + curse.Name);
                 Curse = curse;
-                StateHasChanged();
+                OnResourceLoaded();
             });
     }
 

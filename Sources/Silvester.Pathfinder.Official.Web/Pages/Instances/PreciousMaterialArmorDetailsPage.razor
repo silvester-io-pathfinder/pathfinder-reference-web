@@ -7,7 +7,7 @@
 @using Silvester.Pathfinder.Official.Web.Services.Currencies;
 
 @inherits BaseDetailPage
-@page "/precious-material-armors/{armorId:guid}"
+@page "/precious-material-armors/{resourceId:guid}"
 @implements IDisposable
 
 <div>
@@ -45,14 +45,11 @@
 </div>
 
 @code {
-    protected override string Title => "Precious Material Armors";
-    protected override string? Subtitle => Armor?.Name;
+    protected override string CollectionName => "precious-material-armors";
+    protected override string? ResourceName => Armor?.Name;
 
     [Inject]
     public ICurrencyService CurrencyService { get; set; } = default!;
-
-    [Parameter]
-    public Guid ArmorId { get; set; }
 
     private IPreciousMaterialArmorById? Armor { get; set; }
 
@@ -60,13 +57,14 @@
 
     protected override void OnInitialized()
     {
+        base.OnInitialized();
         StoreSession = PathfinderOfficialApi.GetPreciousMaterialArmorById
-            .Watch(ArmorId, StrawberryShake.ExecutionStrategy.NetworkOnly)
+            .Watch(ResourceId)
             .Select(e => e.Data?.PreciousMaterialArmors?.Items?.FirstOrDefault())
             .Subscribe(shield =>
             {
                 Armor = shield;
-                StateHasChanged();
+                OnResourceLoaded();
             });
     }
 

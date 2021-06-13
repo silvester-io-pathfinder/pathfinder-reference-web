@@ -7,7 +7,7 @@
 @using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
 
 @inherits BaseDetailPage
-@page "/fundamental-weapon-runes/{fundamentalWeaponRuneId:guid}"
+@page "/fundamental-weapon-runes/{resourceId:guid}"
 @implements IDisposable
 
 <div>
@@ -19,11 +19,9 @@
 </div>
 
 @code {
-    protected override string Title => "Fundamental Weapon Rune";
-    protected override string? Subtitle => FundamentalWeaponRune?.Name;
+    protected override string CollectionName => "fundamental-weapon-runes";
+    protected override string? ResourceName => FundamentalWeaponRune?.Name;
 
-    [Parameter]
-    public Guid FundamentalWeaponRuneId { get; set; }
 
     private IFundamentalWeaponRuneById? FundamentalWeaponRune { get; set; }
 
@@ -31,13 +29,14 @@
 
     protected override void OnInitialized()
     {
+        base.OnInitialized();
         StoreSession = PathfinderOfficialApi.GetFundamentalWeaponRuneById
-            .Watch(FundamentalWeaponRuneId, StrawberryShake.ExecutionStrategy.NetworkOnly)
+            .Watch(ResourceId, StrawberryShake.ExecutionStrategy.NetworkOnly)
             .Select(e => e.Data?.FundamentalWeaponRunes?.Items?.FirstOrDefault())
             .Subscribe(fundamentalWeaponRune =>
             {
                 FundamentalWeaponRune = fundamentalWeaponRune;
-                StateHasChanged();
+                OnResourceLoaded();
             });
     }
 

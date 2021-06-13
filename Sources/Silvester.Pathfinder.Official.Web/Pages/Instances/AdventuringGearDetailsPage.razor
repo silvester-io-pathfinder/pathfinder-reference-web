@@ -6,7 +6,7 @@
 @using Silvester.Pathfinder.Official.Web.Shared.Cards;
 
 @inherits BaseDetailPage
-@page "/adventuring-gears/{adventuringGearId:guid}"
+@page "/adventuring-gears/{resourceId:guid}"
 @implements IDisposable
 
 <div>
@@ -36,11 +36,8 @@
 </div>
 
 @code {
-    protected override string Title => "Adventuring Gears";
-    protected override string? Subtitle => AdventuringGear?.Name;
-
-    [Parameter]
-    public Guid AdventuringGearId { get; set; }
+    protected override string CollectionName => "adventuring-gears";
+    protected override string? ResourceName => AdventuringGear?.Name;
 
     private IGetAdventuringGearById_AdventuringGears_Items? AdventuringGear { get; set; }
 
@@ -48,14 +45,15 @@
 
     protected override void OnInitialized()
     {
+        base.OnInitialized();
         StoreSession = PathfinderOfficialApi.GetAdventuringGearById
-        .Watch(AdventuringGearId, StrawberryShake.ExecutionStrategy.NetworkOnly)
-        .Select(e => e.Data?.AdventuringGears?.Items?.FirstOrDefault())
-        .Subscribe(shield =>
-        {
-            AdventuringGear = shield;
-            StateHasChanged();
-        });
+            .Watch(ResourceId, StrawberryShake.ExecutionStrategy.NetworkOnly)
+            .Select(e => e.Data?.AdventuringGears?.Items?.FirstOrDefault())
+            .Subscribe(shield =>
+            {
+                AdventuringGear = shield;
+                OnResourceLoaded();
+            });
     }
 
     public void Dispose()

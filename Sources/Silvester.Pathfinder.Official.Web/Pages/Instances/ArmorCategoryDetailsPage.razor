@@ -5,7 +5,7 @@
 @using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
 
 @inherits BaseDetailPage
-@page "/armor-categories/{armorCategoryId:guid}"
+@page "/armor-categories/{resourceId:guid}"
 @implements IDisposable
 
 <div>
@@ -17,18 +17,15 @@
             </MudPaper>
 
             <MudPaper Style="margin: 20px">
-                <ArmorsTable PageProvider="@(new ArmorPageWithCategoryProvider(PathfinderOfficialApi, ArmorCategoryId))" />
+                <ArmorsTable PageProvider="@(new ArmorPageWithCategoryProvider(PathfinderOfficialApi, ResourceId))" />
             </MudPaper>
         }
     </PageLayout>
 </div>
 
 @code {
-    protected override string Title => "Armor Categories";
-    protected override string? Subtitle => ArmorCategory?.Name;
-
-    [Parameter]
-    public Guid ArmorCategoryId { get; set; }
+    protected override string CollectionName => "armor-categories";
+    protected override string? ResourceName => ArmorCategory?.Name;
 
     private IGetArmorCategoryById_ArmorCategories_Items? ArmorCategory { get; set; }
 
@@ -36,13 +33,14 @@
 
     protected override void OnInitialized()
     {
+        base.OnInitialized();
         StoreSession = PathfinderOfficialApi.GetArmorCategoryById
-            .Watch(ArmorCategoryId, StrawberryShake.ExecutionStrategy.NetworkOnly)
+            .Watch(ResourceId, StrawberryShake.ExecutionStrategy.NetworkOnly)
             .Select(e => e.Data?.ArmorCategories?.Items?.FirstOrDefault())
             .Subscribe(deityCategory =>
             {
                 ArmorCategory = deityCategory;
-                StateHasChanged();
+                OnResourceLoaded();
             });
     }
 

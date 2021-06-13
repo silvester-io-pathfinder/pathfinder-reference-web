@@ -5,7 +5,7 @@
 @using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
 
 @inherits BaseDetailPage
-@page "/plane-categories/{planeCategoryId:guid}"
+@page "/plane-categories/{resourceId:guid}"
 @implements IDisposable
 
 <div>
@@ -19,7 +19,7 @@
             <MudPaper Style="margin: 20px">
                 <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
                     <MudTabPanel Text="Planes">
-                        <PlanesTable PageProvider="@(new PlanePageWithCategoryProvider(PathfinderOfficialApi, PlaneCategoryId))" />
+                        <PlanesTable PageProvider="@(new PlanePageWithCategoryProvider(PathfinderOfficialApi, ResourceId))" />
                     </MudTabPanel>
                 </MudTabs>
             </MudPaper>
@@ -28,8 +28,8 @@
 </div>
 
 @code {
-    protected override string Title => "Plane Categories";
-    protected override string? Subtitle => PlaneCategory?.Name;
+    protected override string CollectionName => "plane-categories";
+    protected override string? ResourceName => PlaneCategory?.Name;
 
     [Parameter]
     public Guid PlaneCategoryId { get; set; }
@@ -40,13 +40,14 @@
 
     protected override void OnInitialized()
     {
+        base.OnInitialized();
         StoreSession = PathfinderOfficialApi.GetPlaneCategoryById
-            .Watch(PlaneCategoryId)
+            .Watch(ResourceId)
             .Select(e => e.Data?.PlaneCategories?.Items?.FirstOrDefault())
             .Subscribe(planeCategory =>
             {
                 PlaneCategory = planeCategory;
-                StateHasChanged();
+                OnResourceLoaded();
             });
     }
 

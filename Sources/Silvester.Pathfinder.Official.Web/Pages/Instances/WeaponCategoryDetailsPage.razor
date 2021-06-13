@@ -7,7 +7,7 @@
 @using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
 
 @inherits BaseDetailPage
-@page "/weapon-categories/{weaponCategoryId:guid}"
+@page "/weapon-categories/{resourceId:guid}"
 @implements IDisposable
 
 <div>
@@ -21,10 +21,10 @@
             <MudPaper Style="margin: 20px">
                 <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
                     <MudTabPanel Text="Melee">
-                        <MeleeWeaponsTable PageProvider="@(new MeleeWeaponPageWithCategoryProvider(PathfinderOfficialApi, WeaponCategoryId))" />
+                        <MeleeWeaponsTable PageProvider="@(new MeleeWeaponPageWithCategoryProvider(PathfinderOfficialApi, ResourceId))" />
                     </MudTabPanel>
                     <MudTabPanel Text="Ranged">
-                        <RangedWeaponsTable PageProvider="@(new RangedWeaponPageWithCategoryProvider(PathfinderOfficialApi, WeaponCategoryId))" />
+                        <RangedWeaponsTable PageProvider="@(new RangedWeaponPageWithCategoryProvider(PathfinderOfficialApi, ResourceId))" />
                     </MudTabPanel>
                 </MudTabs>
             </MudPaper>
@@ -33,11 +33,8 @@
 </div>
 
 @code {
-    protected override string Title => "Weapon Categories";
-    protected override string? Subtitle => WeaponCategory?.Name;
-
-    [Parameter]
-    public Guid WeaponCategoryId { get; set; }
+    protected override string CollectionName => "weapon-categories";
+    protected override string? ResourceName => WeaponCategory?.Name;
 
     private IGetWeaponCategoryById_WeaponCategories_Items? WeaponCategory { get; set; }
 
@@ -45,13 +42,14 @@
 
     protected override void OnInitialized()
     {
+        base.OnInitialized();
         StoreSession = PathfinderOfficialApi.GetWeaponCategoryById
-            .Watch(WeaponCategoryId, StrawberryShake.ExecutionStrategy.NetworkOnly)
+            .Watch(ResourceId, StrawberryShake.ExecutionStrategy.NetworkOnly)
             .Select(e => e.Data?.WeaponCategories?.Items?.FirstOrDefault())
             .Subscribe(deityCategory =>
             {
                 WeaponCategory = deityCategory;
-                StateHasChanged();
+                OnResourceLoaded();
             });
     }
 
