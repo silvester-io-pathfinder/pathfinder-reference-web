@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static Silvester.Pathfinder.Official.Web.Store.States.AppBarState;
 
 namespace Silvester.Pathfinder.Official.Web.Pages
 {
@@ -35,7 +36,7 @@ namespace Silvester.Pathfinder.Official.Web.Pages
         protected virtual void OnTitleChanged()
         {
             List<string> components = new List<string>();
-            components.AddRange(GetTitleComponents());
+            components.AddRange(GetTitleComponents().Where(e => e != null).Select(e => e!));
 
             Dispatcher.Dispatch(new SetPageTitleAction(components.Where(e => e != null).ToList()));
         }

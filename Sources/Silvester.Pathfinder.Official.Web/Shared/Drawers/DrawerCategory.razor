@@ -1,0 +1,37 @@
+﻿@using Silvester.Pathfinder.Official.Web.Store.States;
+
+<MudListItem Text="@Title" ExpandedChanged="OnOpen" Expanded="@IsExpanded()" @ref="@Instance"> 
+    <NestedList>
+        @ChildContent
+    </NestedList>
+</MudListItem>
+
+
+@code {
+    [Parameter]
+    public IState<DrawerState> State { get; set; } = default!;
+
+    [Parameter]
+    public string Title { get; set; } = default!;
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; } = default!;
+
+    public MudListItem Instance { get; set; } = default!;
+
+    [Inject]
+    protected IDispatcher Dispatcher { get; set; } = default!;
+
+    private bool IsExpanded()
+    {
+        return State.Value.Categories.GetValueOrDefault(Title)?.IsExpanded ?? false;
+    }
+
+    private void OnOpen()
+    {
+        if(Instance.Expanded != IsExpanded())
+        {
+            Dispatcher.Dispatch(new SetCategoryExpandedAction(Title, Instance.Expanded));
+        }
+    }
+} 

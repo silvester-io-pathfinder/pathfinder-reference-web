@@ -1,14 +1,23 @@
-﻿using System.Collections.Generic;
+﻿using Fluxor;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Silvester.Pathfinder.Official.Web.State
+namespace Silvester.Pathfinder.Official.Web.Store.States
 {
-    public record AppBarState
-    {
-        public IReadOnlyList<string> TitleComponents { get; }
+    public record AppBarState(IReadOnlyList<string> TitleComponents);
+    public record SetPageTitleAction(IReadOnlyList<string> TitleComponents);
 
-        public AppBarState(IReadOnlyList<string> titleComponents)
+    public class AppBarFeature : Feature<AppBarState>
+    {
+        public override string GetName() => "App Bar";
+        protected override AppBarState GetInitialState() => new AppBarState(new[] { "Silvester Pathfinder" });
+
+        [ReducerMethod]
+        public static AppBarState ReduceTitle(AppBarState state, SetPageTitleAction action)
         {
-            TitleComponents = titleComponents;
+            return new AppBarState(action.TitleComponents);
         }
     }
 }
