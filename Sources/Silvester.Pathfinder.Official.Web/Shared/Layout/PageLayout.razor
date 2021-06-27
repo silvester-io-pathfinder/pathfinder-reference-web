@@ -1,14 +1,18 @@
 ﻿@using Silvester.Pathfinder.Official.Web.Store.States;
 @using Silvester.Pathfinder.Official.Web.Shared.Cards;
 @using System.Text;
+@using Silvester.Pathfinder.Official.Web.Shared.Tracking;
 
 @implements IDisposable
 
-<MudGrid Class="justify-center" Spacing="0">
-    <MudItem xs="12" xl="8" Style="margin-bottom:80px;">
-        @ChildContent
-    </MudItem>
-</MudGrid>
+<div>
+    <PageTitle />
+    <MudGrid Class="justify-center" Spacing="0">
+        <MudItem xs="12" xl="8" Style="margin-bottom:80px;">
+            @ChildContent
+        </MudItem>
+    </MudGrid>
+</div>
 
 @code {
     [Inject]

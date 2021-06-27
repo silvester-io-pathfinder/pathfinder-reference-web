@@ -34,6 +34,9 @@
     [Inject]
     public NavigationManager NavigationManager { get; set; } = default!;
 
+    [Inject]
+    public IAnalytics Analytics { get; set; } = default!;
+
     [Parameter]
     public int MaxItems { get; set; } = 10;
 
@@ -94,6 +97,8 @@
         {
             return Array.Empty<IInternalSearchResult>();
         }
+
+        _ = Analytics.TrackEvent("Global Search", new { Query = searchTerm });
 
         IEnumerable<ISearchResult> rawResults = await SearchService.Search(searchTerm);
         IList<IInternalSearchResult> results = rawResults

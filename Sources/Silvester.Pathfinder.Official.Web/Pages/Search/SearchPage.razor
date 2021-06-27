@@ -132,7 +132,7 @@
     {
         await base.OnParametersSetAsync();
         Results = await SearchAsync(Query!);
-        Dispatcher.Dispatch(new SetPageAction("Search Results", null, null));
+        Dispatcher.Dispatch(new SetPageAction($"Search Results", null, null));
     }
 
     private async Task<IGrouping<string, ISearchResult>[]> SearchAsync(string query)

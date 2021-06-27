@@ -1,3 +1,4 @@
+using Blazor.Analytics;
 using Blazored.LocalStorage;
 using Fluxor;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -38,6 +39,7 @@ namespace Silvester.Pathfinder.Official.Web
             builder.Services.AddScoped<ICurrencyService, CurrencyService>();
             builder.Services.AddScoped<IActionTypeService, ActionTypeService>();
             builder.Services.AddScoped<ISearchService, SearchService>();
+            builder.Services.AddGoogleAnalytics("GTM-WH8BW86");
             builder.Services.AddScoped(sp => new HttpClient
             { 
                 BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)

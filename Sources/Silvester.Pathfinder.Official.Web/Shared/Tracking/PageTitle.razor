@@ -1,0 +1,38 @@
+﻿@using Silvester.Pathfinder.Official.Web.Store.States; 
+
+@implements IDisposable
+
+@code{
+    [Inject]
+    public IJSRuntime JSRuntime { get; set; } = default!;
+
+    [Inject]
+    private IState<AppBarState> AppBarState { get; set; } = default!;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await JSRuntime.InvokeVoidAsync("setTitle", $"PF2E - {AppBarState.Value.Title}");
+    }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        if (AppBarState != null)
+        {
+            AppBarState.StateChanged += OnStateChanged;
+        }
+    }
+
+    private void OnStateChanged(object? sender, object state)
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        if (AppBarState != null)
+        {
+            AppBarState.StateChanged -= OnStateChanged;
+        }
+    }
+}

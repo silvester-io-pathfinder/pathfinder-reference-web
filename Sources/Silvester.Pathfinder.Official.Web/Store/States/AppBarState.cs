@@ -14,7 +14,7 @@ namespace Silvester.Pathfinder.Official.Web.Store.States
     public class AppBarFeature : Feature<AppBarState>
     {
         public override string GetName() => "App Bar";
-        protected override AppBarState GetInitialState() => new AppBarState("Silvester Pathfinder");
+        protected override AppBarState GetInitialState() => new AppBarState("Actions");
 
         [ReducerMethod]
         public static AppBarState ReduceTitle(AppBarState state, SetPageAction action)

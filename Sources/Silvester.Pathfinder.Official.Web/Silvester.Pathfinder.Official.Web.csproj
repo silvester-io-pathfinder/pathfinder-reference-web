@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Blazor-Analytics" Version="3.6.0" />
     <PackageReference Include="Blazored.LocalStorage" Version="4.1.2" />
     <PackageReference Include="Fluxor" Version="4.0.0" />
     <PackageReference Include="Fluxor.Blazor.Web" Version="4.0.0" />
