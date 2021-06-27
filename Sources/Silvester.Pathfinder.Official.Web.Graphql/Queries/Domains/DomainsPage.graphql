@@ -1,0 +1,6 @@
+﻿fragment DomainsPage on Domain
+{
+	id,
+	name,
+	description
+}

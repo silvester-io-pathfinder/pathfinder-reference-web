@@ -1,0 +1,29 @@
+﻿fragment MysteriesPage on Mystery
+{
+	id,
+	name,
+	mysteryCurse {
+		... MysteriesPage_Curse
+	},
+	trainedSkill {
+		... MysteriesPage_Skill
+	},
+	grantedCantrip {
+		... MysteriesPage_GrantedCantrip
+	},
+	details(where: {order: {eq: 0}})  {
+		... TextBlock
+	}
+}
+
+fragment MysteriesPage_Curse on MysteryCurse {
+	name
+}
+
+fragment MysteriesPage_Skill on Skill {
+	name
+}
+
+fragment MysteriesPage_GrantedCantrip on Spell {
+	name
+}

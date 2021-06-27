@@ -15,20 +15,22 @@ input BaseEntityFilterInput {
 }
 
 input TextBlockSortInput {
+  ownerId: SortEnumType
   text: SortEnumType
   order: SortEnumType
   type: SortEnumType
-  ownerId: SortEnumType
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
 input TextBlockFilterInput {
   and: [TextBlockFilterInput!]
   or: [TextBlockFilterInput!]
+  ownerId: ComparableGuidOperationFilterInput
   text: StringOperationFilterInput
   order: ComparableInt32OperationFilterInput
   type: TextBlockTypeOperationFilterInput
-  ownerId: ComparableGuidOperationFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -105,6 +107,7 @@ input AbilitySortInput {
   name: SortEnumType
   sourcePageId: SortEnumType
   sourcePage: SourcePageSortInput
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -117,6 +120,7 @@ input AbilityFilterInput {
   creatureBindings: ListFilterInputTypeOfCreatureAbilityFilterInput
   traits: ListFilterInputTypeOfTraitFilterInput
   details: ListFilterInputTypeOfTextBlockFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -140,6 +144,7 @@ input SourcePageFilterInput {
 
 input SourceSortInput {
   name: SortEnumType
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -147,6 +152,7 @@ input SourceFilterInput {
   and: [SourceFilterInput!]
   or: [SourceFilterInput!]
   name: StringOperationFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -208,6 +214,7 @@ input CreatureSortInput {
   race: RaceSortInput
   recallKnowledgeId: SortEnumType
   recallKnowledge: CreatureRecallKnowledgeSortInput
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -256,12 +263,14 @@ input CreatureFilterInput {
   abilities: ListFilterInputTypeOfCreatureAbilityFilterInput
   skills: ListFilterInputTypeOfCreatureSkillFilterInput
   summonedBy: ListFilterInputTypeOfSpellFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
 input AlignmentSortInput {
   name: SortEnumType
   description: SortEnumType
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -274,6 +283,7 @@ input AlignmentFilterInput {
   deityFollowerAlignments: ListFilterInputTypeOfDeityFilterInput
   planes: ListFilterInputTypeOfPlaneFilterInput
   artifacts: ListFilterInputTypeOfArtifactFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -288,6 +298,7 @@ input DeitySortInput {
   alignment: AlignmentSortInput
   sourcePageId: SortEnumType
   sourcePage: SourcePageSortInput
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -308,12 +319,14 @@ input DeityFilterInput {
   divineFonts: ListFilterInputTypeOfDivineFontFilterInput
   followerAlignments: ListFilterInputTypeOfAlignmentFilterInput
   domains: ListFilterInputTypeOfDomainFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
 input DeityCategorySortInput {
   name: SortEnumType
   description: SortEnumType
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -323,6 +336,7 @@ input DeityCategoryFilterInput {
   name: StringOperationFilterInput
   description: StringOperationFilterInput
   deities: ListFilterInputTypeOfDeityFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -333,6 +347,7 @@ input SkillSortInput {
   hasRecallKnowledgeAction: SortEnumType
   statModifierId: SortEnumType
   statModifier: StatSortInput
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -346,6 +361,7 @@ input SkillFilterInput {
   statModifierId: ComparableGuidOperationFilterInput
   statModifier: StatFilterInput
   deities: ListFilterInputTypeOfDeityFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -353,6 +369,7 @@ input StatSortInput {
   name: SortEnumType
   abbreviation: SortEnumType
   description: SortEnumType
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -364,6 +381,7 @@ input StatFilterInput {
   description: StringOperationFilterInput
   keyAbilityClasses: ListFilterInputTypeOfClassFilterInput
   skills: ListFilterInputTypeOfSkillFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -407,6 +425,7 @@ input ClassSortInput {
   spellAttackProficiency: ProficiencySortInput
   predefinedMagicTraditionId: SortEnumType
   predefinedMagicTradition: MagicTraditionSortInput
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -456,12 +475,14 @@ input ClassFilterInput {
   mannerisms: ListFilterInputTypeOfClassMannerismFilterInput
   characteristics: ListFilterInputTypeOfClassCharacteristicFilterInput
   features: ListFilterInputTypeOfClassFeatureFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
 input ProficiencySortInput {
   name: SortEnumType
   bonus: SortEnumType
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -470,12 +491,14 @@ input ProficiencyFilterInput {
   or: [ProficiencyFilterInput!]
   name: StringOperationFilterInput
   bonus: ComparableInt32OperationFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
 input MagicTraditionSortInput {
   name: SortEnumType
   description: SortEnumType
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -485,6 +508,7 @@ input MagicTraditionFilterInput {
   name: StringOperationFilterInput
   description: StringOperationFilterInput
   spells: ListFilterInputTypeOfSpellFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -528,6 +552,7 @@ input SpellSortInput {
   domain: DomainSortInput
   staggeredEffectId: SortEnumType
   staggeredEffect: StaggeredEffectSortInput
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -581,11 +606,13 @@ input SpellFilterInput {
   actionEffects: ListFilterInputTypeOfActionEffectFilterInput
   creatureEffects: ListFilterInputTypeOfCreatureFilterInput
   traditions: ListFilterInputTypeOfMagicTraditionFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
 input ActionTypeSortInput {
   name: SortEnumType
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -596,6 +623,7 @@ input ActionTypeFilterInput {
   spells: ListFilterInputTypeOfSpellFilterInput
   feats: ListFilterInputTypeOfFeatFilterInput
   actions: ListFilterInputTypeOfActionFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -613,6 +641,7 @@ input FeatSortInput {
   frequency: FrequencySortInput
   rollableEffect: RollableEffectSortInput
   rollableEffectId: SortEnumType
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -636,11 +665,13 @@ input FeatFilterInput {
   prerequisites: ListFilterInputTypeOfFeatPrerequisiteBindingFilterInput
   requirements: ListFilterInputTypeOfFeatRequirementFilterInput
   traits: ListFilterInputTypeOfTraitFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
 input FeatTypeSortInput {
   name: SortEnumType
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -649,6 +680,7 @@ input FeatTypeFilterInput {
   or: [FeatTypeFilterInput!]
   name: StringOperationFilterInput
   feats: ListFilterInputTypeOfFeatFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -675,6 +707,7 @@ input RollableEffectSortInput {
   success: SortEnumType
   failure: SortEnumType
   criticalFailure: SortEnumType
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -687,6 +720,7 @@ input RollableEffectFilterInput {
   success: StringOperationFilterInput
   failure: StringOperationFilterInput
   criticalFailure: StringOperationFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -724,6 +758,7 @@ input TraitSortInput {
   name: SortEnumType
   sourcePageId: SortEnumType
   sourcePage: SourcePageSortInput
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -767,6 +802,7 @@ input TraitFilterInput {
   artifactDestructionEffects: ListFilterInputTypeOfArtifactDestructionEffectFilterInput
   creatures: ListFilterInputTypeOfCreatureFilterInput
   staves: ListFilterInputTypeOfStaveFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -779,6 +815,7 @@ input CurseSortInput {
   savingThrowStat: SavingThrowStatSortInput
   sourcePageId: SortEnumType
   sourcePage: SourcePageSortInput
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -795,11 +832,13 @@ input CurseFilterInput {
   sourcePage: SourcePageFilterInput
   traits: ListFilterInputTypeOfTraitFilterInput
   details: ListFilterInputTypeOfTextBlockFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
 input SavingThrowStatSortInput {
   name: SortEnumType
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -808,6 +847,7 @@ input SavingThrowStatFilterInput {
   or: [SavingThrowStatFilterInput!]
   name: StringOperationFilterInput
   details: ListFilterInputTypeOfTextBlockFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -817,6 +857,7 @@ input ItemCurseSortInput {
   level: SortEnumType
   sourcePageId: SortEnumType
   sourcePage: SourcePageSortInput
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -830,6 +871,7 @@ input ItemCurseFilterInput {
   sourcePage: SourcePageFilterInput
   details: ListFilterInputTypeOfTextBlockFilterInput
   traits: ListFilterInputTypeOfTraitFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -843,6 +885,7 @@ input DiseaseSortInput {
   sourcePage: SourcePageSortInput
   savingThrowStatId: SortEnumType
   savingThrowStat: SavingThrowStatSortInput
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -860,6 +903,7 @@ input DiseaseFilterInput {
   savingThrowStat: SavingThrowStatFilterInput
   traits: ListFilterInputTypeOfTraitFilterInput
   stages: ListFilterInputTypeOfDiseaseStageFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -906,6 +950,7 @@ input ActionSortInput {
   actionType: ActionTypeSortInput
   rollableEffectId: SortEnumType
   rollableEffect: RollableEffectSortInput
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -921,6 +966,7 @@ input ActionFilterInput {
   rollableEffect: RollableEffectFilterInput
   details: ListFilterInputTypeOfTextBlockFilterInput
   traits: ListFilterInputTypeOfTraitFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -933,6 +979,7 @@ input RaceSortInput {
   size: RaceSizeSortInput
   rarityId: SortEnumType
   rarity: RaritySortInput
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -950,6 +997,7 @@ input RaceFilterInput {
   languages: ListFilterInputTypeOfLanguageFilterInput
   raceTraits: ListFilterInputTypeOfTraitFilterInput
   heritages: ListFilterInputTypeOfHeritageFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -958,6 +1006,7 @@ input RaceSizeSortInput {
   space: SortEnumType
   heightReach: SortEnumType
   breadthReach: SortEnumType
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -969,11 +1018,13 @@ input RaceSizeFilterInput {
   heightReach: ComparableInt32OperationFilterInput
   breadthReach: ComparableInt32OperationFilterInput
   races: ListFilterInputTypeOfRaceFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
 input RaritySortInput {
   name: SortEnumType
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -982,6 +1033,7 @@ input RarityFilterInput {
   or: [RarityFilterInput!]
   name: StringOperationFilterInput
   races: ListFilterInputTypeOfRaceFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -989,6 +1041,7 @@ input LanguageSortInput {
   name: SortEnumType
   typeId: SortEnumType
   type: LanguageTypeSortInput
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -1000,11 +1053,13 @@ input LanguageFilterInput {
   type: LanguageTypeFilterInput
   races: ListFilterInputTypeOfRaceFilterInput
   creatures: ListFilterInputTypeOfCreatureFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
 input LanguageTypeSortInput {
   name: SortEnumType
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -1013,6 +1068,7 @@ input LanguageTypeFilterInput {
   or: [LanguageTypeFilterInput!]
   name: StringOperationFilterInput
   languages: ListFilterInputTypeOfLanguageFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -1021,6 +1077,7 @@ input HeritageSortInput {
   description: SortEnumType
   rarityId: SortEnumType
   rarity: RaritySortInput
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -1032,6 +1089,7 @@ input HeritageFilterInput {
   rarityId: ComparableGuidOperationFilterInput
   rarity: RarityFilterInput
   races: ListFilterInputTypeOfRaceFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -1052,6 +1110,7 @@ input HazardSortInput {
   sourcePage: SourcePageSortInput
   typeId: SortEnumType
   type: HazardTypeSortInput
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -1081,11 +1140,13 @@ input HazardFilterInput {
   dispellRequirements: ListFilterInputTypeOfHazardDispellRequirementFilterInput
   actions: ListFilterInputTypeOfHazardActionFilterInput
   routineDetails: ListFilterInputTypeOfTextBlockFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
 input HazardComplexitySortInput {
   name: SortEnumType
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -1094,6 +1155,7 @@ input HazardComplexityFilterInput {
   or: [HazardComplexityFilterInput!]
   name: StringOperationFilterInput
   hazards: ListFilterInputTypeOfHazardFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -1102,6 +1164,7 @@ input HazardTypeSortInput {
   description: SortEnumType
   sourcePageId: SortEnumType
   sourcePage: SourcePageSortInput
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -1113,6 +1176,7 @@ input HazardTypeFilterInput {
   sourcePageId: ComparableGuidOperationFilterInput
   sourcePage: SourcePageFilterInput
   hazards: ListFilterInputTypeOfHazardFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -1252,6 +1316,7 @@ input AlchemicalBombSortInput {
   action: ActionSortInput
   sourcePageId: SortEnumType
   sourcePage: SourcePageSortInput
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -1270,6 +1335,7 @@ input AlchemicalBombFilterInput {
   traits: ListFilterInputTypeOfTraitFilterInput
   details: ListFilterInputTypeOfTextBlockFilterInput
   potencies: ListFilterInputTypeOfAlchemicalBombPotencyBindingFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -1316,6 +1382,7 @@ input AlchemicalBombPotencyBindingFilterInput {
 input PotencySortInput {
   name: SortEnumType
   order: SortEnumType
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -1326,6 +1393,7 @@ input PotencyFilterInput {
   order: ComparableInt32OperationFilterInput
   alchemicalBombs: ListFilterInputTypeOfAlchemicalBombPotencyBindingFilterInput
   alchemicalTools: ListFilterInputTypeOfAlchemicalToolPotencyBindingFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -1367,6 +1435,7 @@ input AlchemicalToolSortInput {
   actionType: ActionTypeSortInput
   actionId: SortEnumType
   action: ActionSortInput
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -1389,6 +1458,7 @@ input AlchemicalToolFilterInput {
   traits: ListFilterInputTypeOfTraitFilterInput
   details: ListFilterInputTypeOfTextBlockFilterInput
   potencies: ListFilterInputTypeOfAlchemicalToolPotencyBindingFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -1404,6 +1474,7 @@ input AlchemicalElixirSortInput {
   action: ActionSortInput
   sourcePageId: SortEnumType
   sourcePage: SourcePageSortInput
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -1425,6 +1496,7 @@ input AlchemicalElixirFilterInput {
   details: ListFilterInputTypeOfTextBlockFilterInput
   potencies: ListFilterInputTypeOfAlchemicalElixirPotencyBindingFilterInput
   craftingRequirements: ListFilterInputTypeOfAlchemicalElixirCraftingRequirementFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -1483,6 +1555,7 @@ input AlchemicalPoisonSortInput {
   sourcePage: SourcePageSortInput
   effectId: SortEnumType
   effect: StaggeredEffectSortInput
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -1505,6 +1578,7 @@ input AlchemicalPoisonFilterInput {
   effect: StaggeredEffectFilterInput
   details: ListFilterInputTypeOfTextBlockFilterInput
   traits: ListFilterInputTypeOfTraitFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -1575,6 +1649,7 @@ input PlaneSortInput {
   category: PlaneCategorySortInput
   alignmentId: SortEnumType
   alignment: AlignmentSortInput
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -1588,12 +1663,14 @@ input PlaneFilterInput {
   alignment: AlignmentFilterInput
   traits: ListFilterInputTypeOfTraitFilterInput
   details: ListFilterInputTypeOfTextBlockFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
 input PlaneCategorySortInput {
   name: SortEnumType
   description: SortEnumType
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -1603,6 +1680,7 @@ input PlaneCategoryFilterInput {
   name: StringOperationFilterInput
   description: StringOperationFilterInput
   planes: ListFilterInputTypeOfPlaneFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -1623,6 +1701,7 @@ input ArmorSortInput {
   armorGroup: ArmorGroupSortInput
   sourcePageId: SortEnumType
   sourcePage: SourcePageSortInput
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -1647,11 +1726,13 @@ input ArmorFilterInput {
   sourcePage: SourcePageFilterInput
   traits: ListFilterInputTypeOfTraitFilterInput
   details: ListFilterInputTypeOfTextBlockFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
 input ArmorCategorySortInput {
   name: SortEnumType
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -1660,6 +1741,7 @@ input ArmorCategoryFilterInput {
   or: [ArmorCategoryFilterInput!]
   name: StringOperationFilterInput
   armors: ListFilterInputTypeOfArmorFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -1668,6 +1750,7 @@ input ArmorGroupSortInput {
   armorSpecializationEffect: SortEnumType
   sourcePageId: SortEnumType
   sourcePage: SourcePageSortInput
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -1679,6 +1762,7 @@ input ArmorGroupFilterInput {
   sourcePageId: ComparableGuidOperationFilterInput
   sourcePage: SourcePageFilterInput
   armors: ListFilterInputTypeOfArmorFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -1699,6 +1783,7 @@ input MeleeWeaponSortInput {
   weaponCategory: WeaponCategorySortInput
   sourcePageId: SortEnumType
   sourcePage: SourcePageSortInput
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -1722,11 +1807,13 @@ input MeleeWeaponFilterInput {
   sourcePageId: ComparableGuidOperationFilterInput
   sourcePage: SourcePageFilterInput
   traits: ListFilterInputTypeOfTraitFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
 input DamageTypeSortInput {
   name: SortEnumType
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -1734,6 +1821,7 @@ input DamageTypeFilterInput {
   and: [DamageTypeFilterInput!]
   or: [DamageTypeFilterInput!]
   name: StringOperationFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -1742,6 +1830,7 @@ input WeaponGroupSortInput {
   criticalEffect: SortEnumType
   sourcePageId: SortEnumType
   sourcePage: SourcePageSortInput
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -1754,6 +1843,7 @@ input WeaponGroupFilterInput {
   sourcePage: SourcePageFilterInput
   meleeWeapons: ListFilterInputTypeOfMeleeWeaponFilterInput
   rangedWeapons: ListFilterInputTypeOfRangedWeaponFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -1778,6 +1868,7 @@ input RangedWeaponSortInput {
   sourcePage: SourcePageSortInput
   ammunitionId: SortEnumType
   ammunition: AmmunitionSortInput
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -1802,14 +1893,16 @@ input RangedWeaponFilterInput {
   weaponCategory: WeaponCategoryFilterInput
   sourcePageId: ComparableGuidOperationFilterInput
   sourcePage: SourcePageFilterInput
-  traits: ListFilterInputTypeOfTraitFilterInput
   ammunitionId: ComparableNullableOfGuidOperationFilterInput
   ammunition: AmmunitionFilterInput
+  traits: ListFilterInputTypeOfTraitFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
 input WeaponCategorySortInput {
   name: SortEnumType
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -1819,6 +1912,7 @@ input WeaponCategoryFilterInput {
   name: StringOperationFilterInput
   meleeWeapons: ListFilterInputTypeOfMeleeWeaponFilterInput
   rangedWeapons: ListFilterInputTypeOfRangedWeaponFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -1833,6 +1927,7 @@ input AmmunitionSortInput {
   sourcePage: SourcePageSortInput
   weaponGroupId: SortEnumType
   weaponGroup: WeaponGroupSortInput
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -1850,6 +1945,7 @@ input AmmunitionFilterInput {
   weaponGroupId: ComparableGuidOperationFilterInput
   weaponGroup: WeaponGroupFilterInput
   traits: ListFilterInputTypeOfTraitFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -1863,6 +1959,7 @@ input PreciousMaterialSortInput {
   armor: PreciousMaterialArmorSortInput
   shieldId: SortEnumType
   shield: PreciousMaterialShieldSortInput
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -1882,6 +1979,7 @@ input PreciousMaterialFilterInput {
   armor: PreciousMaterialArmorFilterInput
   shieldId: ComparableNullableOfGuidOperationFilterInput
   shield: PreciousMaterialShieldFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -1942,6 +2040,7 @@ input PreciousMaterialItemFilterInput {
 input ItemGradeSortInput {
   name: SortEnumType
   order: SortEnumType
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -1951,6 +2050,7 @@ input ItemGradeFilterInput {
   name: StringOperationFilterInput
   order: ComparableInt32OperationFilterInput
   armorVariants: ListFilterInputTypeOfPreciousMaterialArmorVariantFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -1986,6 +2086,7 @@ input PreciousMaterialArmorSortInput {
   material: PreciousMaterialSortInput
   sourcePageId: SortEnumType
   sourcePage: SourcePageSortInput
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -2000,11 +2101,13 @@ input PreciousMaterialArmorFilterInput {
   traits: ListFilterInputTypeOfTraitFilterInput
   details: ListFilterInputTypeOfTextBlockFilterInput
   variants: ListFilterInputTypeOfPreciousMaterialArmorVariantFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
 input PreciousMaterialItemCategorySortInput {
   name: SortEnumType
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -2013,6 +2116,7 @@ input PreciousMaterialItemCategoryFilterInput {
   or: [PreciousMaterialItemCategoryFilterInput!]
   name: StringOperationFilterInput
   items: ListFilterInputTypeOfPreciousMaterialItemFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -2022,6 +2126,7 @@ input PreciousMaterialWeaponSortInput {
   material: PreciousMaterialSortInput
   sourcePageId: SortEnumType
   sourcePage: SourcePageSortInput
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -2036,6 +2141,7 @@ input PreciousMaterialWeaponFilterInput {
   traits: ListFilterInputTypeOfTraitFilterInput
   details: ListFilterInputTypeOfTextBlockFilterInput
   variants: ListFilterInputTypeOfPreciousMaterialWeaponVariantFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -2071,6 +2177,7 @@ input PreciousMaterialShieldSortInput {
   material: PreciousMaterialSortInput
   sourcePageId: SortEnumType
   sourcePage: SourcePageSortInput
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -2085,6 +2192,7 @@ input PreciousMaterialShieldFilterInput {
   traits: ListFilterInputTypeOfTraitFilterInput
   details: ListFilterInputTypeOfTextBlockFilterInput
   variants: ListFilterInputTypeOfPreciousMaterialShieldVariantFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -2133,6 +2241,7 @@ input ArmorPropertyRuneSortInput {
   sourcePage: SourcePageSortInput
   actionId: SortEnumType
   action: ArmorPropertyRuneActionSortInput
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -2149,6 +2258,7 @@ input ArmorPropertyRuneFilterInput {
   action: ArmorPropertyRuneActionFilterInput
   traits: ListFilterInputTypeOfTraitFilterInput
   details: ListFilterInputTypeOfTextBlockFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -2182,6 +2292,7 @@ input FundamentalArmorRuneSortInput {
   name: SortEnumType
   sourcePageId: SortEnumType
   sourcePage: SourcePageSortInput
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -2193,6 +2304,7 @@ input FundamentalArmorRuneFilterInput {
   sourcePage: SourcePageFilterInput
   traits: ListFilterInputTypeOfTraitFilterInput
   details: ListFilterInputTypeOfTextBlockFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -2200,6 +2312,7 @@ input FundamentalWeaponRuneSortInput {
   name: SortEnumType
   sourcePageId: SortEnumType
   sourcePage: SourcePageSortInput
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -2211,6 +2324,7 @@ input FundamentalWeaponRuneFilterInput {
   sourcePage: SourcePageFilterInput
   traits: ListFilterInputTypeOfTraitFilterInput
   details: ListFilterInputTypeOfTextBlockFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -2249,6 +2363,7 @@ input WeaponPropertyRuneSortInput {
   usage: SortEnumType
   sourcePageId: SortEnumType
   sourcePage: SourcePageSortInput
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -2264,6 +2379,7 @@ input WeaponPropertyRuneFilterInput {
   actions: ListFilterInputTypeOfWeaponPropertyRuneActionFilterInput
   traits: ListFilterInputTypeOfTraitFilterInput
   potencies: ListFilterInputTypeOfWeaponPropertyRunePotencyBindingFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -2307,6 +2423,7 @@ input ArtifactSortInput {
   bulk: BulkSortInput
   alignmentId: SortEnumType
   alignment: AlignmentSortInput
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -2327,6 +2444,7 @@ input ArtifactFilterInput {
   traits: ListFilterInputTypeOfTraitFilterInput
   destructionEffects: ListFilterInputTypeOfArtifactDestructionEffectFilterInput
   actions: ListFilterInputTypeOfArtifactActionFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -2395,6 +2513,7 @@ input StaveSortInput {
   activate: SortEnumType
   sourcePageId: SortEnumType
   sourcePage: SourcePageSortInput
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -2411,6 +2530,7 @@ input StaveFilterInput {
   traits: ListFilterInputTypeOfTraitFilterInput
   details: ListFilterInputTypeOfTextBlockFilterInput
   effects: ListFilterInputTypeOfActionEffectFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -2488,6 +2608,7 @@ input ActionEffectFilterInput {
 input SpellTypeSortInput {
   name: SortEnumType
   description: SortEnumType
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -2497,6 +2618,7 @@ input SpellTypeFilterInput {
   name: StringOperationFilterInput
   description: StringOperationFilterInput
   spells: ListFilterInputTypeOfSpellFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -2504,6 +2626,7 @@ input MagicSchoolSortInput {
   name: SortEnumType
   abbreviation: SortEnumType
   description: SortEnumType
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -2514,6 +2637,7 @@ input MagicSchoolFilterInput {
   abbreviation: StringOperationFilterInput
   description: StringOperationFilterInput
   spells: ListFilterInputTypeOfSpellFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -2534,6 +2658,7 @@ input MysterySortInput {
   advancedRevelation: SpellSortInput
   greaterRevelationId: SortEnumType
   greaterRevelation: SpellSortInput
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -2559,6 +2684,7 @@ input MysteryFilterInput {
   relatedDomains: ListFilterInputTypeOfDomainFilterInput
   details: ListFilterInputTypeOfTextBlockFilterInput
   mysteryBenefits: ListFilterInputTypeOfTextBlockFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -2610,6 +2736,7 @@ input MysteryCursePotencyFilterInput {
 input DomainSortInput {
   name: SortEnumType
   description: SortEnumType
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -2620,12 +2747,14 @@ input DomainFilterInput {
   description: StringOperationFilterInput
   deities: ListFilterInputTypeOfDeityFilterInput
   mysteries: ListFilterInputTypeOfMysteryFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
 input SpellComponentSortInput {
   name: SortEnumType
   description: SortEnumType
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -2635,6 +2764,7 @@ input SpellComponentFilterInput {
   name: StringOperationFilterInput
   description: StringOperationFilterInput
   spells: ListFilterInputTypeOfSpellFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -2710,6 +2840,7 @@ input ClassFeatureFilterInput {
 input DivineFontSortInput {
   name: SortEnumType
   description: SortEnumType
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -2719,6 +2850,7 @@ input DivineFontFilterInput {
   name: StringOperationFilterInput
   description: StringOperationFilterInput
   deities: ListFilterInputTypeOfDeityFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -2773,6 +2905,7 @@ input AdventuringGearSortInput {
   sourcePage: SourcePageSortInput
   rarityId: SortEnumType
   rarity: RaritySortInput
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -2781,7 +2914,7 @@ input AdventuringGearFilterInput {
   or: [AdventuringGearFilterInput!]
   name: StringOperationFilterInput
   hands: StringOperationFilterInput
-  itemLevel: StringOperationFilterInput
+  itemLevel: ComparableInt32OperationFilterInput
   price: ComparableInt32OperationFilterInput
   bulkId: ComparableGuidOperationFilterInput
   bulk: BulkFilterInput
@@ -2791,6 +2924,7 @@ input AdventuringGearFilterInput {
   rarity: RarityFilterInput
   details: ListFilterInputTypeOfTextBlockFilterInput
   variants: ListFilterInputTypeOfAdventuringGearVariantFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -2864,6 +2998,7 @@ input ArmorPropertyRunePotencyBindingFilterInput {
 
 input AttackTypeSortInput {
   name: SortEnumType
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -2871,6 +3006,7 @@ input AttackTypeFilterInput {
   and: [AttackTypeFilterInput!]
   or: [AttackTypeFilterInput!]
   name: StringOperationFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -2894,6 +3030,7 @@ input ConditionSortInput {
   conditionCategory: ConditionCategorySortInput
   overridesConditionId: SortEnumType
   overridesCondition: ConditionSortInput
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -2908,11 +3045,13 @@ input ConditionFilterInput {
   overridesConditionId: ComparableNullableOfGuidOperationFilterInput
   overridesCondition: ConditionFilterInput
   details: ListFilterInputTypeOfTextBlockFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
 input ConditionCategorySortInput {
   name: SortEnumType
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -2921,6 +3060,7 @@ input ConditionCategoryFilterInput {
   or: [ConditionCategoryFilterInput!]
   name: StringOperationFilterInput
   conditions: ListFilterInputTypeOfConditionFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -3347,6 +3487,7 @@ input ItemCategorySortInput {
   name: SortEnumType
   description: SortEnumType
   pageNumber: SortEnumType
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -3356,6 +3497,7 @@ input ItemCategoryFilterInput {
   name: StringOperationFilterInput
   description: StringOperationFilterInput
   pageNumber: ComparableInt32OperationFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -3363,6 +3505,7 @@ input LoreSortInput {
   name: SortEnumType
   statModifierId: SortEnumType
   statModifier: StatSortInput
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -3372,6 +3515,7 @@ input LoreFilterInput {
   name: StringOperationFilterInput
   statModifierId: ComparableGuidOperationFilterInput
   statModifier: StatFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -3381,6 +3525,7 @@ input DeityLoreSortInput {
   name: SortEnumType
   statModifierId: SortEnumType
   statModifier: StatSortInput
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -3392,6 +3537,7 @@ input DeityLoreFilterInput {
   name: StringOperationFilterInput
   statModifierId: ComparableGuidOperationFilterInput
   statModifier: StatFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -3400,6 +3546,7 @@ input CreatureLoreSortInput {
   name: SortEnumType
   statModifierId: SortEnumType
   statModifier: StatSortInput
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -3410,6 +3557,7 @@ input CreatureLoreFilterInput {
   name: StringOperationFilterInput
   statModifierId: ComparableGuidOperationFilterInput
   statModifier: StatFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -3418,6 +3566,7 @@ input TerrainLoreSortInput {
   name: SortEnumType
   statModifierId: SortEnumType
   statModifier: StatSortInput
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -3428,6 +3577,7 @@ input TerrainLoreFilterInput {
   name: StringOperationFilterInput
   statModifierId: ComparableGuidOperationFilterInput
   statModifier: StatFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -3436,6 +3586,7 @@ input SettlementLoreSortInput {
   name: SortEnumType
   statModifierId: SortEnumType
   statModifier: StatSortInput
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -3446,6 +3597,7 @@ input SettlementLoreFilterInput {
   name: StringOperationFilterInput
   statModifierId: ComparableGuidOperationFilterInput
   statModifier: StatFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -3454,6 +3606,7 @@ input ConsumableLoreSortInput {
   name: SortEnumType
   statModifierId: SortEnumType
   statModifier: StatSortInput
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -3464,6 +3617,7 @@ input ConsumableLoreFilterInput {
   name: StringOperationFilterInput
   statModifierId: ComparableGuidOperationFilterInput
   statModifier: StatFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -3473,6 +3627,7 @@ input PlaneLoreSortInput {
   name: SortEnumType
   statModifierId: SortEnumType
   statModifier: StatSortInput
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -3484,12 +3639,14 @@ input PlaneLoreFilterInput {
   name: StringOperationFilterInput
   statModifierId: ComparableGuidOperationFilterInput
   statModifier: StatFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
 input MagicEssenceSortInput {
   name: SortEnumType
   description: SortEnumType
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -3498,6 +3655,7 @@ input MagicEssenceFilterInput {
   or: [MagicEssenceFilterInput!]
   name: StringOperationFilterInput
   description: StringOperationFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -3702,6 +3860,7 @@ input ShieldSortInput {
   bulk: BulkSortInput
   sourcePageId: SortEnumType
   sourcePage: SourcePageSortInput
+  searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
@@ -3720,6 +3879,7 @@ input ShieldFilterInput {
   sourcePageId: ComparableGuidOperationFilterInput
   sourcePage: SourcePageFilterInput
   details: ListFilterInputTypeOfTextBlockFilterInput
+  searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
@@ -3927,6 +4087,7 @@ type Query {
   weaponPropertyRunes(skip: Int take: Int where: WeaponPropertyRuneFilterInput order: [WeaponPropertyRuneSortInput!]): WeaponPropertyRuneCollectionSegment
   weaponGroups(skip: Int take: Int where: WeaponGroupFilterInput order: [WeaponGroupSortInput!]): WeaponGroupCollectionSegment
   weaponCategories(skip: Int take: Int where: WeaponCategoryFilterInput order: [WeaponCategorySortInput!]): WeaponCategoryCollectionSegment
+  search(searchTerm: String!): [SearchResult!]!
 }
 
 enum SortEnumType {
@@ -3947,6 +4108,10 @@ input ComparableGuidOperationFilterInput {
   nlt: Uuid
   lte: Uuid
   nlte: Uuid
+}
+
+input NpgsqlTsVectorSortInput {
+  count: SortEnumType
 }
 
 input StringOperationFilterInput {
@@ -3984,6 +4149,12 @@ input TextBlockTypeOperationFilterInput {
   neq: TextBlockType
   in: [TextBlockType!]
   nin: [TextBlockType!]
+}
+
+input NpgsqlTsVectorFilterInput {
+  and: [NpgsqlTsVectorFilterInput!]
+  or: [NpgsqlTsVectorFilterInput!]
+  count: ComparableInt32OperationFilterInput
 }
 
 input ListFilterInputTypeOfColumnFilterInput {
@@ -5213,7 +5384,7 @@ type ActionType {
 type AdventuringGear {
   name: String!
   hands: String!
-  itemLevel: String!
+  itemLevel: Int!
   price: Int!
   bulkId: Uuid!
   bulk: Bulk!
@@ -5899,9 +6070,9 @@ type RangedWeapon {
   weaponCategory: WeaponCategory!
   sourcePageId: Uuid!
   sourcePage: SourcePage!
-  traits(order: [TraitSortInput!] where: TraitFilterInput): [Trait!]!
   ammunitionId: Uuid
   ammunition: Ammunition
+  traits(order: [TraitSortInput!] where: TraitFilterInput): [Trait!]!
   id: Uuid!
 }
 
@@ -6122,12 +6293,10 @@ type WeaponCategory {
   id: Uuid!
 }
 
-enum TextBlockType {
-  TEXT
-  HEADING
-  ENUMERATION
-  FOOTNOTE
-  EXAMPLE
+type SearchResult {
+  id: Uuid!
+  name: String!
+  type: String!
 }
 
 type BaseEntity {
@@ -6135,10 +6304,10 @@ type BaseEntity {
 }
 
 type TextBlock {
+  ownerId: Uuid!
   text: String!
   order: Int!
   type: TextBlockType!
-  ownerId: Uuid!
   id: Uuid!
 }
 
@@ -7048,4 +7217,12 @@ type OrBinding {
   prerequisiteId: Uuid!
   prerequisite: OrPrerequisite!
   id: Uuid!
+}
+
+enum TextBlockType {
+  TEXT
+  HEADING
+  ENUMERATION
+  FOOTNOTE
+  EXAMPLE
 }

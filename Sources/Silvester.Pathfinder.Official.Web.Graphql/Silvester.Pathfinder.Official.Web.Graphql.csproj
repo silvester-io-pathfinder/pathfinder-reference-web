@@ -5,6 +5,29 @@
   </PropertyGroup>
 
   <Import Project="../Properties.proj" />
+  <ItemGroup>
+    <GraphQL Remove="Queries\Deities\GetDeitiesPageWithDomain.graphql" />
+    <GraphQL Remove="Queries\Mysteries\GetMysteriesPageWithDomain.graphql" />
+    <GraphQL Remove="Queries\Tables\Table.graphql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Queries\Deities\GetDeitiesPageWithDomain.graphql" />
+    <None Remove="Queries\Mysteries\GetMysteriesPageWithDomain.graphql" />
+    <None Remove="Queries\Tables\Table.graphql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="Queries\Deities\GetDeitiesPageWithDomain.graphql">
+      <GraphQL>true</GraphQL>
+    </AdditionalFiles>
+    <AdditionalFiles Include="Queries\Mysteries\GetMysteriesPageWithDomain.graphql">
+      <GraphQL>true</GraphQL>
+    </AdditionalFiles>
+    <AdditionalFiles Include="Queries\Tables\Table.graphql">
+      <GraphQL>true</GraphQL>
+    </AdditionalFiles>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="StrawberryShake.CodeGeneration.CSharp.Analyzers" Version="11.2.2" />

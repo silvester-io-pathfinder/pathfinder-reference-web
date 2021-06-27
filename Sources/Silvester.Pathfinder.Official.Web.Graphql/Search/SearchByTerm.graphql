@@ -1,0 +1,12 @@
+﻿query SearchByTerm($searchTerm: String!)  {
+	search(searchTerm: $searchTerm) 
+	{
+		... SearchResult	
+	}
+}
+
+fragment SearchResult on SearchResult {
+	name,
+	type,
+	id
+}

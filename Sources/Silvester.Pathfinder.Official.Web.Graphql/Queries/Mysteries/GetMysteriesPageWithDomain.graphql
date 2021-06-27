@@ -1,0 +1,20 @@
+﻿query GetMysteriesPageWithDomain($skip: Int!, $take: Int!, $domainId: Uuid!, $searchTerm: String! = "", $order: [MysterySortInput!] = [{name: ASC}]) {
+	mysteries(
+		skip: $skip, 
+		take: $take, 
+		order: $order,
+		where: {
+			or: [
+				{name: {contains: $searchTerm}}
+			]
+			relatedDomains: {
+				some: {id: {eq: $domainId}}
+			}
+		}) 
+	{
+		totalCount,
+		items {
+			... MysteriesPage
+		}
+	}
+}

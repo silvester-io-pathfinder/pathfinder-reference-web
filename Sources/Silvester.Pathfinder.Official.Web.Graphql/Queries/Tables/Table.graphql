@@ -1,0 +1,29 @@
+﻿fragment Table on Table {
+	description,
+	columns {
+		... Table_Column
+	},
+	rows {
+		...	Table_Row
+	}
+}
+
+fragment Table_Column on Column
+{
+	name, 
+	order,
+}
+
+fragment Table_Row on Row
+{
+	order,
+	cells {
+		... Table_Cell
+	}
+}
+
+fragment Table_Cell on Cell
+{
+	value,
+	order
+}

@@ -1,0 +1,17 @@
+﻿query GetMysteriesPage($skip: Int!, $take: Int!, $searchTerm: String! = "", $order: [MysterySortInput!] = [{name: ASC}]) {
+	mysteries(
+		skip: $skip, 
+		take: $take, 
+		order: $order,
+		where: {
+			or: [
+				{name: {contains: $searchTerm}}
+			]
+		}) 
+	{
+		totalCount,
+		items {
+			... MysteriesPage
+		}
+	}
+}

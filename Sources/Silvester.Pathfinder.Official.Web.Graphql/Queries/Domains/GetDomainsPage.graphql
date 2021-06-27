@@ -1,0 +1,17 @@
+﻿query GetDomainsPage($skip: Int!, $take: Int!, $searchTerm: String! = "", $order: [DomainSortInput!] = [{name: ASC}]) {
+	domains(
+		skip: $skip, 
+		take: $take, 
+		order: $order,
+		where: {
+			or: [
+				{name: {contains: $searchTerm}}
+			]
+		}) 
+	{
+		totalCount,
+		items {
+			... DomainsPage
+		}
+	}
+}

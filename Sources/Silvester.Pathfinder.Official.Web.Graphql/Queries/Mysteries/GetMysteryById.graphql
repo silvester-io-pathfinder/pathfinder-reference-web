@@ -1,0 +1,78 @@
+﻿query GetMysteryById($id: Uuid!) {
+	mysteries(where: {id: {eq: $id}}) {
+		items {
+			... MysteryById
+		}
+	}
+}
+
+
+fragment MysteryById on Mystery
+{
+	id,
+	name,
+	trainedSkillAddendum,
+	mysteryCurse {
+		... MysteryById_Curse
+	},
+	sourcePage {
+		... SourcePage	
+	},
+	trainedSkill {
+		name, 
+		id
+	},
+	grantedCantrip {
+		name,
+		id
+	},
+	initialRevelation {
+		name, 
+		id
+	},
+	advancedRevelation {
+		name,
+		id
+	},
+	greaterRevelation {
+		name,
+		id
+	},
+	relatedDomains {
+		name, 
+		id
+	},
+	details {
+		... TextBlock
+	},
+	mysteryBenefits {
+		... TextBlock
+	}
+}
+
+fragment MysteryById_Curse on MysteryCurse {
+	name,
+	sourcePage {
+		... SourcePage
+	},
+	details {
+		... TextBlock
+	},
+	potencies {
+		... MysteryById_Curse_Potency 
+	},
+	table {
+		... Table
+	}
+}
+
+fragment MysteryById_Curse_Potency on MysteryCursePotency{
+	potency {
+		id,
+		name,
+		order
+	},
+	details {
+		... TextBlock
+	}
+}
