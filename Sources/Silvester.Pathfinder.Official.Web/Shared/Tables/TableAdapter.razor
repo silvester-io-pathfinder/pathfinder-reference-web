@@ -1,0 +1,19 @@
+﻿<MudTable Style="overflow-x: scroll; overflow-y: hidden;" Elevation=0 Breakpoint="Breakpoint.None" Items="@Table.Rows.OrderBy(e => e.Order)" Dense="true" Hover="true" Striped="true" SortLabel="Sort By">
+    <HeaderContent>
+        @foreach(ITable_Column column in Table.Columns.OrderBy(e => e.Order))
+        {
+            <MudTh>@column.Name</MudTh>
+        }
+    </HeaderContent>
+    <RowTemplate>
+        @foreach(ITable_Cell cell in context.Cells.OrderBy(e => e.Order))
+        {
+            <MudTd>@cell.Value</MudTd>
+        }
+    </RowTemplate>
+</MudTable>
+
+@code {
+    [Parameter]
+    public ITable Table { get; set; } = default!;
+}

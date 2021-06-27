@@ -7,12 +7,14 @@
   <Import Project="../Properties.proj" />
 
   <ItemGroup>
-    <None Remove="Pages\Instances\StaveDetailsPage.razor.css" />
+    <None Remove="Pages\Entities\Instances\StaveDetailsPage.razor.css" />
+    <None Remove="Pages\Search\SearchPage.razor.css" />
     <None Remove="Shared\Footers\IconFooterItem.razor.css" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Pages\Instances\StaveDetailsPage.razor.css" />
+    <Content Include="Pages\Entities\Instances\StaveDetailsPage.razor.css" />
+    <Content Include="Pages\Search\SearchPage.razor.css" />
     <Content Include="Shared\Footers\IconFooterItem.razor.css" />
   </ItemGroup>
 
@@ -26,9 +28,11 @@
     <PackageReference Include="Fluxor.Blazor.Web" Version="4.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.0" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0" />
     <PackageReference Include="MudBlazor" Version="5.0.10" />
+    <PackageReference Include="Pluralize.NET.Core" Version="1.0.0" />
     <PackageReference Include="Silvester.Pathfinder.Official.Icons" Version="1.0.12" />
     <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
     <PackageReference Include="System.Reactive" Version="5.0.0" />

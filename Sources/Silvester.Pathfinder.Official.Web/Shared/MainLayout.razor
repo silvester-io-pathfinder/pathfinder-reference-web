@@ -1,12 +1,18 @@
 ﻿@using Silvester.Pathfinder.Official.Web.Shared.Drawers;
+@using Silvester.Pathfinder.Official.Web.Shared.Searching;
 
 @inherits LayoutComponentBase
 
 <MudLayout>
-    <MudAppBar Elevation="4">
+    <MudAppBar Elevation="0">
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@ToggleDrawer" />
-        <MudText Typo="Typo.h6">@AppBarState!.Value.Title</MudText>
+        <MudText Typo="Typo.h6" Style="white-space: nowrap;">@AppBarState!.Value.Title</MudText>
         <MudAppBarSpacer />
+        <div class="d-none d-md-flex align-center">
+            <MudTooltip Text="GitHub Repository">
+                <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Link="https://github.com/silvester-io-pathfinder" Target="_blank" />
+            </MudTooltip>
+        </div>
     </MudAppBar>
     <MudDrawer @bind-Open="@DrawerOpen" Elevation="4">
         <MudList Clickable="true">
@@ -69,16 +75,36 @@
                 <MudNavLink Href="divine-fonts" Match="NavLinkMatch.Prefix">Divine Fonts</MudNavLink>
             </DrawerCategory>
             <DrawerCategory Title="World" State="@DrawerState">
+                <MudNavLink Href="domains" Match="NavLinkMatch.Prefix">Domains</MudNavLink>
                 <MudNavLink Href="languages" Match="NavLinkMatch.Prefix">Languages</MudNavLink>
                 <MudNavLink Href="planes" Match="NavLinkMatch.Prefix">Planes</MudNavLink>
+                <MudNavLink Href="mysteries" Match="NavLinkMatch.Prefix">Mysteries</MudNavLink>
             </DrawerCategory>
         </MudList>
     </MudDrawer>
     <MudMainContent>
+        @SearchBar()
         @Body
         <MudScrollToTop>
             <MudFab Color="Color.Tertiary" Icon="@Icons.Filled.ArrowUpward" />
         </MudScrollToTop>
-
     </MudMainContent>
 </MudLayout>
+
+@code {
+    public RenderFragment SearchBar()
+    {
+        return @<div>
+                    <MudHidden Breakpoint="Breakpoint.Xs">
+                        <MudPaper Square="true" Style="width: 100%; margin-top:-5px;" Elevation="4">
+                            <GlobalSearchBar />
+                        </MudPaper>
+                    </MudHidden>
+                    <MudHidden Breakpoint="Breakpoint.SmAndUp">
+                        <MudPaper Square="true" Style="width: 100%; margin-top:-13px;" Elevation="4">
+                            <GlobalSearchBar />
+                        </MudPaper>
+                    </MudHidden>
+                </div>;
+    }
+}

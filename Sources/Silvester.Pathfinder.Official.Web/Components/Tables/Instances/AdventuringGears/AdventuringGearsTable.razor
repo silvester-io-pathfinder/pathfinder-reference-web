@@ -13,7 +13,7 @@
         builder
             .AddTextColumn(e => e.Name, "Name", nameof(IAdventuringGearsPage.Name), true)
             .AddTextColumn(e => e.Hands, "Hands", nameof(IAdventuringGearsPage.Hands), hideBelow: Breakpoint.Xs, hasDenseRightPadding: true)
-            .AddTextColumn(e => e.ItemLevel, "Level", nameof(IAdventuringGearsPage.ItemLevel), hideBelow: Breakpoint.Xs, hasDenseRightPadding: true)
+            .AddTextColumn(e => e.ItemLevel.ToString(), "Level", nameof(IAdventuringGearsPage.ItemLevel), hideBelow: Breakpoint.Xs, hasDenseRightPadding: true)
             .AddPriceColumn(e => e.Price, "Price", nameof(IAdventuringGearsPage.Price), hideBelow: Breakpoint.SmAndDown)
             .AddTextColumn(e => e.Bulk.Name, "Bulk", nameof(IAdventuringGearsPage.Bulk) + "." + nameof(IBulk.Name), hideBelow: Breakpoint.SmAndDown, hasDenseRightPadding: true)
             .AddTextColumn(e => e.Rarity.Name, "Rarity", nameof(IAdventuringGearsPage.Rarity) + "." + nameof(IAdventuringGearsPage_Rarity.Name), hideBelow: Breakpoint.SmAndDown)

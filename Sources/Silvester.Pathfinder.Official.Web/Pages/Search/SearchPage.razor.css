@@ -1,0 +1,7 @@
+﻿::deep .hoverable {
+    cursor: pointer;
+}
+
+::deep .type-header .mud-list-item-text p {
+    font-weight: bold;
+}

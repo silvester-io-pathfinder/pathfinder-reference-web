@@ -1,0 +1,23 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Domains;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Domains.Providers;
+@using Silvester.Pathfinder.Official.Web.Components.Cards;
+
+@page "/domains"
+@inherits BaseOverviewPage
+
+<div>
+    <PageLayout>
+
+        <MudPaper Style="margin: 20px;">
+            <DomainsTable Title="Domains" PageProvider="@(new DomainPageProvider(PathfinderOfficialApi))" />
+        </MudPaper>
+
+    </PageLayout>
+
+</div>
+
+@code
+{
+    protected override string CollectionName => "domains";
+}

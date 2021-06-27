@@ -1,12 +1,77 @@
-﻿<MudGrid Class="justify-center" Spacing="0">
-    <MudItem xs="12" xl="8"  Style="margin-bottom:80px;">
+﻿@using Silvester.Pathfinder.Official.Web.Store.States;
+@using Silvester.Pathfinder.Official.Web.Shared.Cards;
+@using System.Text;
 
+@implements IDisposable
+
+<MudGrid Class="justify-center" Spacing="0">
+    <MudItem xs="12" xl="8" Style="margin-bottom:80px;">
         @ChildContent
-
     </MudItem>
 </MudGrid>
 
 @code {
+    [Inject]
+    public IState<BreadcrumbState>? BreadcrumbState { get; set; }
+
     [Parameter]
     public RenderFragment ChildContent { get; set; } = default!;
+
+    public IEnumerable<BreadcrumbItem> GetBreadcrumbItems()
+    {
+        if (BreadcrumbState != null)
+        {
+            yield return new BreadcrumbItem(ToDisplayValue(BreadcrumbState.Value.Collection), BreadcrumbState.Value.Collection.ToLower());
+            if (BreadcrumbState.Value.ResourceName != null)
+            {
+                yield return new BreadcrumbItem(BreadcrumbState.Value.ResourceName, $"{BreadcrumbState.Value.Collection.ToLower()}/{BreadcrumbState.Value.ResourceId}");
+            }
+        }
+    }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        if (BreadcrumbState != null)
+        {
+            BreadcrumbState.StateChanged += OnStateChanged;
+        }
+    }
+
+    private void OnStateChanged(object? sender, object state)
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        if (BreadcrumbState != null)
+        {
+            BreadcrumbState.StateChanged -= OnStateChanged;
+        }
+    }
+
+    private string ToDisplayValue(string input)
+    {
+        StringBuilder builder = new StringBuilder();
+
+        bool shouldCapitalizeNext = true;
+        for (int i = 0; i < input.Length; i++)
+        {
+            char currentChar = shouldCapitalizeNext ? char.ToUpper(input[i]) : input[i];
+            if(currentChar == '-')
+            {
+                builder.Append(' ');
+                shouldCapitalizeNext = true;
+            }
+            else
+            {
+                builder.Append(currentChar);
+                shouldCapitalizeNext = false;
+            }
+        }
+
+        return builder.ToString();
+    }
 }

@@ -1,0 +1,24 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Cards.Builder;
+@using Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details;
+
+@inherits AbstractDetailsCard<IMysteryById_Curse_Potency>
+
+@Card
+
+@code {
+    protected override DetailsCardModel CreateModel(IMysteryById_Curse_Potency model)
+    {
+        return new DetailsCardBuilder(null, false)
+            .AddCategoryLeft("Characteristics", category =>
+            {
+                category
+                    .AddSingularChip("Potency", model.Potency.Name, () => NavigationManager.NavigateTo($"potencies/{model.Potency.Id}"));
+            })
+            .AddCategoryRight("Description", category =>
+            {
+                category.AddTextBlock(model.Details);
+            })
+            .Build();
+    }
+}

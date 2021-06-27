@@ -37,6 +37,7 @@ namespace Silvester.Pathfinder.Official.Web
             builder.Services.AddScoped<IBreakpointService, BreakpointService>();
             builder.Services.AddScoped<ICurrencyService, CurrencyService>();
             builder.Services.AddScoped<IActionTypeService, ActionTypeService>();
+            builder.Services.AddScoped<ISearchService, SearchService>();
             builder.Services.AddScoped(sp => new HttpClient
             { 
                 BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)

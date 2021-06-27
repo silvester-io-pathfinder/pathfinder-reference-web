@@ -1,0 +1,56 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Cards.Builder;
+@using Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details;
+
+@inherits AbstractDetailsCard<IMysteryById>
+
+@Card
+
+@code {
+    protected override DetailsCardModel CreateModel(IMysteryById model)
+    {
+        return new DetailsCardBuilder("Mystery", true)
+            .AddCategoryLeft("Characteristics", category =>
+            {
+                category
+                    .AddText("Name", model.Name)
+                    .AddChips("Domains", c =>
+                    {
+                        foreach (var domain in model.RelatedDomains)
+                        {
+                            c.AddChip(domain.Name, onClick: () => NavigationManager.NavigateTo($"domains/{domain.Id}"));
+                        }
+                    });
+            })
+            .AddCategoryLeft("Skills", category =>
+            {
+                category
+                    .AddSingularChip("Trained Skill", model.TrainedSkill.Name, () => NavigationManager.NavigateTo($"skills/{model.TrainedSkill.Id}"))
+                    .AddText("Addendum", model.TrainedSkillAddendum);
+            })
+            .AddCategoryLeft("Spells", category =>
+            {
+                category
+                    .AddSingularChip("Granted Cantrup", model.GrantedCantrip.Name, () => NavigationManager.NavigateTo($"spells/{model.GrantedCantrip.Id}"))
+                    .AddChips("Revelations", c =>
+                    {
+                        c.AddChip(model.InitialRevelation.Name, tooltip: "Initial Revelation", onClick: () => NavigationManager.NavigateTo($"spells/{model.InitialRevelation.Id}"));
+                        c.AddChip(model.AdvancedRevelation.Name, tooltip: "Advanced Revelation", onClick: () => NavigationManager.NavigateTo($"spells/{model.AdvancedRevelation.Id}"));
+                        c.AddChip(model.GreaterRevelation.Name, tooltip: "Greater Revelation", onClick: () => NavigationManager.NavigateTo($"spells/{model.GreaterRevelation.Id}"));
+                    })
+                    .AddFooter(footer => 
+                    {
+                        footer.AddSourcePage(model.SourcePage);
+                    });
+            })
+            .AddCategoryRight("Description", category =>
+            {
+                category.AddTextBlock(model.Details);
+            })
+            .AddCategoryRight("Benefits", category =>
+            {
+                category.AddTextBlock(model.MysteryBenefits);
+            })
+            .Build();
+    }
+}

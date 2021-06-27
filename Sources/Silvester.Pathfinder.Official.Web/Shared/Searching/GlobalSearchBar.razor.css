@@ -1,0 +1,9 @@
+﻿::deep .mud-input-control>.mud-input-control-input-container>div.mud-input.mud-input-text
+{
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+::deep .hoverable {
+    cursor: pointer;
+}

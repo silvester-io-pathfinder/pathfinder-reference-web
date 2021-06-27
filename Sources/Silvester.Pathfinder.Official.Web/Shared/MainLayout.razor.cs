@@ -15,22 +15,7 @@ namespace Silvester.Pathfinder.Official.Web.Shared
         [Inject]
         private IState<DrawerState>? DrawerState { get; set; }
 
-        [Inject]
-        private IState<BreadcrumbState>? BreadcrumbState { get; set; }
-
         private bool DrawerOpen { get; set; }
-
-        public IEnumerable<BreadcrumbItem> GetBreadcrumbItems()
-        {
-            if (BreadcrumbState != null)
-            {
-                yield return new BreadcrumbItem(BreadcrumbState.Value.Collection, BreadcrumbState.Value.Collection.ToLower());
-                if(BreadcrumbState.Value.ResourceName != null)
-                {
-                    yield return new BreadcrumbItem(BreadcrumbState.Value.ResourceName.ToLower(), $"{BreadcrumbState.Value.Collection.ToLower()}/{BreadcrumbState.Value.ResourceId}" );
-                }
-            }
-        }
 
         public MainLayout()
         {
@@ -48,11 +33,6 @@ namespace Silvester.Pathfinder.Official.Web.Shared
             if (DrawerState != null)
             {
                 DrawerState.StateChanged += OnStateChanged;
-            }
-
-            if (BreadcrumbState != null)
-            {
-                BreadcrumbState.StateChanged += OnStateChanged;
             }
         }
 
@@ -76,11 +56,6 @@ namespace Silvester.Pathfinder.Official.Web.Shared
             if (DrawerState != null)
             {
                 DrawerState.StateChanged -= OnStateChanged;
-            }
-
-            if (BreadcrumbState != null)
-            {
-                BreadcrumbState.StateChanged -= OnStateChanged;
             }
         }
     }

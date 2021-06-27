@@ -1,0 +1,24 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Cards.Builder;
+@using Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details;
+
+@inherits AbstractDetailsCard<IDomainById>
+
+@Card
+
+@code {
+    protected override DetailsCardModel CreateModel(IDomainById model)
+    {
+        return new DetailsCardBuilder("Domain", true)
+            .AddCategoryLeft("Characteristics", category =>
+            {
+                category.AddText("Name", model.Name);
+                    
+            })
+            .AddCategoryRight("Description", category =>
+            {
+                category.AddText(null, model.Description);
+            })
+            .Build();
+    }
+}

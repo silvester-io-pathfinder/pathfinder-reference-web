@@ -1,0 +1,22 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Tables
+@using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
+@using Silvester.Pathfinder.Official.Web.Graphql
+@using Silvester.Pathfinder.Official.Web.Services
+
+@inherits AbstractTable<IMysteriesPage, MysterySortInput>
+
+@Table
+
+@code {
+
+    protected override void CreateModel(TableBuilder<IMysteriesPage> builder)
+    {
+        builder
+            .AddTextColumn(e => e.Name, "Name", nameof(IMysteriesPage.Name), true)
+            .AddTextColumn(e => e.MysteryCurse.Name, "Curse", nameof(IMysteriesPage.MysteryCurse) + "." + nameof(IMysteriesPage_Curse.Name), hideBelow: Breakpoint.Xs)
+            .AddTextColumn(e => e.TrainedSkill.Name, "Skill", nameof(IMysteriesPage.TrainedSkill) + "." + nameof(IMysteriesPage_Skill.Name), hideBelow: Breakpoint.SmAndDown)
+            .AddTextColumn(e => e.GrantedCantrip.Name, "Granted Cantrip", nameof(IMysteriesPage.GrantedCantrip) + "." + nameof(IMysteriesPage_GrantedCantrip.Name), hideBelow: Breakpoint.SmAndDown)
+            .AddTextColumn(e => e.Details.First().Text, "Description", nameof(IMysteriesPage.Details) + "." + nameof(ITextBlock.Text), hideBelow: Breakpoint.MdAndDown)
+            .AddInspectColumn(NavigationManager, e => $"mysteries/{e.Id}");
+    }
+}

@@ -15,9 +15,9 @@
     public string Title { get; set; } = default!;
 
     [Parameter]
-    public RenderFragment ChildContent { get; set; } = default!;
+    public RenderFragment? ChildContent { get; set; }
 
-    public MudListItem Instance { get; set; } = default!;
+    public MudListItem? Instance { get; set; }
 
     [Inject]
     protected IDispatcher Dispatcher { get; set; } = default!;
@@ -29,7 +29,7 @@
 
     private void OnOpen()
     {
-        if(Instance.Expanded != IsExpanded())
+        if(Instance != null && Dispatcher != null && Instance.Expanded != IsExpanded())
         {
             Dispatcher.Dispatch(new SetCategoryExpandedAction(Title, Instance.Expanded));
         }

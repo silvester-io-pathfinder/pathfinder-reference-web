@@ -1,0 +1,69 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
+@using Silvester.Pathfinder.Official.Web.Shared.Tables;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Heritages;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Heritages.Providers;
+@using Silvester.Pathfinder.Official.Web.Components.Cards;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
+
+@inherits BaseDetailPage
+@page "/mysteries/{resourceId:guid}"
+@implements IDisposable
+
+<div>
+    <PageLayout>
+        <MudPaper Style="margin: 20px">
+            <MysteryDetailsCard Entity="@Mystery" />
+        </MudPaper>
+
+        <MudPaper Style="margin: 20px">
+            <MysteryCurseDetailsCard Entity="@Mystery?.MysteryCurse" />
+        </MudPaper>
+
+        @if (Mystery != null)
+        {
+            <MudPaper Style="margin: 20px">
+                <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
+                    @foreach (IMysteryById_Curse_Potency potency in Mystery.MysteryCurse.Potencies.OrderBy(e => e.Potency.Order))
+                    {
+                        <MudTabPanel Text="@potency.Potency.Name">
+                            <MysteryCursePotencyDetailsCard Entity="@potency" />
+                        </MudTabPanel>
+                    }
+                </MudTabs>
+            </MudPaper>
+        }
+
+        @if (Mystery?.MysteryCurse.Table != null)
+        {
+            <MudPaper Style="margin: 20px">
+                <TableAdapter Table="@Mystery.MysteryCurse.Table" />
+            </MudPaper>
+        }
+    </PageLayout>
+</div>
+
+@code {
+    protected override string CollectionName => "mysteries";
+    protected override string? ResourceName => Mystery?.Name;
+
+    private IMysteryById? Mystery { get; set; }
+
+    private IDisposable? StoreSession { get; set; }
+
+    protected override void OnInitialized()
+    {
+        StoreSession = PathfinderOfficialApi.GetMysteryById
+            .Watch(ResourceId, StrawberryShake.ExecutionStrategy.NetworkOnly)
+            .Select(e => e.Data?.Mysteries?.Items?.FirstOrDefault())
+            .Subscribe(race =>
+            {
+                Mystery = race;
+                OnResourceLoaded();
+            });
+    }
+
+    public void Dispose()
+    {
+        StoreSession?.Dispose();
+    }
+}

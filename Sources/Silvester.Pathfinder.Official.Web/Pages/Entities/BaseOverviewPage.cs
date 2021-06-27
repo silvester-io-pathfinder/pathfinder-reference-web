@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Silvester.Pathfinder.Official.Web.Pages
+namespace Silvester.Pathfinder.Official.Web.Pages.Entities
 {
     public abstract class BaseOverviewPage : BasePage
     {

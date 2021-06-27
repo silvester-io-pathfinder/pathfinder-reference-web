@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using static Silvester.Pathfinder.Official.Web.Store.States.AppBarState;
 
-namespace Silvester.Pathfinder.Official.Web.Pages
+namespace Silvester.Pathfinder.Official.Web.Pages.Entities
 {
     public class BasePage : ComponentBase
     {

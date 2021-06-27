@@ -131,6 +131,8 @@
     public async Task OnShareClickAsync()
     {
         await ClipboardService.WriteTextAsync(NavigationManager.Uri);
+        Snackbar.Configuration.SnackbarVariant = Variant.Text;
+        Snackbar.Configuration.MaxDisplayedSnackbars = 10;
         Snackbar.Add(@"Copied URL to clipboard!", Severity.Success);
     }
 }

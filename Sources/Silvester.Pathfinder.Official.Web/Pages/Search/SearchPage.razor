@@ -1,0 +1,162 @@
+﻿@using Silvester.Pathfinder.Official.Web.Services;
+@using System.Net;
+@using Silvester.Pathfinder.Official.Web.Utilities.Extensions;
+@using Silvester.Pathfinder.Official.Web.Shared.Layout;
+@using Silvester.Pathfinder.Official.Web.Store.States.Actions;
+@using Silvester.Pathfinder.Official.Web.Shared.Cards;
+@using Silvester.Pathfinder.Official.Web.Utilities.QueryStrings;
+@using Silvester.Pathfinder.Official.Web.Shared.Tables;
+
+@page "/search"
+@implements IDisposable
+
+<div>
+    <PageLayout>
+        <MudPaper Style="margin:20px;">
+            <CardToolbar>
+                <MudText Typo="@Typo.h6">Search Results</MudText>
+                <MudToolBarSpacer />
+                <MudTooltip Text="Expand All">
+                    <MudIconButton Size="Size.Medium" OnClick="@OnExpandAllClicked" Icon="@GetExpandAllIcon()" Style="width: 25px; height: 25px;" />
+                </MudTooltip>
+            </CardToolbar>
+            <MudDivider />
+            @if (Results != null && Results.Length != 0)
+            {
+                <MudList Clickable="true" DisablePadding="true">
+                    @for (int i = 0; i < Results.Length; i++)
+                    {
+                        IGrouping<string, ISearchResult> group = Results[i];
+                        <MudListItem Style="padding-left: 20px; padding-right: 20px;" Class="type-header" Text="@group.Key" ExpandedChanged="@((isExpanded) => OnExpand(group.Key, isExpanded))" Expanded="@IsExpanded(group.Key)">
+                            <NestedList>
+                                @foreach (ISearchResult result in group)
+                                {
+                                    <MudDivider />
+                                    <MudListItem Class="hoverable" Style="padding-left: 30px; padding-right: 20px; padding-top: 8px; padding-bottom: 8px;" @onclick="() => OnResultClick(result)">
+                                        <MudText Typo="Typo.body2">@result.Name</MudText>
+                                    </MudListItem>
+                                }
+                            </NestedList>
+                        </MudListItem>
+                    }
+                </MudList>
+            }
+            else
+            {
+                 <EmptyMessage />
+            }
+        </MudPaper>
+    </PageLayout>
+</div>
+
+
+@code {
+    private IDictionary<string, bool> IsExpandedDictionary { get; } = new Dictionary<string, bool>();
+
+    private void OnExpandAllClicked(MouseEventArgs a)
+    {
+        SetExpandedAll(!AreAllExpanded());
+    }
+
+    private void OnExpand(string key, bool isExpanded)
+    {
+        if(IsExpanded(key) != isExpanded)
+        {
+            SetExpanded(key, !IsExpanded(key));
+        }
+    }
+
+    private void SetExpanded(string key, bool expanded)
+    {
+        IsExpandedDictionary[key] = expanded;
+    }
+
+    private void SetExpandedAll(bool expanded)
+    {
+        foreach (KeyValuePair<string, bool> pair in IsExpandedDictionary)
+        {
+            SetExpanded(pair.Key, expanded);
+        }
+    }
+
+    private bool IsExpanded(string key)
+    {
+        if (IsExpandedDictionary.ContainsKey(key) == false)
+        {
+            IsExpandedDictionary.Add(key, false);
+        }
+
+        IsExpandedDictionary.TryGetValue(key, out bool isCurrentlyExpanded);
+        return isCurrentlyExpanded;
+    }
+
+    private string GetExpandAllIcon()
+    {
+        return AreAllExpanded()
+            ? Icons.Material.Filled.ExpandLess
+            : Icons.Material.Filled.ExpandMore;
+    }
+
+    private bool AreAllExpanded()
+    {
+        return IsExpandedDictionary.All(e => e.Value == true);
+    }
+
+    [Inject]
+    public ISearchService SearchService { get; set; } = default!;
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; } = default!;
+
+    [Inject]
+    protected IDispatcher Dispatcher { get; set; } = default!;
+
+    [QueryStringParameter]
+    public string? Query { get; set; }
+
+    private IGrouping<string, ISearchResult>[]? Results { get; set; }
+
+    public override Task SetParametersAsync(ParameterView parameters)
+    {
+        this.SetParametersFromQueryString(NavigationManager);
+        return base.SetParametersAsync(parameters);
+    }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        NavigationManager.LocationChanged += OnLocationChanged;
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+        Results = await SearchAsync(Query!);
+        Dispatcher.Dispatch(new SetPageAction("Search Results", null, null));
+    }
+
+    private async Task<IGrouping<string, ISearchResult>[]> SearchAsync(string query)
+    {
+        IEnumerable<ISearchResult> rawResults = await SearchService.Search(query);
+        return rawResults
+            .GroupBy(e => e.Type)
+            .OrderBy(e => e.Key)
+            .ToArray();
+    }
+
+    private void OnResultClick(ISearchResult result)
+    {
+        NavigationManager.NavigateTo(SearchService.GetLink(result.Type, result.Id));
+    }
+
+    public void OnLocationChanged(object? sender, LocationChangedEventArgs arguments)
+    {
+        this.SetParametersFromQueryString(NavigationManager);
+        InvokeAsync(OnParametersSetAsync);
+    }
+
+    public void Dispose()
+    {
+        NavigationManager.LocationChanged -= OnLocationChanged;
+    }
+}

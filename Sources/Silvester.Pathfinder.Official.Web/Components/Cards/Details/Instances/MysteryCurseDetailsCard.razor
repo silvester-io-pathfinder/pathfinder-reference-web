@@ -1,0 +1,28 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Cards.Builder;
+@using Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details;
+
+@inherits AbstractDetailsCard<IMysteryById_Curse>
+
+@Card
+
+@code {
+    protected override DetailsCardModel CreateModel(IMysteryById_Curse model)
+    {
+        return new DetailsCardBuilder("Curse", false)
+            .AddCategoryLeft("Characteristics", category =>
+            {
+                category
+                    .AddText("Name", model.Name)
+                    .AddFooter(footer =>
+                    {
+                        footer.AddSourcePage(model.SourcePage);
+                    });
+            })
+            .AddCategoryRight("Description", category =>
+            {
+                category.AddTextBlock(model.Details);
+            })
+            .Build();
+    }
+}

@@ -1,0 +1,219 @@
+﻿@using Silvester.Pathfinder.Official.Web.Services;
+@using System.Linq;
+@using System.Net;
+@using Microsoft.AspNetCore.Components.Web;
+@using System.Threading;
+
+<div style="flex-grow:1;">
+    <MudItem xs="12" Style="position: relative;">
+        <div style="display:flex; flex-direction: row;">
+            <MudTextField DisableUnderLine="true" T="string" @bind-Value="CurrentValue" Variant="Variant.Text" @onclick="() => OnDebounceIntervalElapsed(Instance.Value)"
+                          Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" Immediate="true" AdornmentColor="Color.Secondary"
+                          OnKeyPress="OnKeyPress" Style="padding-left: 20px; padding-right: 20px;" @ref="Instance" />
+
+            <MudIconButton Icon="@Icons.Material.Filled.Close" Disabled="string.IsNullOrWhiteSpace(Instance?.Value)" Size="Size.Small" Style="margin-right: 20px; padding-top: 0px; padding-bottom: 0px; margin-top: 3px;" @onclick="OnClearClick" />
+        </div>
+
+        @if (Results != null)
+        {
+            <MudPaper Style="position: absolute; z-index: 1000; width:100%;" Square="true">
+                @foreach (IInternalSearchResult result in Results)
+                {
+                    <MudDivider />
+                    @RenderItem(result)
+                }
+            </MudPaper>
+        }
+    </MudItem>
+</div>
+
+@code {
+    [Inject]
+    public ISearchService SearchService { get; set; } = default!;
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; } = default!;
+
+    [Parameter]
+    public int MaxItems { get; set; } = 10;
+
+    private string? _CurrentValue;
+    public string? CurrentValue { get => _CurrentValue; set => OnValueChanged(value); }
+
+    public MudTextField<string> Instance { get; set; } = default!;
+
+    public IInternalSearchResult[]? Results { get; set; }
+
+    private CancellationTokenSource? CurrentDebounceTask { get; set; }
+
+    public void OnValueChanged(string? value)
+    {
+        _CurrentValue = value;
+        CancelCurrentDebounce();
+
+        CurrentDebounceTask = new CancellationTokenSource();
+        _ = DebounceAsync(value, CurrentDebounceTask.Token);
+    }
+
+    private void CancelCurrentDebounce()
+    {
+        if (CurrentDebounceTask != null)
+        {
+            CurrentDebounceTask.Cancel();
+            CurrentDebounceTask = null;
+        }
+    }
+
+    public async Task DebounceAsync(string? value, CancellationToken cancellationToken)
+    {
+        await Task.Delay(500);
+        if (cancellationToken.IsCancellationRequested == false)
+        {
+            OnDebounceIntervalElapsed(value);
+        }
+    }
+
+    public async void OnDebounceIntervalElapsed(string? debouncedText)
+    {
+        if (string.IsNullOrWhiteSpace(debouncedText))
+        {
+            Results = null;
+        }
+        else
+        {
+            IEnumerable<IInternalSearchResult> results = await SearchAsync(debouncedText);
+            Results = results.ToArray();
+        }
+
+        StateHasChanged();
+    }
+
+    public async Task<IEnumerable<IInternalSearchResult>> SearchAsync(string? searchTerm)
+    {
+        if (string.IsNullOrWhiteSpace(searchTerm))
+        {
+            return Array.Empty<IInternalSearchResult>();
+        }
+
+        IEnumerable<ISearchResult> rawResults = await SearchService.Search(searchTerm);
+        IList<IInternalSearchResult> results = rawResults
+            .OrderBy(e => e.Type)
+            .Select(e => new SearchResult(e))
+            .OfType<IInternalSearchResult>()
+            .ToList();
+
+        if (results.Count >= MaxItems - 1)
+        {
+            results = results.Take(MaxItems - 1).ToList();
+            results.Add(new ViewAllSearchResult());
+        }
+
+        return results;
+    }
+
+    public RenderFragment? RenderItem(IInternalSearchResult context)
+    {
+        string style = "padding-left: 20px; padding-right: 20px; padding-top: 8px; padding-bottom: 8px;";
+        @if (context is SearchResult searchResult)
+        {
+            return@<div class="hoverable" style="@style" @onclick="() => OnResultClick(searchResult)">
+                <MudText Style="font-weight: bold">@searchResult.Type</MudText>
+                <MudText Typo="Typo.body2">@searchResult.Name</MudText>
+            </div>;
+          }
+          else if (context is ViewAllSearchResult viewAllSearchResult)
+          {
+              return @<div class="hoverable" style="@style" @onclick="() => OnResultClick(viewAllSearchResult)">
+            <MudText Style="font-weight: bold">View All</MudText>
+            <MudText Color="Color.Secondary" Typo="Typo.body2">Press to see all results</MudText>
+        </div>;
+        }
+
+        return null;
+    }
+
+    public void OnClearClick()
+    {
+        Reset();
+    }
+
+    public void OnKeyPress(KeyboardEventArgs arguments)
+    {
+        if(arguments.Code == "Enter" || arguments.Code == "NumpadEnter")
+        {
+            if(string.IsNullOrWhiteSpace(CurrentValue) == false)
+            {
+                CancelCurrentDebounce();
+                ToSeeAll(CurrentValue);
+                Results = null;
+            }
+        }
+
+        Console.WriteLine("Pressed: " + arguments.Code);
+    }
+
+    private void OnResultClick(SearchResult result)
+    {
+        NavigationManager.NavigateTo(SearchService.GetLink(result.Type, result.Id));
+        Results = null;
+    }
+
+    private void OnResultClick(ViewAllSearchResult result)
+    {
+        NavigationManager.NavigateTo($"search?query={WebUtility.UrlEncode(Instance.Value)}");
+        Results = null;
+    }
+
+    private void Reset()
+    {
+        CurrentValue = null;
+        Results = null;
+        StateHasChanged();
+    }
+
+    private void ToSeeAll(string query)
+    {
+        NavigationManager.NavigateTo($"search?query={WebUtility.UrlEncode(query)}");
+    }
+
+    private void ToResult(SearchResult result)
+    {
+        NavigationManager.NavigateTo(SearchService.GetLink(result.Type, result.Id));
+    }
+
+    public interface IInternalSearchResult
+    {
+        string Name { get; }
+    }
+
+    public record ViewAllSearchResult : IInternalSearchResult
+    {
+        public string Name { get; }
+
+        public ViewAllSearchResult()
+        {
+            Name = "View All";
+        }
+    }
+
+    public record SearchResult : IInternalSearchResult
+    {
+        public string Name { get; }
+        public string Type { get; }
+        public Guid Id { get; }
+
+        public SearchResult(ISearchResult other)
+        {
+            Name = other.Name;
+            Type = other.Type;
+            Id = other.Id;
+        }
+
+        public SearchResult(string name, string type, Guid id)
+        {
+            Name = name;
+            Type = type;
+            Id = id;
+        }
+    }
+}
