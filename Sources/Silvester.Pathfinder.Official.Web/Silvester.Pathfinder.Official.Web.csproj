@@ -34,7 +34,7 @@
     <PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0" />
     <PackageReference Include="MudBlazor" Version="5.0.10" />
     <PackageReference Include="Pluralize.NET.Core" Version="1.0.0" />
-    <PackageReference Include="Silvester.Pathfinder.Official.Icons" Version="1.0.12" />
+    <PackageReference Include="Silvester.Pathfinder.Official.Icons" Version="1.0.13" />
     <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
     <PackageReference Include="System.Reactive" Version="5.0.0" />
   </ItemGroup>
