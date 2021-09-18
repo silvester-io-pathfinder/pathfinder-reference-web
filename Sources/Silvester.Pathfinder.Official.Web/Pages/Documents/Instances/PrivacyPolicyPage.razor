@@ -1,0 +1,27 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Armors;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Armors.Providers;
+@using Silvester.Pathfinder.Official.Web.Components.Cards;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
+@using Silvester.Pathfinder.Official.Documents.Models;
+@using Silvester.Pathfinder.Official.Web.Pages.Documents.Components;
+@using System.Text.Json;
+
+@inherits BaseDocumentPage
+@page "/pages/privacy-policies/{documentVersion}"
+
+<div>
+    <PageLayout>
+        @if (Document != null)
+        {
+            <div style="margin: 20px;">
+                <DocumentComponent Document="@Document" Title="Privacy Policy" />
+            </div>
+        }
+    </PageLayout>
+</div>
+
+@code 
+{ 
+    public override string DocumentType => "PrivacyPolicies";
+}

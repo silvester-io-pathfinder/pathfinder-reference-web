@@ -1,0 +1,60 @@
+﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Armors;
+@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Armors.Providers;
+@using Silvester.Pathfinder.Official.Web.Components.Cards;
+@using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
+@using Silvester.Pathfinder.Official.Documents.Models; 
+@using System.Text.Json; 
+
+<div>
+    @if (Document != null)
+    {
+        <MudPaper Class="wrapper">
+            <h1>@Title</h1>
+            <div class="divider" />
+            <MudGrid Spacing="0">
+                <MudItem xs="6" Class="metadata">
+                    <p class="title">Date of Creation:</p>
+                    <p class="title">Last Modification Date:</p>
+                    <p class="title">Version:</p>
+                </MudItem>
+                <MudItem xs="6">
+                    <p class="value">@Document.CreationDate.ToString("yyyy/MM/dd")</p>
+                    <p class="value">@Document.LastModificationDate.ToString("yyyy/MM/dd")</p>
+                    <p class="value">@Document.Version</p>
+                </MudItem>
+            </MudGrid>
+            <div class="divider" />
+            @{
+                int count = 0;
+                foreach (Section section in Document.Sections)
+                {
+                    count += 1;
+                    <h2>@($"{count}. {section.Title}")</h2>
+                    @foreach (SubSection subSection in section.SubSections)
+                    {
+                        @if (string.IsNullOrWhiteSpace(subSection.Title) == false)
+                        {
+                            <h3>@subSection.Title</h3>
+                        }
+                        @foreach (string paragraph in subSection.Paragraphs)
+                        {
+                            <div class="text-wrapper">
+                                <p class="text">@paragraph</p>
+                            </div>
+                        }
+                    }
+                }
+            }
+        </MudPaper>
+    }
+</div>
+
+@code {
+
+    [Parameter]
+    public string Title { get; set; } = default!;
+
+    [Parameter]
+    public Document? Document { get; set; } = default!;
+}

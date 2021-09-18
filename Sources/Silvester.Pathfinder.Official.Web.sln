@@ -14,6 +14,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Silvester.Pathfinder.Offici
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Silvester.Pathfinder.Official.Web.Graphql", "Silvester.Pathfinder.Official.Web.Graphql\Silvester.Pathfinder.Official.Web.Graphql.csproj", "{FB3E70ED-CE3E-4E14-B61C-0F9323939169}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Silvester.Pathfinder.Official.Web.Rest", "Silvester.Pathfinder.Official.Web.Rest\Silvester.Pathfinder.Official.Web.Rest.csproj", "{394AF35C-ED0F-4EAE-A5B1-8767801F1309}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,6 +30,10 @@ Global
 		{FB3E70ED-CE3E-4E14-B61C-0F9323939169}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB3E70ED-CE3E-4E14-B61C-0F9323939169}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB3E70ED-CE3E-4E14-B61C-0F9323939169}.Release|Any CPU.Build.0 = Release|Any CPU
+		{394AF35C-ED0F-4EAE-A5B1-8767801F1309}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{394AF35C-ED0F-4EAE-A5B1-8767801F1309}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{394AF35C-ED0F-4EAE-A5B1-8767801F1309}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{394AF35C-ED0F-4EAE-A5B1-8767801F1309}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -9,9 +9,11 @@ namespace Silvester.Pathfinder.Official.Web.Themes
             Palette = new Palette
             {
                 Primary = Colors.Red.Default,
+                PrimaryContrastText = "#FFFFFF",
                 Secondary = Colors.Orange.Accent3,
+                SecondaryContrastText = "#FFFFFF",
                 AppbarBackground = Colors.Red.Default,
-                Tertiary = Colors.BlueGrey.Default
+                Tertiary = Colors.BlueGrey.Default,
             };
 
             LayoutProperties = new LayoutProperties

@@ -1,8 +1,8 @@
 ﻿@using Silvester.Pathfinder.Official.Web.Shared.Drawers;
 @using Silvester.Pathfinder.Official.Web.Shared.Searching;
-
+@using Silvester.Pathfinder.Official.Web.Shared.Footers;
+ 
 @inherits LayoutComponentBase
-
 
 <MudLayout>
     <MudAppBar Elevation="0">
@@ -86,12 +86,17 @@
             </DrawerCategory>
         </MudList>
     </MudDrawer>
-    <MudMainContent>
-        @SearchBar()
-        @Body
-        <MudScrollToTop>
-            <MudFab Color="Color.Tertiary" Icon="@Icons.Filled.ArrowUpward" />
-        </MudScrollToTop>
+    <MudMainContent Style="height: 100%; display: flex; flex-direction: column;">
+        <div style="flex: 1 0 auto;">
+            @SearchBar()
+            @Body
+            <MudScrollToTop>
+                <MudFab Color="Color.Tertiary" Icon="@Icons.Filled.ArrowUpward" />
+            </MudScrollToTop>
+        </div>
+        <div style="flex-shrink: 0;">
+            <PageFooter />
+        </div>
     </MudMainContent>
 </MudLayout>
 

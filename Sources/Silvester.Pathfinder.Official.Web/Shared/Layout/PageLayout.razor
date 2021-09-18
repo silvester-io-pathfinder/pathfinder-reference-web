@@ -5,10 +5,10 @@
 
 @implements IDisposable
 
-<div>
+<div style="@Style">
     <PageTitle />
-    <MudGrid Class="justify-center" Spacing="0">
-        <MudItem xs="12" xl="8" Style="margin-bottom:80px;">
+    <MudGrid Style="height: 100%" Class="justify-center" Spacing="0">
+        <MudItem xs="12" xl="8" Style="height: 100%; margin-bottom:80px;">
             @ChildContent
         </MudItem>
     </MudGrid>
@@ -17,6 +17,9 @@
 @code {
     [Inject]
     public IState<BreadcrumbState>? BreadcrumbState { get; set; }
+
+    [Parameter]
+    public string? Style { get; set; }
 
     [Parameter]
     public RenderFragment ChildContent { get; set; } = default!;
