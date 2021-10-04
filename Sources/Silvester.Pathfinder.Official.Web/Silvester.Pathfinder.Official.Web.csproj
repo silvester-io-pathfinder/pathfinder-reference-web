@@ -12,6 +12,7 @@
     <None Remove="Pages\Search\SearchPage.razor.css" />
     <None Remove="Shared\Footers\IconFooterItem.razor.css" />
     <None Remove="Shared\Footers\PageFooter.razor.css" />
+    <None Remove="Shared\Graphics\IconModelAdapter.razor.css" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,6 +21,7 @@
     <Content Include="Pages\Search\SearchPage.razor.css" />
     <Content Include="Shared\Footers\IconFooterItem.razor.css" />
     <Content Include="Shared\Footers\PageFooter.razor.css" />
+    <Content Include="Shared\Graphics\IconModelAdapter.razor.css" />
   </ItemGroup>
 
   <ItemGroup>

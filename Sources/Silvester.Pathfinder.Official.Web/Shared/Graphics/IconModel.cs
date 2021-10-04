@@ -17,7 +17,7 @@ namespace Silvester.Pathfinder.Official.Web.Shared.Graphics
         {
             Height = height;
             Width = width;
-            Svg = svg;
+            Svg = svg.Replace("<svg", $"<svg style=\"width: {width}px; height: {height}px \"");
         }
     }
 }
