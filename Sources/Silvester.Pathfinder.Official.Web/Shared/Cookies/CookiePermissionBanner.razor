@@ -1,0 +1,55 @@
+﻿@using Silvester.Pathfinder.Official.Web.Store.States;
+
+@if(CookiePermissionState == null || CookiePermissionState.Value.HasAccepted == false)
+{
+    <div style="background-color: rgba(85, 85, 85, 0.8); width: 100%; color: white; margin-bottom: 20px;">
+        <MudGrid Spacing="5" Style="margin-top: 0px; padding-top: 15px; padding-bottom: 15px;" Justify="Justify.Center">
+            <MudItem xs="10" sm="9" s>
+                <Typography Variant="p">This website uses cookies and scripts from google to anonymously analyse traffic and usage. No personal data will be stored that could lead to your identification. If you click 'Accept' or keep using this website you will give us permission to save cookies and use them to improve your experience.</Typography>
+                <br />
+                <br />
+                <Typography Variant="p">For further information, please take a look at our <a style="color: var(--mud-palette-primary)" href="pages/privacy-policies/latest">Privacy policy</a>.</Typography>
+            </MudItem>
+            <MudItem xs="10" sm="1" Style="align-self: center;">
+                <MudButton Color="Color.Primary" OnClick="OnCookiesAcceptedAsync">Accept</MudButton>
+            </MudItem>
+        </MudGrid>
+    </div>
+}
+
+@code
+{
+    [Inject]
+    public IDispatcher Dispatcher { get; set; } = default!;
+
+    [Inject]
+    public IState<CookiePermissionState>? CookiePermissionState { get; set; }
+
+    private Task OnCookiesAcceptedAsync()
+    {
+        Dispatcher.Dispatch(new SetCookiePermissionAcceptedAction(true));
+        return Task.CompletedTask;
+    }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        if (CookiePermissionState != null)
+        {
+            CookiePermissionState.StateChanged += OnStateChanged;
+        }
+    }
+
+    private void OnStateChanged(object? sender, object state)
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        if (CookiePermissionState != null)
+        {
+            CookiePermissionState.StateChanged -= OnStateChanged;
+        }
+    }
+}
