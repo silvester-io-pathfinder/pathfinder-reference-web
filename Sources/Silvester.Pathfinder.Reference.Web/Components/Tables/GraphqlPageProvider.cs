@@ -16,9 +16,9 @@ namespace Silvester.Pathfinder.Reference.Web.Components.Tables
     {
         protected IPathfinderReferenceApi PathfinderReferenceApi { get; }
 
-        public GraphqlPageProvider(IPathfinderReferenceApi PathfinderReferenceApi)
+        public GraphqlPageProvider(IPathfinderReferenceApi pathfinderReferenceApi)
         {
-            PathfinderReferenceApi = PathfinderReferenceApi;
+            PathfinderReferenceApi = pathfinderReferenceApi;
         }
 
         protected TableData<TEntity> EmptyPage()

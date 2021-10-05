@@ -40,7 +40,7 @@
     public ICurrencyService CurrencyService { get; set; } = default!;
 
     public IEnumerable<IconFooterBar.Item> GetFooterItems(IAlchemicalToolById_Potency potency)
-    Reference
+    { 
         yield return new IconFooterBar.Item((MarkupString)Silvester.Pathfinder.Reference.Icons.Generated.Slider, potency.Level.ToString(), "Level");
         yield return new IconFooterBar.Item((MarkupString)Silvester.Pathfinder.Reference.Icons.Generated.Coins, CurrencyService.Denormalize(potency.Price, Coin.Types.Gold).ToString(), "Price");
     }

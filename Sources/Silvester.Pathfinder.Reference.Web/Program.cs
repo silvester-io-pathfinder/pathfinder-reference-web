@@ -23,7 +23,7 @@ namespace Silvester.Pathfinder.Reference.Web
         {
             WebAssemblyHostBuilder builder = WebAssemblyHostBuilder
                 .CreateDefault(args);
-            
+
             builder.RootComponents.Add<App>("#app");
 
             builder.Services.AddMudServices();
@@ -43,11 +43,11 @@ namespace Silvester.Pathfinder.Reference.Web
             builder.Services.AddScoped<ISearchService, SearchService>();
             builder.Services.AddGoogleAnalytics("GTM-WH8BW86");
             builder.Services.AddScoped(sp => new HttpClient
-            { 
+            {
                 BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
             });
             builder.Services.AddPathfinderReferenceApi();
-            builder.Services.AddPathfinderReferenceRestClient((options, configuration) => 
+            builder.Services.AddPathfinderReferenceRestClient((options, configuration) =>
             {
                 options.Endpoint = new Uri(configuration.GetSection("clients:rest")["endpoint"]);
                 options.JsonSerializerOptions = new JsonSerializerOptions
@@ -59,7 +59,6 @@ namespace Silvester.Pathfinder.Reference.Web
             builder.Services
                 .AddHttpClient(PathfinderReferenceApi.ClientName)
                 .ConfigureHttpClient((sp, client) => client.BaseAddress = new Uri(sp.GetRequiredService<IConfiguration>()["endpoints:api"]));
-
 
             await builder.Build().RunAsync();
         }

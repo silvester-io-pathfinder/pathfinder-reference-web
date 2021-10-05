@@ -4,7 +4,7 @@
   "extensions": {
     "strawberryShake": {
       "namespace": "Silvester.Pathfinder.Reference.Web.Graphql.Generated",
-      "name": "PathfinderOfficialApi",
+      "name": "PathfinderReferenceApi",
       "url": "https://pf2e.io/api/graphql",
       "dependencyInjection": true,
       "strictSchemaValidation": true,
