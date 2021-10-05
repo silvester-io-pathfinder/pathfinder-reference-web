@@ -1,17 +1,21 @@
 ﻿@using Silvester.Pathfinder.Official.Web.Store.States;
+@using Blazor.Analytics.Abstractions
+@using Blazor.Analytics
 
-@if(CookiePermissionState == null || CookiePermissionState.Value.HasAccepted == false)
+@if (CookiePermissionState == null || CookiePermissionState.Value.HasDeclaredCookiePreferences == false)
 {
-    <div style="background-color: rgba(85, 85, 85, 0.8); width: 100%; color: white; margin-bottom: 20px;">
-        <MudGrid Spacing="5" Style="margin-top: 0px; padding-top: 15px; padding-bottom: 15px;" Justify="Justify.Center">
-            <MudItem xs="10" sm="9" s>
-                <Typography Variant="p">This website uses cookies and scripts from google to anonymously analyse traffic and usage. No personal data will be stored that could lead to your identification. If you click 'Accept' or keep using this website you will give us permission to save cookies and use them to improve your experience.</Typography>
-                <br />
-                <br />
-                <Typography Variant="p">For further information, please take a look at our <a style="color: var(--mud-palette-primary)" href="pages/privacy-policies/latest">Privacy policy</a>.</Typography>
+    <div style="background-color: rgba(85, 85, 85, 0.6); width: 100%; color: white; margin-bottom: 20px;">
+        <MudGrid Spacing="5" Style="margin-top: 0px; padding: 15px; align-self: center; text-align: center;" Justify="Justify.Center">
+            <MudItem xs="12" sm="10" md="10" lg="8" Style="">
+                <MudText Style="margin-bottom: 20px;" Variant="p">This website uses cookies and scripts from Google to anonymously analyse traffic and usage (<i>tracking cookies</i>), as well as custom cookies to keep track of the application's state (<i>essential cookies</i>). You can opt -out of these cookies below, but without <i>essential cookies</i> we can not guarantee that the application will work as intended.</MudText>
+                <MudText Style="margin-bottom: 20px;" Variant="p">For further information, please take a look at our <a style="color: var(--mud-palette-secondary)" href="pages/privacy-policies/latest">privacy policy</a>.</MudText>
             </MudItem>
-            <MudItem xs="10" sm="1" Style="align-self: center;">
-                <MudButton Color="Color.Primary" OnClick="OnCookiesAcceptedAsync">Accept</MudButton>
+            <MudItem xs="12" sm="11" Style="align-self: center; justify-content: center; display: flex; flex-direction:row;">
+                <MudGrid Spacing="8" Justify="Justify.Center">
+                    <MudItem xs="6" sm="3" md="2" Style="align-self: center; padding: 0px;"><MudCheckBox Style="color: white;" @bind-Checked="@HasAcceptedEssentialCookies" Label="Essential" Color="Color.Secondary" /></MudItem>
+                    <MudItem xs="6" sm="3" md="2" Style="align-self: center; padding: 0px;"><MudCheckBox Style="color: white;" @bind-Checked="@HasAcceptedNonEssentialCookies" Label="Tracking" Color="Color.Secondary" /></MudItem>
+                    <MudItem xs="12" sm="3" md="2" Style="align-self: center; padding: 0px;"><MudButton Color="Color.Secondary" OnClick="OnCookiesAcceptedAsync">Accept</MudButton></MudItem>
+                </MudGrid>
             </MudItem>
         </MudGrid>
     </div>
@@ -25,15 +29,28 @@
     [Inject]
     public IState<CookiePermissionState>? CookiePermissionState { get; set; }
 
+    [Inject]
+    public IAnalytics GlobalTracking { get; set; } = default!;
+
+    [Inject]
+    public IJSRuntime JSRuntime { get; set; } = default!;
+
+    private bool HasAcceptedEssentialCookies { get; set; } = true;
+
+    private bool HasAcceptedNonEssentialCookies { get; set; } = true;
+
     private Task OnCookiesAcceptedAsync()
     {
-        Dispatcher.Dispatch(new SetCookiePermissionAcceptedAction(true));
+        Console.WriteLine($"essential: {HasAcceptedEssentialCookies}, nonEssential: {HasAcceptedNonEssentialCookies}");
+        Dispatcher.Dispatch(new SetCookiePermissionAcceptedAction(HasAcceptedEssentialCookies, HasAcceptedNonEssentialCookies));
         return Task.CompletedTask;
     }
 
     protected override void OnInitialized()
     {
         base.OnInitialized();
+        SetAnalyticsEnabled();
+
         if (CookiePermissionState != null)
         {
             CookiePermissionState.StateChanged += OnStateChanged;
@@ -42,7 +59,24 @@
 
     private void OnStateChanged(object? sender, object state)
     {
+        SetAnalyticsEnabled();
         InvokeAsync(StateHasChanged);
+    }
+
+    private void SetAnalyticsEnabled()
+    {
+        if (CookiePermissionState == null || CookiePermissionState.Value.HasDeclaredCookiePreferences == false || CookiePermissionState.Value.CanUseNonEssentialCookies == false)
+        {
+            Console.WriteLine("Analytics disabled");
+            GlobalTracking.Disable();
+            JSRuntime.InvokeVoidAsync("unloadGoogleAnalytics");
+        }
+        else
+        {
+            Console.WriteLine("Analytics enabled");
+            GlobalTracking.Enable();
+            JSRuntime.InvokeVoidAsync("loadGoogleAnalytics");
+        }
     }
 
     public void Dispose()

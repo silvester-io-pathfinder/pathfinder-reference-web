@@ -9,18 +9,22 @@ namespace Silvester.Pathfinder.Official.Web.Store.States
 {
     public record CookiePermissionState
     {
-        public bool HasAccepted { get; init; }
+        public bool CanUseEssentialCookies { get; init; }
+        public bool CanUseNonEssentialCookies { get; init; }
+        public bool HasDeclaredCookiePreferences { get; init; }
     }
 
     public record SetCookiePermissionAcceptedAction : IPersistedAction
     {
-        public bool HasAccepted { get; }
+        public bool CanUseEssentialCookies { get; }
+        public bool CanUseNonEssentialCookies { get; }
 
         public string Identifier => "CookiePermissionsAccepted";
 
-        public SetCookiePermissionAcceptedAction(bool hasAccepted)
+        public SetCookiePermissionAcceptedAction(bool canUseEssentialCookies, bool canUseNonEssentialCookies)
         {
-            HasAccepted = hasAccepted;
+            CanUseEssentialCookies = canUseEssentialCookies;
+            CanUseNonEssentialCookies = canUseNonEssentialCookies;
         }
     }
 
@@ -34,7 +38,9 @@ namespace Silvester.Pathfinder.Official.Web.Store.States
         {
             return state with
             {
-                HasAccepted = action.HasAccepted
+                HasDeclaredCookiePreferences = true,
+                CanUseEssentialCookies = action.CanUseEssentialCookies,
+                CanUseNonEssentialCookies = action.CanUseNonEssentialCookies
             };
         }
     }
