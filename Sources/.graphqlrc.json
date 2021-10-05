@@ -2,10 +2,10 @@
   "projects": [
     {
       "schema": [
-        "Silvester.Pathfinder.Official.Web.Graphql/schema.graphql"
+        "Silvester.Pathfinder.Reference.Web.Graphql/schema.graphql"
       ],
       "documents": [
-        "Silvester.Pathfinder.Official.Web.Graphql/**/*.graphql"
+        "Silvester.Pathfinder.Reference.Web.Graphql/**/*.graphql"
       ]
     }
   ]

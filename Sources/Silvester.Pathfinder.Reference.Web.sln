@@ -10,11 +10,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".config", ".config", "{B935
 		.config\scripts.txt = .config\scripts.txt
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Silvester.Pathfinder.Official.Web", "Silvester.Pathfinder.Official.Web\Silvester.Pathfinder.Official.Web.csproj", "{45224A0E-20F2-4100-B05E-7FBD4709A50C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Silvester.Pathfinder.Reference.Web", "Silvester.Pathfinder.Reference.Web\Silvester.Pathfinder.Reference.Web.csproj", "{45224A0E-20F2-4100-B05E-7FBD4709A50C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Silvester.Pathfinder.Official.Web.Graphql", "Silvester.Pathfinder.Official.Web.Graphql\Silvester.Pathfinder.Official.Web.Graphql.csproj", "{FB3E70ED-CE3E-4E14-B61C-0F9323939169}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Silvester.Pathfinder.Reference.Web.Graphql", "Silvester.Pathfinder.Reference.Web.Graphql\Silvester.Pathfinder.Reference.Web.Graphql.csproj", "{FB3E70ED-CE3E-4E14-B61C-0F9323939169}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Silvester.Pathfinder.Official.Web.Rest", "Silvester.Pathfinder.Official.Web.Rest\Silvester.Pathfinder.Official.Web.Rest.csproj", "{394AF35C-ED0F-4EAE-A5B1-8767801F1309}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Silvester.Pathfinder.Reference.Web.Rest", "Silvester.Pathfinder.Reference.Web.Rest\Silvester.Pathfinder.Reference.Web.Rest.csproj", "{394AF35C-ED0F-4EAE-A5B1-8767801F1309}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

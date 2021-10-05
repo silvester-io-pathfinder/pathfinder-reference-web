@@ -8,9 +8,9 @@ COPY Sources Sources/
 
 RUN dotnet nuget add source https://silvester.jfrog.io/artifactory/api/nuget/silvester-nuget  -n Artifactory --username $artifactoryUsername --password $artifactoryPassword --store-password-in-clear-text 
 
-RUN dotnet restore ./Sources/Silvester.Pathfinder.Official.Web.sln 
-RUN dotnet test ./Sources/Silvester.Pathfinder.Official.Web.sln 
-RUN dotnet publish ./Sources/Silvester.Pathfinder.Official.Web.sln -c Release -o /build/publish
+RUN dotnet restore ./Sources/Silvester.Pathfinder.Reference.Web.sln 
+RUN dotnet test ./Sources/Silvester.Pathfinder.Reference.Web.sln 
+RUN dotnet publish ./Sources/Silvester.Pathfinder.Reference.Web.sln -c Release -o /build/publish
 
 
 FROM nginx

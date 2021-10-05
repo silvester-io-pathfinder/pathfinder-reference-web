@@ -48,8 +48,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Silvester.Pathfinder.Official.Web.Graphql\Silvester.Pathfinder.Official.Web.Graphql.csproj" />
-    <ProjectReference Include="..\Silvester.Pathfinder.Official.Web.Rest\Silvester.Pathfinder.Official.Web.Rest.csproj" />
+    <ProjectReference Include="..\Silvester.Pathfinder.Reference.Web.Graphql\Silvester.Pathfinder.Reference.Web.Graphql.csproj" />
+    <ProjectReference Include="..\Silvester.Pathfinder.Reference.Web.Rest\Silvester.Pathfinder.Reference.Web.Rest.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -47,5 +47,5 @@ jobs:
             artifactoryUsername=${{ secrets.ARTIFACTORY_USERNAME }}
             artifactoryPassword=${{ secrets.ARTIFACTORY_PASSWORD }}
           tags: |
-            silvester.jfrog.io/silvester-docker/pathfinder-official-web:${{ steps.get-semantic-version.outputs.group1 }}
-            silvester.jfrog.io/silvester-docker/pathfinder-official-web:latest
+            silvester.jfrog.io/silvester-docker/pathfinder-reference-web:${{ steps.get-semantic-version.outputs.group1 }}
+            silvester.jfrog.io/silvester-docker/pathfinder-reference-web:latest
