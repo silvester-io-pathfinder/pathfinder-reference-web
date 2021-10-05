@@ -1,7 +1,7 @@
-﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Actions;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Actions.Providers;
-@using Silvester.Pathfinder.Official.Web.Components.Cards;
+﻿@using Silvester.Pathfinder.Reference.Web.Shared.Layout;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Actions;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Actions.Providers;
+@using Silvester.Pathfinder.Reference.Web.Components.Cards;
 
 @page "/actions"
 @inherits BaseOverviewPage
@@ -10,7 +10,7 @@
     <PageLayout>
 
         <MudPaper Style="margin: 20px;">
-            <ActionsTable Title="Actions" PageProvider="@(new ActionPageProvider(PathfinderOfficialApi))" />
+            <ActionsTable Title="Actions" PageProvider="@(new ActionPageProvider(PathfinderReferenceApi))" />
         </MudPaper>
 
     </PageLayout>

@@ -1,11 +1,11 @@
 ﻿using Fluxor;
-using Silvester.Pathfinder.Official.Web.Store.States.Actions;
+using Silvester.Pathfinder.Reference.Web.Store.States.Actions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Silvester.Pathfinder.Official.Web.Store.States
+namespace Silvester.Pathfinder.Reference.Web.Store.States
 {
     public record BreadcrumbState(string Collection, string? ResourceName, Guid? ResourceId);
 

@@ -1,17 +1,17 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
-using Silvester.Pathfinder.Official.Web.Graphql.Generated;
+using Silvester.Pathfinder.Reference.Web.Graphql.Generated;
 using StrawberryShake;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Silvester.Pathfinder.Official.Web.Components.Tables.Instances.FundamentalWeaponRunes.Providers
+namespace Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.FundamentalWeaponRunes.Providers
 {
     public class FundamentalWeaponRunePageProvider : GraphqlPageProvider<IFundamentalWeaponRunesPage, FundamentalWeaponRuneSortInput>
     {
-        public FundamentalWeaponRunePageProvider(IPathfinderOfficialApi api)
+        public FundamentalWeaponRunePageProvider(IPathfinderReferenceApi api)
             : base(api)
         {
 
@@ -19,7 +19,7 @@ namespace Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Fundamen
 
         public override async Task<TableData<IFundamentalWeaponRunesPage>> GetPage(FundamentalWeaponRuneSortInput[] sortInputs, TableState state, string searchTerm)
         {
-            IOperationResult<IGetFundamentalWeaponRunesPageResult> result = await PathfinderOfficialApi.GetFundamentalWeaponRunesPage
+            IOperationResult<IGetFundamentalWeaponRunesPageResult> result = await PathfinderReferenceApi.GetFundamentalWeaponRunesPage
                      .ExecuteAsync(state.Page * state.PageSize, state.PageSize, searchTerm, sortInputs);
 
             if (result?.Data?.FundamentalWeaponRunes == null)

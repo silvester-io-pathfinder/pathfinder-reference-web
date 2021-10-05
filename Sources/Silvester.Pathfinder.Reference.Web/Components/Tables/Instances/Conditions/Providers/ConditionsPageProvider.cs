@@ -1,17 +1,17 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
-using Silvester.Pathfinder.Official.Web.Graphql.Generated;
+using Silvester.Pathfinder.Reference.Web.Graphql.Generated;
 using StrawberryShake;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Conditions.Providers
+namespace Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Conditions.Providers
 {
     public class ConditionPageProvider : GraphqlPageProvider<IConditionsPage, ConditionSortInput>
     {
-        public ConditionPageProvider(IPathfinderOfficialApi api)
+        public ConditionPageProvider(IPathfinderReferenceApi api)
             : base(api)
         {
 
@@ -19,7 +19,7 @@ namespace Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Conditio
 
         public override async Task<TableData<IConditionsPage>> GetPage(ConditionSortInput[] sortInputs, TableState state, string searchTerm)
         {
-            IOperationResult<IGetConditionsPageResult> result = await PathfinderOfficialApi.GetConditionsPage
+            IOperationResult<IGetConditionsPageResult> result = await PathfinderReferenceApi.GetConditionsPage
                      .ExecuteAsync(state.Page * state.PageSize, state.PageSize, searchTerm, sortInputs);
 
             if (result.Data?.Conditions == null)

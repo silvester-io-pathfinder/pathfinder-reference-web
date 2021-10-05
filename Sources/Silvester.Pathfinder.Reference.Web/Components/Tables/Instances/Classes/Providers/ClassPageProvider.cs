@@ -1,17 +1,17 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
-using Silvester.Pathfinder.Official.Web.Graphql.Generated;
+using Silvester.Pathfinder.Reference.Web.Graphql.Generated;
 using StrawberryShake;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Classes.Providers
+namespace Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Classes.Providers
 {
     public class ClassPageProvider : GraphqlPageProvider<IClassesPage, ClassSortInput>
     {
-        public ClassPageProvider(IPathfinderOfficialApi api)
+        public ClassPageProvider(IPathfinderReferenceApi api)
             : base(api)
         {
 
@@ -19,7 +19,7 @@ namespace Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Classes.
 
         public override async Task<TableData<IClassesPage>> GetPage(ClassSortInput[] sortInputs, TableState state, string searchTerm)
         {
-            IOperationResult<IGetClassesPageResult> result = await PathfinderOfficialApi.GetClassesPage
+            IOperationResult<IGetClassesPageResult> result = await PathfinderReferenceApi.GetClassesPage
                      .ExecuteAsync(state.Page * state.PageSize, state.PageSize, searchTerm, sortInputs);
 
             if (result.Data?.Classes == null)

@@ -1,7 +1,7 @@
-﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.AlchemicalElixirs;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.AlchemicalElixirs.Providers;
-@using Silvester.Pathfinder.Official.Web.Components.Cards;
+﻿@using Silvester.Pathfinder.Reference.Web.Shared.Layout;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.AlchemicalElixirs;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.AlchemicalElixirs.Providers;
+@using Silvester.Pathfinder.Reference.Web.Components.Cards;
 
 @page "/alchemical-elixirs"
 @inherits BaseOverviewPage
@@ -10,7 +10,7 @@
     <PageLayout>
 
         <MudPaper Style="margin: 20px;">
-            <AlchemicalElixirsTable Title="Alchemical Elixirs" PageProvider="@(new AlchemicalElixirPageProvider(PathfinderOfficialApi))" />
+            <AlchemicalElixirsTable Title="Alchemical Elixirs" PageProvider="@(new AlchemicalElixirPageProvider(PathfinderReferenceApi))" />
         </MudPaper>
 
     </PageLayout>

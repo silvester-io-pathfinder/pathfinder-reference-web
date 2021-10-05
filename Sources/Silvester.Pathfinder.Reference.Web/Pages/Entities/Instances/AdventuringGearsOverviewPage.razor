@@ -1,7 +1,7 @@
-﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.AdventuringGears;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.AdventuringGears.Providers;
-@using Silvester.Pathfinder.Official.Web.Components.Cards;
+﻿@using Silvester.Pathfinder.Reference.Web.Shared.Layout;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.AdventuringGears;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.AdventuringGears.Providers;
+@using Silvester.Pathfinder.Reference.Web.Components.Cards;
 
 @page "/adventuring-gears"
 @inherits BaseOverviewPage
@@ -10,7 +10,7 @@
     <PageLayout>
 
         <MudPaper Style="margin: 20px;">
-            <AdventuringGearsTable PageProvider="@(new AdventuringGearPageProvider(PathfinderOfficialApi))" />
+            <AdventuringGearsTable PageProvider="@(new AdventuringGearPageProvider(PathfinderReferenceApi))" />
         </MudPaper>
 
     </PageLayout>

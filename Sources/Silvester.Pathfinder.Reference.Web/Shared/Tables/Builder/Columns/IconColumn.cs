@@ -1,8 +1,8 @@
 ﻿using MudBlazor;
-using Silvester.Pathfinder.Official.Web.Shared.Graphics;
+using Silvester.Pathfinder.Reference.Web.Shared.Graphics;
 using System;
 
-namespace Silvester.Pathfinder.Official.Web.Shared.Tables.Builder.Columns
+namespace Silvester.Pathfinder.Reference.Web.Shared.Tables.Builder.Columns
 {
     public class IconColumn<TEntity> : ITableColumn<TEntity>, ISortable<TEntity>
     {

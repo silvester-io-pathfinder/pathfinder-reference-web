@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 
-namespace Silvester.Pathfinder.Official.Web.Services.Currencies
+namespace Silvester.Pathfinder.Reference.Web.Services.Currencies
 {
     public class Wallet
     {

@@ -1,5 +1,5 @@
-﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
-@using Silvester.Pathfinder.Official.Web.Components.Cards;
+﻿@using Silvester.Pathfinder.Reference.Web.Shared.Layout;
+@using Silvester.Pathfinder.Reference.Web.Components.Cards;
 
 @page "/magic-components"
 @inherits BaseOverviewPage
@@ -29,7 +29,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        IOperationResult<IGetMagicComponentsResult> result = await PathfinderOfficialApi.GetMagicComponents
+        IOperationResult<IGetMagicComponentsResult> result = await PathfinderReferenceApi.GetMagicComponents
             .ExecuteAsync();
 
         MagicComponents = result.Data!.SpellComponents!.Items!;

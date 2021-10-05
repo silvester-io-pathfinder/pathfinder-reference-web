@@ -1,11 +1,11 @@
 ﻿using MudBlazor;
-using Silvester.Pathfinder.Official.Web.Graphql.Generated;
+using Silvester.Pathfinder.Reference.Web.Graphql.Generated;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Silvester.Pathfinder.Official.Web.Components.Tables
+namespace Silvester.Pathfinder.Reference.Web.Components.Tables
 {
     public interface IPageProvider<TEntity, TSortInput>
     {
@@ -14,11 +14,11 @@ namespace Silvester.Pathfinder.Official.Web.Components.Tables
 
     public abstract class GraphqlPageProvider<TEntity, TSortInput> : IPageProvider<TEntity, TSortInput>
     {
-        protected IPathfinderOfficialApi PathfinderOfficialApi { get; }
+        protected IPathfinderReferenceApi PathfinderReferenceApi { get; }
 
-        public GraphqlPageProvider(IPathfinderOfficialApi pathfinderOfficialApi)
+        public GraphqlPageProvider(IPathfinderReferenceApi PathfinderReferenceApi)
         {
-            PathfinderOfficialApi = pathfinderOfficialApi;
+            PathfinderReferenceApi = PathfinderReferenceApi;
         }
 
         protected TableData<TEntity> EmptyPage()

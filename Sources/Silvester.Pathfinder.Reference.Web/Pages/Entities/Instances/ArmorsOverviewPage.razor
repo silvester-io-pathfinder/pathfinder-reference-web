@@ -1,13 +1,13 @@
-﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Armors;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Armors.Providers;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.ArmorGroups;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.ArmorGroups.Providers;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.ArmorCategories;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.ArmorCategories.Providers;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.PreciousMaterialArmors;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.PreciousMaterialArmors.Providers;
-@using Silvester.Pathfinder.Official.Web.Components.Cards;
+﻿@using Silvester.Pathfinder.Reference.Web.Shared.Layout;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Armors;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Armors.Providers;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.ArmorGroups;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.ArmorGroups.Providers;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.ArmorCategories;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.ArmorCategories.Providers;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.PreciousMaterialArmors;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.PreciousMaterialArmors.Providers;
+@using Silvester.Pathfinder.Reference.Web.Components.Cards;
 
 @page "/armors"
 @inherits BaseOverviewPage
@@ -18,10 +18,10 @@
         <MudPaper Style="margin: 20px;">
             <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
                 <MudTabPanel Text="Categories">
-                    <ArmorCategoriesTable PageProvider="@(new ArmorCategoryPageProvider(PathfinderOfficialApi))" />
+                    <ArmorCategoriesTable PageProvider="@(new ArmorCategoryPageProvider(PathfinderReferenceApi))" />
                 </MudTabPanel>
                 <MudTabPanel Text="Groups">
-                    <ArmorGroupsTable PageProvider="@(new ArmorGroupPageProvider(PathfinderOfficialApi))" />
+                    <ArmorGroupsTable PageProvider="@(new ArmorGroupPageProvider(PathfinderReferenceApi))" />
                 </MudTabPanel>
             </MudTabs>
         </MudPaper>
@@ -29,10 +29,10 @@
         <MudPaper Style="margin: 20px;">
             <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
                 <MudTabPanel Text="Armors">
-                    <ArmorsTable Title="Armors" PageProvider="@(new ArmorPageProvider(PathfinderOfficialApi))" />
+                    <ArmorsTable Title="Armors" PageProvider="@(new ArmorPageProvider(PathfinderReferenceApi))" />
                 </MudTabPanel>
                 <MudTabPanel Text="Precious Material Armors">
-                    <PreciousMaterialArmorsTable PageProvider="@(new PreciousMaterialArmorPageProvider(PathfinderOfficialApi))" />
+                    <PreciousMaterialArmorsTable PageProvider="@(new PreciousMaterialArmorPageProvider(PathfinderReferenceApi))" />
                 </MudTabPanel>
             </MudTabs>
         </MudPaper>

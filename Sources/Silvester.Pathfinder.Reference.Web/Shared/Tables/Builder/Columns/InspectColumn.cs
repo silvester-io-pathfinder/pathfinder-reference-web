@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
-namespace Silvester.Pathfinder.Official.Web.Shared.Tables.Builder.Columns
+namespace Silvester.Pathfinder.Reference.Web.Shared.Tables.Builder.Columns
 {
     public class InspectColumn<TEntity> : ActionColumn<TEntity>
     {

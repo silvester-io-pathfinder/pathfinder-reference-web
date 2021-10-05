@@ -1,17 +1,17 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
-using Silvester.Pathfinder.Official.Web.Graphql.Generated;
+using Silvester.Pathfinder.Reference.Web.Graphql.Generated;
 using StrawberryShake;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Diseases.Providers
+namespace Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Diseases.Providers
 {
     public class DiseasePageProvider : GraphqlPageProvider<IDiseasesPage, DiseaseSortInput>
     {
-        public DiseasePageProvider(IPathfinderOfficialApi api)
+        public DiseasePageProvider(IPathfinderReferenceApi api)
             : base(api)
         {
 
@@ -19,7 +19,7 @@ namespace Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Diseases
 
         public override async Task<TableData<IDiseasesPage>> GetPage(DiseaseSortInput[] sortInputs, TableState state, string searchTerm)
         {
-            IOperationResult<IGetDiseasesPageResult> result = await PathfinderOfficialApi.GetDiseasesPage
+            IOperationResult<IGetDiseasesPageResult> result = await PathfinderReferenceApi.GetDiseasesPage
                      .ExecuteAsync(state.Page * state.PageSize, state.PageSize, searchTerm, sortInputs);
 
             if (result.Data?.Diseases == null)

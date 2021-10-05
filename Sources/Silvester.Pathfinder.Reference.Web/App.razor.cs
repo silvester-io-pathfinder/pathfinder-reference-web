@@ -1,7 +1,7 @@
 ﻿
 using MudBlazor;
 
-namespace Silvester.Pathfinder.Official.Web
+namespace Silvester.Pathfinder.Reference.Web
 {
     public partial class App
     {

@@ -1,17 +1,17 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
-using Silvester.Pathfinder.Official.Web.Graphql.Generated;
+using Silvester.Pathfinder.Reference.Web.Graphql.Generated;
 using StrawberryShake;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Silvester.Pathfinder.Official.Web.Components.Tables.Instances.PreciousMaterialArmors.Providers
+namespace Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.PreciousMaterialArmors.Providers
 {
     public class PreciousMaterialArmorPageProvider : GraphqlPageProvider<IPreciousMaterialArmorsPage, PreciousMaterialArmorSortInput>
     {
-        public PreciousMaterialArmorPageProvider(IPathfinderOfficialApi api)
+        public PreciousMaterialArmorPageProvider(IPathfinderReferenceApi api)
             : base(api)
         {
 
@@ -19,7 +19,7 @@ namespace Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Precious
 
         public override async Task<TableData<IPreciousMaterialArmorsPage>> GetPage(PreciousMaterialArmorSortInput[] sortInputs, TableState state, string searchTerm)
         {
-            IOperationResult<IGetPreciousMaterialArmorsPageResult> result = await PathfinderOfficialApi.GetPreciousMaterialArmorsPage
+            IOperationResult<IGetPreciousMaterialArmorsPageResult> result = await PathfinderReferenceApi.GetPreciousMaterialArmorsPage
                      .ExecuteAsync(state.Page * state.PageSize, state.PageSize, searchTerm, sortInputs);
 
             if (result?.Data?.PreciousMaterialArmors == null)

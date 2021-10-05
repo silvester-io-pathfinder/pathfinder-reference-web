@@ -1,17 +1,17 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
-using Silvester.Pathfinder.Official.Web.Graphql.Generated;
+using Silvester.Pathfinder.Reference.Web.Graphql.Generated;
 using StrawberryShake;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Deities.Providers
+namespace Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Deities.Providers
 {
     public class DeityPageProvider : GraphqlPageProvider<IDeitiesPage, DeitySortInput>
     {
-        public DeityPageProvider(IPathfinderOfficialApi api)
+        public DeityPageProvider(IPathfinderReferenceApi api)
             : base(api)
         {
 
@@ -19,7 +19,7 @@ namespace Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Deities.
 
         public override async Task<TableData<IDeitiesPage>> GetPage(DeitySortInput[] sortInputs, TableState state, string searchTerm)
         {
-            IOperationResult<IGetDeitiesPageResult> result = await PathfinderOfficialApi.GetDeitiesPage
+            IOperationResult<IGetDeitiesPageResult> result = await PathfinderReferenceApi.GetDeitiesPage
                      .ExecuteAsync(state.Page * state.PageSize, state.PageSize, searchTerm, sortInputs);
 
             if (result.Data?.Deities == null)

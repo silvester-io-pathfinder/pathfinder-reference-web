@@ -1,11 +1,11 @@
-﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Hazards;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Hazards.Providers;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.HazardComplexities;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.HazardComplexities.Providers;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.HazardTypes;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.HazardTypes.Providers;
-@using Silvester.Pathfinder.Official.Web.Components.Cards;
+﻿@using Silvester.Pathfinder.Reference.Web.Shared.Layout;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Hazards;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Hazards.Providers;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.HazardComplexities;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.HazardComplexities.Providers;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.HazardTypes;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.HazardTypes.Providers;
+@using Silvester.Pathfinder.Reference.Web.Components.Cards;
 
 @page "/hazards"
 @inherits BaseOverviewPage
@@ -15,13 +15,13 @@
         <MudPaper Style="margin: 20px;">
             <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
                 <MudTabPanel Text="Hazards">
-                    <HazardsTable PageProvider="@(new HazardPageProvider(PathfinderOfficialApi))" />
+                    <HazardsTable PageProvider="@(new HazardPageProvider(PathfinderReferenceApi))" />
                 </MudTabPanel>
                 <MudTabPanel Text="Types">
-                    <HazardTypesTable PageProvider="@(new HazardTypePageProvider(PathfinderOfficialApi))" />
+                    <HazardTypesTable PageProvider="@(new HazardTypePageProvider(PathfinderReferenceApi))" />
                 </MudTabPanel>
                 <MudTabPanel Text="Complexities">
-                    <HazardComplexitiesTable PageProvider="@(new HazardComplexityPageProvider(PathfinderOfficialApi))" />
+                    <HazardComplexitiesTable PageProvider="@(new HazardComplexityPageProvider(PathfinderReferenceApi))" />
                 </MudTabPanel>
             </MudTabs>
         </MudPaper>

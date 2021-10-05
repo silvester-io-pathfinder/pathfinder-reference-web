@@ -1,5 +1,5 @@
 ﻿using Fluxor;
-using Silvester.Pathfinder.Official.Web.Store.Middlewares.Interfaces;
+using Silvester.Pathfinder.Reference.Web.Store.Middlewares.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -7,7 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Silvester.Pathfinder.Official.Web.Store.States
+namespace Silvester.Pathfinder.Reference.Web.Store.States
 {
     public record DrawerState
     {

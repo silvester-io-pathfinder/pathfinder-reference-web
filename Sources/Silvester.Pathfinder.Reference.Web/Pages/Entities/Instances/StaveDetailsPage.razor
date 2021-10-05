@@ -1,11 +1,11 @@
-﻿@using Silvester.Pathfinder.Official.Web.Shared.Cards;
-@using Silvester.Pathfinder.Official.Web.Shared.Layout;
-@using Silvester.Pathfinder.Official.Web.Services;
-@using Silvester.Pathfinder.Official.Web.Shared.Graphics;
-@using Silvester.Pathfinder.Official.Web.Shared.Graphics.ActionTypeIcons;
-@using Silvester.Pathfinder.Official.Web.Components.Cards;
-@using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
-@using Silvester.Pathfinder.Official.Web.Shared.Tables;
+﻿@using Silvester.Pathfinder.Reference.Web.Shared.Cards;
+@using Silvester.Pathfinder.Reference.Web.Shared.Layout;
+@using Silvester.Pathfinder.Reference.Web.Services;
+@using Silvester.Pathfinder.Reference.Web.Shared.Graphics;
+@using Silvester.Pathfinder.Reference.Web.Shared.Graphics.ActionTypeIcons;
+@using Silvester.Pathfinder.Reference.Web.Components.Cards;
+@using Silvester.Pathfinder.Reference.Web.Components.Cards.Details.Instances;
+@using Silvester.Pathfinder.Reference.Web.Shared.Tables;
 
 @inherits BaseDetailPage
 @page "/staves/{resourceId:guid}"
@@ -89,7 +89,7 @@
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        StoreSession = PathfinderOfficialApi.GetStaveById
+        StoreSession = PathfinderReferenceApi.GetStaveById
             .Watch(ResourceId, StrawberryShake.ExecutionStrategy.NetworkOnly)
             .Select(e => e.Data?.Staves?.Items?.FirstOrDefault())
             .Subscribe(spell =>

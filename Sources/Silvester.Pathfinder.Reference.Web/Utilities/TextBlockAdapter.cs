@@ -1,10 +1,10 @@
-﻿using Silvester.Pathfinder.Official.Web.Graphql.Generated;
+﻿using Silvester.Pathfinder.Reference.Web.Graphql.Generated;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Silvester.Pathfinder.Official.Web.Utilities
+namespace Silvester.Pathfinder.Reference.Web.Utilities
 {
     public class TextBlockAdapter : ITextBlock
     {

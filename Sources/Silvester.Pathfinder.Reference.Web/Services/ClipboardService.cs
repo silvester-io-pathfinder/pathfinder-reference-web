@@ -1,7 +1,7 @@
 ﻿using Microsoft.JSInterop;
 using System.Threading.Tasks;
 
-namespace Silvester.Pathfinder.Official.Web.Services
+namespace Silvester.Pathfinder.Reference.Web.Services
 {
     public interface IClipboardService
     {

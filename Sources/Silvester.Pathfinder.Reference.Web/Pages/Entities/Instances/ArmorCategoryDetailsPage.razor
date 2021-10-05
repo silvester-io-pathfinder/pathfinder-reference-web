@@ -1,8 +1,8 @@
-﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Armors;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Armors.Providers;
-@using Silvester.Pathfinder.Official.Web.Components.Cards;
-@using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
+﻿@using Silvester.Pathfinder.Reference.Web.Shared.Layout;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Armors;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Armors.Providers;
+@using Silvester.Pathfinder.Reference.Web.Components.Cards;
+@using Silvester.Pathfinder.Reference.Web.Components.Cards.Details.Instances;
 
 @inherits BaseDetailPage
 @page "/armor-categories/{resourceId:guid}"
@@ -17,7 +17,7 @@
             </MudPaper>
 
             <MudPaper Style="margin: 20px">
-                <ArmorsTable PageProvider="@(new ArmorPageWithCategoryProvider(PathfinderOfficialApi, ResourceId))" />
+                <ArmorsTable PageProvider="@(new ArmorPageWithCategoryProvider(PathfinderReferenceApi, ResourceId))" />
             </MudPaper>
         }
     </PageLayout>
@@ -34,7 +34,7 @@
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        StoreSession = PathfinderOfficialApi.GetArmorCategoryById
+        StoreSession = PathfinderReferenceApi.GetArmorCategoryById
             .Watch(ResourceId, StrawberryShake.ExecutionStrategy.NetworkOnly)
             .Select(e => e.Data?.ArmorCategories?.Items?.FirstOrDefault())
             .Subscribe(deityCategory =>

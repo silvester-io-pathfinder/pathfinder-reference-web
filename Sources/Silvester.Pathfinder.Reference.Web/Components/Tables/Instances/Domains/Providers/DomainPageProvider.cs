@@ -1,17 +1,17 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
-using Silvester.Pathfinder.Official.Web.Graphql.Generated;
+using Silvester.Pathfinder.Reference.Web.Graphql.Generated;
 using StrawberryShake;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Domains.Providers
+namespace Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Domains.Providers
 {
     public class DomainPageProvider : GraphqlPageProvider<IDomainsPage, DomainSortInput>
     {
-        public DomainPageProvider(IPathfinderOfficialApi api)
+        public DomainPageProvider(IPathfinderReferenceApi api)
             : base(api)
         {
 
@@ -19,7 +19,7 @@ namespace Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Domains.
 
         public override async Task<TableData<IDomainsPage>> GetPage(DomainSortInput[] sortInputs, TableState state, string searchTerm)
         {
-            IOperationResult<IGetDomainsPageResult> result = await PathfinderOfficialApi.GetDomainsPage
+            IOperationResult<IGetDomainsPageResult> result = await PathfinderReferenceApi.GetDomainsPage
                      .ExecuteAsync(state.Page * state.PageSize, state.PageSize, searchTerm, sortInputs);
 
             if (result.Data?.Domains == null)

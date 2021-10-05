@@ -1,7 +1,7 @@
-﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.AlchemicalPoisons;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.AlchemicalPoisons.Providers;
-@using Silvester.Pathfinder.Official.Web.Components.Cards;
+﻿@using Silvester.Pathfinder.Reference.Web.Shared.Layout;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.AlchemicalPoisons;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.AlchemicalPoisons.Providers;
+@using Silvester.Pathfinder.Reference.Web.Components.Cards;
 
 @page "/alchemical-poisons"
 @inherits BaseOverviewPage
@@ -10,7 +10,7 @@
     <PageLayout>
 
         <MudPaper Style="margin: 20px;">
-            <AlchemicalPoisonsTable Title="Alchemical Poisons" PageProvider="@(new AlchemicalPoisonPageProvider(PathfinderOfficialApi))" />
+            <AlchemicalPoisonsTable Title="Alchemical Poisons" PageProvider="@(new AlchemicalPoisonPageProvider(PathfinderReferenceApi))" />
         </MudPaper>
 
     </PageLayout>

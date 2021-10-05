@@ -1,19 +1,19 @@
-﻿@using Silvester.Pathfinder.Official.Web.Shared.Preferences;
-@using Silvester.Pathfinder.Official.Web.Shared.Tables;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Deities;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Deities.Providers;
+﻿@using Silvester.Pathfinder.Reference.Web.Shared.Preferences;
+@using Silvester.Pathfinder.Reference.Web.Shared.Tables;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Deities;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Deities.Providers;
 
 <div>
     <PreferenceCategory Title="Description">
         <PreferenceItemText Text="@DivineFont.Description" />
     </PreferenceCategory>
     <MudDivider />
-    <DeitiesTable PageProvider="@(new DeityPageWithDivineFontProvider(PathfinderOfficialApi, DivineFont.Name))" />
+    <DeitiesTable PageProvider="@(new DeityPageWithDivineFontProvider(PathfinderReferenceApi, DivineFont.Name))" />
 </div>
 
 @code {
     [Inject]
-    public IPathfinderOfficialApi PathfinderOfficialApi { get; set; } = default!;
+    public IPathfinderReferenceApi PathfinderReferenceApi { get; set; } = default!;
 
     [Parameter]
     public IGetDivineFonts_DivineFonts_Items DivineFont { get; set; } = default!;

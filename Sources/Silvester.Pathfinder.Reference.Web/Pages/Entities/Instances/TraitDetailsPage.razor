@@ -1,12 +1,12 @@
 ﻿@using System.Linq;
-@using Silvester.Pathfinder.Official.Web.Shared.Layout;
+@using Silvester.Pathfinder.Reference.Web.Shared.Layout;
 @using System.Reactive.Linq;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Feats;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Feats.Providers;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Spells;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Spells.Providers;
-@using Silvester.Pathfinder.Official.Web.Components.Cards;
-@using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Feats;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Feats.Providers;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Spells;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Spells.Providers;
+@using Silvester.Pathfinder.Reference.Web.Components.Cards;
+@using Silvester.Pathfinder.Reference.Web.Components.Cards.Details.Instances;
 
 @inherits BaseDetailPage
 @implements IDisposable
@@ -21,10 +21,10 @@
         <MudPaper Style="margin: 20px; margin-top:40px;">
             <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
                 <MudTabPanel Text="Feats">
-                    <FeatsTable PageProvider="@(new FeatPageWithTraitProvider(PathfinderOfficialApi, ResourceId))" />
+                    <FeatsTable PageProvider="@(new FeatPageWithTraitProvider(PathfinderReferenceApi, ResourceId))" />
                 </MudTabPanel>
                 <MudTabPanel Text="Spells">
-                    <SpellsTable PageProvider="@(new SpellPageWithTraitProvider(PathfinderOfficialApi, ResourceId))" />
+                    <SpellsTable PageProvider="@(new SpellPageWithTraitProvider(PathfinderReferenceApi, ResourceId))" />
                 </MudTabPanel>
             </MudTabs>
         </MudPaper>
@@ -42,7 +42,7 @@
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        StoreSession = PathfinderOfficialApi.GetTraitById
+        StoreSession = PathfinderReferenceApi.GetTraitById
             .Watch(ResourceId, StrawberryShake.ExecutionStrategy.CacheFirst)
             .Select(e => e.Data?.Traits?.Items?.FirstOrDefault())
             .Subscribe(trait =>

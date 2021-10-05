@@ -1,17 +1,17 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
-using Silvester.Pathfinder.Official.Web.Graphql.Generated;
+using Silvester.Pathfinder.Reference.Web.Graphql.Generated;
 using StrawberryShake;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Artifacts.Providers
+namespace Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Artifacts.Providers
 {
     public class ArtifactPageProvider : GraphqlPageProvider<IArtifactsPage, ArtifactSortInput>
     {
-        public ArtifactPageProvider(IPathfinderOfficialApi api)
+        public ArtifactPageProvider(IPathfinderReferenceApi api)
             : base(api)
         {
 
@@ -19,7 +19,7 @@ namespace Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Artifact
 
         public override async Task<TableData<IArtifactsPage>> GetPage(ArtifactSortInput[] sortInputs, TableState state, string searchTerm)
         {
-            IOperationResult<IGetArtifactsPageResult> result = await PathfinderOfficialApi.GetArtifactsPage
+            IOperationResult<IGetArtifactsPageResult> result = await PathfinderReferenceApi.GetArtifactsPage
                      .ExecuteAsync(state.Page * state.PageSize, state.PageSize, searchTerm, sortInputs);
 
             if (result?.Data?.Artifacts == null)

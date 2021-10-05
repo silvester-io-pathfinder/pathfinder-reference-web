@@ -1,7 +1,7 @@
-﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Traits;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Traits.Providers;
-@using Silvester.Pathfinder.Official.Web.Components.Cards;
+﻿@using Silvester.Pathfinder.Reference.Web.Shared.Layout;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Traits;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Traits.Providers;
+@using Silvester.Pathfinder.Reference.Web.Components.Cards;
 
 @page "/traits"
 @inherits BaseOverviewPage
@@ -10,7 +10,7 @@
     <PageLayout>
 
         <MudPaper Style="margin: 20px;">
-            <TraitsTable Title="Traits" PageProvider="@(new TraitPageProvider(PathfinderOfficialApi))" />
+            <TraitsTable Title="Traits" PageProvider="@(new TraitPageProvider(PathfinderReferenceApi))" />
         </MudPaper>
 
     </PageLayout>

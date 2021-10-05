@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models
+namespace Silvester.Pathfinder.Reference.Web.Shared.Preferences.Builder.Models
 {
     public class ChipsModel : IModel
     {

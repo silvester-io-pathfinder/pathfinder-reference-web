@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace Silvester.Pathfinder.Official.Web.Utilities.Extensions
+namespace Silvester.Pathfinder.Reference.Web.Utilities.Extensions
 {
     public static class ObjectExtensions
     {

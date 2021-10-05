@@ -1,10 +1,10 @@
-﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.RangedWeapons;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.RangedWeapons.Providers;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.MeleeWeapons;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.MeleeWeapons.Providers;
-@using Silvester.Pathfinder.Official.Web.Components.Cards;
-@using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
+﻿@using Silvester.Pathfinder.Reference.Web.Shared.Layout;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.RangedWeapons;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.RangedWeapons.Providers;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.MeleeWeapons;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.MeleeWeapons.Providers;
+@using Silvester.Pathfinder.Reference.Web.Components.Cards;
+@using Silvester.Pathfinder.Reference.Web.Components.Cards.Details.Instances;
 
 @inherits BaseDetailPage
 @page "/fundamental-weapon-runes/{resourceId:guid}"
@@ -30,7 +30,7 @@
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        StoreSession = PathfinderOfficialApi.GetFundamentalWeaponRuneById
+        StoreSession = PathfinderReferenceApi.GetFundamentalWeaponRuneById
             .Watch(ResourceId, StrawberryShake.ExecutionStrategy.NetworkOnly)
             .Select(e => e.Data?.FundamentalWeaponRunes?.Items?.FirstOrDefault())
             .Subscribe(fundamentalWeaponRune =>

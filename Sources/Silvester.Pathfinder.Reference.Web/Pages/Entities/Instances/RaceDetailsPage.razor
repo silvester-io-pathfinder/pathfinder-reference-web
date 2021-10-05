@@ -1,8 +1,8 @@
-﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Heritages;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Heritages.Providers;
-@using Silvester.Pathfinder.Official.Web.Components.Cards;
-@using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
+﻿@using Silvester.Pathfinder.Reference.Web.Shared.Layout;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Heritages;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Heritages.Providers;
+@using Silvester.Pathfinder.Reference.Web.Components.Cards;
+@using Silvester.Pathfinder.Reference.Web.Components.Cards.Details.Instances;
 
 @inherits BaseDetailPage
 @page "/races/{resourceId:guid}"
@@ -17,7 +17,7 @@
         <MudPaper Style="margin: 20px">
             <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
                 <MudTabPanel Text="Heritages">
-                    <HeritagesTable PageProvider="@(new HeritagePageWithRaceProvider(PathfinderOfficialApi, ResourceId))" />
+                    <HeritagesTable PageProvider="@(new HeritagePageWithRaceProvider(PathfinderReferenceApi, ResourceId))" />
                 </MudTabPanel>
             </MudTabs>
         </MudPaper>
@@ -34,7 +34,7 @@
 
     protected override void OnInitialized()
     {
-        StoreSession = PathfinderOfficialApi.GetRaceById
+        StoreSession = PathfinderReferenceApi.GetRaceById
         .Watch(ResourceId, StrawberryShake.ExecutionStrategy.NetworkOnly)
         .Select(e => e.Data?.Races?.Items?.FirstOrDefault())
         .Subscribe(race =>

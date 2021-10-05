@@ -1,15 +1,15 @@
-﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.MeleeWeapons;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.MeleeWeapons.Providers;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.RangedWeapons;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.RangedWeapons.Providers;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.PreciousMaterialWeapons;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.PreciousMaterialWeapons.Providers;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.WeaponGroups;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.WeaponGroups.Providers;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.WeaponCategories;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.WeaponCategories.Providers;
-@using Silvester.Pathfinder.Official.Web.Components.Cards;
+﻿@using Silvester.Pathfinder.Reference.Web.Shared.Layout;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.MeleeWeapons;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.MeleeWeapons.Providers;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.RangedWeapons;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.RangedWeapons.Providers;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.PreciousMaterialWeapons;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.PreciousMaterialWeapons.Providers;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.WeaponGroups;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.WeaponGroups.Providers;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.WeaponCategories;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.WeaponCategories.Providers;
+@using Silvester.Pathfinder.Reference.Web.Components.Cards;
 
 @page "/weapons"
 @inherits BaseOverviewPage
@@ -20,10 +20,10 @@
         <MudPaper Style="margin: 20px;">
             <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
                 <MudTabPanel Text="Categories">
-                    <WeaponCategoriesTable PageProvider="@(new WeaponCategoryPageProvider(PathfinderOfficialApi))" />
+                    <WeaponCategoriesTable PageProvider="@(new WeaponCategoryPageProvider(PathfinderReferenceApi))" />
                 </MudTabPanel>
                 <MudTabPanel Text="Groups">
-                    <WeaponGroupsTable PageProvider="@(new WeaponGroupPageProvider(PathfinderOfficialApi))" />
+                    <WeaponGroupsTable PageProvider="@(new WeaponGroupPageProvider(PathfinderReferenceApi))" />
                 </MudTabPanel>
             </MudTabs>
         </MudPaper>
@@ -31,13 +31,13 @@
         <MudPaper Style="margin: 20px;">
             <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
                 <MudTabPanel Text="Melee">
-                    <MeleeWeaponsTable Title="Melee" PageProvider="@(new MeleeWeaponPageProvider(PathfinderOfficialApi))" />
+                    <MeleeWeaponsTable Title="Melee" PageProvider="@(new MeleeWeaponPageProvider(PathfinderReferenceApi))" />
                 </MudTabPanel>
                 <MudTabPanel Text="Ranged">
-                    <RangedWeaponsTable Title="Ranged" PageProvider="@(new RangedWeaponPageProvider(PathfinderOfficialApi))" />
+                    <RangedWeaponsTable Title="Ranged" PageProvider="@(new RangedWeaponPageProvider(PathfinderReferenceApi))" />
                 </MudTabPanel>
                 <MudTabPanel Text="Precious Material Weapons">
-                    <PreciousMaterialWeaponsTable PageProvider="@(new PreciousMaterialWeaponPageProvider(PathfinderOfficialApi))" />
+                    <PreciousMaterialWeaponsTable PageProvider="@(new PreciousMaterialWeaponPageProvider(PathfinderReferenceApi))" />
                 </MudTabPanel>
             </MudTabs>
         </MudPaper>

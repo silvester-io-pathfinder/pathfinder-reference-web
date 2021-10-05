@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Silvester.Pathfinder.Official.Web.Rest.Models
+namespace Silvester.Pathfinder.Reference.Web.Rest.Models
 {
     public record Document
     {

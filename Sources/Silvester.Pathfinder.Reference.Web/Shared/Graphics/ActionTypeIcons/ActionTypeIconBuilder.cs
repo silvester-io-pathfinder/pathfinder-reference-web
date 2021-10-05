@@ -1,6 +1,6 @@
-﻿using Silvester.Pathfinder.Official.Web.Services;
+﻿using Silvester.Pathfinder.Reference.Web.Services;
 
-namespace Silvester.Pathfinder.Official.Web.Shared.Graphics.ActionTypeIcons
+namespace Silvester.Pathfinder.Reference.Web.Shared.Graphics.ActionTypeIcons
 {
     public class ActionTypeIconBuilder
     {

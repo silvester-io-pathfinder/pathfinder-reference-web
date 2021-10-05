@@ -1,14 +1,14 @@
 ﻿using Fluxor;
 using Microsoft.AspNetCore.Components;
-using Silvester.Pathfinder.Official.Web.Graphql.Generated;
-using Silvester.Pathfinder.Official.Web.Store.States;
+using Silvester.Pathfinder.Reference.Web.Graphql.Generated;
+using Silvester.Pathfinder.Reference.Web.Store.States;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using static Silvester.Pathfinder.Official.Web.Store.States.AppBarState;
+using static Silvester.Pathfinder.Reference.Web.Store.States.AppBarState;
 
-namespace Silvester.Pathfinder.Official.Web.Pages.Entities
+namespace Silvester.Pathfinder.Reference.Web.Pages.Entities
 {
     public class BasePage : ComponentBase
     {
@@ -19,7 +19,7 @@ namespace Silvester.Pathfinder.Official.Web.Pages.Entities
         protected NavigationManager NavigationManager { get; set; } = default!;
 
         [Inject]
-        protected IPathfinderOfficialApi PathfinderOfficialApi { get; set; } = default!;
+        protected IPathfinderReferenceApi PathfinderReferenceApi { get; set; } = default!;
 
         protected virtual IReadOnlyList<string?> GetTitleComponents()
         {

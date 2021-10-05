@@ -1,6 +1,6 @@
-﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
-@using Silvester.Pathfinder.Official.Web.Components.Cards;
-@using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
+﻿@using Silvester.Pathfinder.Reference.Web.Shared.Layout;
+@using Silvester.Pathfinder.Reference.Web.Components.Cards;
+@using Silvester.Pathfinder.Reference.Web.Components.Cards.Details.Instances;
 
 @inherits BaseDetailPage
 @page "/alchemical-tools/{resourceId:guid}"
@@ -27,7 +27,7 @@
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        StoreSession = PathfinderOfficialApi.GetAlchemicalToolById
+        StoreSession = PathfinderReferenceApi.GetAlchemicalToolById
             .Watch(ResourceId)
             .Select(e => e.Data?.AlchemicalTools?.Items?.FirstOrDefault())
             .Subscribe(tool =>

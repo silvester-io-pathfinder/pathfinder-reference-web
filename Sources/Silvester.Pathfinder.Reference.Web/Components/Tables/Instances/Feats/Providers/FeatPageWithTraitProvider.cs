@@ -1,16 +1,16 @@
 ﻿using MudBlazor;
-using Silvester.Pathfinder.Official.Web.Graphql.Generated;
+using Silvester.Pathfinder.Reference.Web.Graphql.Generated;
 using StrawberryShake;
 using System;
 using System.Threading.Tasks;
 
-namespace Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Feats.Providers
+namespace Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Feats.Providers
 {
     public class FeatPageWithTraitProvider : GraphqlPageProvider<IFeatsPage, FeatSortInput>
     {
         private Guid TraitId { get; }
 
-        public FeatPageWithTraitProvider(IPathfinderOfficialApi api, Guid traitId)
+        public FeatPageWithTraitProvider(IPathfinderReferenceApi api, Guid traitId)
             : base(api)
         {
             TraitId = traitId;
@@ -18,7 +18,7 @@ namespace Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Feats.Pr
 
         public override async Task<TableData<IFeatsPage>> GetPage(FeatSortInput[] sortInputs, TableState state, string searchTerm)
         {
-            IOperationResult<IGetFeatsPageWithTraitResult> result = await PathfinderOfficialApi.GetFeatsPageWithTrait
+            IOperationResult<IGetFeatsPageWithTraitResult> result = await PathfinderReferenceApi.GetFeatsPageWithTrait
                      .ExecuteAsync(state.Page * state.PageSize, state.PageSize, TraitId, searchTerm, sortInputs);
 
             if (result.Data?.Feats == null)

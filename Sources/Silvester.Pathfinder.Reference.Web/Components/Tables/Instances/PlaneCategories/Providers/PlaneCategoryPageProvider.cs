@@ -1,17 +1,17 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
-using Silvester.Pathfinder.Official.Web.Graphql.Generated;
+using Silvester.Pathfinder.Reference.Web.Graphql.Generated;
 using StrawberryShake;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Silvester.Pathfinder.Official.Web.Components.Tables.Instances.PlaneCategories.Providers
+namespace Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.PlaneCategories.Providers
 {
     public class PlaneCategoryPageProvider : GraphqlPageProvider<IPlaneCategoriesPage, PlaneCategorySortInput>
     {
-        public PlaneCategoryPageProvider(IPathfinderOfficialApi api)
+        public PlaneCategoryPageProvider(IPathfinderReferenceApi api)
             : base(api)
         {
 
@@ -19,7 +19,7 @@ namespace Silvester.Pathfinder.Official.Web.Components.Tables.Instances.PlaneCat
 
         public override async Task<TableData<IPlaneCategoriesPage>> GetPage(PlaneCategorySortInput[] sortInputs, TableState state, string searchTerm)
         {
-            IOperationResult<IGetPlaneCategoriesPageResult> result = await PathfinderOfficialApi.GetPlaneCategoriesPage
+            IOperationResult<IGetPlaneCategoriesPageResult> result = await PathfinderReferenceApi.GetPlaneCategoriesPage
                      .ExecuteAsync(state.Page * state.PageSize, state.PageSize, searchTerm, sortInputs);
 
             if (result.Data?.PlaneCategories == null)

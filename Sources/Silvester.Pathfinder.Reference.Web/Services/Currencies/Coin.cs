@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Silvester.Pathfinder.Official.Web.Services.Currencies
+namespace Silvester.Pathfinder.Reference.Web.Services.Currencies
 {
     public class Coin
     {

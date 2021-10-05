@@ -1,11 +1,11 @@
 ﻿using Fluxor;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
-using Silvester.Pathfinder.Official.Web.Store.States;
+using Silvester.Pathfinder.Reference.Web.Store.States;
 using System;
 using System.Collections.Generic;
 
-namespace Silvester.Pathfinder.Official.Web.Shared
+namespace Silvester.Pathfinder.Reference.Web.Shared
 {
     public partial class MainLayout : IDisposable
     {

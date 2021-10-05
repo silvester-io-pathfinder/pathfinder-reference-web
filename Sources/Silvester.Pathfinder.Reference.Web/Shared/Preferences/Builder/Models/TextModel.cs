@@ -1,6 +1,6 @@
-﻿using Silvester.Pathfinder.Official.Web.Shared.Graphics;
+﻿using Silvester.Pathfinder.Reference.Web.Shared.Graphics;
 
-namespace Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models
+namespace Silvester.Pathfinder.Reference.Web.Shared.Preferences.Builder.Models
 {
     public class TextModel : IModel
     {

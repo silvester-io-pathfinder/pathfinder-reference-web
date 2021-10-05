@@ -8,7 +8,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace Silvester.Pathfinder.Official.Web.Utilities.QueryStrings
+namespace Silvester.Pathfinder.Reference.Web.Utilities.QueryStrings
 {
     public static class ComponentExtensions
     {

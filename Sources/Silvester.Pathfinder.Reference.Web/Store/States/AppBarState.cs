@@ -1,13 +1,13 @@
 ﻿using Fluxor;
-using Silvester.Pathfinder.Official.Web.Store.States.Actions;
-using Silvester.Pathfinder.Official.Web.Utilities.Extensions;
+using Silvester.Pathfinder.Reference.Web.Store.States.Actions;
+using Silvester.Pathfinder.Reference.Web.Utilities.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Silvester.Pathfinder.Official.Web.Store.States
+namespace Silvester.Pathfinder.Reference.Web.Store.States
 {
     public record AppBarState(string Title);
 

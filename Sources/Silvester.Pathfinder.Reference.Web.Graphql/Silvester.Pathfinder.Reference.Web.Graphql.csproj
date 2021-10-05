@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Description>Pathfinder Official - Web - Graphql</Description>
+    <Description>Pathfinder Reference - Web - Graphql</Description>
   </PropertyGroup>
 
   <Import Project="../Properties.proj" />

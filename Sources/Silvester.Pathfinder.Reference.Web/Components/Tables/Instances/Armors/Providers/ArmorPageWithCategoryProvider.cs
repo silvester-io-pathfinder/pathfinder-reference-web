@@ -1,19 +1,19 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
-using Silvester.Pathfinder.Official.Web.Graphql.Generated;
+using Silvester.Pathfinder.Reference.Web.Graphql.Generated;
 using StrawberryShake;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Armors.Providers
+namespace Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Armors.Providers
 {
     public class ArmorPageWithCategoryProvider : GraphqlPageProvider<IArmorsPage, ArmorSortInput>
     {
         private Guid WeaponCategoryId { get; }
 
-        public ArmorPageWithCategoryProvider(IPathfinderOfficialApi api, Guid weaponCategoryId)
+        public ArmorPageWithCategoryProvider(IPathfinderReferenceApi api, Guid weaponCategoryId)
             : base(api)
         {
             WeaponCategoryId = weaponCategoryId;
@@ -21,7 +21,7 @@ namespace Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Armors.P
 
         public override async Task<TableData<IArmorsPage>> GetPage(ArmorSortInput[] sortInputs, TableState state, string searchTerm)
         {
-            IOperationResult<IGetArmorPageWithCategoryResult> result = await PathfinderOfficialApi.GetArmorPageWithCategory
+            IOperationResult<IGetArmorPageWithCategoryResult> result = await PathfinderReferenceApi.GetArmorPageWithCategory
                      .ExecuteAsync(state.Page * state.PageSize, state.PageSize, WeaponCategoryId, searchTerm, sortInputs);
 
             if (result.Data?.Armors == null)

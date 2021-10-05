@@ -1,6 +1,6 @@
-﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
-@using Silvester.Pathfinder.Official.Web.Components.Cards;
-@using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
+﻿@using Silvester.Pathfinder.Reference.Web.Shared.Layout;
+@using Silvester.Pathfinder.Reference.Web.Components.Cards;
+@using Silvester.Pathfinder.Reference.Web.Components.Cards.Details.Instances;
 
 @inherits BaseDetailPage
 @page "/classes/{resourceId:guid}"
@@ -25,7 +25,7 @@
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        StoreSession = PathfinderOfficialApi.GetClassById
+        StoreSession = PathfinderReferenceApi.GetClassById
             .Watch(ResourceId)
             .Select(e => e.Data?.Classes?.Items?.FirstOrDefault())
             .Subscribe(@class =>

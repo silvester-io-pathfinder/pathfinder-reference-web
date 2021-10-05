@@ -1,7 +1,7 @@
-﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.PreciousMaterials;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.PreciousMaterials.Providers;
-@using Silvester.Pathfinder.Official.Web.Components.Cards;
+﻿@using Silvester.Pathfinder.Reference.Web.Shared.Layout;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.PreciousMaterials;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.PreciousMaterials.Providers;
+@using Silvester.Pathfinder.Reference.Web.Components.Cards;
 
 @page "/precious-materials"
 @inherits BaseOverviewPage
@@ -10,7 +10,7 @@
     <PageLayout>
 
         <MudPaper Style="margin: 20px;">
-            <PreciousMaterialsTable PageProvider="@(new PreciousMaterialPageProvider(PathfinderOfficialApi))" />
+            <PreciousMaterialsTable PageProvider="@(new PreciousMaterialPageProvider(PathfinderReferenceApi))" />
         </MudPaper>
 
     </PageLayout>

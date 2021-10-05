@@ -1,16 +1,16 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using Silvester.Pathfinder.Official.Web.Graphql.Generated;
-using Silvester.Pathfinder.Official.Web.Services;
-using Silvester.Pathfinder.Official.Web.Services.Currencies;
-using Silvester.Pathfinder.Official.Web.Shared.Tables;
-using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder;
+using Silvester.Pathfinder.Reference.Web.Graphql.Generated;
+using Silvester.Pathfinder.Reference.Web.Services;
+using Silvester.Pathfinder.Reference.Web.Services.Currencies;
+using Silvester.Pathfinder.Reference.Web.Shared.Tables;
+using Silvester.Pathfinder.Reference.Web.Shared.Tables.Builder;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Silvester.Pathfinder.Official.Web.Components.Tables
+namespace Silvester.Pathfinder.Reference.Web.Components.Tables
 {
     public abstract partial class AbstractTable<TEntity, TSortInput> : ComponentBase
     {
@@ -24,7 +24,7 @@ namespace Silvester.Pathfinder.Official.Web.Components.Tables
         public IPageProvider<TEntity, TSortInput> PageProvider { get; set; } = default!;
 
         [Inject]
-        public PathfinderOfficialApi PathfinderOfficialApi { get; set; } = default!;
+        public PathfinderReferenceApi PathfinderReferenceApi { get; set; } = default!;
 
         [Inject]
         public NavigationManager NavigationManager { get; set; } = default!;

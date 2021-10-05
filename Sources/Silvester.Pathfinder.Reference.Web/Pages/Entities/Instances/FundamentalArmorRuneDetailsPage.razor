@@ -1,6 +1,6 @@
-﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
-@using Silvester.Pathfinder.Official.Web.Components.Cards;
-@using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
+﻿@using Silvester.Pathfinder.Reference.Web.Shared.Layout;
+@using Silvester.Pathfinder.Reference.Web.Components.Cards;
+@using Silvester.Pathfinder.Reference.Web.Components.Cards.Details.Instances;
 
 @inherits BaseDetailPage
 @page "/fundamental-armor-runes/{resourceId:guid}"
@@ -25,7 +25,7 @@
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        StoreSession = PathfinderOfficialApi.GetFundamentalArmorRuneById
+        StoreSession = PathfinderReferenceApi.GetFundamentalArmorRuneById
             .Watch(ResourceId, StrawberryShake.ExecutionStrategy.NetworkOnly)
             .Select(e => e.Data?.FundamentalArmorRunes?.Items?.FirstOrDefault())
             .Subscribe(fundamentalArmorRune =>

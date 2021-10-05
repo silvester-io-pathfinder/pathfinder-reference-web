@@ -1,17 +1,17 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
-using Silvester.Pathfinder.Official.Web.Graphql.Generated;
+using Silvester.Pathfinder.Reference.Web.Graphql.Generated;
 using StrawberryShake;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Silvester.Pathfinder.Official.Web.Components.Tables.Instances.RangedWeapons.Providers
+namespace Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.RangedWeapons.Providers
 {
     public class RangedWeaponPageProvider : GraphqlPageProvider<IRangedWeaponsPage, RangedWeaponSortInput>
     {
-        public RangedWeaponPageProvider(IPathfinderOfficialApi api)
+        public RangedWeaponPageProvider(IPathfinderReferenceApi api)
             : base(api)
         {
 
@@ -19,7 +19,7 @@ namespace Silvester.Pathfinder.Official.Web.Components.Tables.Instances.RangedWe
 
         public override async Task<TableData<IRangedWeaponsPage>> GetPage(RangedWeaponSortInput[] sortInputs, TableState state, string searchTerm)
         {
-            IOperationResult<IGetRangedWeaponsPageResult> result = await PathfinderOfficialApi.GetRangedWeaponsPage
+            IOperationResult<IGetRangedWeaponsPageResult> result = await PathfinderReferenceApi.GetRangedWeaponsPage
                      .ExecuteAsync(state.Page * state.PageSize, state.PageSize, searchTerm, sortInputs);
 
             if (result?.Data?.RangedWeapons == null)

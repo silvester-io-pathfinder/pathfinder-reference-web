@@ -1,10 +1,10 @@
-﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Conditions;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.ConditionCategories;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Conditions.Providers;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.ConditionCategories.Providers;
-@using Silvester.Pathfinder.Official.Web.Components.Cards;
-@using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
+﻿@using Silvester.Pathfinder.Reference.Web.Shared.Layout;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Conditions;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.ConditionCategories;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Conditions.Providers;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.ConditionCategories.Providers;
+@using Silvester.Pathfinder.Reference.Web.Components.Cards;
+@using Silvester.Pathfinder.Reference.Web.Components.Cards.Details.Instances;
 
 @inherits BaseDetailPage
 @page "/condition-categories/{resourceId:guid}"
@@ -21,7 +21,7 @@
             <MudPaper Style="margin: 20px">
                 <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
                     <MudTabPanel Text="Conditions">
-                        <ConditionsTable PageProvider="@(new ConditionsPageWithCategoryProvider(PathfinderOfficialApi, ResourceId))" />
+                        <ConditionsTable PageProvider="@(new ConditionsPageWithCategoryProvider(PathfinderReferenceApi, ResourceId))" />
                     </MudTabPanel>
                 </MudTabs>
             </MudPaper>
@@ -40,7 +40,7 @@
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        StoreSession = PathfinderOfficialApi.GetConditionCategoryById
+        StoreSession = PathfinderReferenceApi.GetConditionCategoryById
             .Watch(ResourceId)
             .Select(e => e.Data?.ConditionCategories?.Items?.FirstOrDefault())
             .Subscribe(curse =>

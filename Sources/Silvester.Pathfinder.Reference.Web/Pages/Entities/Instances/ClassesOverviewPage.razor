@@ -1,7 +1,7 @@
-﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Classes;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Classes.Providers;
-@using Silvester.Pathfinder.Official.Web.Components.Cards;
+﻿@using Silvester.Pathfinder.Reference.Web.Shared.Layout;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Classes;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Classes.Providers;
+@using Silvester.Pathfinder.Reference.Web.Components.Cards;
 
 @page "/classes"
 @inherits BaseOverviewPage
@@ -10,7 +10,7 @@
     <PageLayout>
 
         <MudPaper Style="margin: 20px;">
-            <ClassesTable Title="Classes" PageProvider="@(new ClassPageProvider(PathfinderOfficialApi))" />
+            <ClassesTable Title="Classes" PageProvider="@(new ClassPageProvider(PathfinderReferenceApi))" />
         </MudPaper>
 
     </PageLayout>

@@ -1,19 +1,19 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
-using Silvester.Pathfinder.Official.Web.Graphql.Generated;
+using Silvester.Pathfinder.Reference.Web.Graphql.Generated;
 using StrawberryShake;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Mysteries.Providers
+namespace Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Mysteries.Providers
 {
     public class MysteryPageWithDomainProvider : GraphqlPageProvider<IMysteriesPage, MysterySortInput>
     {
         private Guid DomainId { get; }
 
-        public MysteryPageWithDomainProvider(IPathfinderOfficialApi api, Guid domainId)
+        public MysteryPageWithDomainProvider(IPathfinderReferenceApi api, Guid domainId)
             : base(api)
         {
             DomainId = domainId;
@@ -21,7 +21,7 @@ namespace Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Mysterie
 
         public override async Task<TableData<IMysteriesPage>> GetPage(MysterySortInput[] sortInputs, TableState state, string searchTerm)
         {
-            IOperationResult<IGetMysteriesPageWithDomainResult> result = await PathfinderOfficialApi.GetMysteriesPageWithDomain
+            IOperationResult<IGetMysteriesPageWithDomainResult> result = await PathfinderReferenceApi.GetMysteriesPageWithDomain
                      .ExecuteAsync(state.Page * state.PageSize, state.PageSize, DomainId, searchTerm, sortInputs);
 
             if (result.Data?.Mysteries == null)

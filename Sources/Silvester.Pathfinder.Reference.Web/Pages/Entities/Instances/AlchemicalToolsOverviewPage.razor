@@ -1,7 +1,7 @@
-﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.AlchemicalTools;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.AlchemicalTools.Providers;
-@using Silvester.Pathfinder.Official.Web.Components.Cards;
+﻿@using Silvester.Pathfinder.Reference.Web.Shared.Layout;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.AlchemicalTools;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.AlchemicalTools.Providers;
+@using Silvester.Pathfinder.Reference.Web.Components.Cards;
 
 @page "/alchemical-tools"
 @inherits BaseOverviewPage
@@ -10,7 +10,7 @@
     <PageLayout>
 
         <MudPaper Style="margin: 20px;">
-            <AlchemicalToolsTable Title="Alchemical Tools" PageProvider="@(new AlchemicalToolPageProvider(PathfinderOfficialApi))" />
+            <AlchemicalToolsTable Title="Alchemical Tools" PageProvider="@(new AlchemicalToolPageProvider(PathfinderReferenceApi))" />
         </MudPaper>
 
     </PageLayout>

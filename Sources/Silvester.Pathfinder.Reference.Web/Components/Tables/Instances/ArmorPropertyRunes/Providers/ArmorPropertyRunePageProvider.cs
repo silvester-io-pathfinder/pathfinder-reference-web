@@ -1,17 +1,17 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
-using Silvester.Pathfinder.Official.Web.Graphql.Generated;
+using Silvester.Pathfinder.Reference.Web.Graphql.Generated;
 using StrawberryShake;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Silvester.Pathfinder.Official.Web.Components.Tables.Instances.ArmorPropertyRunes.Providers
+namespace Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.ArmorPropertyRunes.Providers
 {
     public class ArmorPropertyRunePageProvider : GraphqlPageProvider<IArmorPropertyRunesPage, ArmorPropertyRuneSortInput>
     {
-        public ArmorPropertyRunePageProvider(IPathfinderOfficialApi api)
+        public ArmorPropertyRunePageProvider(IPathfinderReferenceApi api)
             : base(api)
         {
 
@@ -19,7 +19,7 @@ namespace Silvester.Pathfinder.Official.Web.Components.Tables.Instances.ArmorPro
 
         public override async Task<TableData<IArmorPropertyRunesPage>> GetPage(ArmorPropertyRuneSortInput[] sortInputs, TableState state, string searchTerm)
         {
-            IOperationResult<IGetArmorPropertyRunesPageResult> result = await PathfinderOfficialApi.GetArmorPropertyRunesPage
+            IOperationResult<IGetArmorPropertyRunesPageResult> result = await PathfinderReferenceApi.GetArmorPropertyRunesPage
                      .ExecuteAsync(state.Page * state.PageSize, state.PageSize, searchTerm, sortInputs);
 
             if (result?.Data?.ArmorPropertyRunes == null)

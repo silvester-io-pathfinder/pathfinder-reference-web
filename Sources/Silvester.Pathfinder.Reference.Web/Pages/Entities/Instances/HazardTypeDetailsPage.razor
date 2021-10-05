@@ -1,10 +1,10 @@
-﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Planes;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Planes.Providers;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Hazards;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Hazards.Providers;
-@using Silvester.Pathfinder.Official.Web.Components.Cards;
-@using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
+﻿@using Silvester.Pathfinder.Reference.Web.Shared.Layout;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Planes;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Planes.Providers;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Hazards;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Hazards.Providers;
+@using Silvester.Pathfinder.Reference.Web.Components.Cards;
+@using Silvester.Pathfinder.Reference.Web.Components.Cards.Details.Instances;
 
 @inherits BaseDetailPage
 @page "/hazard-types/{ResourceId:guid}"
@@ -19,7 +19,7 @@
         <MudPaper Style="margin: 20px">
             <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
                 <MudTabPanel Text="Hazards">
-                    <HazardsTable PageProvider="@(new HazardPageWithTypeProvider(PathfinderOfficialApi, ResourceId))" />
+                    <HazardsTable PageProvider="@(new HazardPageWithTypeProvider(PathfinderReferenceApi, ResourceId))" />
                 </MudTabPanel>
             </MudTabs>
         </MudPaper>
@@ -37,7 +37,7 @@
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        StoreSession = PathfinderOfficialApi.GetHazardTypeById
+        StoreSession = PathfinderReferenceApi.GetHazardTypeById
             .Watch(ResourceId)
             .Select(e => e.Data?.HazardTypes?.Items?.FirstOrDefault())
             .Subscribe(type =>

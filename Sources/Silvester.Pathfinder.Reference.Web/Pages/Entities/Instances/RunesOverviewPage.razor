@@ -1,14 +1,14 @@
-﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.ArmorPropertyRunes;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.ArmorPropertyRunes.Providers;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.WeaponPropertyRunes;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.WeaponPropertyRunes.Providers;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.FundamentalArmorRunes;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.FundamentalArmorRunes.Providers;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.FundamentalWeaponRunes;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.FundamentalWeaponRunes.Providers;
-@using Silvester.Pathfinder.Official.Web.Components.Cards;
-@using Silvester.Pathfinder.Official.Web.Shared.Cards;
+﻿@using Silvester.Pathfinder.Reference.Web.Shared.Layout;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.ArmorPropertyRunes;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.ArmorPropertyRunes.Providers;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.WeaponPropertyRunes;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.WeaponPropertyRunes.Providers;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.FundamentalArmorRunes;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.FundamentalArmorRunes.Providers;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.FundamentalWeaponRunes;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.FundamentalWeaponRunes.Providers;
+@using Silvester.Pathfinder.Reference.Web.Components.Cards;
+@using Silvester.Pathfinder.Reference.Web.Shared.Cards;
 
 @page "/runes"
 @inherits BaseOverviewPage
@@ -22,10 +22,10 @@
             </CardToolbar>
             <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
                 <MudTabPanel Text="Property Runes">
-                    <ArmorPropertyRunesTable PageProvider="@(new ArmorPropertyRunePageProvider(PathfinderOfficialApi))" />
+                    <ArmorPropertyRunesTable PageProvider="@(new ArmorPropertyRunePageProvider(PathfinderReferenceApi))" />
                 </MudTabPanel>
                 <MudTabPanel Text="Fundamental Runes">
-                    <FundamentalArmorRunesTable PageProvider="@(new FundamentalArmorRunePageProvider(PathfinderOfficialApi))" />
+                    <FundamentalArmorRunesTable PageProvider="@(new FundamentalArmorRunePageProvider(PathfinderReferenceApi))" />
                 </MudTabPanel>
             </MudTabs>
         </MudPaper>
@@ -36,10 +36,10 @@
             </CardToolbar>
             <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
                 <MudTabPanel Text="Property Runes">
-                    <WeaponPropertyRunesTable PageProvider="@(new WeaponPropertyRunePageProvider(PathfinderOfficialApi))" />
+                    <WeaponPropertyRunesTable PageProvider="@(new WeaponPropertyRunePageProvider(PathfinderReferenceApi))" />
                 </MudTabPanel>
                 <MudTabPanel Text="Fundamental Runes">
-                    <FundamentalWeaponRunesTable PageProvider="@(new FundamentalWeaponRunePageProvider(PathfinderOfficialApi))" />
+                    <FundamentalWeaponRunesTable PageProvider="@(new FundamentalWeaponRunePageProvider(PathfinderReferenceApi))" />
                 </MudTabPanel>
             </MudTabs>
         </MudPaper>

@@ -1,17 +1,17 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
-using Silvester.Pathfinder.Official.Web.Graphql.Generated;
+using Silvester.Pathfinder.Reference.Web.Graphql.Generated;
 using StrawberryShake;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Silvester.Pathfinder.Official.Web.Components.Tables.Instances.AlchemicalBombs.Providers
+namespace Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.AlchemicalBombs.Providers
 {
     public class AlchemicalBombPageProvider : GraphqlPageProvider<IAlchemicalBombsPage, AlchemicalBombSortInput>
     {
-        public AlchemicalBombPageProvider(IPathfinderOfficialApi api)
+        public AlchemicalBombPageProvider(IPathfinderReferenceApi api)
             : base(api)
         {
 
@@ -19,7 +19,7 @@ namespace Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Alchemic
 
         public override async Task<TableData<IAlchemicalBombsPage>> GetPage(AlchemicalBombSortInput[] sortInputs, TableState state, string searchTerm)
         {
-            IOperationResult<IGetAlchemicalBombsPageResult>? result = await PathfinderOfficialApi.GetAlchemicalBombsPage
+            IOperationResult<IGetAlchemicalBombsPageResult>? result = await PathfinderReferenceApi.GetAlchemicalBombsPage
                      .ExecuteAsync(state.Page * state.PageSize, state.PageSize, searchTerm, sortInputs);
 
             if (result.Data?.AlchemicalBombs == null)

@@ -1,10 +1,10 @@
-﻿@using Silvester.Pathfinder.Official.Web.Shared.Preferences;
-@using Silvester.Pathfinder.Official.Web.Shared.Cards;
-@using Silvester.Pathfinder.Official.Web.Shared.Tables;
-@using Silvester.Pathfinder.Official.Web.Services;
-@using Silvester.Pathfinder.Official.Web.Shared.Chips;
-@using Silvester.Pathfinder.Official.Web.Services.Currencies;
-@using Silvester.Pathfinder.Official.Web.Shared.Footers;
+﻿@using Silvester.Pathfinder.Reference.Web.Shared.Preferences;
+@using Silvester.Pathfinder.Reference.Web.Shared.Cards;
+@using Silvester.Pathfinder.Reference.Web.Shared.Tables;
+@using Silvester.Pathfinder.Reference.Web.Services;
+@using Silvester.Pathfinder.Reference.Web.Shared.Chips;
+@using Silvester.Pathfinder.Reference.Web.Services.Currencies;
+@using Silvester.Pathfinder.Reference.Web.Shared.Footers;
 
 @if (AlchemicalTool != null)
 {
@@ -40,8 +40,8 @@
     public ICurrencyService CurrencyService { get; set; } = default!;
 
     public IEnumerable<IconFooterBar.Item> GetFooterItems(IAlchemicalToolById_Potency potency)
-    {
-        yield return new IconFooterBar.Item((MarkupString)Silvester.Pathfinder.Official.Icons.Generated.Slider, potency.Level.ToString(), "Level");
-        yield return new IconFooterBar.Item((MarkupString)Silvester.Pathfinder.Official.Icons.Generated.Coins, CurrencyService.Denormalize(potency.Price, Coin.Types.Gold).ToString(), "Price");
+    Reference
+        yield return new IconFooterBar.Item((MarkupString)Silvester.Pathfinder.Reference.Icons.Generated.Slider, potency.Level.ToString(), "Level");
+        yield return new IconFooterBar.Item((MarkupString)Silvester.Pathfinder.Reference.Icons.Generated.Coins, CurrencyService.Denormalize(potency.Price, Coin.Types.Gold).ToString(), "Price");
     }
 }

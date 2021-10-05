@@ -1,19 +1,19 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using Silvester.Pathfinder.Official.Web.Graphql.Generated;
-using Silvester.Pathfinder.Official.Web.Services;
-using Silvester.Pathfinder.Official.Web.Services.Currencies;
-using Silvester.Pathfinder.Official.Web.Shared.Tables;
-using Silvester.Pathfinder.Official.Web.Shared.Cards;
-using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder;
-using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
+using Silvester.Pathfinder.Reference.Web.Graphql.Generated;
+using Silvester.Pathfinder.Reference.Web.Services;
+using Silvester.Pathfinder.Reference.Web.Services.Currencies;
+using Silvester.Pathfinder.Reference.Web.Shared.Tables;
+using Silvester.Pathfinder.Reference.Web.Shared.Cards;
+using Silvester.Pathfinder.Reference.Web.Shared.Tables.Builder;
+using Silvester.Pathfinder.Reference.Web.Components.Cards.Details.Instances;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Silvester.Pathfinder.Official.Web.Shared.Cards.Builder;
+using Silvester.Pathfinder.Reference.Web.Shared.Cards.Builder;
 
-namespace Silvester.Pathfinder.Official.Web.Components.Cards.Details
+namespace Silvester.Pathfinder.Reference.Web.Components.Cards.Details
 {
     public abstract partial class AbstractDetailsCard<TEntity> : ComponentBase
     {
@@ -27,7 +27,7 @@ namespace Silvester.Pathfinder.Official.Web.Components.Cards.Details
         public string? InspectionUrl { get; set; } 
 
         [Inject]
-        public PathfinderOfficialApi PathfinderOfficialApi { get; set; } = default!;
+        public PathfinderReferenceApi PathfinderReferenceApi { get; set; } = default!;
 
         [Inject]
         public NavigationManager NavigationManager { get; set; } = default!;

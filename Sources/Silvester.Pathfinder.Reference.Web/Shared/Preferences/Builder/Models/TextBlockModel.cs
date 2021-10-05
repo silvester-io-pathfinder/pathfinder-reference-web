@@ -1,7 +1,7 @@
-﻿using Silvester.Pathfinder.Official.Web.Graphql.Generated;
+﻿using Silvester.Pathfinder.Reference.Web.Graphql.Generated;
 using System.Collections.Generic;
 
-namespace Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models
+namespace Silvester.Pathfinder.Reference.Web.Shared.Preferences.Builder.Models
 {
     public class TextBlockModel : IModel
     {

@@ -1,7 +1,7 @@
 ﻿using Fluxor;
 using Microsoft.AspNetCore.Components;
-using Silvester.Pathfinder.Official.Documents.Models;
-using Silvester.Pathfinder.Official.Web.Store.States.Actions;
+using Silvester.Pathfinder.Reference.Documents.Models;
+using Silvester.Pathfinder.Reference.Web.Store.States.Actions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace Silvester.Pathfinder.Official.Web.Pages.Documents
+namespace Silvester.Pathfinder.Reference.Web.Pages.Documents
 {
     public abstract class BaseDocumentPage : ComponentBase
     {

@@ -1,4 +1,4 @@
-﻿namespace Silvester.Pathfinder.Official.Web.Store.Middlewares.Interfaces
+﻿namespace Silvester.Pathfinder.Reference.Web.Store.Middlewares.Interfaces
 {
     public interface IPersistedAction
     {

@@ -1,9 +1,9 @@
-﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Languages;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Languages.Providers;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.LanguageTypes;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.LanguageTypes.Providers;
-@using Silvester.Pathfinder.Official.Web.Components.Cards;
+﻿@using Silvester.Pathfinder.Reference.Web.Shared.Layout;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Languages;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Languages.Providers;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.LanguageTypes;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.LanguageTypes.Providers;
+@using Silvester.Pathfinder.Reference.Web.Components.Cards;
 
 @page "/languages"
 @inherits BaseOverviewPage
@@ -14,10 +14,10 @@
         <MudPaper Style="margin: 20px;">
             <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
                 <MudTabPanel Text="Languages">
-                    <LanguagesTable PageProvider="@(new LanguagePageProvider(PathfinderOfficialApi))" />
+                    <LanguagesTable PageProvider="@(new LanguagePageProvider(PathfinderReferenceApi))" />
                 </MudTabPanel>
                 <MudTabPanel Text="Types">
-                    <LanguageTypesTable PageProvider="@(new LanguageTypePageProvider(PathfinderOfficialApi))" />
+                    <LanguageTypesTable PageProvider="@(new LanguageTypePageProvider(PathfinderReferenceApi))" />
                 </MudTabPanel>
             </MudTabs>
         </MudPaper>

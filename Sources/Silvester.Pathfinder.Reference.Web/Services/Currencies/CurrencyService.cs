@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Silvester.Pathfinder.Official.Web.Services.Currencies
+namespace Silvester.Pathfinder.Reference.Web.Services.Currencies
 {
     public interface ICurrencyService
     {

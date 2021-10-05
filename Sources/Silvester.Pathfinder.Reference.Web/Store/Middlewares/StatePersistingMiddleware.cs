@@ -3,8 +3,8 @@ using Blazored.LocalStorage.StorageOptions;
 using Fluxor;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Silvester.Pathfinder.Official.Web.Store.Middlewares.Interfaces;
-using Silvester.Pathfinder.Official.Web.Store.States;
+using Silvester.Pathfinder.Reference.Web.Store.Middlewares.Interfaces;
+using Silvester.Pathfinder.Reference.Web.Store.States;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +14,7 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Silvester.Pathfinder.Official.Web.Store.Middlewares
+namespace Silvester.Pathfinder.Reference.Web.Store.Middlewares
 {
     public class StatePersistingMiddleware : Middleware
     {

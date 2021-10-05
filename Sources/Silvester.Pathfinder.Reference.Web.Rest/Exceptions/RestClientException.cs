@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Silvester.Pathfinder.Official.Web.Rest.Exceptions
+namespace Silvester.Pathfinder.Reference.Web.Rest.Exceptions
 {
     public class RestClientException : Exception
     {

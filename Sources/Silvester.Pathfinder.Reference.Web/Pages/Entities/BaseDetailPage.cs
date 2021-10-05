@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Silvester.Pathfinder.Official.Web.Store.States.Actions;
+using Silvester.Pathfinder.Reference.Web.Store.States.Actions;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Silvester.Pathfinder.Official.Web.Pages.Entities
+namespace Silvester.Pathfinder.Reference.Web.Pages.Entities
 {
     public abstract class BaseDetailPage : BaseOverviewPage
     {

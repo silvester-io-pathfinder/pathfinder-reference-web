@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Silvester.Pathfinder.Official.Web.Services
+namespace Silvester.Pathfinder.Reference.Web.Services
 {
     public interface IBreakpointService
     {

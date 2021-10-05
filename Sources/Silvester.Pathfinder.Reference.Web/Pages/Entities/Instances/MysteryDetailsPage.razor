@@ -1,9 +1,9 @@
-﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
-@using Silvester.Pathfinder.Official.Web.Shared.Tables;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Heritages;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Heritages.Providers;
-@using Silvester.Pathfinder.Official.Web.Components.Cards;
-@using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
+﻿@using Silvester.Pathfinder.Reference.Web.Shared.Layout;
+@using Silvester.Pathfinder.Reference.Web.Shared.Tables;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Heritages;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Heritages.Providers;
+@using Silvester.Pathfinder.Reference.Web.Components.Cards;
+@using Silvester.Pathfinder.Reference.Web.Components.Cards.Details.Instances;
 
 @inherits BaseDetailPage
 @page "/mysteries/{resourceId:guid}"
@@ -52,7 +52,7 @@
 
     protected override void OnInitialized()
     {
-        StoreSession = PathfinderOfficialApi.GetMysteryById
+        StoreSession = PathfinderReferenceApi.GetMysteryById
             .Watch(ResourceId, StrawberryShake.ExecutionStrategy.NetworkOnly)
             .Select(e => e.Data?.Mysteries?.Items?.FirstOrDefault())
             .Subscribe(race =>

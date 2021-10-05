@@ -1,17 +1,17 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
-using Silvester.Pathfinder.Official.Web.Graphql.Generated;
+using Silvester.Pathfinder.Reference.Web.Graphql.Generated;
 using StrawberryShake;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Silvester.Pathfinder.Official.Web.Components.Tables.Instances.AlchemicalPoisons.Providers
+namespace Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.AlchemicalPoisons.Providers
 {
     public class AlchemicalPoisonPageProvider : GraphqlPageProvider<IAlchemicalPoisonsPage, AlchemicalPoisonSortInput>
     {
-        public AlchemicalPoisonPageProvider(IPathfinderOfficialApi api)
+        public AlchemicalPoisonPageProvider(IPathfinderReferenceApi api)
             : base(api)
         {
 
@@ -19,7 +19,7 @@ namespace Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Alchemic
 
         public override async Task<TableData<IAlchemicalPoisonsPage>> GetPage(AlchemicalPoisonSortInput[] sortInputs, TableState state, string searchTerm)
         {
-            IOperationResult<IGetAlchemicalPoisonsPageResult>? result = await PathfinderOfficialApi.GetAlchemicalPoisonsPage
+            IOperationResult<IGetAlchemicalPoisonsPageResult>? result = await PathfinderReferenceApi.GetAlchemicalPoisonsPage
                      .ExecuteAsync(state.Page * state.PageSize, state.PageSize, searchTerm, sortInputs);
 
             if (result.Data?.AlchemicalPoisons == null)

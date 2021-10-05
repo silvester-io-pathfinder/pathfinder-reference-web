@@ -1,7 +1,7 @@
 ﻿using MudBlazor;
 using System;
 
-namespace Silvester.Pathfinder.Official.Web.Shared.Tables.Builder.Columns
+namespace Silvester.Pathfinder.Reference.Web.Shared.Tables.Builder.Columns
 {
     public class TextColumn<TEntity> : ITableColumn<TEntity>, ISortable<TEntity>
     {

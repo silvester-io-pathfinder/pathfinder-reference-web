@@ -1,6 +1,6 @@
 ﻿using MudBlazor;
 
-namespace Silvester.Pathfinder.Official.Web.Themes
+namespace Silvester.Pathfinder.Reference.Web.Themes
 {
     public class DefaultTheme : MudTheme
     {

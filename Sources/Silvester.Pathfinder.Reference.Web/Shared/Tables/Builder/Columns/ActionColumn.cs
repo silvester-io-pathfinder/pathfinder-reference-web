@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MudBlazor;
 
-namespace Silvester.Pathfinder.Official.Web.Shared.Tables.Builder.Columns
+namespace Silvester.Pathfinder.Reference.Web.Shared.Tables.Builder.Columns
 {
     public class ActionColumn<TEntity> : ITableColumn<TEntity>
     {

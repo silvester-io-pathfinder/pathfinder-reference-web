@@ -1,4 +1,4 @@
-﻿using Silvester.Pathfinder.Official.Web.Shared.Tables.Builder.Columns;
+﻿using Silvester.Pathfinder.Reference.Web.Shared.Tables.Builder.Columns;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 using MudBlazor;
 using Microsoft.AspNetCore.Components;
 using MudBlazor.Services;
-using Silvester.Pathfinder.Official.Web.Services;
-using Silvester.Pathfinder.Official.Web.Services.Currencies;
-using Silvester.Pathfinder.Official.Web.Shared.Graphics.ActionTypeIcons;
-using Silvester.Pathfinder.Official.Web.Shared.Graphics;
+using Silvester.Pathfinder.Reference.Web.Services;
+using Silvester.Pathfinder.Reference.Web.Services.Currencies;
+using Silvester.Pathfinder.Reference.Web.Shared.Graphics.ActionTypeIcons;
+using Silvester.Pathfinder.Reference.Web.Shared.Graphics;
 
-namespace Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
+namespace Silvester.Pathfinder.Reference.Web.Shared.Tables.Builder
 {
     public class TableBuilder<TEntity> 
     {

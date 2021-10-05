@@ -1,7 +1,7 @@
-﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Hazards;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Hazards.Providers;
-@using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
+﻿@using Silvester.Pathfinder.Reference.Web.Shared.Layout;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Hazards;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Hazards.Providers;
+@using Silvester.Pathfinder.Reference.Web.Components.Cards.Details.Instances;
 
 @inherits BaseDetailPage
 @page "/hazard-complexities/{resourceId:guid}"
@@ -18,7 +18,7 @@
             <MudPaper Style="margin: 20px">
                 <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
                     <MudTabPanel Text="Hazards">
-                        <HazardsTable PageProvider="@(new HazardPageWithComplexityProvider(PathfinderOfficialApi, ResourceId))" />
+                        <HazardsTable PageProvider="@(new HazardPageWithComplexityProvider(PathfinderReferenceApi, ResourceId))" />
                     </MudTabPanel>
                 </MudTabs>
             </MudPaper>
@@ -37,7 +37,7 @@
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        StoreSession = PathfinderOfficialApi.GetHazardComplexityById
+        StoreSession = PathfinderReferenceApi.GetHazardComplexityById
             .Watch(ResourceId)
             .Select(e => e.Data?.HazardComplexities?.Items?.FirstOrDefault())
             .Subscribe(curse =>

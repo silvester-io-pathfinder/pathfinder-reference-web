@@ -1,19 +1,19 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
-using Silvester.Pathfinder.Official.Web.Graphql.Generated;
+using Silvester.Pathfinder.Reference.Web.Graphql.Generated;
 using StrawberryShake;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Spells.Providers
+namespace Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Spells.Providers
 {
     public class SpellPageWithTraitProvider : GraphqlPageProvider<ISpellsPage, SpellSortInput>
     {
         private Guid TraitId { get; }
 
-        public SpellPageWithTraitProvider(IPathfinderOfficialApi api, Guid traitId)
+        public SpellPageWithTraitProvider(IPathfinderReferenceApi api, Guid traitId)
             : base(api)
         {
             TraitId = traitId;
@@ -21,7 +21,7 @@ namespace Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Spells.P
 
         public override async Task<TableData<ISpellsPage>> GetPage(SpellSortInput[] sortInputs, TableState state, string searchTerm)
         {
-            IOperationResult<IGetSpellsPageWithTraitResult> result = await PathfinderOfficialApi.GetSpellsPageWithTrait
+            IOperationResult<IGetSpellsPageWithTraitResult> result = await PathfinderReferenceApi.GetSpellsPageWithTrait
                      .ExecuteAsync(state.Page * state.PageSize, state.PageSize, TraitId, searchTerm, sortInputs);
 
             if (result?.Data?.Spells == null)

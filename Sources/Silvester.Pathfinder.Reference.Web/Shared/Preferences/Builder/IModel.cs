@@ -1,4 +1,4 @@
-﻿namespace Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder
+﻿namespace Silvester.Pathfinder.Reference.Web.Shared.Preferences.Builder
 {
     public interface IModel
     {

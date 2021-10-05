@@ -8,7 +8,7 @@
     }
   },
   "profiles": {
-    "Silvester.Pathfinder.Official.Web": {
+    "Silvester.Pathfinder.Reference.Web": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": true,

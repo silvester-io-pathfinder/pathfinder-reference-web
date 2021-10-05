@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Silvester.Pathfinder.Official.Icons;
-using Silvester.Pathfinder.Official.Web.Graphql.Generated;
-using Silvester.Pathfinder.Official.Web.Services.Currencies;
-using Silvester.Pathfinder.Official.Web.Shared.Footers;
+using Silvester.Pathfinder.Reference.Icons;
+using Silvester.Pathfinder.Reference.Web.Graphql.Generated;
+using Silvester.Pathfinder.Reference.Web.Services.Currencies;
+using Silvester.Pathfinder.Reference.Web.Shared.Footers;
 using System.Collections.Generic;
 
-namespace Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models
+namespace Silvester.Pathfinder.Reference.Web.Shared.Preferences.Builder.Models
 {
     public class FooterModel : IModel
     {

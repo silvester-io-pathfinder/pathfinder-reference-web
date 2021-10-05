@@ -1,17 +1,17 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
-using Silvester.Pathfinder.Official.Web.Graphql.Generated;
+using Silvester.Pathfinder.Reference.Web.Graphql.Generated;
 using StrawberryShake;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Shields.Providers
+namespace Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Shields.Providers
 {
     public class ShieldPageProvider : GraphqlPageProvider<IShieldsPage, ShieldSortInput>
     {
-        public ShieldPageProvider(IPathfinderOfficialApi api)
+        public ShieldPageProvider(IPathfinderReferenceApi api)
             : base(api)
         {
 
@@ -19,7 +19,7 @@ namespace Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Shields.
 
         public override async Task<TableData<IShieldsPage>> GetPage(ShieldSortInput[] sortInputs, TableState state, string searchTerm)
         {
-            IOperationResult<IGetShieldsPageResult> result = await PathfinderOfficialApi.GetShieldsPage
+            IOperationResult<IGetShieldsPageResult> result = await PathfinderReferenceApi.GetShieldsPage
                      .ExecuteAsync(state.Page * state.PageSize, state.PageSize, searchTerm, sortInputs);
 
             if (result?.Data?.Shields == null)

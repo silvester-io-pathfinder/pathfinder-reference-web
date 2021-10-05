@@ -1,8 +1,8 @@
-﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Heritages;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Heritages.Providers;
-@using Silvester.Pathfinder.Official.Web.Components.Cards;
-@using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
+﻿@using Silvester.Pathfinder.Reference.Web.Shared.Layout;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Heritages;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Heritages.Providers;
+@using Silvester.Pathfinder.Reference.Web.Components.Cards;
+@using Silvester.Pathfinder.Reference.Web.Components.Cards.Details.Instances;
 
 @inherits BaseDetailPage
 @page "/melee-weapons/{resourceId:guid}"
@@ -27,7 +27,7 @@
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        StoreSession = PathfinderOfficialApi.GetMeleeWeaponById
+        StoreSession = PathfinderReferenceApi.GetMeleeWeaponById
             .Watch(ResourceId, StrawberryShake.ExecutionStrategy.NetworkOnly)
             .Select(e => e.Data?.MeleeWeapons?.Items?.FirstOrDefault())
             .Subscribe(shield =>

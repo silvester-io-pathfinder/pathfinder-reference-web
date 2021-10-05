@@ -1,7 +1,7 @@
-﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Alignments;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Alignments.Providers;
-@using Silvester.Pathfinder.Official.Web.Components.Cards;
+﻿@using Silvester.Pathfinder.Reference.Web.Shared.Layout;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Alignments;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Alignments.Providers;
+@using Silvester.Pathfinder.Reference.Web.Components.Cards;
 
 @page "/alignments"
 @inherits BaseOverviewPage
@@ -10,7 +10,7 @@
     <PageLayout>
 
         <MudPaper Style="margin: 20px;">
-            <AlignmentsTable Title="Alignments" PageProvider="@(new AlignmentPageProvider(PathfinderOfficialApi))" />
+            <AlignmentsTable Title="Alignments" PageProvider="@(new AlignmentPageProvider(PathfinderReferenceApi))" />
         </MudPaper>
 
     </PageLayout>

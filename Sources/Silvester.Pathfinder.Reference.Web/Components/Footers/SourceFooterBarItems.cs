@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Silvester.Pathfinder.Official.Web.Graphql.Generated;
-using Silvester.Pathfinder.Official.Web.Shared.Footers;
+using Silvester.Pathfinder.Reference.Web.Graphql.Generated;
+using Silvester.Pathfinder.Reference.Web.Shared.Footers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Silvester.Pathfinder.Official.Web.Components.Footers
+namespace Silvester.Pathfinder.Reference.Web.Components.Footers
 {
     public class SourceFooterBarItems : IEnumerable<IconFooterBar.Item>
     {

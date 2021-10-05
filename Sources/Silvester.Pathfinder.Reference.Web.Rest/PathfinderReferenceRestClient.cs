@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
-using Silvester.Pathfinder.Official.Web.Rest.Exceptions;
-using Silvester.Pathfinder.Official.Web.Rest.Models;
+using Silvester.Pathfinder.Reference.Web.Rest.Exceptions;
+using Silvester.Pathfinder.Reference.Web.Rest.Models;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
@@ -9,22 +9,22 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Silvester.Pathfinder.Official.Web.Rest
+namespace Silvester.Pathfinder.Reference.Web.Rest
 {
-    public interface IPathfinderOfficialRestClient
+    public interface IPathfinderReferenceRestClient
     {
-        IOptions<PathfinderOfficialRestClient.Options> ClientOptions { get; }
+        IOptions<PathfinderReferenceRestClient.Options> ClientOptions { get; }
 
         Task<Document> GetLicenseAgreementAsync(int? version = null, CancellationToken cancellationToken = default);
         Task<Document> GetPrivacyPolicyAsync(int? version = null, CancellationToken cancellationToken = default);
     }
 
-    public class PathfinderOfficialRestClient : IPathfinderOfficialRestClient
+    public class PathfinderReferenceRestClient : IPathfinderReferenceRestClient
     {
         private HttpClient Client { get; }
         public IOptions<Options> ClientOptions { get; }
 
-        public PathfinderOfficialRestClient(HttpClient client, IOptions<Options> clientOptions)
+        public PathfinderReferenceRestClient(HttpClient client, IOptions<Options> clientOptions)
         {
             Client = client;
             ClientOptions = clientOptions;

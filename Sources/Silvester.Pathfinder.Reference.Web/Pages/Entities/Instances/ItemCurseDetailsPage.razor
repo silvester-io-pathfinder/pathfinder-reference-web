@@ -1,10 +1,10 @@
-﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Planes;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Planes.Providers;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Deities;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Deities.Providers;
-@using Silvester.Pathfinder.Official.Web.Components.Cards;
-@using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
+﻿@using Silvester.Pathfinder.Reference.Web.Shared.Layout;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Planes;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Planes.Providers;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Deities;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Deities.Providers;
+@using Silvester.Pathfinder.Reference.Web.Components.Cards;
+@using Silvester.Pathfinder.Reference.Web.Components.Cards.Details.Instances;
 
 @inherits BaseDetailPage
 @page "/item-curses/{resourceId:guid}"
@@ -29,7 +29,7 @@
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        StoreSession = PathfinderOfficialApi.GetItemCurseById
+        StoreSession = PathfinderReferenceApi.GetItemCurseById
             .Watch(ResourceId)
             .Select(e => e.Data?.ItemCurses?.Items?.FirstOrDefault())
             .Subscribe(curse =>

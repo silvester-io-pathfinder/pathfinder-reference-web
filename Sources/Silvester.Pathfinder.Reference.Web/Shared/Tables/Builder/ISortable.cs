@@ -1,4 +1,4 @@
-﻿namespace Silvester.Pathfinder.Official.Web.Shared.Tables.Builder
+﻿namespace Silvester.Pathfinder.Reference.Web.Shared.Tables.Builder
 {
     public interface ISortable<TEntity>
     {

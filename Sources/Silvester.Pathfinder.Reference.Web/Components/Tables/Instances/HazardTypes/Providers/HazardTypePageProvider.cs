@@ -1,17 +1,17 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
-using Silvester.Pathfinder.Official.Web.Graphql.Generated;
+using Silvester.Pathfinder.Reference.Web.Graphql.Generated;
 using StrawberryShake;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Silvester.Pathfinder.Official.Web.Components.Tables.Instances.HazardTypes.Providers
+namespace Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.HazardTypes.Providers
 {
     public class HazardTypePageProvider : GraphqlPageProvider<IHazardTypesPage, HazardTypeSortInput>
     {
-        public HazardTypePageProvider(IPathfinderOfficialApi api)
+        public HazardTypePageProvider(IPathfinderReferenceApi api)
             : base(api)
         {
 
@@ -19,7 +19,7 @@ namespace Silvester.Pathfinder.Official.Web.Components.Tables.Instances.HazardTy
 
         public override async Task<TableData<IHazardTypesPage>> GetPage(HazardTypeSortInput[] sortInputs, TableState state, string searchTerm)
         {
-            IOperationResult<IGetHazardTypesPageResult> result = await PathfinderOfficialApi.GetHazardTypesPage
+            IOperationResult<IGetHazardTypesPageResult> result = await PathfinderReferenceApi.GetHazardTypesPage
                      .ExecuteAsync(state.Page * state.PageSize, state.PageSize, searchTerm, sortInputs);
 
             if (result.Data?.HazardTypes == null)

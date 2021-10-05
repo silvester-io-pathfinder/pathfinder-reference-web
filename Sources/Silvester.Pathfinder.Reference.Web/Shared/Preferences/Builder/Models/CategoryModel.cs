@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Silvester.Pathfinder.Official.Web.Graphql.Generated;
-using Silvester.Pathfinder.Official.Web.Services;
-using Silvester.Pathfinder.Official.Web.Shared.Graphics;
-using Silvester.Pathfinder.Official.Web.Shared.Graphics.ActionTypeIcons;
+using Silvester.Pathfinder.Reference.Web.Graphql.Generated;
+using Silvester.Pathfinder.Reference.Web.Services;
+using Silvester.Pathfinder.Reference.Web.Shared.Graphics;
+using Silvester.Pathfinder.Reference.Web.Shared.Graphics.ActionTypeIcons;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Silvester.Pathfinder.Official.Web.Shared.Preferences.Builder.Models
+namespace Silvester.Pathfinder.Reference.Web.Shared.Preferences.Builder.Models
 {
     public class CategoryModel
     {

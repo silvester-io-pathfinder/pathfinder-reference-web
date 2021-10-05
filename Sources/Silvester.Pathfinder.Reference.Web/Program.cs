@@ -5,17 +5,17 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MudBlazor.Services;
-using Silvester.Pathfinder.Official.Web.Graphql.Generated;
-using Silvester.Pathfinder.Official.Web.Rest.DependencyInjection;
-using Silvester.Pathfinder.Official.Web.Services;
-using Silvester.Pathfinder.Official.Web.Services.Currencies;
-using Silvester.Pathfinder.Official.Web.Store.Middlewares;
+using Silvester.Pathfinder.Reference.Web.Graphql.Generated;
+using Silvester.Pathfinder.Reference.Web.Rest.DependencyInjection;
+using Silvester.Pathfinder.Reference.Web.Services;
+using Silvester.Pathfinder.Reference.Web.Services.Currencies;
+using Silvester.Pathfinder.Reference.Web.Store.Middlewares;
 using System;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace Silvester.Pathfinder.Official.Web
+namespace Silvester.Pathfinder.Reference.Web
 {
     public class Program
     {
@@ -46,8 +46,8 @@ namespace Silvester.Pathfinder.Official.Web
             { 
                 BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
             });
-            builder.Services.AddPathfinderOfficialApi();
-            builder.Services.AddPathfinderOfficialRestClient((options, configuration) => 
+            builder.Services.AddPathfinderReferenceApi();
+            builder.Services.AddPathfinderReferenceRestClient((options, configuration) => 
             {
                 options.Endpoint = new Uri(configuration.GetSection("clients:rest")["endpoint"]);
                 options.JsonSerializerOptions = new JsonSerializerOptions
@@ -57,7 +57,7 @@ namespace Silvester.Pathfinder.Official.Web
                 };
             });
             builder.Services
-                .AddHttpClient(PathfinderOfficialApi.ClientName)
+                .AddHttpClient(PathfinderReferenceApi.ClientName)
                 .ConfigureHttpClient((sp, client) => client.BaseAddress = new Uri(sp.GetRequiredService<IConfiguration>()["endpoints:api"]));
 
 

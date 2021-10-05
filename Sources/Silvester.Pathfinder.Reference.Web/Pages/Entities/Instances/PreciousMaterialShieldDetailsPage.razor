@@ -1,10 +1,10 @@
-﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Heritages;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Heritages.Providers;
-@using Silvester.Pathfinder.Official.Web.Components.Cards;
-@using Silvester.Pathfinder.Official.Web.Components.Cards.Details.Instances;
-@using Silvester.Pathfinder.Official.Web.Shared.Cards;
-@using Silvester.Pathfinder.Official.Web.Services.Currencies;
+﻿@using Silvester.Pathfinder.Reference.Web.Shared.Layout;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Heritages;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Heritages.Providers;
+@using Silvester.Pathfinder.Reference.Web.Components.Cards;
+@using Silvester.Pathfinder.Reference.Web.Components.Cards.Details.Instances;
+@using Silvester.Pathfinder.Reference.Web.Shared.Cards;
+@using Silvester.Pathfinder.Reference.Web.Services.Currencies;
 
 @inherits BaseDetailPage
 @page "/precious-material-shields/{resourceId:guid}"
@@ -60,7 +60,7 @@
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        StoreSession = PathfinderOfficialApi.GetPreciousMaterialShieldById
+        StoreSession = PathfinderReferenceApi.GetPreciousMaterialShieldById
             .Watch(ResourceId, StrawberryShake.ExecutionStrategy.NetworkOnly)
             .Select(e => e.Data?.PreciousMaterialShields?.Items?.FirstOrDefault())
             .Subscribe(shield =>

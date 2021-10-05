@@ -1,7 +1,7 @@
-﻿@using Silvester.Pathfinder.Official.Web.Shared.Layout;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Races;
-@using Silvester.Pathfinder.Official.Web.Components.Tables.Instances.Races.Providers;
-@using Silvester.Pathfinder.Official.Web.Components.Cards;
+﻿@using Silvester.Pathfinder.Reference.Web.Shared.Layout;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Races;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Races.Providers;
+@using Silvester.Pathfinder.Reference.Web.Components.Cards;
 
 @inherits BaseDetailPage
 @implements IDisposable
@@ -12,7 +12,7 @@
         <MudPaper Style="margin: 20px">
             <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
                 <MudTabPanel Text="Races">
-                    <RacesTable PageProvider="@(new RacePageWithLanguageProvider(PathfinderOfficialApi, ResourceId))" />
+                    <RacesTable PageProvider="@(new RacePageWithLanguageProvider(PathfinderReferenceApi, ResourceId))" />
                 </MudTabPanel>
             </MudTabs>
         </MudPaper>
@@ -30,7 +30,7 @@
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        StoreSession = PathfinderOfficialApi.GetLanguageById
+        StoreSession = PathfinderReferenceApi.GetLanguageById
             .Watch(ResourceId)
             .Select(e => e.Data?.Languages?.Items?.FirstOrDefault())
             .Subscribe(language =>

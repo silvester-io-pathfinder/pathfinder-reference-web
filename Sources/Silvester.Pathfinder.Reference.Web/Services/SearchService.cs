@@ -1,5 +1,5 @@
 ﻿using Pluralize.NET.Core;
-using Silvester.Pathfinder.Official.Web.Graphql.Generated;
+using Silvester.Pathfinder.Reference.Web.Graphql.Generated;
 using StrawberryShake;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Silvester.Pathfinder.Official.Web.Services
+namespace Silvester.Pathfinder.Reference.Web.Services
 {
     public interface ISearchService
     {
@@ -20,16 +20,16 @@ namespace Silvester.Pathfinder.Official.Web.Services
 
     public class SearchService : ISearchService
     {
-        private IPathfinderOfficialApi PathfinderOfficialApi { get; }
+        private IPathfinderReferenceApi PathfinderReferenceApi { get; }
 
-        public SearchService(IPathfinderOfficialApi pathfinderOfficialApi)
+        public SearchService(IPathfinderReferenceApi PathfinderReferenceApi)
         {
-            PathfinderOfficialApi = pathfinderOfficialApi;
+            PathfinderReferenceApi = PathfinderReferenceApi;
         }
 
         public async Task<IEnumerable<ISearchResult>> Search(string searchTerm, CancellationToken cancellationToken = default)
         {
-            IOperationResult<ISearchByTermResult> result = await PathfinderOfficialApi.SearchByTerm
+            IOperationResult<ISearchByTermResult> result = await PathfinderReferenceApi.SearchByTerm
                     .ExecuteAsync(searchTerm, cancellationToken);
 
             if (result.Data?.Search == null)

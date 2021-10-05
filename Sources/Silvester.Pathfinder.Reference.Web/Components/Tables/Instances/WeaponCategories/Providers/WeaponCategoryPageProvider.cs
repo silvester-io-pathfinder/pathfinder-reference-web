@@ -1,17 +1,17 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
-using Silvester.Pathfinder.Official.Web.Graphql.Generated;
+using Silvester.Pathfinder.Reference.Web.Graphql.Generated;
 using StrawberryShake;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Silvester.Pathfinder.Official.Web.Components.Tables.Instances.WeaponCategories.Providers
+namespace Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.WeaponCategories.Providers
 {
     public class WeaponCategoryPageProvider : GraphqlPageProvider<IWeaponCategoriesPage, WeaponCategorySortInput>
     {
-        public WeaponCategoryPageProvider(IPathfinderOfficialApi api)
+        public WeaponCategoryPageProvider(IPathfinderReferenceApi api)
             : base(api)
         {
 
@@ -19,7 +19,7 @@ namespace Silvester.Pathfinder.Official.Web.Components.Tables.Instances.WeaponCa
 
         public override async Task<TableData<IWeaponCategoriesPage>> GetPage(WeaponCategorySortInput[] sortInputs, TableState state, string searchTerm)
         {
-            IOperationResult<IGetWeaponCategoriesPageResult> result = await PathfinderOfficialApi.GetWeaponCategoriesPage
+            IOperationResult<IGetWeaponCategoriesPageResult> result = await PathfinderReferenceApi.GetWeaponCategoriesPage
                      .ExecuteAsync(state.Page * state.PageSize, state.PageSize, searchTerm, sortInputs);
 
             if (result.Data?.WeaponCategories == null)
