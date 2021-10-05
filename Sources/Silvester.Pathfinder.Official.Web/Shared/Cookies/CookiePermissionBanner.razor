@@ -67,13 +67,11 @@
     {
         if (CookiePermissionState == null || CookiePermissionState.Value.HasDeclaredCookiePreferences == false || CookiePermissionState.Value.CanUseNonEssentialCookies == false)
         {
-            Console.WriteLine("Analytics disabled");
             GlobalTracking.Disable();
             JSRuntime.InvokeVoidAsync("unloadGoogleAnalytics");
         }
         else
         {
-            Console.WriteLine("Analytics enabled");
             GlobalTracking.Enable();
             JSRuntime.InvokeVoidAsync("loadGoogleAnalytics");
         }
