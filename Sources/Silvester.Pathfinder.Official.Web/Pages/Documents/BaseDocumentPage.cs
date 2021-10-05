@@ -34,7 +34,6 @@ namespace Silvester.Pathfinder.Official.Web.Pages.Documents
             base.OnInitialized();
             HttpResponseMessage response = await HttpClient.GetAsync($"https://pf2e.io/api/documents/{DocumentType}/versions/{DocumentVersion}");
             Document = await JsonSerializer.DeserializeAsync<Document>(await response.Content.ReadAsStreamAsync(), JsonSerializerOptions);
-            Console.WriteLine(JsonSerializer.Serialize(Document));
         }
     }
 }

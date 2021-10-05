@@ -41,7 +41,6 @@
 
     private Task OnCookiesAcceptedAsync()
     {
-        Console.WriteLine($"essential: {HasAcceptedEssentialCookies}, nonEssential: {HasAcceptedNonEssentialCookies}");
         Dispatcher.Dispatch(new SetCookiePermissionAcceptedAction(HasAcceptedEssentialCookies, HasAcceptedNonEssentialCookies));
         return Task.CompletedTask;
     }

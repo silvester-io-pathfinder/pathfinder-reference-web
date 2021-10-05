@@ -34,7 +34,6 @@
             .Select(e => e.Data?.Curses?.Items?.FirstOrDefault())
             .Subscribe(curse =>
             {
-                Console.WriteLine("Curse loaded: " + curse.Name);
                 Curse = curse;
                 OnResourceLoaded();
             });
