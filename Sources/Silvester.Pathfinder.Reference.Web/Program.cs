@@ -42,10 +42,6 @@ namespace Silvester.Pathfinder.Reference.Web
             builder.Services.AddScoped<IActionTypeService, ActionTypeService>();
             builder.Services.AddScoped<ISearchService, SearchService>();
             builder.Services.AddGoogleAnalytics("GTM-WH8BW86");
-            builder.Services.AddScoped(sp => new HttpClient
-            {
-                BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
-            });
             builder.Services.AddPathfinderReferenceApi();
             builder.Services.AddPathfinderReferenceRestClient((options, configuration) =>
             {
