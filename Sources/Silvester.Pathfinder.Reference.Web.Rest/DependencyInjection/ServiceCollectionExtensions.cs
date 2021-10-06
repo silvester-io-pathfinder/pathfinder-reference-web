@@ -18,13 +18,10 @@ namespace Silvester.Pathfinder.Reference.Web.Rest.DependencyInjection
                 .Configure(configureAction)
                 .ValidateDataAnnotations();
 
-            Console.WriteLine("Setting 1");
-
             services
                 .AddHttpClient(typeof(IPathfinderReferenceRestClient).Name, (sp, client) => 
                 {
                     IOptions<PathfinderReferenceRestClient.Options> options = sp.GetRequiredService<IOptions<PathfinderReferenceRestClient.Options>>();
-                    Console.WriteLine("SETTING: " + options.Value.Endpoint.ToString());
                     client.BaseAddress = options.Value.Endpoint;
                 }) ;
 

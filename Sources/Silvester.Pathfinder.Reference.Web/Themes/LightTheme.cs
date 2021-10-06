@@ -1,12 +1,13 @@
 ﻿using MudBlazor;
+using Silvester.Pathfinder.Reference.Web.Themes.Extensions;
 
 namespace Silvester.Pathfinder.Reference.Web.Themes
 {
-    public class DefaultTheme : MudTheme
+    public class LightTheme : CustomTheme
     {
-        public DefaultTheme()
+        public LightTheme()
         {
-            Palette = new Palette
+            Palette = new CustomPalette
             {
                 Primary = Colors.Red.Default,
                 PrimaryContrastText = "#FFFFFF",
@@ -14,6 +15,12 @@ namespace Silvester.Pathfinder.Reference.Web.Themes
                 SecondaryContrastText = "#FFFFFF",
                 AppbarBackground = Colors.Red.Default,
                 Tertiary = Colors.BlueGrey.Default,
+
+                Footer = Colors.Red.Default,
+                FooterDark = "#b9000a",
+                FooterText = "#FFFFFF",
+
+                Background = "#F1F1F1",
             };
 
             LayoutProperties = new LayoutProperties

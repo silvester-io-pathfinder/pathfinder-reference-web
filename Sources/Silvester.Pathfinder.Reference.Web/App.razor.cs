@@ -1,28 +1,34 @@
 ﻿
+using Fluxor;
+using Microsoft.AspNetCore.Components;
 using MudBlazor;
+using Silvester.Pathfinder.Reference.Web.Store.States;
+using Silvester.Pathfinder.Reference.Web.Themes;
+using System;
 
 namespace Silvester.Pathfinder.Reference.Web
 {
-    public partial class App
+    public partial class App : IDisposable
     {
-        public MudTheme Theme { get; }
+        [Inject]
+        public IThemeProvider ThemeProvider { get; set; } = default!;
 
-        public App()
+        protected override void OnInitialized()
         {
-            Theme = new MudTheme()
-            {
-                Palette = new Palette()
-                {
-                    Primary = Colors.Orange.Default,
-                    Secondary = Colors.Red.Accent2,
-                    AppbarBackground = Colors.Orange.Default,
-                },
+            ThemeProvider.StateChanged += OnStateChange;
+        }
 
-                LayoutProperties = new LayoutProperties()
-                {
-                    DrawerWidthLeft = "260px"
-                }
-            };
+        private void OnStateChange()
+        {
+            StateHasChanged();
+        }
+
+        public void Dispose()
+        {
+            if(ThemeProvider != null)
+            {
+                ThemeProvider.StateChanged -= OnStateChange;
+            }
         }
     }
 }

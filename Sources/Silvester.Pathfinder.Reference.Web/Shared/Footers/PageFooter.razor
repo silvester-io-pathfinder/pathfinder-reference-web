@@ -1,39 +1,42 @@
 ﻿@using Silvester.Pathfinder.Reference.Web.Rest;
+@using Silvester.Pathfinder.Reference.Web.Store.States;
 @using Microsoft.Extensions.Options;
- 
+
+@implements IDisposable
+
 <div>
-    <MudGrid Class="background-wrapper" Spacing="0" Justify="Justify.Center">
+    <MudGrid Class="background-wrapper" Spacing="0" Justify="Justify.Center" Style=@($"background-color: {ThemeProvider.Theme.Palette.Footer};")>
         <MudItem xs="10" sm="10" md="10" lg="10" xl="8" Style="padding-top: 25px; padding-bottom: 25px;">
             <MudGrid Class="content" Spacing="2" Justify="Justify.Center">
 
                 <MudItem xs="12" sm="4">
                     <div class="wrapper">
-                        <p class="header">Contributing</p>
-                        <a class="item" Href="pages/frequently-asked-questions/latest">Frequently Asked Questions</a>
-                        <a class="item" Href="https://www.patreon.com/pf2e_io">Become a Patron</a>
-                    </div>
-                </MudItem>
-
-                <MudItem xs="12" sm="4" >
-                    <div class="wrapper">
-                        <a class="header">Documentation</a>
-                        <a class="item" Href="@(GetApiLink("graphql"))">GraphQL</a>
-                        <a class="item" Href="@(GetApiLink("swagger"))">REST</a>
+                        <p style=@GetTextColor() class="header">Contributing</p>
+                        <a style=@GetTextColor() class="item" href="pages/frequently-asked-questions/latest">Frequently Asked Questions</a>
+                        <a style=@GetTextColor() class="item" href="https://www.patreon.com/pf2e_io">Become a Patron</a>
                     </div>
                 </MudItem>
 
                 <MudItem xs="12" sm="4">
                     <div class="wrapper">
-                        <a class="header">Documents</a>
-                        <a class="item" href="pages/privacy-policies/latest">Privacy Policy</a>
-                        <a class="item" href="pages/license-agreements/latest">License Agreement</a>
+                        <a style=@GetTextColor() class="header">Documentation</a>
+                        <a style=@GetTextColor() class="item" href="@(GetApiLink("graphql"))">GraphQL</a>
+                        <a style=@GetTextColor() class="item" href="@(GetApiLink("swagger"))">REST</a>
+                    </div>
+                </MudItem>
+
+                <MudItem xs="12" sm="4">
+                    <div class="wrapper">
+                        <a style=@GetTextColor() class="header">Documents</a>
+                        <a style=@GetTextColor() class="item" href="pages/privacy-policies/latest">Privacy Policy</a>
+                        <a style=@GetTextColor() class="item" href="pages/license-agreements/latest">License Agreement</a>
                     </div>
                 </MudItem>
             </MudGrid>
         </MudItem>
     </MudGrid>
 
-    <MudGrid Class="copyright" Spacing="0" Justify="Justify.Center">
+    <MudGrid Class="copyright" Spacing="0" Justify="Justify.Center" Style=@($"background-color: {ThemeProvider.Theme.Palette.FooterDark}")>
         <MudItem xs="10">
             <MudText Style="padding-top: 20px; padding-bottom: 20px; text-align: center; color: rgba(255, 255, 255, 0.7);">The pf2e.io services uses trademarks and/or copyrights owned by Paizo Inc., used under Paizo's Community Use Policy (paizo.com/communityuse). We are expressly prohibited from charging you to use or access this content. The pf2e.io services are not published, endorsed, or specifically approved by Paizo. For more information about Paizo Inc. and Paizo products, visit paizo.com.</MudText>
         </MudItem>
@@ -42,11 +45,32 @@
 
 @code {
     [Inject]
+    public IThemeProvider ThemeProvider { get; set; } = default!;
+
+    [Inject]
     public IOptions<PathfinderReferenceRestClient.Options> Options { get; set; } = default!;
 
     private string GetApiLink(string path)
     {
-        Console.WriteLine("URL: " + Options.Value.Endpoint.ToString() + path);
         return $"{Options.Value.Endpoint.ToString()}{path}";
+    }
+
+    private string GetTextColor()
+    {
+        return $"color: {ThemeProvider.Theme.Palette.FooterText};";
+    }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        ThemeProvider.StateChanged += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        if (ThemeProvider != null)
+        {
+            ThemeProvider.StateChanged -= StateHasChanged;
+        }
     }
 } 

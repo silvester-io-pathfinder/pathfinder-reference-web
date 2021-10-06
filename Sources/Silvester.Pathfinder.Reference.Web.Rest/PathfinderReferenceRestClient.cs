@@ -29,8 +29,6 @@ namespace Silvester.Pathfinder.Reference.Web.Rest
         {
             Client = clientFactory.CreateClient(typeof(IPathfinderReferenceRestClient).Name);
             ClientOptions = clientOptions;
-            
-            Console.WriteLine("INJECTED: " + Client.BaseAddress.ToString());
         }
 
         public Task<Document> GetPrivacyPolicyAsync(int? version = null, CancellationToken cancellationToken = default)
@@ -61,7 +59,6 @@ namespace Silvester.Pathfinder.Reference.Web.Rest
 
         private async Task<TResource> GetAsync<TResource>(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            Console.WriteLine("REQUEST URI: " + Client.BaseAddress + request.RequestUri.ToString());
             HttpResponseMessage response = await Client.SendAsync(request);
 
             if (response.IsSuccessStatusCode == false)

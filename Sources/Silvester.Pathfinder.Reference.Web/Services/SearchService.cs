@@ -22,9 +22,9 @@ namespace Silvester.Pathfinder.Reference.Web.Services
     {
         private IPathfinderReferenceApi PathfinderReferenceApi { get; }
 
-        public SearchService(IPathfinderReferenceApi PathfinderReferenceApi)
+        public SearchService(IPathfinderReferenceApi pathfinderReferenceApi)
         {
-            PathfinderReferenceApi = PathfinderReferenceApi;
+            PathfinderReferenceApi = pathfinderReferenceApi;
         }
 
         public async Task<IEnumerable<ISearchResult>> Search(string searchTerm, CancellationToken cancellationToken = default)

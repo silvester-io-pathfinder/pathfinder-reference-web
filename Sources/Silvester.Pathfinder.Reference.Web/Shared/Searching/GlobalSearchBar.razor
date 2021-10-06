@@ -8,7 +8,7 @@
     <MudItem xs="12" Style="position: relative;">
         <div style="display:flex; flex-direction: row;">
             <MudTextField DisableUnderLine="true" T="string" @bind-Value="CurrentValue" Variant="Variant.Text" @onclick="() => OnDebounceIntervalElapsed(Instance.Value)"
-                          Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" Immediate="true" AdornmentColor="Color.Secondary"
+                          Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" Immediate="true" AdornmentColor="Color.Primary"
                           OnKeyPress="OnKeyPress" Style="padding-left: 20px; padding-right: 20px;" @ref="Instance" />
 
             <MudIconButton Icon="@Icons.Material.Filled.Close" Disabled="string.IsNullOrWhiteSpace(Instance?.Value)" Size="Size.Small" Style="margin-right: 20px; padding-top: 0px; padding-bottom: 0px; margin-top: 3px;" @onclick="OnClearClick" />

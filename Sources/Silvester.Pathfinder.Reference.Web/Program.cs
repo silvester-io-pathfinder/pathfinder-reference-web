@@ -10,6 +10,7 @@ using Silvester.Pathfinder.Reference.Web.Rest.DependencyInjection;
 using Silvester.Pathfinder.Reference.Web.Services;
 using Silvester.Pathfinder.Reference.Web.Services.Currencies;
 using Silvester.Pathfinder.Reference.Web.Store.Middlewares;
+using Silvester.Pathfinder.Reference.Web.Store.States;
 using System;
 using System.Net.Http;
 using System.Text.Json;
@@ -41,6 +42,7 @@ namespace Silvester.Pathfinder.Reference.Web
             builder.Services.AddScoped<ICurrencyService, CurrencyService>();
             builder.Services.AddScoped<IActionTypeService, ActionTypeService>();
             builder.Services.AddScoped<ISearchService, SearchService>();
+            builder.Services.AddScoped<IThemeProvider, ThemeProvider>();
             builder.Services.AddGoogleAnalytics("GTM-WH8BW86");
             builder.Services.AddPathfinderReferenceApi();
             builder.Services.AddPathfinderReferenceRestClient((options, configuration) =>

@@ -11,6 +11,10 @@
         <MudText Typo="Typo.h6" Style="white-space: nowrap;">@AppBarState!.Value.Title</MudText>
         <MudAppBarSpacer />
         <div class="d-none d-md-flex align-center">
+            <MudTooltip Text="Switch Theme">
+                <MudIconButton Icon="@Icons.Material.Filled.Brightness4" Color="Color.Inherit" OnClick="OnSwitchThemeClick"/>
+            </MudTooltip>
+            <MudDivider Vertical="true" FlexItem="true" DividerType="DividerType.Middle" Style="margin-top: 11px; margin-bottom: 11px;"/>
             <MudTooltip Text="Patreon">
                 <MudIconButton Icon="@Silvester.Pathfinder.Reference.Icons.Generated.Patreon" Color="Color.Inherit" Link="https://www.patreon.com/pf2e_io" Target="_blank" />
             </MudTooltip>
@@ -102,7 +106,7 @@
             <CookiePermissionBanner />
             @Body
             <MudScrollToTop>
-                <MudFab Color="Color.Tertiary" Icon="@Icons.Filled.ArrowUpward" />
+                <MudFab Color="Color.Secondary" Icon="@Icons.Filled.ArrowUpward" />
             </MudScrollToTop>
         </div>
         <div style="flex-shrink: 0;">
@@ -112,7 +116,6 @@
 </MudLayout>
 
 @code {
-   
     public RenderFragment SearchBar()
     {
         return @<div>

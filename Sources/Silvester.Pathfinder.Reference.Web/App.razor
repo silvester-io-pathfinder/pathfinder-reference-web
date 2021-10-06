@@ -1,9 +1,11 @@
 @using Silvester.Pathfinder.Reference.Web.Themes;
 @using Silvester.Pathfinder.Reference.Web.Store;
-
+@using Silvester.Pathfinder.Reference.Web.Store.States;
+ 
 <Fluxor.Blazor.Web.StoreInitializer />
 
-<MudThemeProvider Theme="new DefaultTheme()" />
+<MudThemeProvider Theme="@(ThemeProvider.Theme)" />
+
 <MudDialogProvider />
 <MudSnackbarProvider />
 

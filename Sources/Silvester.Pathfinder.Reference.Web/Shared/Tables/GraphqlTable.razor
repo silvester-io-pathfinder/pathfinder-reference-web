@@ -1,4 +1,5 @@
 ﻿@using Silvester.Pathfinder.Reference.Web.Shared.Tables
+@using Silvester.Pathfinder.Reference.Web.Store.States;
 @using Silvester.Pathfinder.Reference.Web.Shared.Tables.Builder
 @using Silvester.Pathfinder.Reference.Web.Shared.Tables.Builder.Columns
 @using Silvester.Pathfinder.Reference.Web.Components.Tables;
@@ -22,7 +23,7 @@
                 @if (Model.IsSearchEnabled)
                 {
                     <div>
-                        <MudTextField T="string" Style="background-color: white; padding: 8px; width: 100%;" ValueChanged="@(text => OnSearch(text))" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0" />
+                        <MudTextField T="string" Style="padding: 8px; width: 100%;" ValueChanged="@(text => OnSearch(text))" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" AdornmentColor="Color.Primary" Class="mt-0" />
                     </div>
                 }
             </div>
