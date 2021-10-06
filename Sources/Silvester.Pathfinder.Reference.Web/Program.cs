@@ -45,7 +45,7 @@ namespace Silvester.Pathfinder.Reference.Web
             builder.Services.AddPathfinderReferenceApi();
             builder.Services.AddPathfinderReferenceRestClient((options, configuration) =>
             {
-                options.Endpoint = new Uri(configuration.GetSection("endpoints:api")["endpoint"]);
+                options.Endpoint = new Uri(configuration.GetSection("endpoints:api")["rest"]);
                 options.JsonSerializerOptions = new JsonSerializerOptions
                 {
                     PropertyNameCaseInsensitive = true,
