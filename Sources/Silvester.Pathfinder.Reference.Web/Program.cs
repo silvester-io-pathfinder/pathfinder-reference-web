@@ -49,7 +49,7 @@ namespace Silvester.Pathfinder.Reference.Web
             builder.Services.AddPathfinderReferenceApi();
             builder.Services.AddPathfinderReferenceRestClient((options, configuration) =>
             {
-                options.Endpoint = new Uri(configuration.GetSection("clients:rest")["endpoint"]);
+                options.Endpoint = new Uri(configuration.GetSection("endpoints:api")["endpoint"]);
                 options.JsonSerializerOptions = new JsonSerializerOptions
                 {
                     PropertyNameCaseInsensitive = true,
@@ -58,7 +58,7 @@ namespace Silvester.Pathfinder.Reference.Web
             });
             builder.Services
                 .AddHttpClient(PathfinderReferenceApi.ClientName)
-                .ConfigureHttpClient((sp, client) => client.BaseAddress = new Uri(sp.GetRequiredService<IConfiguration>()["endpoints:api"]));
+                .ConfigureHttpClient((sp, client) => client.BaseAddress = new Uri(sp.GetRequiredService<IConfiguration>()["endpoints:api:graphql"]));
 
             await builder.Build().RunAsync();
         }
