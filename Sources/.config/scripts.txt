@@ -1,4 +1,4 @@
-dotnet graphql init https://pf2e.io/api/graphql -n PathfinderReferenceApi -p ./Silvester.Pathfinder.Reference.Web.Graphql
+dotnet graphql init https://staging.pf2e.io/api/graphql -n PathfinderReferenceApi -p ./Silvester.Pathfinder.Reference.Web.Graphql
 dotnet graphql update
 dotnet tool uninstall strawberryshake.tools
 dotnet tool install strawberryshake.tools --version 11.2.1

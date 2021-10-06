@@ -1,4 +1,7 @@
-﻿<div>
+﻿@using Silvester.Pathfinder.Reference.Web.Rest;
+@using Microsoft.Extensions.Options;
+ 
+<div>
     <MudGrid Class="background-wrapper" Spacing="0" Justify="Justify.Center">
         <MudItem xs="10" sm="10" md="10" lg="10" xl="8" Style="padding-top: 25px; padding-bottom: 25px;">
             <MudGrid Class="content" Spacing="2" Justify="Justify.Center">
@@ -14,16 +17,16 @@
                 <MudItem xs="12" sm="4" >
                     <div class="wrapper">
                         <a class="header">Documentation</a>
-                        <a class="item" Href="https://pf2e.io/api/graphql">GraphQL</a>
-                        <a class="item" Href="https://pf2e.io/api/swagger">REST</a>
+                        <a class="item" Href="@(GetApiLink("graphql"))">GraphQL</a>
+                        <a class="item" Href="@(GetApiLink("swagger"))">REST</a>
                     </div>
                 </MudItem>
 
                 <MudItem xs="12" sm="4">
                     <div class="wrapper">
                         <a class="header">Documents</a>
-                        <a class="item" Href="pages/privacy-policies/latest">Privacy Policy</a>
-                        <a class="item" Href="pages/license-agreements/latest">License Agreement</a>
+                        <a class="item" href="pages/privacy-policies/latest">Privacy Policy</a>
+                        <a class="item" href="pages/license-agreements/latest">License Agreement</a>
                     </div>
                 </MudItem>
             </MudGrid>
@@ -38,5 +41,12 @@
 </div>
 
 @code {
+    [Inject]
+    public IOptions<PathfinderReferenceRestClient.Options> Options { get; set; } = default!;
 
+    private string GetApiLink(string path)
+    {
+        Console.WriteLine("URL: " + Options.Value.Endpoint.ToString() + path);
+        return $"{Options.Value.Endpoint.ToString()}{path}";
+    }
 } 

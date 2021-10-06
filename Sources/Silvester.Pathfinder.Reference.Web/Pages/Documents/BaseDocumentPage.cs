@@ -1,6 +1,8 @@
 ﻿using Fluxor;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Options;
 using Silvester.Pathfinder.Reference.Documents.Models;
+using Silvester.Pathfinder.Reference.Web.Rest;
 using Silvester.Pathfinder.Reference.Web.Store.States.Actions;
 using System;
 using System.Collections.Generic;
@@ -14,7 +16,7 @@ namespace Silvester.Pathfinder.Reference.Web.Pages.Documents
     public abstract class BaseDocumentPage : ComponentBase
     {
         [Inject]
-        public HttpClient HttpClient { get; set; } = default!;
+        public IPathfinderReferenceRestClient HttpClient { get; set; } = default!;
 
         [Parameter]
         public string DocumentVersion { get; set; } = default!;
@@ -23,17 +25,10 @@ namespace Silvester.Pathfinder.Reference.Web.Pages.Documents
 
         protected Document? Document { get; set; }
 
-        public JsonSerializerOptions JsonSerializerOptions = new JsonSerializerOptions
-        {
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-            PropertyNameCaseInsensitive = true
-        };
-
         protected async override Task OnInitializedAsync()
         {
             base.OnInitialized();
-            HttpResponseMessage response = await HttpClient.GetAsync($"https://pf2e.io/api/documents/{DocumentType}/versions/{DocumentVersion}");
-            Document = await JsonSerializer.DeserializeAsync<Document>(await response.Content.ReadAsStreamAsync(), JsonSerializerOptions);
+            Document = await HttpClient.GetDocumentAsync(DocumentType, DocumentVersion); 
         }
     }
 }

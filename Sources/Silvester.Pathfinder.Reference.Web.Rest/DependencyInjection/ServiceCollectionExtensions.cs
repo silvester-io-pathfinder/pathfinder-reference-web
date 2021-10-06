@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,16 @@ namespace Silvester.Pathfinder.Reference.Web.Rest.DependencyInjection
                 .AddOptions<PathfinderReferenceRestClient.Options>()
                 .Configure(configureAction)
                 .ValidateDataAnnotations();
+
+            Console.WriteLine("Setting 1");
+
+            services
+                .AddHttpClient(typeof(IPathfinderReferenceRestClient).Name, (sp, client) => 
+                {
+                    IOptions<PathfinderReferenceRestClient.Options> options = sp.GetRequiredService<IOptions<PathfinderReferenceRestClient.Options>>();
+                    Console.WriteLine("SETTING: " + options.Value.Endpoint.ToString());
+                    client.BaseAddress = options.Value.Endpoint;
+                }) ;
 
             services
                 .AddTransient<IPathfinderReferenceRestClient, PathfinderReferenceRestClient>();

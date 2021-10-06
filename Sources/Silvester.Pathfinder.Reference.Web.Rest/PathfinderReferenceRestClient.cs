@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
+using Silvester.Pathfinder.Reference.Documents.Models;
 using Silvester.Pathfinder.Reference.Web.Rest.Exceptions;
-using Silvester.Pathfinder.Reference.Web.Rest.Models;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
@@ -15,6 +15,7 @@ namespace Silvester.Pathfinder.Reference.Web.Rest
     {
         IOptions<PathfinderReferenceRestClient.Options> ClientOptions { get; }
 
+        Task<Document> GetDocumentAsync(string documentType, string documentVersion, CancellationToken cancellationToken = default);
         Task<Document> GetLicenseAgreementAsync(int? version = null, CancellationToken cancellationToken = default);
         Task<Document> GetPrivacyPolicyAsync(int? version = null, CancellationToken cancellationToken = default);
     }
@@ -24,10 +25,12 @@ namespace Silvester.Pathfinder.Reference.Web.Rest
         private HttpClient Client { get; }
         public IOptions<Options> ClientOptions { get; }
 
-        public PathfinderReferenceRestClient(HttpClient client, IOptions<Options> clientOptions)
+        public PathfinderReferenceRestClient(IHttpClientFactory clientFactory, IOptions<Options> clientOptions)
         {
-            Client = client;
+            Client = clientFactory.CreateClient(typeof(IPathfinderReferenceRestClient).Name);
             ClientOptions = clientOptions;
+            
+            Console.WriteLine("INJECTED: " + Client.BaseAddress.ToString());
         }
 
         public Task<Document> GetPrivacyPolicyAsync(int? version = null, CancellationToken cancellationToken = default)
@@ -36,7 +39,7 @@ namespace Silvester.Pathfinder.Reference.Web.Rest
                 ? "documents/privacy-policies/versions/" + version.Value
                 : "documents/privacy-policies/versions/latest";
 
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, ClientOptions.Value.Endpoint + path);
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, path);
             return GetAsync<Document>(request, cancellationToken);
         }
 
@@ -45,13 +48,20 @@ namespace Silvester.Pathfinder.Reference.Web.Rest
             string path = version.HasValue
                 ? "documents/license-agreements/versions/" + version.Value
                 : "documents/license-agreements/versions/latest";
+            
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, path);
+            return GetAsync<Document>(request, cancellationToken);
+        }
 
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, ClientOptions.Value.Endpoint + path);
+        public Task<Document> GetDocumentAsync(string documentType, string documentVersion, CancellationToken cancellationToken = default)
+        {
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, $"documents/{documentType}/versions/{documentVersion}");
             return GetAsync<Document>(request, cancellationToken);
         }
 
         private async Task<TResource> GetAsync<TResource>(HttpRequestMessage request, CancellationToken cancellationToken)
         {
+            Console.WriteLine("REQUEST URI: " + Client.BaseAddress + request.RequestUri.ToString());
             HttpResponseMessage response = await Client.SendAsync(request);
 
             if (response.IsSuccessStatusCode == false)
