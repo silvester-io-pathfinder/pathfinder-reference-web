@@ -1,0 +1,32 @@
+﻿@using Silvester.Pathfinder.Reference.Web.Shared.Layout;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Ancestries;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Ancestries.Providers;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.AncestryRarities;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.AncestryRarities.Providers;
+@using Silvester.Pathfinder.Reference.Web.Components.Cards;
+
+@page "/ancestries"
+@inherits BaseOverviewPage
+
+<div>
+    <PageLayout>
+
+        <MudPaper Style="margin: 20px;">
+            <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
+                <MudTabPanel Text="Ancestries">
+                    <AncestriesTable PageProvider="@(new AncestryPageProvider(PathfinderReferenceApi))" />
+                </MudTabPanel>
+                <MudTabPanel Text="Rarities">
+                    <AncestryRaritiesTable PageProvider="@(new AncestryRarityPageProvider(PathfinderReferenceApi))" />
+                </MudTabPanel>
+            </MudTabs>
+        </MudPaper>
+
+    </PageLayout>
+
+</div>
+
+@code
+{
+    protected override string CollectionName => "ancestries";
+}

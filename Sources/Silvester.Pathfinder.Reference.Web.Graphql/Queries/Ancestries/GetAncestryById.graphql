@@ -1,0 +1,60 @@
+﻿query GetAncestryById($id: Uuid!) {
+	ancestries(where: {id: {eq: $id}}) {
+		items {
+			... AncestryById
+		}
+	}
+}
+
+
+fragment AncestryById on Ancestry {
+	id,
+	name,
+	description,
+	baseSpeed,
+	baseHealth,
+	size {
+		id,
+		name
+	},
+	rarity {
+		id,
+		name
+	},
+	languages {
+		... AncestryById_Language
+	},
+	ancestryTraits {
+		... TraitChip
+	},
+	heritages {
+		... AncestryById_Heritage
+	}
+}
+
+fragment AncestryById_Language on Language {
+	id, 
+	name
+	type {
+		... AncestryById_Language_Type
+	}
+}
+
+fragment AncestryById_Language_Type on LanguageType {
+	id,
+	name
+}
+
+fragment AncestryById_Heritage on Heritage {
+	id,
+	name,
+	description,
+	rarity {
+		... AncestryById_Heritage_Rarity
+	}
+}
+
+fragment AncestryById_Heritage_Rarity on Rarity {
+	id, 
+	name
+}

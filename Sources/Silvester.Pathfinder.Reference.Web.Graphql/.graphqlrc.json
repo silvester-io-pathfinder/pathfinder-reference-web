@@ -5,7 +5,7 @@
     "strawberryShake": {
       "namespace": "Silvester.Pathfinder.Reference.Web.Graphql.Generated",
       "name": "PathfinderReferenceApi",
-      "url": "https://pf2e.io/api/graphql",
+      "url": "https://staging.pf2e.io/api/graphql",
       "dependencyInjection": true,
       "strictSchemaValidation": true,
       "hashAlgorithm": "md5",

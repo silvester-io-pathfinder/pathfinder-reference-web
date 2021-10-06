@@ -209,9 +209,9 @@ input CreatureSortInput {
   rarityId: SortEnumType
   rarity: RaritySortInput
   sizeId: SortEnumType
-  size: RaceSizeSortInput
-  raceId: SortEnumType
-  race: RaceSortInput
+  size: AncestrySizeSortInput
+  ancestryId: SortEnumType
+  ancestry: AncestrySortInput
   recallKnowledgeId: SortEnumType
   recallKnowledge: CreatureRecallKnowledgeSortInput
   searchVector: NpgsqlTsVectorSortInput
@@ -251,9 +251,9 @@ input CreatureFilterInput {
   rarityId: ComparableGuidOperationFilterInput
   rarity: RarityFilterInput
   sizeId: ComparableGuidOperationFilterInput
-  size: RaceSizeFilterInput
-  raceId: ComparableNullableOfGuidOperationFilterInput
-  race: RaceFilterInput
+  size: AncestrySizeFilterInput
+  ancestryId: ComparableNullableOfGuidOperationFilterInput
+  ancestry: AncestryFilterInput
   recallKnowledgeId: ComparableNullableOfGuidOperationFilterInput
   recallKnowledge: CreatureRecallKnowledgeFilterInput
   traits: ListFilterInputTypeOfTraitFilterInput
@@ -775,7 +775,7 @@ input TraitFilterInput {
   itemCurses: ListFilterInputTypeOfItemCurseFilterInput
   diseases: ListFilterInputTypeOfDiseaseFilterInput
   actions: ListFilterInputTypeOfActionFilterInput
-  races: ListFilterInputTypeOfRaceFilterInput
+  ancestries: ListFilterInputTypeOfAncestryFilterInput
   hazards: ListFilterInputTypeOfHazardFilterInput
   hazardActions: ListFilterInputTypeOfHazardActionFilterInput
   hazardActionEffects: ListFilterInputTypeOfHazardActionEffectFilterInput
@@ -970,38 +970,38 @@ input ActionFilterInput {
   id: ComparableGuidOperationFilterInput
 }
 
-input RaceSortInput {
+input AncestrySortInput {
   name: SortEnumType
   description: SortEnumType
   baseSpeed: SortEnumType
   baseHealth: SortEnumType
   sizeId: SortEnumType
-  size: RaceSizeSortInput
+  size: AncestrySizeSortInput
   rarityId: SortEnumType
   rarity: RaritySortInput
   searchVector: NpgsqlTsVectorSortInput
   id: SortEnumType
 }
 
-input RaceFilterInput {
-  and: [RaceFilterInput!]
-  or: [RaceFilterInput!]
+input AncestryFilterInput {
+  and: [AncestryFilterInput!]
+  or: [AncestryFilterInput!]
   name: StringOperationFilterInput
   description: StringOperationFilterInput
   baseSpeed: ComparableInt32OperationFilterInput
   baseHealth: ComparableInt32OperationFilterInput
   sizeId: ComparableGuidOperationFilterInput
-  size: RaceSizeFilterInput
+  size: AncestrySizeFilterInput
   rarityId: ComparableGuidOperationFilterInput
   rarity: RarityFilterInput
   languages: ListFilterInputTypeOfLanguageFilterInput
-  raceTraits: ListFilterInputTypeOfTraitFilterInput
+  ancestryTraits: ListFilterInputTypeOfTraitFilterInput
   heritages: ListFilterInputTypeOfHeritageFilterInput
   searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
 
-input RaceSizeSortInput {
+input AncestrySizeSortInput {
   name: SortEnumType
   space: SortEnumType
   heightReach: SortEnumType
@@ -1010,14 +1010,14 @@ input RaceSizeSortInput {
   id: SortEnumType
 }
 
-input RaceSizeFilterInput {
-  and: [RaceSizeFilterInput!]
-  or: [RaceSizeFilterInput!]
+input AncestrySizeFilterInput {
+  and: [AncestrySizeFilterInput!]
+  or: [AncestrySizeFilterInput!]
   name: StringOperationFilterInput
   space: ComparableInt32OperationFilterInput
   heightReach: ComparableInt32OperationFilterInput
   breadthReach: ComparableInt32OperationFilterInput
-  races: ListFilterInputTypeOfRaceFilterInput
+  ancestries: ListFilterInputTypeOfAncestryFilterInput
   searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
@@ -1032,7 +1032,7 @@ input RarityFilterInput {
   and: [RarityFilterInput!]
   or: [RarityFilterInput!]
   name: StringOperationFilterInput
-  races: ListFilterInputTypeOfRaceFilterInput
+  ancestries: ListFilterInputTypeOfAncestryFilterInput
   searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
@@ -1051,7 +1051,7 @@ input LanguageFilterInput {
   name: StringOperationFilterInput
   typeId: ComparableGuidOperationFilterInput
   type: LanguageTypeFilterInput
-  races: ListFilterInputTypeOfRaceFilterInput
+  ancestries: ListFilterInputTypeOfAncestryFilterInput
   creatures: ListFilterInputTypeOfCreatureFilterInput
   searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
@@ -1088,7 +1088,7 @@ input HeritageFilterInput {
   description: StringOperationFilterInput
   rarityId: ComparableGuidOperationFilterInput
   rarity: RarityFilterInput
-  races: ListFilterInputTypeOfRaceFilterInput
+  ancestries: ListFilterInputTypeOfAncestryFilterInput
   searchVector: NpgsqlTsVectorFilterInput
   id: ComparableGuidOperationFilterInput
 }
@@ -3815,19 +3815,19 @@ input LorePrerequisiteFilterInput {
   id: ComparableGuidOperationFilterInput
 }
 
-input RacePrerequisiteSortInput {
-  requiredRaceId: SortEnumType
-  requiredRace: RaceSortInput
+input AncestryPrerequisiteSortInput {
+  requiredAncestryId: SortEnumType
+  requiredAncestry: AncestrySortInput
   bindingId: SortEnumType
   binding: BasePrerequisiteBindingSortInput
   id: SortEnumType
 }
 
-input RacePrerequisiteFilterInput {
-  and: [RacePrerequisiteFilterInput!]
-  or: [RacePrerequisiteFilterInput!]
-  requiredRaceId: ComparableGuidOperationFilterInput
-  requiredRace: RaceFilterInput
+input AncestryPrerequisiteFilterInput {
+  and: [AncestryPrerequisiteFilterInput!]
+  or: [AncestryPrerequisiteFilterInput!]
+  requiredAncestryId: ComparableGuidOperationFilterInput
+  requiredAncestry: AncestryFilterInput
   bindingId: ComparableGuidOperationFilterInput
   binding: BasePrerequisiteBindingFilterInput
   id: ComparableGuidOperationFilterInput
@@ -4069,8 +4069,8 @@ type Query {
   preciousMaterialWeapons(skip: Int take: Int where: PreciousMaterialWeaponFilterInput order: [PreciousMaterialWeaponSortInput!]): PreciousMaterialWeaponCollectionSegment
   prerequisites(skip: Int take: Int where: PrerequisiteFilterInput order: [PrerequisiteSortInput!]): PrerequisiteCollectionSegment
   proficiencies(skip: Int take: Int where: ProficiencyFilterInput order: [ProficiencySortInput!]): ProficiencyCollectionSegment
-  races(skip: Int take: Int where: RaceFilterInput order: [RaceSortInput!]): RaceCollectionSegment
-  raceSizes(skip: Int take: Int where: RaceSizeFilterInput order: [RaceSizeSortInput!]): RaceSizeCollectionSegment
+  ancestries(skip: Int take: Int where: AncestryFilterInput order: [AncestrySortInput!]): AncestryCollectionSegment
+  ancestrySizes(skip: Int take: Int where: AncestrySizeFilterInput order: [AncestrySizeSortInput!]): AncestrySizeCollectionSegment
   rangedWeapons(skip: Int take: Int where: RangedWeaponFilterInput order: [RangedWeaponSortInput!]): RangedWeaponCollectionSegment
   rarities(skip: Int take: Int where: RarityFilterInput order: [RaritySortInput!]): RarityCollectionSegment
   savingThrowStats(skip: Int take: Int where: SavingThrowStatFilterInput order: [SavingThrowStatSortInput!]): SavingThrowStatCollectionSegment
@@ -4437,10 +4437,10 @@ input ListFilterInputTypeOfDiseaseFilterInput {
   any: Boolean
 }
 
-input ListFilterInputTypeOfRaceFilterInput {
-  all: RaceFilterInput
-  none: RaceFilterInput
-  some: RaceFilterInput
+input ListFilterInputTypeOfAncestryFilterInput {
+  all: AncestryFilterInput
+  none: AncestryFilterInput
+  some: AncestryFilterInput
   any: Boolean
 }
 
@@ -5223,15 +5223,15 @@ type ProficiencyCollectionSegment {
   totalCount: Int!
 }
 
-type RaceCollectionSegment {
-  items: [Race]
+type AncestryCollectionSegment {
+  items: [Ancestry]
   "Information to aid in pagination."
   pageInfo: CollectionSegmentInfo!
   totalCount: Int!
 }
 
-type RaceSizeCollectionSegment {
-  items: [RaceSize]
+type AncestrySizeCollectionSegment {
+  items: [AncestrySize]
   "Information to aid in pagination."
   pageInfo: CollectionSegmentInfo!
   totalCount: Int!
@@ -5835,7 +5835,7 @@ type Heritage {
   description: String!
   rarityId: Uuid!
   rarity: Rarity!
-  races(order: [RaceSortInput!] where: RaceFilterInput): [Race!]!
+  ancestries(order: [AncestrySortInput!] where: AncestryFilterInput): [Ancestry!]!
   id: Uuid!
 }
 
@@ -5868,7 +5868,7 @@ type Language {
   name: String!
   typeId: Uuid!
   type: LanguageType!
-  races(order: [RaceSortInput!] where: RaceFilterInput): [Race!]!
+  ancestries(order: [AncestrySortInput!] where: AncestryFilterInput): [Ancestry!]!
   creatures(order: [CreatureSortInput!] where: CreatureFilterInput): [Creature!]!
   id: Uuid!
 }
@@ -6027,27 +6027,27 @@ type Proficiency {
   id: Uuid!
 }
 
-type Race {
+type Ancestry {
   name: String!
   description: String!
   baseSpeed: Int!
   baseHealth: Int!
   sizeId: Uuid!
-  size: RaceSize!
+  size: AncestrySize!
   rarityId: Uuid!
   rarity: Rarity!
   languages(order: [LanguageSortInput!] where: LanguageFilterInput): [Language!]!
-  raceTraits(order: [TraitSortInput!] where: TraitFilterInput): [Trait!]!
+  ancestryTraits(order: [TraitSortInput!] where: TraitFilterInput): [Trait!]!
   heritages(order: [HeritageSortInput!] where: HeritageFilterInput): [Heritage!]!
   id: Uuid!
 }
 
-type RaceSize {
+type AncestrySize {
   name: String!
   space: Int!
   heightReach: Int!
   breadthReach: Int!
-  races(order: [RaceSortInput!] where: RaceFilterInput): [Race!]!
+  ancestries(order: [AncestrySortInput!] where: AncestryFilterInput): [Ancestry!]!
   id: Uuid!
 }
 
@@ -6078,7 +6078,7 @@ type RangedWeapon {
 
 type Rarity {
   name: String!
-  races(order: [RaceSortInput!] where: RaceFilterInput): [Race!]!
+  ancestries(order: [AncestrySortInput!] where: AncestryFilterInput): [Ancestry!]!
   id: Uuid!
 }
 
@@ -6212,7 +6212,7 @@ type Trait {
   itemCurses(order: [ItemCurseSortInput!] where: ItemCurseFilterInput): [ItemCurse!]!
   diseases(order: [DiseaseSortInput!] where: DiseaseFilterInput): [Disease!]!
   actions(order: [ActionSortInput!] where: ActionFilterInput): [Action!]!
-  races(order: [RaceSortInput!] where: RaceFilterInput): [Race!]!
+  ancestries(order: [AncestrySortInput!] where: AncestryFilterInput): [Ancestry!]!
   hazards(order: [HazardSortInput!] where: HazardFilterInput): [Hazard!]!
   hazardActions(order: [HazardActionSortInput!] where: HazardActionFilterInput): [HazardAction!]!
   hazardActionEffects(order: [HazardActionEffectSortInput!] where: HazardActionEffectFilterInput): [HazardActionEffect!]!
@@ -6392,9 +6392,9 @@ type Creature {
   rarityId: Uuid!
   rarity: Rarity!
   sizeId: Uuid!
-  size: RaceSize!
-  raceId: Uuid
-  race: Race
+  size: AncestrySize!
+  ancestryId: Uuid
+  ancestry: Ancestry
   recallKnowledgeId: Uuid
   recallKnowledge: CreatureRecallKnowledge
   traits(order: [TraitSortInput!] where: TraitFilterInput): [Trait!]!
@@ -7148,9 +7148,9 @@ type LorePrerequisite {
   id: Uuid!
 }
 
-type RacePrerequisite {
-  requiredRaceId: Uuid!
-  requiredRace: Race!
+type AncestryPrerequisite {
+  requiredAncestryId: Uuid!
+  requiredAncestry: Ancestry!
   bindingId: Uuid!
   binding: BasePrerequisiteBinding!
   id: Uuid!

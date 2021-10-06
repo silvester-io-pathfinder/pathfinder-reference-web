@@ -1,0 +1,8 @@
+﻿fragment AncestrySizesPage on AncestrySize 
+{
+	id,
+	name,
+	space,
+	heightReach,
+	breadthReach
+}

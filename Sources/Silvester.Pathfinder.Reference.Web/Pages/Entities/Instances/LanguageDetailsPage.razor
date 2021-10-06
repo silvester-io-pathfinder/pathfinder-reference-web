@@ -1,6 +1,6 @@
 ﻿@using Silvester.Pathfinder.Reference.Web.Shared.Layout;
-@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Races;
-@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Races.Providers;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Ancestries;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Ancestries.Providers;
 @using Silvester.Pathfinder.Reference.Web.Components.Cards;
 
 @inherits BaseDetailPage
@@ -11,8 +11,8 @@
     <PageLayout>
         <MudPaper Style="margin: 20px">
             <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
-                <MudTabPanel Text="Races">
-                    <RacesTable PageProvider="@(new RacePageWithLanguageProvider(PathfinderReferenceApi, ResourceId))" />
+                <MudTabPanel Text="Ancestries">
+                    <AncestriesTable PageProvider="@(new AncestryPageWithLanguageProvider(PathfinderReferenceApi, ResourceId))" />
                 </MudTabPanel>
             </MudTabs>
         </MudPaper>

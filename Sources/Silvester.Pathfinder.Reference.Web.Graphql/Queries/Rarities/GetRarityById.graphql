@@ -9,12 +9,12 @@
 fragment RarityById on Rarity {
 	id,
 	name,
-	races {
-		... RarityById_Race
+	ancestries {
+		... RarityById_Ancestry
 	}
 }
 
-fragment RarityById_Race on Race {
+fragment RarityById_Ancestry on Ancestry {
 	id, 
 	name,
 	description

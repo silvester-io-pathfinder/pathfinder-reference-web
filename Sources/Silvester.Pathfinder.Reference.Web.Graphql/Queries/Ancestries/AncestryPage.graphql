@@ -1,0 +1,21 @@
+﻿fragment AncestriesPage on Ancestry {
+	id,
+	name,
+	baseSpeed,
+	baseHealth,
+	description,
+	size {
+		... AncestriesPage_Size
+	}
+	rarity {
+		... AncestriesPage_Rarity
+	}
+}
+
+fragment AncestriesPage_Rarity on Rarity {
+	name
+}
+
+fragment AncestriesPage_Size on AncestrySize {
+	name
+}

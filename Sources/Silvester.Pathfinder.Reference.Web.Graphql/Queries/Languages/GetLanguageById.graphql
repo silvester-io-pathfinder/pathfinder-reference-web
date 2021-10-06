@@ -3,7 +3,7 @@
 		items {
 			id,
 			name,
-			races {
+			ancestries {
 				id,
 				name
 			}

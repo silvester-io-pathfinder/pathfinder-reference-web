@@ -1,0 +1,17 @@
+﻿@using Silvester.Pathfinder.Reference.Web.Shared.Tables
+@using Silvester.Pathfinder.Reference.Web.Shared.Tables.Builder
+@using Silvester.Pathfinder.Reference.Web.Graphql
+@using Silvester.Pathfinder.Reference.Web.Services
+
+@inherits AbstractTable<IRaritiesPage, RaritySortInput>
+
+@Table
+
+@code {
+    protected override void CreateModel(TableBuilder<IRaritiesPage> builder)
+    {
+        builder
+            .AddTextColumn(e => e.Name, "Name", nameof(IRaritiesPage.Name), true)
+            .AddInspectColumn(NavigationManager, e => $"ancestry-rarities/{e.Id}");
+    }
+}

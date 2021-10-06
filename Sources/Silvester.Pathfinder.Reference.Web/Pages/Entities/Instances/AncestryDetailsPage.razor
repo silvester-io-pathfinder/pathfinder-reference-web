@@ -1,0 +1,51 @@
+﻿@using Silvester.Pathfinder.Reference.Web.Shared.Layout;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Heritages;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Heritages.Providers;
+@using Silvester.Pathfinder.Reference.Web.Components.Cards;
+@using Silvester.Pathfinder.Reference.Web.Components.Cards.Details.Instances;
+
+@inherits BaseDetailPage
+@page "/ancestries/{resourceId:guid}"
+@implements IDisposable
+
+<div>
+    <PageLayout>
+        <MudPaper Style="margin: 20px">
+            <AncestryDetailsCard Entity="@Ancestry" />
+        </MudPaper>
+
+        <MudPaper Style="margin: 20px">
+            <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
+                <MudTabPanel Text="Heritages">
+                    <HeritagesTable PageProvider="@(new HeritagePageWithAncestryProvider(PathfinderReferenceApi, ResourceId))" />
+                </MudTabPanel>
+            </MudTabs>
+        </MudPaper>
+    </PageLayout>
+</div>
+
+@code {
+    protected override string CollectionName => "ancestries";
+    protected override string? ResourceName => Ancestry?.Name;
+
+    private IGetAncestryById_Ancestries_Items? Ancestry { get; set; }
+
+    private IDisposable? StoreSession { get; set; }
+
+    protected override void OnInitialized()
+    {
+        StoreSession = PathfinderReferenceApi.GetAncestryById
+        .Watch(ResourceId, StrawberryShake.ExecutionStrategy.NetworkOnly)
+        .Select(e => e.Data?.Ancestries?.Items?.FirstOrDefault())
+        .Subscribe(ancestry =>
+        {
+            Ancestry = ancestry;
+            OnResourceLoaded();
+        });
+    }
+
+    public void Dispose()
+    {
+        StoreSession?.Dispose();
+    }
+}

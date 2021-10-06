@@ -1,0 +1,23 @@
+﻿@using Silvester.Pathfinder.Reference.Web.Shared.Tables
+@using Silvester.Pathfinder.Reference.Web.Shared.Tables.Builder
+@using Silvester.Pathfinder.Reference.Web.Graphql
+@using Silvester.Pathfinder.Reference.Web.Services
+
+@inherits AbstractTable<IAncestriesPage, AncestrySortInput>
+
+@Table
+
+@code {
+
+    protected override void CreateModel(TableBuilder<IAncestriesPage> builder)
+    {
+        builder
+            .AddTextColumn(e => e.Name, "Name", nameof(IAncestriesPage.Name), true)
+            .AddTextColumn(e => e.BaseSpeed.ToString(), "Base Speed", nameof(IAncestriesPage.BaseSpeed), hasDenseRightPadding: true)
+            .AddTextColumn(e => e.BaseHealth.ToString(), "Base Health", nameof(IAncestriesPage.BaseHealth), hideBelow: Breakpoint.Xs, hasDenseRightPadding: true)
+            .AddTextColumn(e => e.Size.Name, "Size", nameof(IAncestriesPage.Size) + "." + nameof(IAncestriesPage_Size.Name), hideBelow: Breakpoint.Xs)
+            .AddTextColumn(e => e.Rarity.Name, "Rarity", nameof(IAncestriesPage.Rarity) + "." + nameof(IAncestriesPage_Rarity.Name), hideBelow: Breakpoint.SmAndDown)
+            .AddTextColumn(e => e.Description, "Description", nameof(IAncestriesPage.Description), hideBelow: Breakpoint.MdAndDown)
+            .AddInspectColumn(NavigationManager, e => $"ancestries/{e.Id}");
+    }
+}

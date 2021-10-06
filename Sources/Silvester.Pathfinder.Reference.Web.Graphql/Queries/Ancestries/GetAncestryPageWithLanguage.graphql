@@ -1,0 +1,24 @@
+﻿query GetAncestriesPageWithLanguage($skip: Int!, $take: Int!, $languageId: Uuid!, $searchTerm: String! = "", $order: [AncestrySortInput!] = [{name: ASC}]) {
+	ancestries(
+		skip: $skip, 
+		take: $take, 
+		order: $order,
+		where: {
+			or: [
+				{name: {contains: $searchTerm}},
+				{rarity: {name: {contains: $searchTerm}}},
+				{languages: {some: {name: {contains: $searchTerm}}}}
+			],
+			languages: {
+				some: {
+					id: {eq: $languageId}
+				}
+			}
+		}) 
+	{
+		totalCount,
+		items {
+			... AncestriesPage,
+		}
+	}
+}

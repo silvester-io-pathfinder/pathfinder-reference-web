@@ -1,4 +1,4 @@
-﻿query GetLanguagesPageWithRace($skip: Int!, $take: Int!, $raceId: Uuid!, $searchTerm: String! = "", $order: [LanguageSortInput!] = [{name: ASC}]) {
+﻿query GetLanguagesPageWithAncestry($skip: Int!, $take: Int!, $ancestryId: Uuid!, $searchTerm: String! = "", $order: [LanguageSortInput!] = [{name: ASC}]) {
 	languages(
 		skip: $skip, 
 		take: $take, 
@@ -7,9 +7,9 @@
 			or: [
 				{name: {contains: $searchTerm}}
 			],
-			races: {
+			ancestries: {
 				some: {
-					id: {eq: $raceId}
+					id: {eq: $ancestryId}
 				}
 			}
 		}) 

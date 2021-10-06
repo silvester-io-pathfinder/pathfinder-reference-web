@@ -1,0 +1,50 @@
+﻿@using Silvester.Pathfinder.Reference.Web.Shared.Layout;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Ancestries;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Ancestries.Providers;
+@using Silvester.Pathfinder.Reference.Web.Components.Cards;
+
+@inherits BaseDetailPage
+@page "/ancestry-rarities/{resourceId:guid}"
+@implements IDisposable
+
+<div>
+    <PageLayout>
+        @if (AncestryRarity != null)
+        {
+            <MudPaper Style="margin: 20px">
+                <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" Border="true">
+                    <MudTabPanel Text="Ancestries">
+                        <AncestriesTable PageProvider="@(new AncestryPageWithRarityProvider(PathfinderReferenceApi, ResourceId))" />
+                    </MudTabPanel>
+                </MudTabs>
+            </MudPaper>
+        }
+    </PageLayout>
+</div>
+
+@code {
+    protected override string CollectionName => "ancestry-rarities";
+    protected override string? ResourceName => AncestryRarity?.Name;
+
+    private IRarityById? AncestryRarity { get; set; }
+
+    private IDisposable? StoreSession { get; set; }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        StoreSession = PathfinderReferenceApi.GetRarityById
+            .Watch(ResourceId, StrawberryShake.ExecutionStrategy.NetworkOnly)
+            .Select(e => e.Data?.Rarities?.Items?.FirstOrDefault())
+            .Subscribe(rarity =>
+            {
+                AncestryRarity = rarity;
+                OnResourceLoaded();
+            });
+    }
+
+    public void Dispose()
+    {
+        StoreSession?.Dispose();
+    }
+}

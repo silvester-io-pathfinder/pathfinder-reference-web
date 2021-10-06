@@ -1,0 +1,24 @@
+﻿query GetAncestrySizeById($id: Uuid!) {
+	ancestrySizes(where: {id: {eq: $id}}) {
+		items {
+			... AncestrySizeById
+		}
+	}
+}
+
+fragment AncestrySizeById on AncestrySize {
+	id,
+	name,
+	space,
+	heightReach,
+	breadthReach
+	ancestries {
+		... AncestrySizeById_Ancestry
+	}
+}
+
+fragment AncestrySizeById_Ancestry on Ancestry {
+	id, 
+	name,
+	description
+}

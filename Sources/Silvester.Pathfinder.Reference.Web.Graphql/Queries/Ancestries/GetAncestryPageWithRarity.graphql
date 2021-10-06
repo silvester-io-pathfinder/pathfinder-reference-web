@@ -1,0 +1,22 @@
+﻿query GetAncestriesPageWithRarity($skip: Int!, $take: Int!, $ancestryRarityId: Uuid!, $searchTerm: String! = "", $order: [AncestrySortInput!] = [{name: ASC}]) {
+	ancestries(
+		skip: $skip, 
+		take: $take, 
+		order: $order,
+		where: {
+			or: [
+				{name: {contains: $searchTerm}},
+				{rarity: {name: {contains: $searchTerm}}},
+				{languages: {some: {name: {contains: $searchTerm}}}}
+			],
+			rarity: {
+				id: {eq: $ancestryRarityId}
+			}
+		}) 
+	{
+		totalCount,
+		items {
+			... AncestriesPage,
+		}
+	}
+}

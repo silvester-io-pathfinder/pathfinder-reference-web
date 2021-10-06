@@ -55,9 +55,9 @@
         StoreSession = PathfinderReferenceApi.GetMysteryById
             .Watch(ResourceId, StrawberryShake.ExecutionStrategy.NetworkOnly)
             .Select(e => e.Data?.Mysteries?.Items?.FirstOrDefault())
-            .Subscribe(race =>
+            .Subscribe(mystery =>
             {
-                Mystery = race;
+                Mystery = mystery;
                 OnResourceLoaded();
             });
     }

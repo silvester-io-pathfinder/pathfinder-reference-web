@@ -1,4 +1,4 @@
-﻿query GetHeritagesPageWithRace($skip: Int!, $take: Int!, $raceId: Uuid!, $searchTerm: String! = "", $order: [HeritageSortInput!] = [{name: ASC}]) {
+﻿query GetHeritagesPageWithAncestry($skip: Int!, $take: Int!, $ancestryId: Uuid!, $searchTerm: String! = "", $order: [HeritageSortInput!] = [{name: ASC}]) {
 	heritages(
 		skip: $skip, 
 		take: $take, 
@@ -7,9 +7,9 @@
 			or: [
 				{name: {contains: $searchTerm}}
 			],
-			races: {
+			ancestries: {
 				some: {
-					id: {eq: $raceId}
+					id: {eq: $ancestryId}
 				}
 			}
 		}) 

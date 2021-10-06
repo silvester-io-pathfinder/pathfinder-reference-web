@@ -1,0 +1,50 @@
+﻿@using Silvester.Pathfinder.Reference.Web.Shared.Cards.Builder;
+@using Silvester.Pathfinder.Reference.Web.Shared.Preferences.Builder.Models;
+@using Silvester.Pathfinder.Reference.Web.Components.Cards.Details;
+
+@inherits AbstractDetailsCard<IAncestryById>
+
+@Card
+
+@code {
+    protected override DetailsCardModel CreateModel(IAncestryById model)
+    {
+        return new DetailsCardBuilder("Ancestry", true)
+            .AddCategoryLeft("Traits", category =>
+            {
+                category
+                    .AddTraitChips(model.AncestryTraits, NavigationManager);
+            })
+            .AddCategoryLeft("Details", category =>
+            {
+                category
+                    .AddText("Name", model.Name)
+                    .AddText("Base Speed", model.BaseSpeed.ToString())
+                    .AddText("Base Health", model.BaseHealth.ToString());
+            })
+            .AddCategoryLeft("Perks", category =>
+            {
+                category
+                    .AddChips("Stats", c =>
+                    {
+                        c.AddChip(model.Rarity.Name, "Rarity", () => NavigationManager.NavigateTo($"ancestry-rarities/{model.Rarity.Id}"));
+                        c.AddChip(model.Size.Name, "Size", () => NavigationManager.NavigateTo($"ancestry-sizes/{model.Size.Id}"));
+                    })
+                    .AddChips("Languages", c =>
+                    {
+                        foreach(var language in model.Languages)
+                        {
+                            c.AddChip(language.Name, onClick: () => NavigationManager.NavigateTo($"languages/{language.Id}"));
+                        }
+                    });
+                 
+            })
+            .AddCategoryRight("Description", category =>
+            {
+                category
+                    .AddText(null, model.Description);
+            })
+            .Build();
+    }
+}
+
