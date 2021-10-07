@@ -1,6 +1,7 @@
 ﻿using Fluxor;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
+using Silvester.Pathfinder.Reference.Web.Shared.Appbar.Models;
 using Silvester.Pathfinder.Reference.Web.Store.States;
 using Silvester.Pathfinder.Reference.Web.Themes;
 using System;
@@ -23,11 +24,23 @@ namespace Silvester.Pathfinder.Reference.Web.Shared
         [Inject]
         private IState<ThemeState> ThemeState { get; set; } = default!;
 
+        private IAppbarItem[] AppbarItems { get; } 
+
         private bool DrawerOpen { get; set; }
 
         public MainLayout()
         {
             DrawerOpen = true;
+            AppbarItems = new IAppbarItem[]
+            {
+                new ActionItem("Switch Theme", MudBlazor.Icons.Material.Filled.Brightness4, OnSwitchThemeClick),
+                new DividerItem(),
+                new LinkItem("Patreon", Icons.Generated.Patreon, "https://www.patreon.com/pf2e_io"),
+                new LinkItem("Discord", Icons.Generated.Discord, "https://discord.gg/hvTph7EX"),
+                new LinkItem("Reddit Community", MudBlazor.Icons.Custom.Brands.Reddit, "https://www.reddit.com/r/pathfinder2e/"),
+                new LinkItem("Twitter", MudBlazor.Icons.Custom.Brands.Twitter, "https://twitter.com/pf2e_io/"),
+                new LinkItem("GitHub Repositories", MudBlazor.Icons.Custom.Brands.GitHub, "https://github.com/silvester-io-pathfinder")
+            };
         }
 
         protected override void OnInitialized()

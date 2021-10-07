@@ -2,7 +2,8 @@
 @using Silvester.Pathfinder.Reference.Web.Shared.Searching;
 @using Silvester.Pathfinder.Reference.Web.Shared.Footers;
 @using Silvester.Pathfinder.Reference.Web.Shared.Cookies
-    ; 
+@using Silvester.Pathfinder.Reference.Web.Shared.Appbar.Models;
+
 @inherits LayoutComponentBase
 
 <MudLayout>
@@ -10,26 +11,45 @@
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@ToggleDrawer" />
         <MudText Typo="Typo.h6" Style="white-space: nowrap;">@AppBarState!.Value.Title</MudText>
         <MudAppBarSpacer />
-        <div class="d-none d-md-flex align-center">
-            <MudTooltip Text="Switch Theme">
-                <MudIconButton Icon="@Icons.Material.Filled.Brightness4" Color="Color.Inherit" OnClick="OnSwitchThemeClick"/>
-            </MudTooltip>
-            <MudDivider Vertical="true" FlexItem="true" DividerType="DividerType.Middle" Style="margin-top: 11px; margin-bottom: 11px;"/>
-            <MudTooltip Text="Patreon">
-                <MudIconButton Icon="@Silvester.Pathfinder.Reference.Icons.Generated.Patreon" Color="Color.Inherit" Link="https://www.patreon.com/pf2e_io" Target="_blank" />
-            </MudTooltip>
-            <MudTooltip Text="Discord">
-                <MudIconButton Icon="@Silvester.Pathfinder.Reference.Icons.Generated.Discord" Color="Color.Inherit" Link="https://discord.gg/hvTph7EX" Target="_blank" />
-            </MudTooltip>
-            <MudTooltip Text="Reddit Community">
-                <MudIconButton Icon="@Icons.Custom.Brands.Reddit" Color="Color.Inherit" Link="https://www.reddit.com/r/pathfinder2e/" Target="_blank" />
-            </MudTooltip>
-            <MudTooltip Text="Twitter">
-                <MudIconButton Icon="@Icons.Custom.Brands.Twitter" Color="Color.Inherit" Link="https://twitter.com/pf2e_io/" Target="_blank" />
-            </MudTooltip>
-            <MudTooltip Text="GitHub Repository">
-                <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Link="https://github.com/silvester-io-pathfinder" Target="_blank" />
-            </MudTooltip>
+        <div class="d-sm-none d-xs-flex">
+            <MudMenu Icon="@Icons.Material.Filled.MoreVert" Direction="Direction.Left" Color="Color.Inherit" OffsetX="true" OffsetY="true">
+                @foreach (IAppbarItem item in AppbarItems)
+                {
+                    @if (item is ActionItem action)
+                    {
+                        <MudNavLink OnClick="@action.OnClick" Icon="@action.Icon">@action.Text</MudNavLink>
+                    }
+                    else if (item is DividerItem)
+                    {
+                        <MudDivider />
+                    }
+                    else if (item is LinkItem link)
+                    {
+                        <MudNavLink Href="@link.Link" Icon="@link.Icon" Target="@link.Target">@link.Text</MudNavLink>
+                    }
+                }
+            </MudMenu>
+        </div>
+        <div class="d-none d-sm-flex align-center">
+            @foreach (IAppbarItem item in AppbarItems)
+            {
+                @if (item is ActionItem action)
+                {
+                    <MudTooltip Text="@action.Text">
+                        <MudIconButton Icon="@action.Icon" Color="Color.Inherit" OnClick="action.OnClick" />
+                    </MudTooltip>
+                }
+                else if (item is DividerItem)
+                {
+                    <MudDivider Vertical="true" FlexItem="true" DividerType="DividerType.Middle" Style="margin-top: 11px; margin-bottom: 11px;" />
+                }
+                else if(item is LinkItem link)
+                {
+                    <MudTooltip Text="@link.Text">
+                        <MudIconButton Icon="@link.Icon" Color="Color.Inherit" Link="@link.Link" Target="@link.Target" />
+                    </MudTooltip>
+                }
+            }
         </div>
     </MudAppBar>
     <MudDrawer @bind-Open="@DrawerOpen" Elevation="4">
@@ -118,17 +138,17 @@
 @code {
     public RenderFragment SearchBar()
     {
-        return @<div>
-                    <MudHidden Breakpoint="Breakpoint.Xs">
-                        <MudPaper Square="true" Style="width: 100%; margin-top:-5px;" Elevation="4">
-                            <GlobalSearchBar />
-                        </MudPaper>
-                    </MudHidden>
-                    <MudHidden Breakpoint="Breakpoint.SmAndUp">
-                        <MudPaper Square="true" Style="width: 100%; margin-top:-13px;" Elevation="4">
-                            <GlobalSearchBar />
-                        </MudPaper>
-                    </MudHidden>
-                </div>;
-    }
+        return@<div>
+        <MudHidden Breakpoint="Breakpoint.Xs">
+            <MudPaper Square="true" Style="width: 100%; margin-top:-5px;" Elevation="4">
+                <GlobalSearchBar />
+            </MudPaper>
+        </MudHidden>
+        <MudHidden Breakpoint="Breakpoint.SmAndUp">
+            <MudPaper Square="true" Style="width: 100%; margin-top:-13px;" Elevation="4">
+                <GlobalSearchBar />
+            </MudPaper>
+        </MudHidden>
+    </div>;
+}
 }
