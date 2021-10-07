@@ -10,18 +10,18 @@
     @if (Document != null)
     {
         <MudPaper Class="wrapper">
-            <h1>@Title</h1>
+            <MudText Typo="Typo.h4">@Title</MudText>
             <div class="divider" />
             <MudGrid Spacing="0">
                 <MudItem xs="6" Class="metadata">
-                    <p class="title">Date of Creation:</p>
-                    <p class="title">Last Modification Date:</p>
-                    <p class="title">Version:</p>
+                    <MudText Typo="Typo.body2" class="title">Date of Creation:</MudText>
+                    <MudText Typo="Typo.body2" class="title">Last Modification Date:</MudText>
+                    <MudText Typo="Typo.body2" class="title">Version:</MudText>
                 </MudItem>
                 <MudItem xs="6">
-                    <p class="value">@Document.CreationDate.ToString("yyyy/MM/dd")</p>
-                    <p class="value">@Document.LastModificationDate.ToString("yyyy/MM/dd")</p>
-                    <p class="value">@Document.Version</p>
+                    <MudText Typo="Typo.body2" class="value">@Document.CreationDate.ToString("yyyy/MM/dd")</MudText>
+                    <MudText Typo="Typo.body2" class="value">@Document.LastModificationDate.ToString("yyyy/MM/dd")</MudText>
+                    <MudText Typo="Typo.body2" class="value">@Document.Version</MudText>
                 </MudItem>
             </MudGrid>
             <div class="divider" />
@@ -30,17 +30,17 @@
                 foreach (Section section in Document.Sections)
                 {
                     count += 1;
-                    <h2>@($"{count}. {section.Title}")</h2>
+                    <MudText Typo="Typo.h6">@($"{count}. {section.Title}")</MudText>
                     @foreach (SubSection subSection in section.SubSections)
                     {
                         @if (string.IsNullOrWhiteSpace(subSection.Title) == false)
                         {
-                            <h3>@subSection.Title</h3>
+                            <MudText Typo="Typo.h6">@subSection.Title</MudText>
                         }
                         @foreach (string paragraph in subSection.Paragraphs)
                         {
                             <div class="text-wrapper">
-                                <p class="text">@paragraph</p>
+                                <MudText Typo="Typo.body2" class="text">@paragraph</MudText>
                             </div>
                         }
                     }

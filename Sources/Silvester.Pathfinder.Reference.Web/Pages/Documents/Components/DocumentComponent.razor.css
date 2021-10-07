@@ -7,9 +7,9 @@
     width: 100%;
 }
 
-::deep h1
+::deep h4
 {
-    font-size: 4.2rem;
+    font-size: 3.0rem;
     line-height: 110%;
     margin: 2.1rem 0 1.68rem 0;
 }
@@ -34,13 +34,13 @@
     background-color: #D8D8D8;
 }
 
-::deep h2 {
+::deep h5 {
     font-weight: bold;
     padding-top: 12px;
     padding-bottom: 12px;
 }
 
-::deep h3
+::deep h6
 {
     text-decoration: underline;
     padding-bottom: 12px;
