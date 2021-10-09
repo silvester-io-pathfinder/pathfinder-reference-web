@@ -1,0 +1,25 @@
+﻿query GetAncestriesPageWithHeritage($skip: Int!, $take: Int!, $ancestryHeritageId: Uuid!, $searchTerm: String! = "", $order: [AncestrySortInput!] = [{name: ASC}]) {
+	ancestries(
+		skip: $skip, 
+		take: $take, 
+		order: $order,
+		where: {
+			or: [
+				{name: {contains: $searchTerm}},
+				{rarity: {name: {contains: $searchTerm}}},
+				{languages: {some: {name: {contains: $searchTerm}}}},
+				{heritages: {some: {name: {contains: $searchTerm}}}}
+			],
+			heritages: {
+				some: {
+					id: {eq: $ancestryHeritageId}
+				}
+			}
+		}) 
+	{
+		totalCount,
+		items {
+			... AncestriesPage,
+		}
+	}
+}

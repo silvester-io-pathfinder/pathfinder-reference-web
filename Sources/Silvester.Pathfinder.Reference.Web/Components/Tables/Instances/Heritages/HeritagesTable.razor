@@ -13,7 +13,7 @@
         builder
             .AddTextColumn(e => e.Name, "Name", nameof(IHeritagesPage.Name), true)
             .AddTextColumn(e => e.Rarity.Name, "Rarity", nameof(IHeritagesPage.Rarity) + "." + nameof(IHeritagesPage_Rarity.Name), true)
-            .AddTextColumn(e => e.Description, "Description", nameof(IHeritagesPage.Description))
+            .AddTextColumn(e => e.Description, "Description", nameof(IHeritagesPage.Description), hideBelow: Breakpoint.Md)
             .AddInspectColumn(NavigationManager, e => $"heritages/{e.Id}");
     }
 }

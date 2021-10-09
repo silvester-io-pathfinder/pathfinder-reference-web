@@ -1,0 +1,19 @@
+﻿query GetHeritageById($id: Uuid!) {
+	heritages(where: {id: {eq: $id}}) {
+		items {
+			... HeritageById
+		}
+	}
+}
+
+fragment HeritageById on Heritage {
+	id,
+	name,
+	description,
+	rarity {
+		... RaritiesPage
+	},
+	ancestries {
+		... AncestriesPage
+	}
+}

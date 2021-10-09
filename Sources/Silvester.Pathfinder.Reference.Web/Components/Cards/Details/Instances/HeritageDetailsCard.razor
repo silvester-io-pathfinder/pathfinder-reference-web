@@ -1,0 +1,26 @@
+﻿@using Silvester.Pathfinder.Reference.Web.Shared.Cards.Builder;
+@using Silvester.Pathfinder.Reference.Web.Shared.Preferences.Builder.Models;
+@using Silvester.Pathfinder.Reference.Web.Components.Cards.Details;
+@using Silvester.Pathfinder.Reference.Web.Utilities;
+ 
+@inherits AbstractDetailsCard<IHeritageById>
+
+@Card
+
+@code {
+    protected override DetailsCardModel CreateModel(IHeritageById model)
+    {
+        return new DetailsCardBuilder("Heritage", true)
+            .AddCategoryLeft("Characteristics", category =>
+            {
+                category
+                    .AddText("Name", model.Name)
+                    .AddSingularChip("Type", model.Rarity.Name, () => NavigationManager.NavigateTo($"rarities/{model.Rarity?.Id}"));
+            })
+            .AddCategoryRight("Description", category =>
+            {
+                category
+                    .AddText("Details", model.Description);
+            }).Build();
+    }
+}

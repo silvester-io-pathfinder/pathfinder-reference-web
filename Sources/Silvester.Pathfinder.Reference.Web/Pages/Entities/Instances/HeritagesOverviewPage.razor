@@ -1,0 +1,21 @@
+﻿@using Silvester.Pathfinder.Reference.Web.Shared.Layout;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Heritages;
+@using Silvester.Pathfinder.Reference.Web.Components.Tables.Instances.Heritages.Providers;
+@using Silvester.Pathfinder.Reference.Web.Components.Cards;
+
+@page "/heritages"
+@inherits BaseOverviewPage
+
+<div>
+    <PageLayout>
+        <MudPaper Style="margin: 20px;">
+            <HeritagesTable Title="Heritages" PageProvider="@(new HeritagePageProvider(PathfinderReferenceApi))" />
+        </MudPaper>
+    </PageLayout>
+
+</div>
+
+@code
+{
+    protected override string CollectionName => "heritages";
+}
